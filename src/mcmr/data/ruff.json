@@ -1,0 +1,4846 @@
+{
+ "rules": [
+  {
+   "code": "A001",
+   "group": "flake8-builtins",
+   "symbol": "builtin-variable-shadowing"
+  },
+  {
+   "code": "A002",
+   "group": "flake8-builtins",
+   "symbol": "builtin-argument-shadowing"
+  },
+  {
+   "code": "A003",
+   "group": "flake8-builtins",
+   "symbol": "builtin-attribute-shadowing"
+  },
+  {
+   "code": "A004",
+   "group": "flake8-builtins",
+   "symbol": "builtin-import-shadowing"
+  },
+  {
+   "code": "A005",
+   "group": "flake8-builtins",
+   "symbol": "stdlib-module-shadowing"
+  },
+  {
+   "code": "A006",
+   "group": "flake8-builtins",
+   "symbol": "builtin-lambda-argument-shadowing"
+  },
+  {
+   "code": "AIR001",
+   "group": "Airflow",
+   "symbol": "airflow-variable-name-task-id-mismatch"
+  },
+  {
+   "code": "AIR002",
+   "group": "Airflow",
+   "symbol": "airflow-dag-no-schedule-argument"
+  },
+  {
+   "code": "AIR003",
+   "group": "Airflow",
+   "symbol": "airflow-variable-get-outside-task"
+  },
+  {
+   "code": "AIR004",
+   "group": "Airflow",
+   "symbol": "airflow-task-branch-as-short-circuit"
+  },
+  {
+   "code": "AIR201",
+   "group": "Airflow",
+   "symbol": "airflow-xcom-pull-in-template-string"
+  },
+  {
+   "code": "AIR202",
+   "group": "Airflow",
+   "symbol": "airflow-task-implicit-multiple-outputs"
+  },
+  {
+   "code": "AIR301",
+   "group": "Airflow",
+   "symbol": "airflow3-removal"
+  },
+  {
+   "code": "AIR302",
+   "group": "Airflow",
+   "symbol": "airflow3-moved-to-provider"
+  },
+  {
+   "code": "AIR303",
+   "group": "Airflow",
+   "symbol": "airflow3-incompatible-function-signature"
+  },
+  {
+   "code": "AIR304",
+   "group": "Airflow",
+   "symbol": "airflow3-dag-dynamic-value"
+  },
+  {
+   "code": "AIR311",
+   "group": "Airflow",
+   "symbol": "airflow3-suggested-update"
+  },
+  {
+   "code": "AIR312",
+   "group": "Airflow",
+   "symbol": "airflow3-suggested-to-move-to-provider"
+  },
+  {
+   "code": "AIR321",
+   "group": "Airflow",
+   "symbol": "airflow31-moved"
+  },
+  {
+   "code": "ANN001",
+   "group": "flake8-annotations",
+   "symbol": "missing-type-function-argument"
+  },
+  {
+   "code": "ANN002",
+   "group": "flake8-annotations",
+   "symbol": "missing-type-args"
+  },
+  {
+   "code": "ANN003",
+   "group": "flake8-annotations",
+   "symbol": "missing-type-kwargs"
+  },
+  {
+   "code": "ANN101",
+   "group": "flake8-annotations",
+   "symbol": "missing-type-self"
+  },
+  {
+   "code": "ANN102",
+   "group": "flake8-annotations",
+   "symbol": "missing-type-cls"
+  },
+  {
+   "code": "ANN201",
+   "group": "flake8-annotations",
+   "symbol": "missing-return-type-undocumented-public-function"
+  },
+  {
+   "code": "ANN202",
+   "group": "flake8-annotations",
+   "symbol": "missing-return-type-private-function"
+  },
+  {
+   "code": "ANN204",
+   "group": "flake8-annotations",
+   "symbol": "missing-return-type-special-method"
+  },
+  {
+   "code": "ANN205",
+   "group": "flake8-annotations",
+   "symbol": "missing-return-type-static-method"
+  },
+  {
+   "code": "ANN206",
+   "group": "flake8-annotations",
+   "symbol": "missing-return-type-class-method"
+  },
+  {
+   "code": "ANN401",
+   "group": "flake8-annotations",
+   "symbol": "any-type"
+  },
+  {
+   "code": "ARG001",
+   "group": "flake8-unused-arguments",
+   "symbol": "unused-function-argument"
+  },
+  {
+   "code": "ARG002",
+   "group": "flake8-unused-arguments",
+   "symbol": "unused-method-argument"
+  },
+  {
+   "code": "ARG003",
+   "group": "flake8-unused-arguments",
+   "symbol": "unused-class-method-argument"
+  },
+  {
+   "code": "ARG004",
+   "group": "flake8-unused-arguments",
+   "symbol": "unused-static-method-argument"
+  },
+  {
+   "code": "ARG005",
+   "group": "flake8-unused-arguments",
+   "symbol": "unused-lambda-argument"
+  },
+  {
+   "code": "ASYNC100",
+   "group": "flake8-async",
+   "symbol": "cancel-scope-no-checkpoint"
+  },
+  {
+   "code": "ASYNC105",
+   "group": "flake8-async",
+   "symbol": "trio-sync-call"
+  },
+  {
+   "code": "ASYNC109",
+   "group": "flake8-async",
+   "symbol": "async-function-with-timeout"
+  },
+  {
+   "code": "ASYNC110",
+   "group": "flake8-async",
+   "symbol": "async-busy-wait"
+  },
+  {
+   "code": "ASYNC115",
+   "group": "flake8-async",
+   "symbol": "async-zero-sleep"
+  },
+  {
+   "code": "ASYNC116",
+   "group": "flake8-async",
+   "symbol": "long-sleep-not-forever"
+  },
+  {
+   "code": "ASYNC119",
+   "group": "flake8-async",
+   "symbol": "yield-in-context-manager-in-async-generator"
+  },
+  {
+   "code": "ASYNC210",
+   "group": "flake8-async",
+   "symbol": "blocking-http-call-in-async-function"
+  },
+  {
+   "code": "ASYNC212",
+   "group": "flake8-async",
+   "symbol": "blocking-http-call-httpx-in-async-function"
+  },
+  {
+   "code": "ASYNC220",
+   "group": "flake8-async",
+   "symbol": "create-subprocess-in-async-function"
+  },
+  {
+   "code": "ASYNC221",
+   "group": "flake8-async",
+   "symbol": "run-process-in-async-function"
+  },
+  {
+   "code": "ASYNC222",
+   "group": "flake8-async",
+   "symbol": "wait-for-process-in-async-function"
+  },
+  {
+   "code": "ASYNC230",
+   "group": "flake8-async",
+   "symbol": "blocking-open-call-in-async-function"
+  },
+  {
+   "code": "ASYNC240",
+   "group": "flake8-async",
+   "symbol": "blocking-path-method-in-async-function"
+  },
+  {
+   "code": "ASYNC250",
+   "group": "flake8-async",
+   "symbol": "blocking-input-in-async-function"
+  },
+  {
+   "code": "ASYNC251",
+   "group": "flake8-async",
+   "symbol": "blocking-sleep-in-async-function"
+  },
+  {
+   "code": "B002",
+   "group": "flake8-bugbear",
+   "symbol": "unary-prefix-increment-decrement"
+  },
+  {
+   "code": "B003",
+   "group": "flake8-bugbear",
+   "symbol": "assignment-to-os-environ"
+  },
+  {
+   "code": "B004",
+   "group": "flake8-bugbear",
+   "symbol": "unreliable-callable-check"
+  },
+  {
+   "code": "B005",
+   "group": "flake8-bugbear",
+   "symbol": "strip-with-multi-characters"
+  },
+  {
+   "code": "B006",
+   "group": "flake8-bugbear",
+   "symbol": "mutable-argument-default"
+  },
+  {
+   "code": "B007",
+   "group": "flake8-bugbear",
+   "symbol": "unused-loop-control-variable"
+  },
+  {
+   "code": "B008",
+   "group": "flake8-bugbear",
+   "symbol": "function-call-in-default-argument"
+  },
+  {
+   "code": "B009",
+   "group": "flake8-bugbear",
+   "symbol": "get-attr-with-constant"
+  },
+  {
+   "code": "B010",
+   "group": "flake8-bugbear",
+   "symbol": "set-attr-with-constant"
+  },
+  {
+   "code": "B011",
+   "group": "flake8-bugbear",
+   "symbol": "assert-false"
+  },
+  {
+   "code": "B012",
+   "group": "flake8-bugbear",
+   "symbol": "jump-statement-in-finally"
+  },
+  {
+   "code": "B013",
+   "group": "flake8-bugbear",
+   "symbol": "redundant-tuple-in-exception-handler"
+  },
+  {
+   "code": "B014",
+   "group": "flake8-bugbear",
+   "symbol": "duplicate-handler-exception"
+  },
+  {
+   "code": "B015",
+   "group": "flake8-bugbear",
+   "symbol": "useless-comparison"
+  },
+  {
+   "code": "B016",
+   "group": "flake8-bugbear",
+   "symbol": "raise-literal"
+  },
+  {
+   "code": "B017",
+   "group": "flake8-bugbear",
+   "symbol": "assert-raises-exception"
+  },
+  {
+   "code": "B018",
+   "group": "flake8-bugbear",
+   "symbol": "useless-expression"
+  },
+  {
+   "code": "B019",
+   "group": "flake8-bugbear",
+   "symbol": "cached-instance-method"
+  },
+  {
+   "code": "B020",
+   "group": "flake8-bugbear",
+   "symbol": "loop-variable-overrides-iterator"
+  },
+  {
+   "code": "B021",
+   "group": "flake8-bugbear",
+   "symbol": "f-string-docstring"
+  },
+  {
+   "code": "B022",
+   "group": "flake8-bugbear",
+   "symbol": "useless-contextlib-suppress"
+  },
+  {
+   "code": "B023",
+   "group": "flake8-bugbear",
+   "symbol": "function-uses-loop-variable"
+  },
+  {
+   "code": "B024",
+   "group": "flake8-bugbear",
+   "symbol": "abstract-base-class-without-abstract-method"
+  },
+  {
+   "code": "B025",
+   "group": "flake8-bugbear",
+   "symbol": "duplicate-try-block-exception"
+  },
+  {
+   "code": "B026",
+   "group": "flake8-bugbear",
+   "symbol": "star-arg-unpacking-after-keyword-arg"
+  },
+  {
+   "code": "B027",
+   "group": "flake8-bugbear",
+   "symbol": "empty-method-without-abstract-decorator"
+  },
+  {
+   "code": "B028",
+   "group": "flake8-bugbear",
+   "symbol": "no-explicit-stacklevel"
+  },
+  {
+   "code": "B029",
+   "group": "flake8-bugbear",
+   "symbol": "except-with-empty-tuple"
+  },
+  {
+   "code": "B030",
+   "group": "flake8-bugbear",
+   "symbol": "except-with-non-exception-classes"
+  },
+  {
+   "code": "B031",
+   "group": "flake8-bugbear",
+   "symbol": "reuse-of-groupby-generator"
+  },
+  {
+   "code": "B032",
+   "group": "flake8-bugbear",
+   "symbol": "unintentional-type-annotation"
+  },
+  {
+   "code": "B033",
+   "group": "flake8-bugbear",
+   "symbol": "duplicate-value"
+  },
+  {
+   "code": "B034",
+   "group": "flake8-bugbear",
+   "symbol": "re-sub-positional-args"
+  },
+  {
+   "code": "B035",
+   "group": "flake8-bugbear",
+   "symbol": "static-key-dict-comprehension"
+  },
+  {
+   "code": "B039",
+   "group": "flake8-bugbear",
+   "symbol": "mutable-contextvar-default"
+  },
+  {
+   "code": "B043",
+   "group": "flake8-bugbear",
+   "symbol": "del-attr-with-constant"
+  },
+  {
+   "code": "B901",
+   "group": "flake8-bugbear",
+   "symbol": "return-in-generator"
+  },
+  {
+   "code": "B903",
+   "group": "flake8-bugbear",
+   "symbol": "class-as-data-structure"
+  },
+  {
+   "code": "B904",
+   "group": "flake8-bugbear",
+   "symbol": "raise-without-from-inside-except"
+  },
+  {
+   "code": "B905",
+   "group": "flake8-bugbear",
+   "symbol": "zip-without-explicit-strict"
+  },
+  {
+   "code": "B909",
+   "group": "flake8-bugbear",
+   "symbol": "loop-iterator-mutation"
+  },
+  {
+   "code": "B911",
+   "group": "flake8-bugbear",
+   "symbol": "batched-without-explicit-strict"
+  },
+  {
+   "code": "B912",
+   "group": "flake8-bugbear",
+   "symbol": "map-without-explicit-strict"
+  },
+  {
+   "code": "BLE001",
+   "group": "flake8-blind-except",
+   "symbol": "blind-except"
+  },
+  {
+   "code": "C400",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-generator-list"
+  },
+  {
+   "code": "C401",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-generator-set"
+  },
+  {
+   "code": "C402",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-generator-dict"
+  },
+  {
+   "code": "C403",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-list-comprehension-set"
+  },
+  {
+   "code": "C404",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-list-comprehension-dict"
+  },
+  {
+   "code": "C405",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-literal-set"
+  },
+  {
+   "code": "C406",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-literal-dict"
+  },
+  {
+   "code": "C408",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-collection-call"
+  },
+  {
+   "code": "C409",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-literal-within-tuple-call"
+  },
+  {
+   "code": "C410",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-literal-within-list-call"
+  },
+  {
+   "code": "C411",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-list-call"
+  },
+  {
+   "code": "C413",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-call-around-sorted"
+  },
+  {
+   "code": "C414",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-double-cast-or-process"
+  },
+  {
+   "code": "C415",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-subscript-reversal"
+  },
+  {
+   "code": "C416",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-comprehension"
+  },
+  {
+   "code": "C417",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-map"
+  },
+  {
+   "code": "C418",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-literal-within-dict-call"
+  },
+  {
+   "code": "C419",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-comprehension-in-call"
+  },
+  {
+   "code": "C420",
+   "group": "flake8-comprehensions",
+   "symbol": "unnecessary-dict-comprehension-for-iterable"
+  },
+  {
+   "code": "C901",
+   "group": "mccabe",
+   "symbol": "complex-structure"
+  },
+  {
+   "code": "COM812",
+   "group": "flake8-commas",
+   "symbol": "missing-trailing-comma"
+  },
+  {
+   "code": "COM818",
+   "group": "flake8-commas",
+   "symbol": "trailing-comma-on-bare-tuple"
+  },
+  {
+   "code": "COM819",
+   "group": "flake8-commas",
+   "symbol": "prohibited-trailing-comma"
+  },
+  {
+   "code": "CPY001",
+   "group": "flake8-copyright",
+   "symbol": "missing-copyright-notice"
+  },
+  {
+   "code": "D100",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-module"
+  },
+  {
+   "code": "D101",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-class"
+  },
+  {
+   "code": "D102",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-method"
+  },
+  {
+   "code": "D103",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-function"
+  },
+  {
+   "code": "D104",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-package"
+  },
+  {
+   "code": "D105",
+   "group": "pydocstyle",
+   "symbol": "undocumented-magic-method"
+  },
+  {
+   "code": "D106",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-nested-class"
+  },
+  {
+   "code": "D107",
+   "group": "pydocstyle",
+   "symbol": "undocumented-public-init"
+  },
+  {
+   "code": "D200",
+   "group": "pydocstyle",
+   "symbol": "unnecessary-multiline-docstring"
+  },
+  {
+   "code": "D201",
+   "group": "pydocstyle",
+   "symbol": "blank-line-before-function"
+  },
+  {
+   "code": "D202",
+   "group": "pydocstyle",
+   "symbol": "blank-line-after-function"
+  },
+  {
+   "code": "D203",
+   "group": "pydocstyle",
+   "symbol": "incorrect-blank-line-before-class"
+  },
+  {
+   "code": "D204",
+   "group": "pydocstyle",
+   "symbol": "incorrect-blank-line-after-class"
+  },
+  {
+   "code": "D205",
+   "group": "pydocstyle",
+   "symbol": "missing-blank-line-after-summary"
+  },
+  {
+   "code": "D206",
+   "group": "pydocstyle",
+   "symbol": "docstring-tab-indentation"
+  },
+  {
+   "code": "D207",
+   "group": "pydocstyle",
+   "symbol": "under-indentation"
+  },
+  {
+   "code": "D208",
+   "group": "pydocstyle",
+   "symbol": "over-indentation"
+  },
+  {
+   "code": "D209",
+   "group": "pydocstyle",
+   "symbol": "new-line-after-last-paragraph"
+  },
+  {
+   "code": "D210",
+   "group": "pydocstyle",
+   "symbol": "surrounding-whitespace"
+  },
+  {
+   "code": "D211",
+   "group": "pydocstyle",
+   "symbol": "blank-line-before-class"
+  },
+  {
+   "code": "D212",
+   "group": "pydocstyle",
+   "symbol": "multi-line-summary-first-line"
+  },
+  {
+   "code": "D213",
+   "group": "pydocstyle",
+   "symbol": "multi-line-summary-second-line"
+  },
+  {
+   "code": "D214",
+   "group": "pydocstyle",
+   "symbol": "overindented-section"
+  },
+  {
+   "code": "D215",
+   "group": "pydocstyle",
+   "symbol": "overindented-section-underline"
+  },
+  {
+   "code": "D300",
+   "group": "pydocstyle",
+   "symbol": "triple-single-quotes"
+  },
+  {
+   "code": "D301",
+   "group": "pydocstyle",
+   "symbol": "escape-sequence-in-docstring"
+  },
+  {
+   "code": "D400",
+   "group": "pydocstyle",
+   "symbol": "missing-trailing-period"
+  },
+  {
+   "code": "D401",
+   "group": "pydocstyle",
+   "symbol": "non-imperative-mood"
+  },
+  {
+   "code": "D402",
+   "group": "pydocstyle",
+   "symbol": "signature-in-docstring"
+  },
+  {
+   "code": "D403",
+   "group": "pydocstyle",
+   "symbol": "first-word-uncapitalized"
+  },
+  {
+   "code": "D404",
+   "group": "pydocstyle",
+   "symbol": "docstring-starts-with-this"
+  },
+  {
+   "code": "D405",
+   "group": "pydocstyle",
+   "symbol": "non-capitalized-section-name"
+  },
+  {
+   "code": "D406",
+   "group": "pydocstyle",
+   "symbol": "missing-new-line-after-section-name"
+  },
+  {
+   "code": "D407",
+   "group": "pydocstyle",
+   "symbol": "missing-dashed-underline-after-section"
+  },
+  {
+   "code": "D408",
+   "group": "pydocstyle",
+   "symbol": "missing-section-underline-after-name"
+  },
+  {
+   "code": "D409",
+   "group": "pydocstyle",
+   "symbol": "mismatched-section-underline-length"
+  },
+  {
+   "code": "D410",
+   "group": "pydocstyle",
+   "symbol": "no-blank-line-after-section"
+  },
+  {
+   "code": "D411",
+   "group": "pydocstyle",
+   "symbol": "no-blank-line-before-section"
+  },
+  {
+   "code": "D412",
+   "group": "pydocstyle",
+   "symbol": "blank-lines-between-header-and-content"
+  },
+  {
+   "code": "D413",
+   "group": "pydocstyle",
+   "symbol": "missing-blank-line-after-last-section"
+  },
+  {
+   "code": "D414",
+   "group": "pydocstyle",
+   "symbol": "empty-docstring-section"
+  },
+  {
+   "code": "D415",
+   "group": "pydocstyle",
+   "symbol": "missing-terminal-punctuation"
+  },
+  {
+   "code": "D416",
+   "group": "pydocstyle",
+   "symbol": "missing-section-name-colon"
+  },
+  {
+   "code": "D417",
+   "group": "pydocstyle",
+   "symbol": "undocumented-param"
+  },
+  {
+   "code": "D418",
+   "group": "pydocstyle",
+   "symbol": "overload-with-docstring"
+  },
+  {
+   "code": "D419",
+   "group": "pydocstyle",
+   "symbol": "empty-docstring"
+  },
+  {
+   "code": "D420",
+   "group": "pydocstyle",
+   "symbol": "incorrect-section-order"
+  },
+  {
+   "code": "D421",
+   "group": "pydocstyle",
+   "symbol": "property-docstring-starts-with-verb"
+  },
+  {
+   "code": "DJ001",
+   "group": "flake8-django",
+   "symbol": "django-nullable-model-string-field"
+  },
+  {
+   "code": "DJ003",
+   "group": "flake8-django",
+   "symbol": "django-locals-in-render-function"
+  },
+  {
+   "code": "DJ006",
+   "group": "flake8-django",
+   "symbol": "django-exclude-with-model-form"
+  },
+  {
+   "code": "DJ007",
+   "group": "flake8-django",
+   "symbol": "django-all-with-model-form"
+  },
+  {
+   "code": "DJ008",
+   "group": "flake8-django",
+   "symbol": "django-model-without-dunder-str"
+  },
+  {
+   "code": "DJ012",
+   "group": "flake8-django",
+   "symbol": "django-unordered-body-content-in-model"
+  },
+  {
+   "code": "DJ013",
+   "group": "flake8-django",
+   "symbol": "django-non-leading-receiver-decorator"
+  },
+  {
+   "code": "DOC102",
+   "group": "pydoclint",
+   "symbol": "docstring-extraneous-parameter"
+  },
+  {
+   "code": "DOC201",
+   "group": "pydoclint",
+   "symbol": "docstring-missing-returns"
+  },
+  {
+   "code": "DOC202",
+   "group": "pydoclint",
+   "symbol": "docstring-extraneous-returns"
+  },
+  {
+   "code": "DOC402",
+   "group": "pydoclint",
+   "symbol": "docstring-missing-yields"
+  },
+  {
+   "code": "DOC403",
+   "group": "pydoclint",
+   "symbol": "docstring-extraneous-yields"
+  },
+  {
+   "code": "DOC501",
+   "group": "pydoclint",
+   "symbol": "docstring-missing-exception"
+  },
+  {
+   "code": "DOC502",
+   "group": "pydoclint",
+   "symbol": "docstring-extraneous-exception"
+  },
+  {
+   "code": "DTZ001",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-without-tzinfo"
+  },
+  {
+   "code": "DTZ002",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-today"
+  },
+  {
+   "code": "DTZ003",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-utcnow"
+  },
+  {
+   "code": "DTZ004",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-utcfromtimestamp"
+  },
+  {
+   "code": "DTZ005",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-now-without-tzinfo"
+  },
+  {
+   "code": "DTZ006",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-fromtimestamp"
+  },
+  {
+   "code": "DTZ007",
+   "group": "flake8-datetimez",
+   "symbol": "call-datetime-strptime-without-zone"
+  },
+  {
+   "code": "DTZ011",
+   "group": "flake8-datetimez",
+   "symbol": "call-date-today"
+  },
+  {
+   "code": "DTZ012",
+   "group": "flake8-datetimez",
+   "symbol": "call-date-fromtimestamp"
+  },
+  {
+   "code": "DTZ901",
+   "group": "flake8-datetimez",
+   "symbol": "datetime-min-max"
+  },
+  {
+   "code": "E101",
+   "group": "pycodestyle",
+   "symbol": "mixed-spaces-and-tabs"
+  },
+  {
+   "code": "E111",
+   "group": "pycodestyle",
+   "symbol": "indentation-with-invalid-multiple"
+  },
+  {
+   "code": "E112",
+   "group": "pycodestyle",
+   "symbol": "no-indented-block"
+  },
+  {
+   "code": "E113",
+   "group": "pycodestyle",
+   "symbol": "unexpected-indentation"
+  },
+  {
+   "code": "E114",
+   "group": "pycodestyle",
+   "symbol": "indentation-with-invalid-multiple-comment"
+  },
+  {
+   "code": "E115",
+   "group": "pycodestyle",
+   "symbol": "no-indented-block-comment"
+  },
+  {
+   "code": "E116",
+   "group": "pycodestyle",
+   "symbol": "unexpected-indentation-comment"
+  },
+  {
+   "code": "E117",
+   "group": "pycodestyle",
+   "symbol": "over-indented"
+  },
+  {
+   "code": "E201",
+   "group": "pycodestyle",
+   "symbol": "whitespace-after-open-bracket"
+  },
+  {
+   "code": "E202",
+   "group": "pycodestyle",
+   "symbol": "whitespace-before-close-bracket"
+  },
+  {
+   "code": "E203",
+   "group": "pycodestyle",
+   "symbol": "whitespace-before-punctuation"
+  },
+  {
+   "code": "E204",
+   "group": "pycodestyle",
+   "symbol": "whitespace-after-decorator"
+  },
+  {
+   "code": "E211",
+   "group": "pycodestyle",
+   "symbol": "whitespace-before-parameters"
+  },
+  {
+   "code": "E221",
+   "group": "pycodestyle",
+   "symbol": "multiple-spaces-before-operator"
+  },
+  {
+   "code": "E222",
+   "group": "pycodestyle",
+   "symbol": "multiple-spaces-after-operator"
+  },
+  {
+   "code": "E223",
+   "group": "pycodestyle",
+   "symbol": "tab-before-operator"
+  },
+  {
+   "code": "E224",
+   "group": "pycodestyle",
+   "symbol": "tab-after-operator"
+  },
+  {
+   "code": "E225",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace-around-operator"
+  },
+  {
+   "code": "E226",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace-around-arithmetic-operator"
+  },
+  {
+   "code": "E227",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace-around-bitwise-or-shift-operator"
+  },
+  {
+   "code": "E228",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace-around-modulo-operator"
+  },
+  {
+   "code": "E231",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace"
+  },
+  {
+   "code": "E241",
+   "group": "pycodestyle",
+   "symbol": "multiple-spaces-after-comma"
+  },
+  {
+   "code": "E242",
+   "group": "pycodestyle",
+   "symbol": "tab-after-comma"
+  },
+  {
+   "code": "E251",
+   "group": "pycodestyle",
+   "symbol": "unexpected-spaces-around-keyword-parameter-equals"
+  },
+  {
+   "code": "E252",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace-around-parameter-equals"
+  },
+  {
+   "code": "E261",
+   "group": "pycodestyle",
+   "symbol": "too-few-spaces-before-inline-comment"
+  },
+  {
+   "code": "E262",
+   "group": "pycodestyle",
+   "symbol": "no-space-after-inline-comment"
+  },
+  {
+   "code": "E265",
+   "group": "pycodestyle",
+   "symbol": "no-space-after-block-comment"
+  },
+  {
+   "code": "E266",
+   "group": "pycodestyle",
+   "symbol": "multiple-leading-hashes-for-block-comment"
+  },
+  {
+   "code": "E271",
+   "group": "pycodestyle",
+   "symbol": "multiple-spaces-after-keyword"
+  },
+  {
+   "code": "E272",
+   "group": "pycodestyle",
+   "symbol": "multiple-spaces-before-keyword"
+  },
+  {
+   "code": "E273",
+   "group": "pycodestyle",
+   "symbol": "tab-after-keyword"
+  },
+  {
+   "code": "E274",
+   "group": "pycodestyle",
+   "symbol": "tab-before-keyword"
+  },
+  {
+   "code": "E275",
+   "group": "pycodestyle",
+   "symbol": "missing-whitespace-after-keyword"
+  },
+  {
+   "code": "E301",
+   "group": "pycodestyle",
+   "symbol": "blank-line-between-methods"
+  },
+  {
+   "code": "E302",
+   "group": "pycodestyle",
+   "symbol": "blank-lines-top-level"
+  },
+  {
+   "code": "E303",
+   "group": "pycodestyle",
+   "symbol": "too-many-blank-lines"
+  },
+  {
+   "code": "E304",
+   "group": "pycodestyle",
+   "symbol": "blank-line-after-decorator"
+  },
+  {
+   "code": "E305",
+   "group": "pycodestyle",
+   "symbol": "blank-lines-after-function-or-class"
+  },
+  {
+   "code": "E306",
+   "group": "pycodestyle",
+   "symbol": "blank-lines-before-nested-definition"
+  },
+  {
+   "code": "E401",
+   "group": "pycodestyle",
+   "symbol": "multiple-imports-on-one-line"
+  },
+  {
+   "code": "E402",
+   "group": "pycodestyle",
+   "symbol": "module-import-not-at-top-of-file"
+  },
+  {
+   "code": "E501",
+   "group": "pycodestyle",
+   "symbol": "line-too-long"
+  },
+  {
+   "code": "E502",
+   "group": "pycodestyle",
+   "symbol": "redundant-backslash"
+  },
+  {
+   "code": "E701",
+   "group": "pycodestyle",
+   "symbol": "multiple-statements-on-one-line-colon"
+  },
+  {
+   "code": "E702",
+   "group": "pycodestyle",
+   "symbol": "multiple-statements-on-one-line-semicolon"
+  },
+  {
+   "code": "E703",
+   "group": "pycodestyle",
+   "symbol": "useless-semicolon"
+  },
+  {
+   "code": "E711",
+   "group": "pycodestyle",
+   "symbol": "none-comparison"
+  },
+  {
+   "code": "E712",
+   "group": "pycodestyle",
+   "symbol": "true-false-comparison"
+  },
+  {
+   "code": "E713",
+   "group": "pycodestyle",
+   "symbol": "not-in-test"
+  },
+  {
+   "code": "E714",
+   "group": "pycodestyle",
+   "symbol": "not-is-test"
+  },
+  {
+   "code": "E721",
+   "group": "pycodestyle",
+   "symbol": "type-comparison"
+  },
+  {
+   "code": "E722",
+   "group": "pycodestyle",
+   "symbol": "bare-except"
+  },
+  {
+   "code": "E731",
+   "group": "pycodestyle",
+   "symbol": "lambda-assignment"
+  },
+  {
+   "code": "E741",
+   "group": "pycodestyle",
+   "symbol": "ambiguous-variable-name"
+  },
+  {
+   "code": "E742",
+   "group": "pycodestyle",
+   "symbol": "ambiguous-class-name"
+  },
+  {
+   "code": "E743",
+   "group": "pycodestyle",
+   "symbol": "ambiguous-function-name"
+  },
+  {
+   "code": "E902",
+   "group": "pycodestyle",
+   "symbol": "io-error"
+  },
+  {
+   "code": "E999",
+   "group": "pycodestyle",
+   "symbol": "syntax-error"
+  },
+  {
+   "code": "EM101",
+   "group": "flake8-errmsg",
+   "symbol": "raw-string-in-exception"
+  },
+  {
+   "code": "EM102",
+   "group": "flake8-errmsg",
+   "symbol": "f-string-in-exception"
+  },
+  {
+   "code": "EM103",
+   "group": "flake8-errmsg",
+   "symbol": "dot-format-in-exception"
+  },
+  {
+   "code": "ERA001",
+   "group": "eradicate",
+   "symbol": "commented-out-code"
+  },
+  {
+   "code": "EXE001",
+   "group": "flake8-executable",
+   "symbol": "shebang-not-executable"
+  },
+  {
+   "code": "EXE002",
+   "group": "flake8-executable",
+   "symbol": "shebang-missing-executable-file"
+  },
+  {
+   "code": "EXE003",
+   "group": "flake8-executable",
+   "symbol": "shebang-missing-python"
+  },
+  {
+   "code": "EXE004",
+   "group": "flake8-executable",
+   "symbol": "shebang-leading-whitespace"
+  },
+  {
+   "code": "EXE005",
+   "group": "flake8-executable",
+   "symbol": "shebang-not-first-line"
+  },
+  {
+   "code": "F401",
+   "group": "Pyflakes",
+   "symbol": "unused-import"
+  },
+  {
+   "code": "F402",
+   "group": "Pyflakes",
+   "symbol": "import-shadowed-by-loop-var"
+  },
+  {
+   "code": "F403",
+   "group": "Pyflakes",
+   "symbol": "undefined-local-with-import-star"
+  },
+  {
+   "code": "F404",
+   "group": "Pyflakes",
+   "symbol": "late-future-import"
+  },
+  {
+   "code": "F405",
+   "group": "Pyflakes",
+   "symbol": "undefined-local-with-import-star-usage"
+  },
+  {
+   "code": "F406",
+   "group": "Pyflakes",
+   "symbol": "undefined-local-with-nested-import-star-usage"
+  },
+  {
+   "code": "F407",
+   "group": "Pyflakes",
+   "symbol": "future-feature-not-defined"
+  },
+  {
+   "code": "F501",
+   "group": "Pyflakes",
+   "symbol": "percent-format-invalid-format"
+  },
+  {
+   "code": "F502",
+   "group": "Pyflakes",
+   "symbol": "percent-format-expected-mapping"
+  },
+  {
+   "code": "F503",
+   "group": "Pyflakes",
+   "symbol": "percent-format-expected-sequence"
+  },
+  {
+   "code": "F504",
+   "group": "Pyflakes",
+   "symbol": "percent-format-extra-named-arguments"
+  },
+  {
+   "code": "F505",
+   "group": "Pyflakes",
+   "symbol": "percent-format-missing-argument"
+  },
+  {
+   "code": "F506",
+   "group": "Pyflakes",
+   "symbol": "percent-format-mixed-positional-and-named"
+  },
+  {
+   "code": "F507",
+   "group": "Pyflakes",
+   "symbol": "percent-format-positional-count-mismatch"
+  },
+  {
+   "code": "F508",
+   "group": "Pyflakes",
+   "symbol": "percent-format-star-requires-sequence"
+  },
+  {
+   "code": "F509",
+   "group": "Pyflakes",
+   "symbol": "percent-format-unsupported-format-character"
+  },
+  {
+   "code": "F521",
+   "group": "Pyflakes",
+   "symbol": "string-dot-format-invalid-format"
+  },
+  {
+   "code": "F522",
+   "group": "Pyflakes",
+   "symbol": "string-dot-format-extra-named-arguments"
+  },
+  {
+   "code": "F523",
+   "group": "Pyflakes",
+   "symbol": "string-dot-format-extra-positional-arguments"
+  },
+  {
+   "code": "F524",
+   "group": "Pyflakes",
+   "symbol": "string-dot-format-missing-arguments"
+  },
+  {
+   "code": "F525",
+   "group": "Pyflakes",
+   "symbol": "string-dot-format-mixing-automatic"
+  },
+  {
+   "code": "F541",
+   "group": "Pyflakes",
+   "symbol": "f-string-missing-placeholders"
+  },
+  {
+   "code": "F601",
+   "group": "Pyflakes",
+   "symbol": "multi-value-repeated-key-literal"
+  },
+  {
+   "code": "F602",
+   "group": "Pyflakes",
+   "symbol": "multi-value-repeated-key-variable"
+  },
+  {
+   "code": "F621",
+   "group": "Pyflakes",
+   "symbol": "expressions-in-star-assignment"
+  },
+  {
+   "code": "F622",
+   "group": "Pyflakes",
+   "symbol": "multiple-starred-expressions"
+  },
+  {
+   "code": "F631",
+   "group": "Pyflakes",
+   "symbol": "assert-tuple"
+  },
+  {
+   "code": "F632",
+   "group": "Pyflakes",
+   "symbol": "is-literal"
+  },
+  {
+   "code": "F633",
+   "group": "Pyflakes",
+   "symbol": "invalid-print-syntax"
+  },
+  {
+   "code": "F634",
+   "group": "Pyflakes",
+   "symbol": "if-tuple"
+  },
+  {
+   "code": "F701",
+   "group": "Pyflakes",
+   "symbol": "break-outside-loop"
+  },
+  {
+   "code": "F702",
+   "group": "Pyflakes",
+   "symbol": "continue-outside-loop"
+  },
+  {
+   "code": "F704",
+   "group": "Pyflakes",
+   "symbol": "yield-outside-function"
+  },
+  {
+   "code": "F706",
+   "group": "Pyflakes",
+   "symbol": "return-outside-function"
+  },
+  {
+   "code": "F707",
+   "group": "Pyflakes",
+   "symbol": "default-except-not-last"
+  },
+  {
+   "code": "F722",
+   "group": "Pyflakes",
+   "symbol": "forward-annotation-syntax-error"
+  },
+  {
+   "code": "F811",
+   "group": "Pyflakes",
+   "symbol": "redefined-while-unused"
+  },
+  {
+   "code": "F821",
+   "group": "Pyflakes",
+   "symbol": "undefined-name"
+  },
+  {
+   "code": "F822",
+   "group": "Pyflakes",
+   "symbol": "undefined-export"
+  },
+  {
+   "code": "F823",
+   "group": "Pyflakes",
+   "symbol": "undefined-local"
+  },
+  {
+   "code": "F841",
+   "group": "Pyflakes",
+   "symbol": "unused-variable"
+  },
+  {
+   "code": "F842",
+   "group": "Pyflakes",
+   "symbol": "unused-annotation"
+  },
+  {
+   "code": "F901",
+   "group": "Pyflakes",
+   "symbol": "raise-not-implemented"
+  },
+  {
+   "code": "FA100",
+   "group": "flake8-future-annotations",
+   "symbol": "future-rewritable-type-annotation"
+  },
+  {
+   "code": "FA102",
+   "group": "flake8-future-annotations",
+   "symbol": "future-required-type-annotation"
+  },
+  {
+   "code": "FAST001",
+   "group": "FastAPI",
+   "symbol": "fast-api-redundant-response-model"
+  },
+  {
+   "code": "FAST002",
+   "group": "FastAPI",
+   "symbol": "fast-api-non-annotated-dependency"
+  },
+  {
+   "code": "FAST003",
+   "group": "FastAPI",
+   "symbol": "fast-api-unused-path-parameter"
+  },
+  {
+   "code": "FBT001",
+   "group": "flake8-boolean-trap",
+   "symbol": "boolean-type-hint-positional-argument"
+  },
+  {
+   "code": "FBT002",
+   "group": "flake8-boolean-trap",
+   "symbol": "boolean-default-value-positional-argument"
+  },
+  {
+   "code": "FBT003",
+   "group": "flake8-boolean-trap",
+   "symbol": "boolean-positional-value-in-call"
+  },
+  {
+   "code": "FIX001",
+   "group": "flake8-fixme",
+   "symbol": "line-contains-fixme"
+  },
+  {
+   "code": "FIX002",
+   "group": "flake8-fixme",
+   "symbol": "line-contains-todo"
+  },
+  {
+   "code": "FIX003",
+   "group": "flake8-fixme",
+   "symbol": "line-contains-xxx"
+  },
+  {
+   "code": "FIX004",
+   "group": "flake8-fixme",
+   "symbol": "line-contains-hack"
+  },
+  {
+   "code": "FLY002",
+   "group": "flynt",
+   "symbol": "static-join-to-f-string"
+  },
+  {
+   "code": "FURB101",
+   "group": "refurb",
+   "symbol": "read-whole-file"
+  },
+  {
+   "code": "FURB103",
+   "group": "refurb",
+   "symbol": "write-whole-file"
+  },
+  {
+   "code": "FURB105",
+   "group": "refurb",
+   "symbol": "print-empty-string"
+  },
+  {
+   "code": "FURB110",
+   "group": "refurb",
+   "symbol": "if-exp-instead-of-or-operator"
+  },
+  {
+   "code": "FURB113",
+   "group": "refurb",
+   "symbol": "repeated-append"
+  },
+  {
+   "code": "FURB116",
+   "group": "refurb",
+   "symbol": "f-string-number-format"
+  },
+  {
+   "code": "FURB118",
+   "group": "refurb",
+   "symbol": "reimplemented-operator"
+  },
+  {
+   "code": "FURB122",
+   "group": "refurb",
+   "symbol": "for-loop-writes"
+  },
+  {
+   "code": "FURB129",
+   "group": "refurb",
+   "symbol": "readlines-in-for"
+  },
+  {
+   "code": "FURB131",
+   "group": "refurb",
+   "symbol": "delete-full-slice"
+  },
+  {
+   "code": "FURB132",
+   "group": "refurb",
+   "symbol": "check-and-remove-from-set"
+  },
+  {
+   "code": "FURB136",
+   "group": "refurb",
+   "symbol": "if-expr-min-max"
+  },
+  {
+   "code": "FURB140",
+   "group": "refurb",
+   "symbol": "reimplemented-starmap"
+  },
+  {
+   "code": "FURB142",
+   "group": "refurb",
+   "symbol": "for-loop-set-mutations"
+  },
+  {
+   "code": "FURB145",
+   "group": "refurb",
+   "symbol": "slice-copy"
+  },
+  {
+   "code": "FURB148",
+   "group": "refurb",
+   "symbol": "unnecessary-enumerate"
+  },
+  {
+   "code": "FURB152",
+   "group": "refurb",
+   "symbol": "math-constant"
+  },
+  {
+   "code": "FURB154",
+   "group": "refurb",
+   "symbol": "repeated-global"
+  },
+  {
+   "code": "FURB156",
+   "group": "refurb",
+   "symbol": "hardcoded-string-charset"
+  },
+  {
+   "code": "FURB157",
+   "group": "refurb",
+   "symbol": "verbose-decimal-constructor"
+  },
+  {
+   "code": "FURB161",
+   "group": "refurb",
+   "symbol": "bit-count"
+  },
+  {
+   "code": "FURB162",
+   "group": "refurb",
+   "symbol": "fromisoformat-replace-z"
+  },
+  {
+   "code": "FURB163",
+   "group": "refurb",
+   "symbol": "redundant-log-base"
+  },
+  {
+   "code": "FURB164",
+   "group": "refurb",
+   "symbol": "unnecessary-from-float"
+  },
+  {
+   "code": "FURB166",
+   "group": "refurb",
+   "symbol": "int-on-sliced-str"
+  },
+  {
+   "code": "FURB167",
+   "group": "refurb",
+   "symbol": "regex-flag-alias"
+  },
+  {
+   "code": "FURB168",
+   "group": "refurb",
+   "symbol": "isinstance-type-none"
+  },
+  {
+   "code": "FURB169",
+   "group": "refurb",
+   "symbol": "type-none-comparison"
+  },
+  {
+   "code": "FURB171",
+   "group": "refurb",
+   "symbol": "single-item-membership-test"
+  },
+  {
+   "code": "FURB177",
+   "group": "refurb",
+   "symbol": "implicit-cwd"
+  },
+  {
+   "code": "FURB180",
+   "group": "refurb",
+   "symbol": "meta-class-abc-meta"
+  },
+  {
+   "code": "FURB181",
+   "group": "refurb",
+   "symbol": "hashlib-digest-hex"
+  },
+  {
+   "code": "FURB187",
+   "group": "refurb",
+   "symbol": "list-reverse-copy"
+  },
+  {
+   "code": "FURB188",
+   "group": "refurb",
+   "symbol": "slice-to-remove-prefix-or-suffix"
+  },
+  {
+   "code": "FURB189",
+   "group": "refurb",
+   "symbol": "subclass-builtin"
+  },
+  {
+   "code": "FURB192",
+   "group": "refurb",
+   "symbol": "sorted-min-max"
+  },
+  {
+   "code": "G001",
+   "group": "flake8-logging-format",
+   "symbol": "logging-string-format"
+  },
+  {
+   "code": "G002",
+   "group": "flake8-logging-format",
+   "symbol": "logging-percent-format"
+  },
+  {
+   "code": "G003",
+   "group": "flake8-logging-format",
+   "symbol": "logging-string-concat"
+  },
+  {
+   "code": "G004",
+   "group": "flake8-logging-format",
+   "symbol": "logging-f-string"
+  },
+  {
+   "code": "G010",
+   "group": "flake8-logging-format",
+   "symbol": "logging-warn"
+  },
+  {
+   "code": "G101",
+   "group": "flake8-logging-format",
+   "symbol": "logging-extra-attr-clash"
+  },
+  {
+   "code": "G201",
+   "group": "flake8-logging-format",
+   "symbol": "logging-exc-info"
+  },
+  {
+   "code": "G202",
+   "group": "flake8-logging-format",
+   "symbol": "logging-redundant-exc-info"
+  },
+  {
+   "code": "I001",
+   "group": "isort",
+   "symbol": "unsorted-imports"
+  },
+  {
+   "code": "I002",
+   "group": "isort",
+   "symbol": "missing-required-import"
+  },
+  {
+   "code": "ICN001",
+   "group": "flake8-import-conventions",
+   "symbol": "unconventional-import-alias"
+  },
+  {
+   "code": "ICN002",
+   "group": "flake8-import-conventions",
+   "symbol": "banned-import-alias"
+  },
+  {
+   "code": "ICN003",
+   "group": "flake8-import-conventions",
+   "symbol": "banned-import-from"
+  },
+  {
+   "code": "INP001",
+   "group": "flake8-no-pep420",
+   "symbol": "implicit-namespace-package"
+  },
+  {
+   "code": "INT001",
+   "group": "flake8-gettext",
+   "symbol": "f-string-in-get-text-func-call"
+  },
+  {
+   "code": "INT002",
+   "group": "flake8-gettext",
+   "symbol": "format-in-get-text-func-call"
+  },
+  {
+   "code": "INT003",
+   "group": "flake8-gettext",
+   "symbol": "printf-in-get-text-func-call"
+  },
+  {
+   "code": "ISC001",
+   "group": "flake8-implicit-str-concat",
+   "symbol": "single-line-implicit-string-concatenation"
+  },
+  {
+   "code": "ISC002",
+   "group": "flake8-implicit-str-concat",
+   "symbol": "multi-line-implicit-string-concatenation"
+  },
+  {
+   "code": "ISC003",
+   "group": "flake8-implicit-str-concat",
+   "symbol": "explicit-string-concatenation"
+  },
+  {
+   "code": "ISC004",
+   "group": "flake8-implicit-str-concat",
+   "symbol": "implicit-string-concatenation-in-collection-literal"
+  },
+  {
+   "code": "LOG001",
+   "group": "flake8-logging",
+   "symbol": "direct-logger-instantiation"
+  },
+  {
+   "code": "LOG002",
+   "group": "flake8-logging",
+   "symbol": "invalid-get-logger-argument"
+  },
+  {
+   "code": "LOG004",
+   "group": "flake8-logging",
+   "symbol": "log-exception-outside-except-handler"
+  },
+  {
+   "code": "LOG007",
+   "group": "flake8-logging",
+   "symbol": "exception-without-exc-info"
+  },
+  {
+   "code": "LOG009",
+   "group": "flake8-logging",
+   "symbol": "undocumented-warn"
+  },
+  {
+   "code": "LOG014",
+   "group": "flake8-logging",
+   "symbol": "exc-info-outside-except-handler"
+  },
+  {
+   "code": "LOG015",
+   "group": "flake8-logging",
+   "symbol": "root-logger-call"
+  },
+  {
+   "code": "N801",
+   "group": "pep8-naming",
+   "symbol": "invalid-class-name"
+  },
+  {
+   "code": "N802",
+   "group": "pep8-naming",
+   "symbol": "invalid-function-name"
+  },
+  {
+   "code": "N803",
+   "group": "pep8-naming",
+   "symbol": "invalid-argument-name"
+  },
+  {
+   "code": "N804",
+   "group": "pep8-naming",
+   "symbol": "invalid-first-argument-name-for-class-method"
+  },
+  {
+   "code": "N805",
+   "group": "pep8-naming",
+   "symbol": "invalid-first-argument-name-for-method"
+  },
+  {
+   "code": "N806",
+   "group": "pep8-naming",
+   "symbol": "non-lowercase-variable-in-function"
+  },
+  {
+   "code": "N807",
+   "group": "pep8-naming",
+   "symbol": "dunder-function-name"
+  },
+  {
+   "code": "N811",
+   "group": "pep8-naming",
+   "symbol": "constant-imported-as-non-constant"
+  },
+  {
+   "code": "N812",
+   "group": "pep8-naming",
+   "symbol": "lowercase-imported-as-non-lowercase"
+  },
+  {
+   "code": "N813",
+   "group": "pep8-naming",
+   "symbol": "camelcase-imported-as-lowercase"
+  },
+  {
+   "code": "N814",
+   "group": "pep8-naming",
+   "symbol": "camelcase-imported-as-constant"
+  },
+  {
+   "code": "N815",
+   "group": "pep8-naming",
+   "symbol": "mixed-case-variable-in-class-scope"
+  },
+  {
+   "code": "N816",
+   "group": "pep8-naming",
+   "symbol": "mixed-case-variable-in-global-scope"
+  },
+  {
+   "code": "N817",
+   "group": "pep8-naming",
+   "symbol": "camelcase-imported-as-acronym"
+  },
+  {
+   "code": "N818",
+   "group": "pep8-naming",
+   "symbol": "error-suffix-on-exception-name"
+  },
+  {
+   "code": "N999",
+   "group": "pep8-naming",
+   "symbol": "invalid-module-name"
+  },
+  {
+   "code": "NPY001",
+   "group": "NumPy-specific rules",
+   "symbol": "numpy-deprecated-type-alias"
+  },
+  {
+   "code": "NPY002",
+   "group": "NumPy-specific rules",
+   "symbol": "numpy-legacy-random"
+  },
+  {
+   "code": "NPY003",
+   "group": "NumPy-specific rules",
+   "symbol": "numpy-deprecated-function"
+  },
+  {
+   "code": "NPY201",
+   "group": "NumPy-specific rules",
+   "symbol": "numpy2-deprecation"
+  },
+  {
+   "code": "PD002",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-inplace-argument"
+  },
+  {
+   "code": "PD003",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-is-null"
+  },
+  {
+   "code": "PD004",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-not-null"
+  },
+  {
+   "code": "PD007",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-ix"
+  },
+  {
+   "code": "PD008",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-at"
+  },
+  {
+   "code": "PD009",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-iat"
+  },
+  {
+   "code": "PD010",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-pivot-or-unstack"
+  },
+  {
+   "code": "PD011",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-values"
+  },
+  {
+   "code": "PD012",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-read-table"
+  },
+  {
+   "code": "PD013",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-dot-stack"
+  },
+  {
+   "code": "PD015",
+   "group": "pandas-vet",
+   "symbol": "pandas-use-of-pd-merge"
+  },
+  {
+   "code": "PD101",
+   "group": "pandas-vet",
+   "symbol": "pandas-nunique-constant-series-check"
+  },
+  {
+   "code": "PD901",
+   "group": "pandas-vet",
+   "symbol": "pandas-df-variable-name"
+  },
+  {
+   "code": "PERF101",
+   "group": "Perflint",
+   "symbol": "unnecessary-list-cast"
+  },
+  {
+   "code": "PERF102",
+   "group": "Perflint",
+   "symbol": "incorrect-dict-iterator"
+  },
+  {
+   "code": "PERF203",
+   "group": "Perflint",
+   "symbol": "try-except-in-loop"
+  },
+  {
+   "code": "PERF401",
+   "group": "Perflint",
+   "symbol": "manual-list-comprehension"
+  },
+  {
+   "code": "PERF402",
+   "group": "Perflint",
+   "symbol": "manual-list-copy"
+  },
+  {
+   "code": "PERF403",
+   "group": "Perflint",
+   "symbol": "manual-dict-comprehension"
+  },
+  {
+   "code": "PGH001",
+   "group": "pygrep-hooks",
+   "symbol": "eval"
+  },
+  {
+   "code": "PGH002",
+   "group": "pygrep-hooks",
+   "symbol": "deprecated-log-warn"
+  },
+  {
+   "code": "PGH003",
+   "group": "pygrep-hooks",
+   "symbol": "blanket-type-ignore"
+  },
+  {
+   "code": "PGH004",
+   "group": "pygrep-hooks",
+   "symbol": "blanket-noqa"
+  },
+  {
+   "code": "PGH005",
+   "group": "pygrep-hooks",
+   "symbol": "invalid-mock-access"
+  },
+  {
+   "code": "PIE790",
+   "group": "flake8-pie",
+   "symbol": "unnecessary-placeholder"
+  },
+  {
+   "code": "PIE794",
+   "group": "flake8-pie",
+   "symbol": "duplicate-class-field-definition"
+  },
+  {
+   "code": "PIE796",
+   "group": "flake8-pie",
+   "symbol": "non-unique-enums"
+  },
+  {
+   "code": "PIE800",
+   "group": "flake8-pie",
+   "symbol": "unnecessary-spread"
+  },
+  {
+   "code": "PIE804",
+   "group": "flake8-pie",
+   "symbol": "unnecessary-dict-kwargs"
+  },
+  {
+   "code": "PIE807",
+   "group": "flake8-pie",
+   "symbol": "reimplemented-container-builtin"
+  },
+  {
+   "code": "PIE808",
+   "group": "flake8-pie",
+   "symbol": "unnecessary-range-start"
+  },
+  {
+   "code": "PIE810",
+   "group": "flake8-pie",
+   "symbol": "multiple-starts-ends-with"
+  },
+  {
+   "code": "PLC0105",
+   "group": "Pylint",
+   "symbol": "type-name-incorrect-variance"
+  },
+  {
+   "code": "PLC0131",
+   "group": "Pylint",
+   "symbol": "type-bivariance"
+  },
+  {
+   "code": "PLC0132",
+   "group": "Pylint",
+   "symbol": "type-param-name-mismatch"
+  },
+  {
+   "code": "PLC0205",
+   "group": "Pylint",
+   "symbol": "single-string-slots"
+  },
+  {
+   "code": "PLC0206",
+   "group": "Pylint",
+   "symbol": "dict-index-missing-items"
+  },
+  {
+   "code": "PLC0207",
+   "group": "Pylint",
+   "symbol": "missing-maxsplit-arg"
+  },
+  {
+   "code": "PLC0208",
+   "group": "Pylint",
+   "symbol": "iteration-over-set"
+  },
+  {
+   "code": "PLC0414",
+   "group": "Pylint",
+   "symbol": "useless-import-alias"
+  },
+  {
+   "code": "PLC0415",
+   "group": "Pylint",
+   "symbol": "import-outside-top-level"
+  },
+  {
+   "code": "PLC1802",
+   "group": "Pylint",
+   "symbol": "len-test"
+  },
+  {
+   "code": "PLC1901",
+   "group": "Pylint",
+   "symbol": "compare-to-empty-string"
+  },
+  {
+   "code": "PLC2401",
+   "group": "Pylint",
+   "symbol": "non-ascii-name"
+  },
+  {
+   "code": "PLC2403",
+   "group": "Pylint",
+   "symbol": "non-ascii-import-name"
+  },
+  {
+   "code": "PLC2701",
+   "group": "Pylint",
+   "symbol": "import-private-name"
+  },
+  {
+   "code": "PLC2801",
+   "group": "Pylint",
+   "symbol": "unnecessary-dunder-call"
+  },
+  {
+   "code": "PLC3002",
+   "group": "Pylint",
+   "symbol": "unnecessary-direct-lambda-call"
+  },
+  {
+   "code": "PLE0100",
+   "group": "Pylint",
+   "symbol": "yield-in-init"
+  },
+  {
+   "code": "PLE0101",
+   "group": "Pylint",
+   "symbol": "return-in-init"
+  },
+  {
+   "code": "PLE0115",
+   "group": "Pylint",
+   "symbol": "nonlocal-and-global"
+  },
+  {
+   "code": "PLE0116",
+   "group": "Pylint",
+   "symbol": "continue-in-finally"
+  },
+  {
+   "code": "PLE0117",
+   "group": "Pylint",
+   "symbol": "nonlocal-without-binding"
+  },
+  {
+   "code": "PLE0118",
+   "group": "Pylint",
+   "symbol": "load-before-global-declaration"
+  },
+  {
+   "code": "PLE0237",
+   "group": "Pylint",
+   "symbol": "non-slot-assignment"
+  },
+  {
+   "code": "PLE0241",
+   "group": "Pylint",
+   "symbol": "duplicate-bases"
+  },
+  {
+   "code": "PLE0302",
+   "group": "Pylint",
+   "symbol": "unexpected-special-method-signature"
+  },
+  {
+   "code": "PLE0303",
+   "group": "Pylint",
+   "symbol": "invalid-length-return-type"
+  },
+  {
+   "code": "PLE0304",
+   "group": "Pylint",
+   "symbol": "invalid-bool-return-type"
+  },
+  {
+   "code": "PLE0305",
+   "group": "Pylint",
+   "symbol": "invalid-index-return-type"
+  },
+  {
+   "code": "PLE0307",
+   "group": "Pylint",
+   "symbol": "invalid-str-return-type"
+  },
+  {
+   "code": "PLE0308",
+   "group": "Pylint",
+   "symbol": "invalid-bytes-return-type"
+  },
+  {
+   "code": "PLE0309",
+   "group": "Pylint",
+   "symbol": "invalid-hash-return-type"
+  },
+  {
+   "code": "PLE0604",
+   "group": "Pylint",
+   "symbol": "invalid-all-object"
+  },
+  {
+   "code": "PLE0605",
+   "group": "Pylint",
+   "symbol": "invalid-all-format"
+  },
+  {
+   "code": "PLE0643",
+   "group": "Pylint",
+   "symbol": "potential-index-error"
+  },
+  {
+   "code": "PLE0704",
+   "group": "Pylint",
+   "symbol": "misplaced-bare-raise"
+  },
+  {
+   "code": "PLE1132",
+   "group": "Pylint",
+   "symbol": "repeated-keyword-argument"
+  },
+  {
+   "code": "PLE1141",
+   "group": "Pylint",
+   "symbol": "dict-iter-missing-items"
+  },
+  {
+   "code": "PLE1142",
+   "group": "Pylint",
+   "symbol": "await-outside-async"
+  },
+  {
+   "code": "PLE1205",
+   "group": "Pylint",
+   "symbol": "logging-too-many-args"
+  },
+  {
+   "code": "PLE1206",
+   "group": "Pylint",
+   "symbol": "logging-too-few-args"
+  },
+  {
+   "code": "PLE1300",
+   "group": "Pylint",
+   "symbol": "bad-string-format-character"
+  },
+  {
+   "code": "PLE1307",
+   "group": "Pylint",
+   "symbol": "bad-string-format-type"
+  },
+  {
+   "code": "PLE1310",
+   "group": "Pylint",
+   "symbol": "bad-str-strip-call"
+  },
+  {
+   "code": "PLE1507",
+   "group": "Pylint",
+   "symbol": "invalid-envvar-value"
+  },
+  {
+   "code": "PLE1519",
+   "group": "Pylint",
+   "symbol": "singledispatch-method"
+  },
+  {
+   "code": "PLE1520",
+   "group": "Pylint",
+   "symbol": "singledispatchmethod-function"
+  },
+  {
+   "code": "PLE1700",
+   "group": "Pylint",
+   "symbol": "yield-from-in-async-function"
+  },
+  {
+   "code": "PLE2502",
+   "group": "Pylint",
+   "symbol": "bidirectional-unicode"
+  },
+  {
+   "code": "PLE2510",
+   "group": "Pylint",
+   "symbol": "invalid-character-backspace"
+  },
+  {
+   "code": "PLE2512",
+   "group": "Pylint",
+   "symbol": "invalid-character-sub"
+  },
+  {
+   "code": "PLE2513",
+   "group": "Pylint",
+   "symbol": "invalid-character-esc"
+  },
+  {
+   "code": "PLE2514",
+   "group": "Pylint",
+   "symbol": "invalid-character-nul"
+  },
+  {
+   "code": "PLE2515",
+   "group": "Pylint",
+   "symbol": "invalid-character-zero-width-space"
+  },
+  {
+   "code": "PLE4703",
+   "group": "Pylint",
+   "symbol": "modified-iterating-set"
+  },
+  {
+   "code": "PLR0124",
+   "group": "Pylint",
+   "symbol": "comparison-with-itself"
+  },
+  {
+   "code": "PLR0133",
+   "group": "Pylint",
+   "symbol": "comparison-of-constant"
+  },
+  {
+   "code": "PLR0202",
+   "group": "Pylint",
+   "symbol": "no-classmethod-decorator"
+  },
+  {
+   "code": "PLR0203",
+   "group": "Pylint",
+   "symbol": "no-staticmethod-decorator"
+  },
+  {
+   "code": "PLR0206",
+   "group": "Pylint",
+   "symbol": "property-with-parameters"
+  },
+  {
+   "code": "PLR0402",
+   "group": "Pylint",
+   "symbol": "manual-from-import"
+  },
+  {
+   "code": "PLR0904",
+   "group": "Pylint",
+   "symbol": "too-many-public-methods"
+  },
+  {
+   "code": "PLR0911",
+   "group": "Pylint",
+   "symbol": "too-many-return-statements"
+  },
+  {
+   "code": "PLR0912",
+   "group": "Pylint",
+   "symbol": "too-many-branches"
+  },
+  {
+   "code": "PLR0913",
+   "group": "Pylint",
+   "symbol": "too-many-arguments"
+  },
+  {
+   "code": "PLR0914",
+   "group": "Pylint",
+   "symbol": "too-many-locals"
+  },
+  {
+   "code": "PLR0915",
+   "group": "Pylint",
+   "symbol": "too-many-statements"
+  },
+  {
+   "code": "PLR0916",
+   "group": "Pylint",
+   "symbol": "too-many-boolean-expressions"
+  },
+  {
+   "code": "PLR0917",
+   "group": "Pylint",
+   "symbol": "too-many-positional-arguments"
+  },
+  {
+   "code": "PLR1701",
+   "group": "Pylint",
+   "symbol": "repeated-isinstance-calls"
+  },
+  {
+   "code": "PLR1702",
+   "group": "Pylint",
+   "symbol": "too-many-nested-blocks"
+  },
+  {
+   "code": "PLR1704",
+   "group": "Pylint",
+   "symbol": "redefined-argument-from-local"
+  },
+  {
+   "code": "PLR1706",
+   "group": "Pylint",
+   "symbol": "and-or-ternary"
+  },
+  {
+   "code": "PLR1708",
+   "group": "Pylint",
+   "symbol": "stop-iteration-return"
+  },
+  {
+   "code": "PLR1711",
+   "group": "Pylint",
+   "symbol": "useless-return"
+  },
+  {
+   "code": "PLR1712",
+   "group": "Pylint",
+   "symbol": "swap-with-temporary-variable"
+  },
+  {
+   "code": "PLR1714",
+   "group": "Pylint",
+   "symbol": "repeated-equality-comparison"
+  },
+  {
+   "code": "PLR1716",
+   "group": "Pylint",
+   "symbol": "boolean-chained-comparison"
+  },
+  {
+   "code": "PLR1722",
+   "group": "Pylint",
+   "symbol": "sys-exit-alias"
+  },
+  {
+   "code": "PLR1730",
+   "group": "Pylint",
+   "symbol": "if-stmt-min-max"
+  },
+  {
+   "code": "PLR1733",
+   "group": "Pylint",
+   "symbol": "unnecessary-dict-index-lookup"
+  },
+  {
+   "code": "PLR1736",
+   "group": "Pylint",
+   "symbol": "unnecessary-list-index-lookup"
+  },
+  {
+   "code": "PLR2004",
+   "group": "Pylint",
+   "symbol": "magic-value-comparison"
+  },
+  {
+   "code": "PLR2044",
+   "group": "Pylint",
+   "symbol": "empty-comment"
+  },
+  {
+   "code": "PLR5501",
+   "group": "Pylint",
+   "symbol": "collapsible-else-if"
+  },
+  {
+   "code": "PLR6104",
+   "group": "Pylint",
+   "symbol": "non-augmented-assignment"
+  },
+  {
+   "code": "PLR6201",
+   "group": "Pylint",
+   "symbol": "literal-membership"
+  },
+  {
+   "code": "PLR6301",
+   "group": "Pylint",
+   "symbol": "no-self-use"
+  },
+  {
+   "code": "PLW0108",
+   "group": "Pylint",
+   "symbol": "unnecessary-lambda"
+  },
+  {
+   "code": "PLW0120",
+   "group": "Pylint",
+   "symbol": "useless-else-on-loop"
+  },
+  {
+   "code": "PLW0127",
+   "group": "Pylint",
+   "symbol": "self-assigning-variable"
+  },
+  {
+   "code": "PLW0128",
+   "group": "Pylint",
+   "symbol": "redeclared-assigned-name"
+  },
+  {
+   "code": "PLW0129",
+   "group": "Pylint",
+   "symbol": "assert-on-string-literal"
+  },
+  {
+   "code": "PLW0131",
+   "group": "Pylint",
+   "symbol": "named-expr-without-context"
+  },
+  {
+   "code": "PLW0133",
+   "group": "Pylint",
+   "symbol": "useless-exception-statement"
+  },
+  {
+   "code": "PLW0177",
+   "group": "Pylint",
+   "symbol": "nan-comparison"
+  },
+  {
+   "code": "PLW0211",
+   "group": "Pylint",
+   "symbol": "bad-staticmethod-argument"
+  },
+  {
+   "code": "PLW0244",
+   "group": "Pylint",
+   "symbol": "redefined-slots-in-subclass"
+  },
+  {
+   "code": "PLW0245",
+   "group": "Pylint",
+   "symbol": "super-without-brackets"
+  },
+  {
+   "code": "PLW0406",
+   "group": "Pylint",
+   "symbol": "import-self"
+  },
+  {
+   "code": "PLW0602",
+   "group": "Pylint",
+   "symbol": "global-variable-not-assigned"
+  },
+  {
+   "code": "PLW0603",
+   "group": "Pylint",
+   "symbol": "global-statement"
+  },
+  {
+   "code": "PLW0604",
+   "group": "Pylint",
+   "symbol": "global-at-module-level"
+  },
+  {
+   "code": "PLW0642",
+   "group": "Pylint",
+   "symbol": "self-or-cls-assignment"
+  },
+  {
+   "code": "PLW0711",
+   "group": "Pylint",
+   "symbol": "binary-op-exception"
+  },
+  {
+   "code": "PLW0717",
+   "group": "Pylint",
+   "symbol": "too-many-statements-in-try-clause"
+  },
+  {
+   "code": "PLW1501",
+   "group": "Pylint",
+   "symbol": "bad-open-mode"
+  },
+  {
+   "code": "PLW1507",
+   "group": "Pylint",
+   "symbol": "shallow-copy-environ"
+  },
+  {
+   "code": "PLW1508",
+   "group": "Pylint",
+   "symbol": "invalid-envvar-default"
+  },
+  {
+   "code": "PLW1509",
+   "group": "Pylint",
+   "symbol": "subprocess-popen-preexec-fn"
+  },
+  {
+   "code": "PLW1510",
+   "group": "Pylint",
+   "symbol": "subprocess-run-without-check"
+  },
+  {
+   "code": "PLW1514",
+   "group": "Pylint",
+   "symbol": "unspecified-encoding"
+  },
+  {
+   "code": "PLW1641",
+   "group": "Pylint",
+   "symbol": "eq-without-hash"
+  },
+  {
+   "code": "PLW2101",
+   "group": "Pylint",
+   "symbol": "useless-with-lock"
+  },
+  {
+   "code": "PLW2901",
+   "group": "Pylint",
+   "symbol": "redefined-loop-name"
+  },
+  {
+   "code": "PLW3201",
+   "group": "Pylint",
+   "symbol": "bad-dunder-method-name"
+  },
+  {
+   "code": "PLW3301",
+   "group": "Pylint",
+   "symbol": "nested-min-max"
+  },
+  {
+   "code": "PT001",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-fixture-incorrect-parentheses-style"
+  },
+  {
+   "code": "PT002",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-fixture-positional-args"
+  },
+  {
+   "code": "PT003",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-extraneous-scope-function"
+  },
+  {
+   "code": "PT004",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-missing-fixture-name-underscore"
+  },
+  {
+   "code": "PT005",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-incorrect-fixture-name-underscore"
+  },
+  {
+   "code": "PT006",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-parametrize-names-wrong-type"
+  },
+  {
+   "code": "PT007",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-parametrize-values-wrong-type"
+  },
+  {
+   "code": "PT008",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-patch-with-lambda"
+  },
+  {
+   "code": "PT009",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-unittest-assertion"
+  },
+  {
+   "code": "PT010",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-raises-without-exception"
+  },
+  {
+   "code": "PT011",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-raises-too-broad"
+  },
+  {
+   "code": "PT012",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-raises-with-multiple-statements"
+  },
+  {
+   "code": "PT013",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-incorrect-pytest-import"
+  },
+  {
+   "code": "PT014",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-duplicate-parametrize-test-cases"
+  },
+  {
+   "code": "PT015",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-assert-always-false"
+  },
+  {
+   "code": "PT016",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-fail-without-message"
+  },
+  {
+   "code": "PT017",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-assert-in-except"
+  },
+  {
+   "code": "PT018",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-composite-assertion"
+  },
+  {
+   "code": "PT019",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-fixture-param-without-value"
+  },
+  {
+   "code": "PT020",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-deprecated-yield-fixture"
+  },
+  {
+   "code": "PT021",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-fixture-finalizer-callback"
+  },
+  {
+   "code": "PT022",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-useless-yield-fixture"
+  },
+  {
+   "code": "PT023",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-incorrect-mark-parentheses-style"
+  },
+  {
+   "code": "PT024",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-unnecessary-asyncio-mark-on-fixture"
+  },
+  {
+   "code": "PT025",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-erroneous-use-fixtures-on-fixture"
+  },
+  {
+   "code": "PT026",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-use-fixtures-without-parameters"
+  },
+  {
+   "code": "PT027",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-unittest-raises-assertion"
+  },
+  {
+   "code": "PT028",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-parameter-with-default-argument"
+  },
+  {
+   "code": "PT029",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-warns-without-warning"
+  },
+  {
+   "code": "PT030",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-warns-too-broad"
+  },
+  {
+   "code": "PT031",
+   "group": "flake8-pytest-style",
+   "symbol": "pytest-warns-with-multiple-statements"
+  },
+  {
+   "code": "PTH100",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-abspath"
+  },
+  {
+   "code": "PTH101",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-chmod"
+  },
+  {
+   "code": "PTH102",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-mkdir"
+  },
+  {
+   "code": "PTH103",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-makedirs"
+  },
+  {
+   "code": "PTH104",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-rename"
+  },
+  {
+   "code": "PTH105",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-replace"
+  },
+  {
+   "code": "PTH106",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-rmdir"
+  },
+  {
+   "code": "PTH107",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-remove"
+  },
+  {
+   "code": "PTH108",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-unlink"
+  },
+  {
+   "code": "PTH109",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-getcwd"
+  },
+  {
+   "code": "PTH110",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-exists"
+  },
+  {
+   "code": "PTH111",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-expanduser"
+  },
+  {
+   "code": "PTH112",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-isdir"
+  },
+  {
+   "code": "PTH113",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-isfile"
+  },
+  {
+   "code": "PTH114",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-islink"
+  },
+  {
+   "code": "PTH115",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-readlink"
+  },
+  {
+   "code": "PTH116",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-stat"
+  },
+  {
+   "code": "PTH117",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-isabs"
+  },
+  {
+   "code": "PTH118",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-join"
+  },
+  {
+   "code": "PTH119",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-basename"
+  },
+  {
+   "code": "PTH120",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-dirname"
+  },
+  {
+   "code": "PTH121",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-samefile"
+  },
+  {
+   "code": "PTH122",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-splitext"
+  },
+  {
+   "code": "PTH123",
+   "group": "flake8-use-pathlib",
+   "symbol": "builtin-open"
+  },
+  {
+   "code": "PTH124",
+   "group": "flake8-use-pathlib",
+   "symbol": "py-path"
+  },
+  {
+   "code": "PTH201",
+   "group": "flake8-use-pathlib",
+   "symbol": "path-constructor-current-directory"
+  },
+  {
+   "code": "PTH202",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-getsize"
+  },
+  {
+   "code": "PTH203",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-getatime"
+  },
+  {
+   "code": "PTH204",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-getmtime"
+  },
+  {
+   "code": "PTH205",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-path-getctime"
+  },
+  {
+   "code": "PTH206",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-sep-split"
+  },
+  {
+   "code": "PTH207",
+   "group": "flake8-use-pathlib",
+   "symbol": "glob"
+  },
+  {
+   "code": "PTH208",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-listdir"
+  },
+  {
+   "code": "PTH210",
+   "group": "flake8-use-pathlib",
+   "symbol": "invalid-pathlib-with-suffix"
+  },
+  {
+   "code": "PTH211",
+   "group": "flake8-use-pathlib",
+   "symbol": "os-symlink"
+  },
+  {
+   "code": "PYI001",
+   "group": "flake8-pyi",
+   "symbol": "unprefixed-type-param"
+  },
+  {
+   "code": "PYI002",
+   "group": "flake8-pyi",
+   "symbol": "complex-if-statement-in-stub"
+  },
+  {
+   "code": "PYI003",
+   "group": "flake8-pyi",
+   "symbol": "unrecognized-version-info-check"
+  },
+  {
+   "code": "PYI004",
+   "group": "flake8-pyi",
+   "symbol": "patch-version-comparison"
+  },
+  {
+   "code": "PYI005",
+   "group": "flake8-pyi",
+   "symbol": "wrong-tuple-length-version-comparison"
+  },
+  {
+   "code": "PYI006",
+   "group": "flake8-pyi",
+   "symbol": "bad-version-info-comparison"
+  },
+  {
+   "code": "PYI007",
+   "group": "flake8-pyi",
+   "symbol": "unrecognized-platform-check"
+  },
+  {
+   "code": "PYI008",
+   "group": "flake8-pyi",
+   "symbol": "unrecognized-platform-name"
+  },
+  {
+   "code": "PYI009",
+   "group": "flake8-pyi",
+   "symbol": "pass-statement-stub-body"
+  },
+  {
+   "code": "PYI010",
+   "group": "flake8-pyi",
+   "symbol": "non-empty-stub-body"
+  },
+  {
+   "code": "PYI011",
+   "group": "flake8-pyi",
+   "symbol": "typed-argument-default-in-stub"
+  },
+  {
+   "code": "PYI012",
+   "group": "flake8-pyi",
+   "symbol": "pass-in-class-body"
+  },
+  {
+   "code": "PYI013",
+   "group": "flake8-pyi",
+   "symbol": "ellipsis-in-non-empty-class-body"
+  },
+  {
+   "code": "PYI014",
+   "group": "flake8-pyi",
+   "symbol": "argument-default-in-stub"
+  },
+  {
+   "code": "PYI015",
+   "group": "flake8-pyi",
+   "symbol": "assignment-default-in-stub"
+  },
+  {
+   "code": "PYI016",
+   "group": "flake8-pyi",
+   "symbol": "duplicate-union-member"
+  },
+  {
+   "code": "PYI017",
+   "group": "flake8-pyi",
+   "symbol": "complex-assignment-in-stub"
+  },
+  {
+   "code": "PYI018",
+   "group": "flake8-pyi",
+   "symbol": "unused-private-type-var"
+  },
+  {
+   "code": "PYI019",
+   "group": "flake8-pyi",
+   "symbol": "custom-type-var-for-self"
+  },
+  {
+   "code": "PYI020",
+   "group": "flake8-pyi",
+   "symbol": "quoted-annotation-in-stub"
+  },
+  {
+   "code": "PYI021",
+   "group": "flake8-pyi",
+   "symbol": "docstring-in-stub"
+  },
+  {
+   "code": "PYI024",
+   "group": "flake8-pyi",
+   "symbol": "collections-named-tuple"
+  },
+  {
+   "code": "PYI025",
+   "group": "flake8-pyi",
+   "symbol": "unaliased-collections-abc-set-import"
+  },
+  {
+   "code": "PYI026",
+   "group": "flake8-pyi",
+   "symbol": "type-alias-without-annotation"
+  },
+  {
+   "code": "PYI029",
+   "group": "flake8-pyi",
+   "symbol": "str-or-repr-defined-in-stub"
+  },
+  {
+   "code": "PYI030",
+   "group": "flake8-pyi",
+   "symbol": "unnecessary-literal-union"
+  },
+  {
+   "code": "PYI032",
+   "group": "flake8-pyi",
+   "symbol": "any-eq-ne-annotation"
+  },
+  {
+   "code": "PYI033",
+   "group": "flake8-pyi",
+   "symbol": "legacy-type-comment"
+  },
+  {
+   "code": "PYI034",
+   "group": "flake8-pyi",
+   "symbol": "non-self-return-type"
+  },
+  {
+   "code": "PYI035",
+   "group": "flake8-pyi",
+   "symbol": "unassigned-special-variable-in-stub"
+  },
+  {
+   "code": "PYI036",
+   "group": "flake8-pyi",
+   "symbol": "bad-exit-annotation"
+  },
+  {
+   "code": "PYI041",
+   "group": "flake8-pyi",
+   "symbol": "redundant-numeric-union"
+  },
+  {
+   "code": "PYI042",
+   "group": "flake8-pyi",
+   "symbol": "snake-case-type-alias"
+  },
+  {
+   "code": "PYI043",
+   "group": "flake8-pyi",
+   "symbol": "t-suffixed-type-alias"
+  },
+  {
+   "code": "PYI044",
+   "group": "flake8-pyi",
+   "symbol": "future-annotations-in-stub"
+  },
+  {
+   "code": "PYI045",
+   "group": "flake8-pyi",
+   "symbol": "iter-method-return-iterable"
+  },
+  {
+   "code": "PYI046",
+   "group": "flake8-pyi",
+   "symbol": "unused-private-protocol"
+  },
+  {
+   "code": "PYI047",
+   "group": "flake8-pyi",
+   "symbol": "unused-private-type-alias"
+  },
+  {
+   "code": "PYI048",
+   "group": "flake8-pyi",
+   "symbol": "stub-body-multiple-statements"
+  },
+  {
+   "code": "PYI049",
+   "group": "flake8-pyi",
+   "symbol": "unused-private-typed-dict"
+  },
+  {
+   "code": "PYI050",
+   "group": "flake8-pyi",
+   "symbol": "no-return-argument-annotation-in-stub"
+  },
+  {
+   "code": "PYI051",
+   "group": "flake8-pyi",
+   "symbol": "redundant-literal-union"
+  },
+  {
+   "code": "PYI052",
+   "group": "flake8-pyi",
+   "symbol": "unannotated-assignment-in-stub"
+  },
+  {
+   "code": "PYI053",
+   "group": "flake8-pyi",
+   "symbol": "string-or-bytes-too-long"
+  },
+  {
+   "code": "PYI054",
+   "group": "flake8-pyi",
+   "symbol": "numeric-literal-too-long"
+  },
+  {
+   "code": "PYI055",
+   "group": "flake8-pyi",
+   "symbol": "unnecessary-type-union"
+  },
+  {
+   "code": "PYI056",
+   "group": "flake8-pyi",
+   "symbol": "unsupported-method-call-on-all"
+  },
+  {
+   "code": "PYI057",
+   "group": "flake8-pyi",
+   "symbol": "byte-string-usage"
+  },
+  {
+   "code": "PYI058",
+   "group": "flake8-pyi",
+   "symbol": "generator-return-from-iter-method"
+  },
+  {
+   "code": "PYI059",
+   "group": "flake8-pyi",
+   "symbol": "generic-not-last-base-class"
+  },
+  {
+   "code": "PYI061",
+   "group": "flake8-pyi",
+   "symbol": "redundant-none-literal"
+  },
+  {
+   "code": "PYI062",
+   "group": "flake8-pyi",
+   "symbol": "duplicate-literal-member"
+  },
+  {
+   "code": "PYI063",
+   "group": "flake8-pyi",
+   "symbol": "pep484-style-positional-only-parameter"
+  },
+  {
+   "code": "PYI064",
+   "group": "flake8-pyi",
+   "symbol": "redundant-final-literal"
+  },
+  {
+   "code": "PYI066",
+   "group": "flake8-pyi",
+   "symbol": "bad-version-info-order"
+  },
+  {
+   "code": "Q000",
+   "group": "flake8-quotes",
+   "symbol": "bad-quotes-inline-string"
+  },
+  {
+   "code": "Q001",
+   "group": "flake8-quotes",
+   "symbol": "bad-quotes-multiline-string"
+  },
+  {
+   "code": "Q002",
+   "group": "flake8-quotes",
+   "symbol": "bad-quotes-docstring"
+  },
+  {
+   "code": "Q003",
+   "group": "flake8-quotes",
+   "symbol": "avoidable-escaped-quote"
+  },
+  {
+   "code": "Q004",
+   "group": "flake8-quotes",
+   "symbol": "unnecessary-escaped-quote"
+  },
+  {
+   "code": "RET501",
+   "group": "flake8-return",
+   "symbol": "unnecessary-return-none"
+  },
+  {
+   "code": "RET502",
+   "group": "flake8-return",
+   "symbol": "implicit-return-value"
+  },
+  {
+   "code": "RET503",
+   "group": "flake8-return",
+   "symbol": "implicit-return"
+  },
+  {
+   "code": "RET504",
+   "group": "flake8-return",
+   "symbol": "unnecessary-assign"
+  },
+  {
+   "code": "RET505",
+   "group": "flake8-return",
+   "symbol": "superfluous-else-return"
+  },
+  {
+   "code": "RET506",
+   "group": "flake8-return",
+   "symbol": "superfluous-else-raise"
+  },
+  {
+   "code": "RET507",
+   "group": "flake8-return",
+   "symbol": "superfluous-else-continue"
+  },
+  {
+   "code": "RET508",
+   "group": "flake8-return",
+   "symbol": "superfluous-else-break"
+  },
+  {
+   "code": "RSE102",
+   "group": "flake8-raise",
+   "symbol": "unnecessary-paren-on-raise-exception"
+  },
+  {
+   "code": "RUF001",
+   "group": "Ruff-specific rules",
+   "symbol": "ambiguous-unicode-character-string"
+  },
+  {
+   "code": "RUF002",
+   "group": "Ruff-specific rules",
+   "symbol": "ambiguous-unicode-character-docstring"
+  },
+  {
+   "code": "RUF003",
+   "group": "Ruff-specific rules",
+   "symbol": "ambiguous-unicode-character-comment"
+  },
+  {
+   "code": "RUF005",
+   "group": "Ruff-specific rules",
+   "symbol": "collection-literal-concatenation"
+  },
+  {
+   "code": "RUF006",
+   "group": "Ruff-specific rules",
+   "symbol": "asyncio-dangling-task"
+  },
+  {
+   "code": "RUF007",
+   "group": "Ruff-specific rules",
+   "symbol": "zip-instead-of-pairwise"
+  },
+  {
+   "code": "RUF008",
+   "group": "Ruff-specific rules",
+   "symbol": "mutable-dataclass-default"
+  },
+  {
+   "code": "RUF009",
+   "group": "Ruff-specific rules",
+   "symbol": "function-call-in-dataclass-default-argument"
+  },
+  {
+   "code": "RUF010",
+   "group": "Ruff-specific rules",
+   "symbol": "explicit-f-string-type-conversion"
+  },
+  {
+   "code": "RUF011",
+   "group": "Ruff-specific rules",
+   "symbol": "ruff-static-key-dict-comprehension"
+  },
+  {
+   "code": "RUF012",
+   "group": "Ruff-specific rules",
+   "symbol": "mutable-class-default"
+  },
+  {
+   "code": "RUF013",
+   "group": "Ruff-specific rules",
+   "symbol": "implicit-optional"
+  },
+  {
+   "code": "RUF015",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-iterable-allocation-for-first-element"
+  },
+  {
+   "code": "RUF016",
+   "group": "Ruff-specific rules",
+   "symbol": "invalid-index-type"
+  },
+  {
+   "code": "RUF017",
+   "group": "Ruff-specific rules",
+   "symbol": "quadratic-list-summation"
+  },
+  {
+   "code": "RUF018",
+   "group": "Ruff-specific rules",
+   "symbol": "assignment-in-assert"
+  },
+  {
+   "code": "RUF019",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-key-check"
+  },
+  {
+   "code": "RUF020",
+   "group": "Ruff-specific rules",
+   "symbol": "never-union"
+  },
+  {
+   "code": "RUF021",
+   "group": "Ruff-specific rules",
+   "symbol": "parenthesize-chained-operators"
+  },
+  {
+   "code": "RUF022",
+   "group": "Ruff-specific rules",
+   "symbol": "unsorted-dunder-all"
+  },
+  {
+   "code": "RUF023",
+   "group": "Ruff-specific rules",
+   "symbol": "unsorted-dunder-slots"
+  },
+  {
+   "code": "RUF024",
+   "group": "Ruff-specific rules",
+   "symbol": "mutable-fromkeys-value"
+  },
+  {
+   "code": "RUF026",
+   "group": "Ruff-specific rules",
+   "symbol": "default-factory-kwarg"
+  },
+  {
+   "code": "RUF027",
+   "group": "Ruff-specific rules",
+   "symbol": "missing-f-string-syntax"
+  },
+  {
+   "code": "RUF028",
+   "group": "Ruff-specific rules",
+   "symbol": "invalid-formatter-suppression-comment"
+  },
+  {
+   "code": "RUF029",
+   "group": "Ruff-specific rules",
+   "symbol": "unused-async"
+  },
+  {
+   "code": "RUF030",
+   "group": "Ruff-specific rules",
+   "symbol": "assert-with-print-message"
+  },
+  {
+   "code": "RUF031",
+   "group": "Ruff-specific rules",
+   "symbol": "incorrectly-parenthesized-tuple-in-subscript"
+  },
+  {
+   "code": "RUF032",
+   "group": "Ruff-specific rules",
+   "symbol": "decimal-from-float-literal"
+  },
+  {
+   "code": "RUF033",
+   "group": "Ruff-specific rules",
+   "symbol": "post-init-default"
+  },
+  {
+   "code": "RUF034",
+   "group": "Ruff-specific rules",
+   "symbol": "useless-if-else"
+  },
+  {
+   "code": "RUF035",
+   "group": "Ruff-specific rules",
+   "symbol": "ruff-unsafe-markup-use"
+  },
+  {
+   "code": "RUF036",
+   "group": "Ruff-specific rules",
+   "symbol": "none-not-at-end-of-union"
+  },
+  {
+   "code": "RUF037",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-empty-iterable-within-deque-call"
+  },
+  {
+   "code": "RUF038",
+   "group": "Ruff-specific rules",
+   "symbol": "redundant-bool-literal"
+  },
+  {
+   "code": "RUF039",
+   "group": "Ruff-specific rules",
+   "symbol": "unraw-re-pattern"
+  },
+  {
+   "code": "RUF040",
+   "group": "Ruff-specific rules",
+   "symbol": "invalid-assert-message-literal-argument"
+  },
+  {
+   "code": "RUF041",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-nested-literal"
+  },
+  {
+   "code": "RUF043",
+   "group": "Ruff-specific rules",
+   "symbol": "pytest-raises-ambiguous-pattern"
+  },
+  {
+   "code": "RUF045",
+   "group": "Ruff-specific rules",
+   "symbol": "implicit-class-var-in-dataclass"
+  },
+  {
+   "code": "RUF046",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-cast-to-int"
+  },
+  {
+   "code": "RUF047",
+   "group": "Ruff-specific rules",
+   "symbol": "needless-else"
+  },
+  {
+   "code": "RUF048",
+   "group": "Ruff-specific rules",
+   "symbol": "map-int-version-parsing"
+  },
+  {
+   "code": "RUF049",
+   "group": "Ruff-specific rules",
+   "symbol": "dataclass-enum"
+  },
+  {
+   "code": "RUF050",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-if"
+  },
+  {
+   "code": "RUF051",
+   "group": "Ruff-specific rules",
+   "symbol": "if-key-in-dict-del"
+  },
+  {
+   "code": "RUF052",
+   "group": "Ruff-specific rules",
+   "symbol": "used-dummy-variable"
+  },
+  {
+   "code": "RUF053",
+   "group": "Ruff-specific rules",
+   "symbol": "class-with-mixed-type-vars"
+  },
+  {
+   "code": "RUF054",
+   "group": "Ruff-specific rules",
+   "symbol": "indented-form-feed"
+  },
+  {
+   "code": "RUF055",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-regular-expression"
+  },
+  {
+   "code": "RUF056",
+   "group": "Ruff-specific rules",
+   "symbol": "falsy-dict-get-fallback"
+  },
+  {
+   "code": "RUF057",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-round"
+  },
+  {
+   "code": "RUF058",
+   "group": "Ruff-specific rules",
+   "symbol": "starmap-zip"
+  },
+  {
+   "code": "RUF059",
+   "group": "Ruff-specific rules",
+   "symbol": "unused-unpacked-variable"
+  },
+  {
+   "code": "RUF060",
+   "group": "Ruff-specific rules",
+   "symbol": "in-empty-collection"
+  },
+  {
+   "code": "RUF061",
+   "group": "Ruff-specific rules",
+   "symbol": "legacy-form-pytest-raises"
+  },
+  {
+   "code": "RUF063",
+   "group": "Ruff-specific rules",
+   "symbol": "access-annotations-from-class-dict"
+  },
+  {
+   "code": "RUF064",
+   "group": "Ruff-specific rules",
+   "symbol": "non-octal-permissions"
+  },
+  {
+   "code": "RUF065",
+   "group": "Ruff-specific rules",
+   "symbol": "logging-eager-conversion"
+  },
+  {
+   "code": "RUF066",
+   "group": "Ruff-specific rules",
+   "symbol": "property-without-return"
+  },
+  {
+   "code": "RUF067",
+   "group": "Ruff-specific rules",
+   "symbol": "non-empty-init-module"
+  },
+  {
+   "code": "RUF068",
+   "group": "Ruff-specific rules",
+   "symbol": "duplicate-entry-in-dunder-all"
+  },
+  {
+   "code": "RUF069",
+   "group": "Ruff-specific rules",
+   "symbol": "float-equality-comparison"
+  },
+  {
+   "code": "RUF070",
+   "group": "Ruff-specific rules",
+   "symbol": "unnecessary-assign-before-yield"
+  },
+  {
+   "code": "RUF071",
+   "group": "Ruff-specific rules",
+   "symbol": "os-path-commonprefix"
+  },
+  {
+   "code": "RUF072",
+   "group": "Ruff-specific rules",
+   "symbol": "useless-finally"
+  },
+  {
+   "code": "RUF073",
+   "group": "Ruff-specific rules",
+   "symbol": "f-string-percent-format"
+  },
+  {
+   "code": "RUF074",
+   "group": "Ruff-specific rules",
+   "symbol": "incorrect-decorator-order"
+  },
+  {
+   "code": "RUF075",
+   "group": "Ruff-specific rules",
+   "symbol": "fallible-context-manager"
+  },
+  {
+   "code": "RUF076",
+   "group": "Ruff-specific rules",
+   "symbol": "pytest-fixture-autouse"
+  },
+  {
+   "code": "RUF100",
+   "group": "Ruff-specific rules",
+   "symbol": "unused-noqa"
+  },
+  {
+   "code": "RUF101",
+   "group": "Ruff-specific rules",
+   "symbol": "redirected-noqa"
+  },
+  {
+   "code": "RUF102",
+   "group": "Ruff-specific rules",
+   "symbol": "invalid-rule-code"
+  },
+  {
+   "code": "RUF103",
+   "group": "Ruff-specific rules",
+   "symbol": "invalid-suppression-comment"
+  },
+  {
+   "code": "RUF104",
+   "group": "Ruff-specific rules",
+   "symbol": "unmatched-suppression-comment"
+  },
+  {
+   "code": "RUF105",
+   "group": "Ruff-specific rules",
+   "symbol": "noqa-comments"
+  },
+  {
+   "code": "RUF106",
+   "group": "Ruff-specific rules",
+   "symbol": "rule-codes-in-suppression-comments"
+  },
+  {
+   "code": "RUF200",
+   "group": "Ruff-specific rules",
+   "symbol": "invalid-pyproject-toml"
+  },
+  {
+   "code": "RUF201",
+   "group": "Ruff-specific rules",
+   "symbol": "rule-codes-in-selectors"
+  },
+  {
+   "code": "S101",
+   "group": "flake8-bandit",
+   "symbol": "assert"
+  },
+  {
+   "code": "S102",
+   "group": "flake8-bandit",
+   "symbol": "exec-builtin"
+  },
+  {
+   "code": "S103",
+   "group": "flake8-bandit",
+   "symbol": "bad-file-permissions"
+  },
+  {
+   "code": "S104",
+   "group": "flake8-bandit",
+   "symbol": "hardcoded-bind-all-interfaces"
+  },
+  {
+   "code": "S105",
+   "group": "flake8-bandit",
+   "symbol": "hardcoded-password-string"
+  },
+  {
+   "code": "S106",
+   "group": "flake8-bandit",
+   "symbol": "hardcoded-password-func-arg"
+  },
+  {
+   "code": "S107",
+   "group": "flake8-bandit",
+   "symbol": "hardcoded-password-default"
+  },
+  {
+   "code": "S108",
+   "group": "flake8-bandit",
+   "symbol": "hardcoded-temp-file"
+  },
+  {
+   "code": "S110",
+   "group": "flake8-bandit",
+   "symbol": "try-except-pass"
+  },
+  {
+   "code": "S112",
+   "group": "flake8-bandit",
+   "symbol": "try-except-continue"
+  },
+  {
+   "code": "S113",
+   "group": "flake8-bandit",
+   "symbol": "request-without-timeout"
+  },
+  {
+   "code": "S201",
+   "group": "flake8-bandit",
+   "symbol": "flask-debug-true"
+  },
+  {
+   "code": "S202",
+   "group": "flake8-bandit",
+   "symbol": "tarfile-unsafe-members"
+  },
+  {
+   "code": "S301",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-pickle-usage"
+  },
+  {
+   "code": "S302",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-marshal-usage"
+  },
+  {
+   "code": "S303",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-insecure-hash-usage"
+  },
+  {
+   "code": "S304",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-insecure-cipher-usage"
+  },
+  {
+   "code": "S305",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-insecure-cipher-mode-usage"
+  },
+  {
+   "code": "S306",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-mktemp-usage"
+  },
+  {
+   "code": "S307",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-eval-usage"
+  },
+  {
+   "code": "S308",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-mark-safe-usage"
+  },
+  {
+   "code": "S310",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-url-open-usage"
+  },
+  {
+   "code": "S311",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-non-cryptographic-random-usage"
+  },
+  {
+   "code": "S312",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-telnet-usage"
+  },
+  {
+   "code": "S313",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xmlc-element-tree-usage"
+  },
+  {
+   "code": "S314",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-element-tree-usage"
+  },
+  {
+   "code": "S315",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-expat-reader-usage"
+  },
+  {
+   "code": "S316",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-expat-builder-usage"
+  },
+  {
+   "code": "S317",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-sax-usage"
+  },
+  {
+   "code": "S318",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-mini-dom-usage"
+  },
+  {
+   "code": "S319",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-pull-dom-usage"
+  },
+  {
+   "code": "S320",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xmle-tree-usage"
+  },
+  {
+   "code": "S321",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-ftp-lib-usage"
+  },
+  {
+   "code": "S323",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-unverified-context-usage"
+  },
+  {
+   "code": "S324",
+   "group": "flake8-bandit",
+   "symbol": "hashlib-insecure-hash-function"
+  },
+  {
+   "code": "S401",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-telnetlib-import"
+  },
+  {
+   "code": "S402",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-ftplib-import"
+  },
+  {
+   "code": "S403",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-pickle-import"
+  },
+  {
+   "code": "S404",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-subprocess-import"
+  },
+  {
+   "code": "S405",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-etree-import"
+  },
+  {
+   "code": "S406",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-sax-import"
+  },
+  {
+   "code": "S407",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-expat-import"
+  },
+  {
+   "code": "S408",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-minidom-import"
+  },
+  {
+   "code": "S409",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xml-pulldom-import"
+  },
+  {
+   "code": "S410",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-lxml-import"
+  },
+  {
+   "code": "S411",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-xmlrpc-import"
+  },
+  {
+   "code": "S412",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-httpoxy-import"
+  },
+  {
+   "code": "S413",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-pycrypto-import"
+  },
+  {
+   "code": "S415",
+   "group": "flake8-bandit",
+   "symbol": "suspicious-pyghmi-import"
+  },
+  {
+   "code": "S501",
+   "group": "flake8-bandit",
+   "symbol": "request-with-no-cert-validation"
+  },
+  {
+   "code": "S502",
+   "group": "flake8-bandit",
+   "symbol": "ssl-insecure-version"
+  },
+  {
+   "code": "S503",
+   "group": "flake8-bandit",
+   "symbol": "ssl-with-bad-defaults"
+  },
+  {
+   "code": "S504",
+   "group": "flake8-bandit",
+   "symbol": "ssl-with-no-version"
+  },
+  {
+   "code": "S505",
+   "group": "flake8-bandit",
+   "symbol": "weak-cryptographic-key"
+  },
+  {
+   "code": "S506",
+   "group": "flake8-bandit",
+   "symbol": "unsafe-yaml-load"
+  },
+  {
+   "code": "S507",
+   "group": "flake8-bandit",
+   "symbol": "ssh-no-host-key-verification"
+  },
+  {
+   "code": "S508",
+   "group": "flake8-bandit",
+   "symbol": "snmp-insecure-version"
+  },
+  {
+   "code": "S509",
+   "group": "flake8-bandit",
+   "symbol": "snmp-weak-cryptography"
+  },
+  {
+   "code": "S601",
+   "group": "flake8-bandit",
+   "symbol": "paramiko-call"
+  },
+  {
+   "code": "S602",
+   "group": "flake8-bandit",
+   "symbol": "subprocess-popen-with-shell-equals-true"
+  },
+  {
+   "code": "S603",
+   "group": "flake8-bandit",
+   "symbol": "subprocess-without-shell-equals-true"
+  },
+  {
+   "code": "S604",
+   "group": "flake8-bandit",
+   "symbol": "call-with-shell-equals-true"
+  },
+  {
+   "code": "S605",
+   "group": "flake8-bandit",
+   "symbol": "start-process-with-a-shell"
+  },
+  {
+   "code": "S606",
+   "group": "flake8-bandit",
+   "symbol": "start-process-with-no-shell"
+  },
+  {
+   "code": "S607",
+   "group": "flake8-bandit",
+   "symbol": "start-process-with-partial-path"
+  },
+  {
+   "code": "S608",
+   "group": "flake8-bandit",
+   "symbol": "hardcoded-sql-expression"
+  },
+  {
+   "code": "S609",
+   "group": "flake8-bandit",
+   "symbol": "unix-command-wildcard-injection"
+  },
+  {
+   "code": "S610",
+   "group": "flake8-bandit",
+   "symbol": "django-extra"
+  },
+  {
+   "code": "S611",
+   "group": "flake8-bandit",
+   "symbol": "django-raw-sql"
+  },
+  {
+   "code": "S612",
+   "group": "flake8-bandit",
+   "symbol": "logging-config-insecure-listen"
+  },
+  {
+   "code": "S701",
+   "group": "flake8-bandit",
+   "symbol": "jinja2-autoescape-false"
+  },
+  {
+   "code": "S702",
+   "group": "flake8-bandit",
+   "symbol": "mako-templates"
+  },
+  {
+   "code": "S704",
+   "group": "flake8-bandit",
+   "symbol": "unsafe-markup-use"
+  },
+  {
+   "code": "SIM101",
+   "group": "flake8-simplify",
+   "symbol": "duplicate-isinstance-call"
+  },
+  {
+   "code": "SIM102",
+   "group": "flake8-simplify",
+   "symbol": "collapsible-if"
+  },
+  {
+   "code": "SIM103",
+   "group": "flake8-simplify",
+   "symbol": "needless-bool"
+  },
+  {
+   "code": "SIM105",
+   "group": "flake8-simplify",
+   "symbol": "suppressible-exception"
+  },
+  {
+   "code": "SIM107",
+   "group": "flake8-simplify",
+   "symbol": "return-in-try-except-finally"
+  },
+  {
+   "code": "SIM108",
+   "group": "flake8-simplify",
+   "symbol": "if-else-block-instead-of-if-exp"
+  },
+  {
+   "code": "SIM109",
+   "group": "flake8-simplify",
+   "symbol": "compare-with-tuple"
+  },
+  {
+   "code": "SIM110",
+   "group": "flake8-simplify",
+   "symbol": "reimplemented-builtin"
+  },
+  {
+   "code": "SIM112",
+   "group": "flake8-simplify",
+   "symbol": "uncapitalized-environment-variables"
+  },
+  {
+   "code": "SIM113",
+   "group": "flake8-simplify",
+   "symbol": "enumerate-for-loop"
+  },
+  {
+   "code": "SIM114",
+   "group": "flake8-simplify",
+   "symbol": "if-with-same-arms"
+  },
+  {
+   "code": "SIM115",
+   "group": "flake8-simplify",
+   "symbol": "open-file-with-context-handler"
+  },
+  {
+   "code": "SIM116",
+   "group": "flake8-simplify",
+   "symbol": "if-else-block-instead-of-dict-lookup"
+  },
+  {
+   "code": "SIM117",
+   "group": "flake8-simplify",
+   "symbol": "multiple-with-statements"
+  },
+  {
+   "code": "SIM118",
+   "group": "flake8-simplify",
+   "symbol": "in-dict-keys"
+  },
+  {
+   "code": "SIM201",
+   "group": "flake8-simplify",
+   "symbol": "negate-equal-op"
+  },
+  {
+   "code": "SIM202",
+   "group": "flake8-simplify",
+   "symbol": "negate-not-equal-op"
+  },
+  {
+   "code": "SIM208",
+   "group": "flake8-simplify",
+   "symbol": "double-negation"
+  },
+  {
+   "code": "SIM210",
+   "group": "flake8-simplify",
+   "symbol": "if-expr-with-true-false"
+  },
+  {
+   "code": "SIM211",
+   "group": "flake8-simplify",
+   "symbol": "if-expr-with-false-true"
+  },
+  {
+   "code": "SIM212",
+   "group": "flake8-simplify",
+   "symbol": "if-expr-with-twisted-arms"
+  },
+  {
+   "code": "SIM220",
+   "group": "flake8-simplify",
+   "symbol": "expr-and-not-expr"
+  },
+  {
+   "code": "SIM221",
+   "group": "flake8-simplify",
+   "symbol": "expr-or-not-expr"
+  },
+  {
+   "code": "SIM222",
+   "group": "flake8-simplify",
+   "symbol": "expr-or-true"
+  },
+  {
+   "code": "SIM223",
+   "group": "flake8-simplify",
+   "symbol": "expr-and-false"
+  },
+  {
+   "code": "SIM300",
+   "group": "flake8-simplify",
+   "symbol": "yoda-conditions"
+  },
+  {
+   "code": "SIM401",
+   "group": "flake8-simplify",
+   "symbol": "if-else-block-instead-of-dict-get"
+  },
+  {
+   "code": "SIM905",
+   "group": "flake8-simplify",
+   "symbol": "split-static-string"
+  },
+  {
+   "code": "SIM910",
+   "group": "flake8-simplify",
+   "symbol": "dict-get-with-none-default"
+  },
+  {
+   "code": "SIM911",
+   "group": "flake8-simplify",
+   "symbol": "zip-dict-keys-and-values"
+  },
+  {
+   "code": "SLF001",
+   "group": "flake8-self",
+   "symbol": "private-member-access"
+  },
+  {
+   "code": "SLOT000",
+   "group": "flake8-slots",
+   "symbol": "no-slots-in-str-subclass"
+  },
+  {
+   "code": "SLOT001",
+   "group": "flake8-slots",
+   "symbol": "no-slots-in-tuple-subclass"
+  },
+  {
+   "code": "SLOT002",
+   "group": "flake8-slots",
+   "symbol": "no-slots-in-namedtuple-subclass"
+  },
+  {
+   "code": "T100",
+   "group": "flake8-debugger",
+   "symbol": "debugger"
+  },
+  {
+   "code": "T201",
+   "group": "flake8-print",
+   "symbol": "print"
+  },
+  {
+   "code": "T203",
+   "group": "flake8-print",
+   "symbol": "p-print"
+  },
+  {
+   "code": "TC001",
+   "group": "flake8-type-checking",
+   "symbol": "typing-only-first-party-import"
+  },
+  {
+   "code": "TC002",
+   "group": "flake8-type-checking",
+   "symbol": "typing-only-third-party-import"
+  },
+  {
+   "code": "TC003",
+   "group": "flake8-type-checking",
+   "symbol": "typing-only-standard-library-import"
+  },
+  {
+   "code": "TC004",
+   "group": "flake8-type-checking",
+   "symbol": "runtime-import-in-type-checking-block"
+  },
+  {
+   "code": "TC005",
+   "group": "flake8-type-checking",
+   "symbol": "empty-type-checking-block"
+  },
+  {
+   "code": "TC006",
+   "group": "flake8-type-checking",
+   "symbol": "runtime-cast-value"
+  },
+  {
+   "code": "TC007",
+   "group": "flake8-type-checking",
+   "symbol": "unquoted-type-alias"
+  },
+  {
+   "code": "TC008",
+   "group": "flake8-type-checking",
+   "symbol": "quoted-type-alias"
+  },
+  {
+   "code": "TC010",
+   "group": "flake8-type-checking",
+   "symbol": "runtime-string-union"
+  },
+  {
+   "code": "TD001",
+   "group": "flake8-todos",
+   "symbol": "invalid-todo-tag"
+  },
+  {
+   "code": "TD002",
+   "group": "flake8-todos",
+   "symbol": "missing-todo-author"
+  },
+  {
+   "code": "TD003",
+   "group": "flake8-todos",
+   "symbol": "missing-todo-link"
+  },
+  {
+   "code": "TD004",
+   "group": "flake8-todos",
+   "symbol": "missing-todo-colon"
+  },
+  {
+   "code": "TD005",
+   "group": "flake8-todos",
+   "symbol": "missing-todo-description"
+  },
+  {
+   "code": "TD006",
+   "group": "flake8-todos",
+   "symbol": "invalid-todo-capitalization"
+  },
+  {
+   "code": "TD007",
+   "group": "flake8-todos",
+   "symbol": "missing-space-after-todo-colon"
+  },
+  {
+   "code": "TID251",
+   "group": "flake8-tidy-imports",
+   "symbol": "banned-api"
+  },
+  {
+   "code": "TID252",
+   "group": "flake8-tidy-imports",
+   "symbol": "relative-imports"
+  },
+  {
+   "code": "TID253",
+   "group": "flake8-tidy-imports",
+   "symbol": "banned-module-level-imports"
+  },
+  {
+   "code": "TID254",
+   "group": "flake8-tidy-imports",
+   "symbol": "lazy-import-mismatch"
+  },
+  {
+   "code": "TID255",
+   "group": "flake8-tidy-imports",
+   "symbol": "lazy-import-immediately-resolved"
+  },
+  {
+   "code": "TRY002",
+   "group": "tryceratops",
+   "symbol": "raise-vanilla-class"
+  },
+  {
+   "code": "TRY003",
+   "group": "tryceratops",
+   "symbol": "raise-vanilla-args"
+  },
+  {
+   "code": "TRY004",
+   "group": "tryceratops",
+   "symbol": "type-check-without-type-error"
+  },
+  {
+   "code": "TRY200",
+   "group": "tryceratops",
+   "symbol": "reraise-no-cause"
+  },
+  {
+   "code": "TRY201",
+   "group": "tryceratops",
+   "symbol": "verbose-raise"
+  },
+  {
+   "code": "TRY203",
+   "group": "tryceratops",
+   "symbol": "useless-try-except"
+  },
+  {
+   "code": "TRY300",
+   "group": "tryceratops",
+   "symbol": "try-consider-else"
+  },
+  {
+   "code": "TRY301",
+   "group": "tryceratops",
+   "symbol": "raise-within-try"
+  },
+  {
+   "code": "TRY400",
+   "group": "tryceratops",
+   "symbol": "error-instead-of-exception"
+  },
+  {
+   "code": "TRY401",
+   "group": "tryceratops",
+   "symbol": "verbose-log-message"
+  },
+  {
+   "code": "UP001",
+   "group": "pyupgrade",
+   "symbol": "useless-metaclass-type"
+  },
+  {
+   "code": "UP003",
+   "group": "pyupgrade",
+   "symbol": "type-of-primitive"
+  },
+  {
+   "code": "UP004",
+   "group": "pyupgrade",
+   "symbol": "useless-object-inheritance"
+  },
+  {
+   "code": "UP005",
+   "group": "pyupgrade",
+   "symbol": "deprecated-unittest-alias"
+  },
+  {
+   "code": "UP006",
+   "group": "pyupgrade",
+   "symbol": "non-pep585-annotation"
+  },
+  {
+   "code": "UP007",
+   "group": "pyupgrade",
+   "symbol": "non-pep604-annotation-union"
+  },
+  {
+   "code": "UP008",
+   "group": "pyupgrade",
+   "symbol": "super-call-with-parameters"
+  },
+  {
+   "code": "UP009",
+   "group": "pyupgrade",
+   "symbol": "utf8-encoding-declaration"
+  },
+  {
+   "code": "UP010",
+   "group": "pyupgrade",
+   "symbol": "unnecessary-future-import"
+  },
+  {
+   "code": "UP011",
+   "group": "pyupgrade",
+   "symbol": "lru-cache-without-parameters"
+  },
+  {
+   "code": "UP012",
+   "group": "pyupgrade",
+   "symbol": "unnecessary-encode-utf8"
+  },
+  {
+   "code": "UP013",
+   "group": "pyupgrade",
+   "symbol": "convert-typed-dict-functional-to-class"
+  },
+  {
+   "code": "UP014",
+   "group": "pyupgrade",
+   "symbol": "convert-named-tuple-functional-to-class"
+  },
+  {
+   "code": "UP015",
+   "group": "pyupgrade",
+   "symbol": "redundant-open-modes"
+  },
+  {
+   "code": "UP017",
+   "group": "pyupgrade",
+   "symbol": "datetime-timezone-utc"
+  },
+  {
+   "code": "UP018",
+   "group": "pyupgrade",
+   "symbol": "native-literals"
+  },
+  {
+   "code": "UP019",
+   "group": "pyupgrade",
+   "symbol": "typing-text-str-alias"
+  },
+  {
+   "code": "UP020",
+   "group": "pyupgrade",
+   "symbol": "open-alias"
+  },
+  {
+   "code": "UP021",
+   "group": "pyupgrade",
+   "symbol": "replace-universal-newlines"
+  },
+  {
+   "code": "UP022",
+   "group": "pyupgrade",
+   "symbol": "replace-stdout-stderr"
+  },
+  {
+   "code": "UP023",
+   "group": "pyupgrade",
+   "symbol": "deprecated-c-element-tree"
+  },
+  {
+   "code": "UP024",
+   "group": "pyupgrade",
+   "symbol": "os-error-alias"
+  },
+  {
+   "code": "UP025",
+   "group": "pyupgrade",
+   "symbol": "unicode-kind-prefix"
+  },
+  {
+   "code": "UP026",
+   "group": "pyupgrade",
+   "symbol": "deprecated-mock-import"
+  },
+  {
+   "code": "UP027",
+   "group": "pyupgrade",
+   "symbol": "unpacked-list-comprehension"
+  },
+  {
+   "code": "UP028",
+   "group": "pyupgrade",
+   "symbol": "yield-in-for-loop"
+  },
+  {
+   "code": "UP029",
+   "group": "pyupgrade",
+   "symbol": "unnecessary-builtin-import"
+  },
+  {
+   "code": "UP030",
+   "group": "pyupgrade",
+   "symbol": "format-literals"
+  },
+  {
+   "code": "UP031",
+   "group": "pyupgrade",
+   "symbol": "printf-string-formatting"
+  },
+  {
+   "code": "UP032",
+   "group": "pyupgrade",
+   "symbol": "f-string"
+  },
+  {
+   "code": "UP033",
+   "group": "pyupgrade",
+   "symbol": "lru-cache-with-maxsize-none"
+  },
+  {
+   "code": "UP034",
+   "group": "pyupgrade",
+   "symbol": "extraneous-parentheses"
+  },
+  {
+   "code": "UP035",
+   "group": "pyupgrade",
+   "symbol": "deprecated-import"
+  },
+  {
+   "code": "UP036",
+   "group": "pyupgrade",
+   "symbol": "outdated-version-block"
+  },
+  {
+   "code": "UP037",
+   "group": "pyupgrade",
+   "symbol": "quoted-annotation"
+  },
+  {
+   "code": "UP038",
+   "group": "pyupgrade",
+   "symbol": "non-pep604-isinstance"
+  },
+  {
+   "code": "UP039",
+   "group": "pyupgrade",
+   "symbol": "unnecessary-class-parentheses"
+  },
+  {
+   "code": "UP040",
+   "group": "pyupgrade",
+   "symbol": "non-pep695-type-alias"
+  },
+  {
+   "code": "UP041",
+   "group": "pyupgrade",
+   "symbol": "timeout-error-alias"
+  },
+  {
+   "code": "UP042",
+   "group": "pyupgrade",
+   "symbol": "replace-str-enum"
+  },
+  {
+   "code": "UP043",
+   "group": "pyupgrade",
+   "symbol": "unnecessary-default-type-args"
+  },
+  {
+   "code": "UP044",
+   "group": "pyupgrade",
+   "symbol": "non-pep646-unpack"
+  },
+  {
+   "code": "UP045",
+   "group": "pyupgrade",
+   "symbol": "non-pep604-annotation-optional"
+  },
+  {
+   "code": "UP046",
+   "group": "pyupgrade",
+   "symbol": "non-pep695-generic-class"
+  },
+  {
+   "code": "UP047",
+   "group": "pyupgrade",
+   "symbol": "non-pep695-generic-function"
+  },
+  {
+   "code": "UP049",
+   "group": "pyupgrade",
+   "symbol": "private-type-parameter"
+  },
+  {
+   "code": "UP050",
+   "group": "pyupgrade",
+   "symbol": "useless-class-metaclass-type"
+  },
+  {
+   "code": "UP051",
+   "group": "pyupgrade",
+   "symbol": "deprecated-abc-decorator"
+  },
+  {
+   "code": "W191",
+   "group": "pycodestyle",
+   "symbol": "tab-indentation"
+  },
+  {
+   "code": "W291",
+   "group": "pycodestyle",
+   "symbol": "trailing-whitespace"
+  },
+  {
+   "code": "W292",
+   "group": "pycodestyle",
+   "symbol": "missing-newline-at-end-of-file"
+  },
+  {
+   "code": "W293",
+   "group": "pycodestyle",
+   "symbol": "blank-line-with-whitespace"
+  },
+  {
+   "code": "W391",
+   "group": "pycodestyle",
+   "symbol": "too-many-newlines-at-end-of-file"
+  },
+  {
+   "code": "W505",
+   "group": "pycodestyle",
+   "symbol": "doc-line-too-long"
+  },
+  {
+   "code": "W605",
+   "group": "pycodestyle",
+   "symbol": "invalid-escape-sequence"
+  },
+  {
+   "code": "YTT101",
+   "group": "flake8-2020",
+   "symbol": "sys-version-slice3"
+  },
+  {
+   "code": "YTT102",
+   "group": "flake8-2020",
+   "symbol": "sys-version2"
+  },
+  {
+   "code": "YTT103",
+   "group": "flake8-2020",
+   "symbol": "sys-version-cmp-str3"
+  },
+  {
+   "code": "YTT201",
+   "group": "flake8-2020",
+   "symbol": "sys-version-info0-eq3"
+  },
+  {
+   "code": "YTT202",
+   "group": "flake8-2020",
+   "symbol": "six-py3"
+  },
+  {
+   "code": "YTT203",
+   "group": "flake8-2020",
+   "symbol": "sys-version-info1-cmp-int"
+  },
+  {
+   "code": "YTT204",
+   "group": "flake8-2020",
+   "symbol": "sys-version-info-minor-cmp-int"
+  },
+  {
+   "code": "YTT301",
+   "group": "flake8-2020",
+   "symbol": "sys-version0"
+  },
+  {
+   "code": "YTT302",
+   "group": "flake8-2020",
+   "symbol": "sys-version-cmp-str10"
+  },
+  {
+   "code": "YTT303",
+   "group": "flake8-2020",
+   "symbol": "sys-version-slice1"
+  }
+ ],
+ "tool": "ruff",
+ "version": "0.15.22"
+}

@@ -1,0 +1,27 @@
+{
+ "tool": "clang-tidy",
+ "default": {
+  "coverage": "unavailable",
+  "reason": "No rule in this catalog answers this clang-tidy check and no tool in the stack was chosen to, so it remains unaccounted for."
+ },
+ "gaps": [
+  {
+   "coverage": "inapplicable",
+   "reason": "These checks enforce platform, framework, or organization conventions rather than general properties of the code MCMR analyzes.",
+   "groups": [
+    "abseil",
+    "android",
+    "boost",
+    "darwin",
+    "fuchsia",
+    "linuxkernel",
+    "llvm",
+    "llvmlibc",
+    "mpi",
+    "objc",
+    "openmp",
+    "zircon"
+   ]
+  }
+ ]
+}

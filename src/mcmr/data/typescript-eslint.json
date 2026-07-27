@@ -1,0 +1,542 @@
+{
+ "rules": [
+  {
+   "group": "suggestion",
+   "symbol": "adjacent-overload-signatures"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "array-type"
+  },
+  {
+   "group": "problem",
+   "symbol": "await-thenable"
+  },
+  {
+   "group": "problem",
+   "symbol": "ban-ts-comment"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "ban-tslint-comment"
+  },
+  {
+   "group": "problem",
+   "symbol": "class-literal-property-style"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "class-methods-use-this"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-generic-constructors"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-indexed-object-style"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-type-assertions"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-type-definitions"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-type-exports"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-type-imports"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "default-param-last"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "dot-notation"
+  },
+  {
+   "group": "problem",
+   "symbol": "explicit-function-return-type"
+  },
+  {
+   "group": "problem",
+   "symbol": "explicit-member-accessibility"
+  },
+  {
+   "group": "problem",
+   "symbol": "explicit-module-boundary-types"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "init-declarations"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-params"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "member-ordering"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "method-signature-style"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "naming-convention"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-array-constructor"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-array-delete"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-base-to-string"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-confusing-non-null-assertion"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-confusing-void-expression"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-deprecated"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-dupe-class-members"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-duplicate-enum-values"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-duplicate-type-constituents"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-dynamic-delete"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-empty-function"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-empty-interface"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-empty-object-type"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-explicit-any"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-extra-non-null-assertion"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-extraneous-class"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-floating-promises"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-for-in-array"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-implied-eval"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-import-type-side-effects"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-inferrable-types"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-invalid-this"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-invalid-void-type"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-loop-func"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-loss-of-precision"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-magic-numbers"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-meaningless-void-operator"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-misused-new"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-misused-promises"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-misused-spread"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-mixed-enums"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-namespace"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-non-null-asserted-nullish-coalescing"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-non-null-asserted-optional-chain"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-non-null-assertion"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-redeclare"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-redundant-type-constituents"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-require-imports"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-restricted-imports"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-restricted-types"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-shadow"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-this-alias"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-type-alias"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-boolean-literal-compare"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-condition"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-parameter-property-assignment"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-qualifier"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-template-expression"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-type-arguments"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-type-assertion"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-type-constraint"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unnecessary-type-conversion"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unnecessary-type-parameters"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-argument"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-assignment"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-call"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-declaration-merging"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unsafe-enum-comparison"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-function-type"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-member-access"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-return"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-type-assertion"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-unary-minus"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unused-expressions"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unused-private-class-members"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unused-vars"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-use-before-define"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-useless-constructor"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-default-assignment"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-empty-export"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-var-requires"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-wrapper-object-types"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "non-nullable-type-assertion-style"
+  },
+  {
+   "group": "problem",
+   "symbol": "only-throw-error"
+  },
+  {
+   "group": "problem",
+   "symbol": "parameter-properties"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-as-const"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-destructuring"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-enum-initializers"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-find"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-for-of"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-function-type"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-includes"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-literal-enum-member"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-namespace-keyword"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-nullish-coalescing"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-optional-chain"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-promise-reject-errors"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-readonly"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-readonly-parameter-types"
+  },
+  {
+   "group": "problem",
+   "symbol": "prefer-reduce-type-parameter"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-regexp-exec"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-return-this-type"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-string-starts-ends-with"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "prefer-ts-expect-error"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "promise-function-async"
+  },
+  {
+   "group": "problem",
+   "symbol": "related-getter-setter-pairs"
+  },
+  {
+   "group": "problem",
+   "symbol": "require-array-sort-compare"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "require-await"
+  },
+  {
+   "group": "problem",
+   "symbol": "restrict-plus-operands"
+  },
+  {
+   "group": "problem",
+   "symbol": "restrict-template-expressions"
+  },
+  {
+   "group": "problem",
+   "symbol": "return-await"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "sort-type-constituents"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "strict-boolean-expressions"
+  },
+  {
+   "group": "problem",
+   "symbol": "strict-void-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "switch-exhaustiveness-check"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "triple-slash-reference"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "typedef"
+  },
+  {
+   "group": "problem",
+   "symbol": "unbound-method"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "unified-signatures"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "use-unknown-in-catch-callback-variable"
+  }
+ ],
+ "tool": "typescript-eslint",
+ "version": "8.65.0"
+}

@@ -1,0 +1,1174 @@
+{
+ "rules": [
+  {
+   "group": "suggestion",
+   "symbol": "accessor-pairs"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "array-bracket-newline"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "array-bracket-spacing"
+  },
+  {
+   "group": "problem",
+   "symbol": "array-callback-return"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "array-element-newline"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "arrow-body-style"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "arrow-parens"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "arrow-spacing"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "block-scoped-var"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "block-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "brace-style"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "callback-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "camelcase"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "capitalized-comments"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "class-methods-use-this"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "comma-dangle"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "comma-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "comma-style"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "complexity"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "computed-property-spacing"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "consistent-this"
+  },
+  {
+   "group": "problem",
+   "symbol": "constructor-super"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "curly"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "default-case"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "default-case-last"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "default-param-last"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "dot-location"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "dot-notation"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "eol-last"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "eqeqeq"
+  },
+  {
+   "group": "problem",
+   "symbol": "for-direction"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "func-call-spacing"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "func-name-matching"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "func-names"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "func-style"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "function-call-argument-newline"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "function-paren-newline"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "generator-star-spacing"
+  },
+  {
+   "group": "problem",
+   "symbol": "getter-return"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "global-require"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "grouped-accessor-pairs"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "guard-for-in"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "handle-callback-err"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "id-blacklist"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "id-denylist"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "id-length"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "id-match"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "implicit-arrow-linebreak"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "indent"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "indent-legacy"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "init-declarations"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "jsx-quotes"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "key-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "keyword-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "line-comment-position"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "linebreak-style"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "lines-around-comment"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "lines-around-directive"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "lines-between-class-members"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "logical-assignment-operators"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-classes-per-file"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-depth"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "max-len"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-lines"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-lines-per-function"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-nested-callbacks"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-params"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "max-statements"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "max-statements-per-line"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "multiline-comment-style"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "multiline-ternary"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "new-cap"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "new-parens"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "newline-after-var"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "newline-before-return"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "newline-per-chained-call"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-alert"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-array-constructor"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-async-promise-executor"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-await-in-loop"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-bitwise"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-buffer-constructor"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-caller"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-case-declarations"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-catch-shadow"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-class-assign"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-compare-neg-zero"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-cond-assign"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-confusing-arrow"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-console"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-const-assign"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-constant-binary-expression"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-constant-condition"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-constructor-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-continue"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-control-regex"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-debugger"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-delete-var"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-div-regex"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-dupe-args"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-dupe-class-members"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-dupe-else-if"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-dupe-keys"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-duplicate-case"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-duplicate-imports"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-else-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-empty"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-empty-character-class"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-empty-function"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-empty-pattern"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-empty-static-block"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-eq-null"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-eval"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-ex-assign"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-extend-native"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-extra-bind"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-extra-boolean-cast"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-extra-label"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-extra-parens"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-extra-semi"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-fallthrough"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-floating-decimal"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-func-assign"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-global-assign"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-implicit-coercion"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-implicit-globals"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-implied-eval"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-import-assign"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-inline-comments"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-inner-declarations"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-invalid-regexp"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-invalid-this"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-irregular-whitespace"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-iterator"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-label-var"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-labels"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-lone-blocks"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-lonely-if"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-loop-func"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-loss-of-precision"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-magic-numbers"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-misleading-character-class"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-mixed-operators"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-mixed-requires"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-mixed-spaces-and-tabs"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-multi-assign"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-multi-spaces"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-multi-str"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-multiple-empty-lines"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-native-reassign"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-negated-condition"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-negated-in-lhs"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-nested-ternary"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-new"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-new-func"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-new-native-nonconstructor"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-new-object"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-new-require"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-new-symbol"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-new-wrappers"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-nonoctal-decimal-escape"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-obj-calls"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-object-constructor"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-octal"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-octal-escape"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-param-reassign"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-path-concat"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-plusplus"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-process-env"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-process-exit"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-promise-executor-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-proto"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-prototype-builtins"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-redeclare"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-regex-spaces"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-restricted-exports"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-restricted-globals"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-restricted-imports"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-restricted-modules"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-restricted-properties"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-restricted-syntax"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-return-assign"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-return-await"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-script-url"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-self-assign"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-self-compare"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-sequences"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-setter-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-shadow"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-shadow-restricted-names"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-spaced-func"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-sparse-arrays"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-sync"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-tabs"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-template-curly-in-string"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-ternary"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-this-before-super"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-throw-literal"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-trailing-spaces"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unassigned-vars"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-undef"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-undef-init"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-undefined"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-underscore-dangle"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unexpected-multiline"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unmodified-loop-condition"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unneeded-ternary"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unreachable"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unreachable-loop"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-finally"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-negation"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unsafe-optional-chaining"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unused-expressions"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-unused-labels"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unused-private-class-members"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-unused-vars"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-use-before-define"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-useless-assignment"
+  },
+  {
+   "group": "problem",
+   "symbol": "no-useless-backreference"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-call"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-catch"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-computed-key"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-concat"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-constructor"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-escape"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-rename"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-useless-return"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-var"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-void"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-warning-comments"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "no-whitespace-before-property"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "no-with"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "nonblock-statement-body-position"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "object-curly-newline"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "object-curly-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "object-property-newline"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "object-shorthand"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "one-var"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "one-var-declaration-per-line"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "operator-assignment"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "operator-linebreak"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "padded-blocks"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "padding-line-between-statements"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-arrow-callback"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-const"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-destructuring"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-exponentiation-operator"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-named-capture-group"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-numeric-literals"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-object-has-own"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-object-spread"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-promise-reject-errors"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "prefer-reflect"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-regex-literals"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-rest-params"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-spread"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "prefer-template"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "preserve-caught-error"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "quote-props"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "quotes"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "radix"
+  },
+  {
+   "group": "problem",
+   "symbol": "require-atomic-updates"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "require-await"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "require-unicode-regexp"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "require-yield"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "rest-spread-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "semi"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "semi-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "semi-style"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "sort-imports"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "sort-keys"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "sort-vars"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "space-before-blocks"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "space-before-function-paren"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "space-in-parens"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "space-infix-ops"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "space-unary-ops"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "spaced-comment"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "strict"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "switch-colon-spacing"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "symbol-description"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "template-curly-spacing"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "template-tag-spacing"
+  },
+  {
+   "group": "layout",
+   "symbol": "unicode-bom"
+  },
+  {
+   "group": "problem",
+   "symbol": "use-isnan"
+  },
+  {
+   "group": "problem",
+   "symbol": "valid-typeof"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "vars-on-top"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "wrap-iife"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "wrap-regex"
+  },
+  {
+   "group": "deprecated",
+   "symbol": "yield-star-spacing"
+  },
+  {
+   "group": "suggestion",
+   "symbol": "yoda"
+  }
+ ],
+ "tool": "eslint",
+ "version": "10.8.0"
+}

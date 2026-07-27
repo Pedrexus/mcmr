@@ -1,0 +1,23 @@
+{
+ "tool": "eslint",
+ "default": {
+  "coverage": "unavailable",
+  "reason": "No rule in this catalog answers this ESLint rule and no tool in the stack was chosen to, so it remains unaccounted for."
+ },
+ "gaps": [
+  {
+   "coverage": "inapplicable",
+   "reason": "ESLint has retired these rules, so they are historical compatibility entries rather than current code questions MCMR could leave unanswered.",
+   "groups": [
+    "deprecated"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "The formatter settles source layout before analysis, so layout rules belong to that deterministic rewrite step rather than to MCMR.",
+   "groups": [
+    "layout"
+   ]
+  }
+ ]
+}

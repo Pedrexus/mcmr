@@ -1,0 +1,3242 @@
+{
+ "rules": [
+  {
+   "group": "restriction",
+   "symbol": "absolute_paths"
+  },
+  {
+   "group": "correctness",
+   "symbol": "absurd_extreme_comparisons"
+  },
+  {
+   "group": "restriction",
+   "symbol": "alloc_instead_of_core"
+  },
+  {
+   "group": "restriction",
+   "symbol": "allow_attributes"
+  },
+  {
+   "group": "restriction",
+   "symbol": "allow_attributes_without_reason"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "almost_complete_range"
+  },
+  {
+   "group": "correctness",
+   "symbol": "almost_swapped"
+  },
+  {
+   "group": "correctness",
+   "symbol": "approx_constant"
+  },
+  {
+   "group": "restriction",
+   "symbol": "arbitrary_source_item_ordering"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "arc_with_non_send_sync"
+  },
+  {
+   "group": "restriction",
+   "symbol": "arithmetic_side_effects"
+  },
+  {
+   "group": "restriction",
+   "symbol": "as_conversions"
+  },
+  {
+   "group": "restriction",
+   "symbol": "as_pointer_underscore"
+  },
+  {
+   "group": "nursery",
+   "symbol": "as_ptr_cast_mut"
+  },
+  {
+   "group": "restriction",
+   "symbol": "as_underscore"
+  },
+  {
+   "group": "style",
+   "symbol": "assertions_on_constants"
+  },
+  {
+   "group": "restriction",
+   "symbol": "assertions_on_result_states"
+  },
+  {
+   "group": "style",
+   "symbol": "assign_op_pattern"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "assigning_clones"
+  },
+  {
+   "group": "correctness",
+   "symbol": "async_yields_async"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "await_holding_invalid_type"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "await_holding_lock"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "await_holding_refcell_ref"
+  },
+  {
+   "group": "correctness",
+   "symbol": "bad_bit_mask"
+  },
+  {
+   "group": "restriction",
+   "symbol": "big_endian_bytes"
+  },
+  {
+   "group": "complexity",
+   "symbol": "bind_instead_of_map"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "blanket_clippy_restriction_lints"
+  },
+  {
+   "group": "style",
+   "symbol": "blocks_in_conditions"
+  },
+  {
+   "group": "style",
+   "symbol": "bool_assert_comparison"
+  },
+  {
+   "group": "complexity",
+   "symbol": "bool_comparison"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "bool_to_int_with_if"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "borrow_as_ptr"
+  },
+  {
+   "group": "complexity",
+   "symbol": "borrow_deref_ref"
+  },
+  {
+   "group": "style",
+   "symbol": "borrow_interior_mutable_const"
+  },
+  {
+   "group": "complexity",
+   "symbol": "borrowed_box"
+  },
+  {
+   "group": "perf",
+   "symbol": "box_collection"
+  },
+  {
+   "group": "style",
+   "symbol": "box_default"
+  },
+  {
+   "group": "perf",
+   "symbol": "boxed_local"
+  },
+  {
+   "group": "nursery",
+   "symbol": "branches_sharing_code"
+  },
+  {
+   "group": "style",
+   "symbol": "builtin_type_shadow"
+  },
+  {
+   "group": "style",
+   "symbol": "byte_char_slices"
+  },
+  {
+   "group": "complexity",
+   "symbol": "bytes_count_to_len"
+  },
+  {
+   "group": "style",
+   "symbol": "bytes_nth"
+  },
+  {
+   "group": "cargo",
+   "symbol": "cargo_common_metadata"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "case_sensitive_file_extension_comparisons"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "cast_abs_to_unsigned"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "cast_enum_constructor"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "cast_enum_truncation"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cast_lossless"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "cast_nan_to_int"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cast_possible_truncation"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cast_possible_wrap"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cast_precision_loss"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cast_ptr_alignment"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cast_sign_loss"
+  },
+  {
+   "group": "correctness",
+   "symbol": "cast_slice_different_sizes"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "cast_slice_from_raw_parts"
+  },
+  {
+   "group": "restriction",
+   "symbol": "cfg_not_test"
+  },
+  {
+   "group": "correctness",
+   "symbol": "char_indices_as_byte_indices"
+  },
+  {
+   "group": "complexity",
+   "symbol": "char_lit_as_u8"
+  },
+  {
+   "group": "style",
+   "symbol": "chars_last_cmp"
+  },
+  {
+   "group": "style",
+   "symbol": "chars_next_cmp"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "checked_conversions"
+  },
+  {
+   "group": "nursery",
+   "symbol": "clear_with_drain"
+  },
+  {
+   "group": "complexity",
+   "symbol": "clone_on_copy"
+  },
+  {
+   "group": "restriction",
+   "symbol": "clone_on_ref_ptr"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "cloned_instead_of_copied"
+  },
+  {
+   "group": "perf",
+   "symbol": "cloned_ref_to_slice_refs"
+  },
+  {
+   "group": "style",
+   "symbol": "cmp_null"
+  },
+  {
+   "group": "perf",
+   "symbol": "cmp_owned"
+  },
+  {
+   "group": "nursery",
+   "symbol": "coerce_container_to_any"
+  },
+  {
+   "group": "restriction",
+   "symbol": "cognitive_complexity"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "collapsible_else_if"
+  },
+  {
+   "group": "style",
+   "symbol": "collapsible_if"
+  },
+  {
+   "group": "style",
+   "symbol": "collapsible_match"
+  },
+  {
+   "group": "perf",
+   "symbol": "collapsible_str_replace"
+  },
+  {
+   "group": "nursery",
+   "symbol": "collection_is_never_read"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "comparison_chain"
+  },
+  {
+   "group": "style",
+   "symbol": "comparison_to_empty"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "confusing_method_to_numeric_cast"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "const_is_empty"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "copy_iterator"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "crate_in_macro_def"
+  },
+  {
+   "group": "restriction",
+   "symbol": "create_dir"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "crosspointer_transmute"
+  },
+  {
+   "group": "restriction",
+   "symbol": "dbg_macro"
+  },
+  {
+   "group": "nursery",
+   "symbol": "debug_assert_with_mut_call"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "decimal_bitwise_operands"
+  },
+  {
+   "group": "restriction",
+   "symbol": "decimal_literal_representation"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "declare_interior_mutable_const"
+  },
+  {
+   "group": "complexity",
+   "symbol": "default_constructed_unit_structs"
+  },
+  {
+   "group": "style",
+   "symbol": "default_instead_of_iter_empty"
+  },
+  {
+   "group": "restriction",
+   "symbol": "default_numeric_fallback"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "default_trait_access"
+  },
+  {
+   "group": "restriction",
+   "symbol": "default_union_representation"
+  },
+  {
+   "group": "complexity",
+   "symbol": "deprecated_cfg_attr"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "deprecated_clippy_cfg_attr"
+  },
+  {
+   "group": "correctness",
+   "symbol": "deprecated_semver"
+  },
+  {
+   "group": "complexity",
+   "symbol": "deref_addrof"
+  },
+  {
+   "group": "restriction",
+   "symbol": "deref_by_slicing"
+  },
+  {
+   "group": "complexity",
+   "symbol": "derivable_impls"
+  },
+  {
+   "group": "correctness",
+   "symbol": "derive_ord_xor_partial_ord"
+  },
+  {
+   "group": "nursery",
+   "symbol": "derive_partial_eq_without_eq"
+  },
+  {
+   "group": "correctness",
+   "symbol": "derived_hash_with_manual_eq"
+  },
+  {
+   "group": "style",
+   "symbol": "disallowed_fields"
+  },
+  {
+   "group": "style",
+   "symbol": "disallowed_macros"
+  },
+  {
+   "group": "style",
+   "symbol": "disallowed_methods"
+  },
+  {
+   "group": "style",
+   "symbol": "disallowed_names"
+  },
+  {
+   "group": "restriction",
+   "symbol": "disallowed_script_idents"
+  },
+  {
+   "group": "style",
+   "symbol": "disallowed_types"
+  },
+  {
+   "group": "complexity",
+   "symbol": "diverging_sub_expression"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "doc_broken_link"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "doc_comment_double_space_linebreaks"
+  },
+  {
+   "group": "restriction",
+   "symbol": "doc_include_without_cfg"
+  },
+  {
+   "group": "style",
+   "symbol": "doc_lazy_continuation"
+  },
+  {
+   "group": "nursery",
+   "symbol": "doc_link_code"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "doc_link_with_quotes"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "doc_markdown"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "doc_nested_refdefs"
+  },
+  {
+   "group": "style",
+   "symbol": "doc_overindented_list_items"
+  },
+  {
+   "group": "restriction",
+   "symbol": "doc_paragraphs_missing_punctuation"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "doc_suspicious_footnotes"
+  },
+  {
+   "group": "complexity",
+   "symbol": "double_comparisons"
+  },
+  {
+   "group": "perf",
+   "symbol": "double_ended_iterator_last"
+  },
+  {
+   "group": "style",
+   "symbol": "double_must_use"
+  },
+  {
+   "group": "complexity",
+   "symbol": "double_parens"
+  },
+  {
+   "group": "perf",
+   "symbol": "drain_collect"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "drop_non_drop"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "duplicate_mod"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicate_underscore_argument"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "duplicated_attributes"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "duration_suboptimal_units"
+  },
+  {
+   "group": "complexity",
+   "symbol": "duration_subsec"
+  },
+  {
+   "group": "correctness",
+   "symbol": "eager_transmute"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "elidable_lifetime_names"
+  },
+  {
+   "group": "restriction",
+   "symbol": "else_if_without_else"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "empty_docs"
+  },
+  {
+   "group": "restriction",
+   "symbol": "empty_drop"
+  },
+  {
+   "group": "restriction",
+   "symbol": "empty_enum_variants_with_brackets"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "empty_enums"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "empty_line_after_doc_comments"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "empty_line_after_outer_attr"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "empty_loop"
+  },
+  {
+   "group": "restriction",
+   "symbol": "empty_structs_with_brackets"
+  },
+  {
+   "group": "correctness",
+   "symbol": "enum_clike_unportable_variant"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "enum_glob_use"
+  },
+  {
+   "group": "style",
+   "symbol": "enum_variant_names"
+  },
+  {
+   "group": "correctness",
+   "symbol": "eq_op"
+  },
+  {
+   "group": "nursery",
+   "symbol": "equatable_if_let"
+  },
+  {
+   "group": "correctness",
+   "symbol": "erasing_op"
+  },
+  {
+   "group": "style",
+   "symbol": "err_expect"
+  },
+  {
+   "group": "restriction",
+   "symbol": "error_impl_error"
+  },
+  {
+   "group": "complexity",
+   "symbol": "excessive_nesting"
+  },
+  {
+   "group": "style",
+   "symbol": "excessive_precision"
+  },
+  {
+   "group": "restriction",
+   "symbol": "exhaustive_enums"
+  },
+  {
+   "group": "restriction",
+   "symbol": "exhaustive_structs"
+  },
+  {
+   "group": "restriction",
+   "symbol": "exit"
+  },
+  {
+   "group": "perf",
+   "symbol": "expect_fun_call"
+  },
+  {
+   "group": "restriction",
+   "symbol": "expect_used"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "expl_impl_clone_on_copy"
+  },
+  {
+   "group": "complexity",
+   "symbol": "explicit_auto_deref"
+  },
+  {
+   "group": "complexity",
+   "symbol": "explicit_counter_loop"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "explicit_deref_methods"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "explicit_into_iter_loop"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "explicit_iter_loop"
+  },
+  {
+   "group": "complexity",
+   "symbol": "explicit_write"
+  },
+  {
+   "group": "perf",
+   "symbol": "extend_with_drain"
+  },
+  {
+   "group": "complexity",
+   "symbol": "extra_unused_lifetimes"
+  },
+  {
+   "group": "complexity",
+   "symbol": "extra_unused_type_parameters"
+  },
+  {
+   "group": "nursery",
+   "symbol": "fallible_impl_from"
+  },
+  {
+   "group": "style",
+   "symbol": "field_reassign_with_default"
+  },
+  {
+   "group": "restriction",
+   "symbol": "field_scoped_visibility_modifiers"
+  },
+  {
+   "group": "restriction",
+   "symbol": "filetype_is_file"
+  },
+  {
+   "group": "style",
+   "symbol": "filter_map_bool_then"
+  },
+  {
+   "group": "complexity",
+   "symbol": "filter_map_identity"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "filter_map_next"
+  },
+  {
+   "group": "complexity",
+   "symbol": "filter_next"
+  },
+  {
+   "group": "complexity",
+   "symbol": "flat_map_identity"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "flat_map_option"
+  },
+  {
+   "group": "restriction",
+   "symbol": "float_arithmetic"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "float_cmp"
+  },
+  {
+   "group": "restriction",
+   "symbol": "float_cmp_const"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "float_equality_without_abs"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "fn_params_excessive_bools"
+  },
+  {
+   "group": "style",
+   "symbol": "fn_to_numeric_cast"
+  },
+  {
+   "group": "restriction",
+   "symbol": "fn_to_numeric_cast_any"
+  },
+  {
+   "group": "style",
+   "symbol": "fn_to_numeric_cast_with_truncation"
+  },
+  {
+   "group": "style",
+   "symbol": "for_kv_map"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "forget_non_drop"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "format_collect"
+  },
+  {
+   "group": "perf",
+   "symbol": "format_in_format_args"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "format_push_string"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "four_forward_slashes"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "from_iter_instead_of_collect"
+  },
+  {
+   "group": "style",
+   "symbol": "from_over_into"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "from_raw_with_void_ptr"
+  },
+  {
+   "group": "style",
+   "symbol": "from_str_radix_10"
+  },
+  {
+   "group": "nursery",
+   "symbol": "future_not_send"
+  },
+  {
+   "group": "style",
+   "symbol": "get_first"
+  },
+  {
+   "group": "complexity",
+   "symbol": "get_last_with_len"
+  },
+  {
+   "group": "restriction",
+   "symbol": "get_unwrap"
+  },
+  {
+   "group": "restriction",
+   "symbol": "host_endian_bytes"
+  },
+  {
+   "group": "complexity",
+   "symbol": "identity_op"
+  },
+  {
+   "group": "correctness",
+   "symbol": "if_let_mutex"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "if_not_else"
+  },
+  {
+   "group": "style",
+   "symbol": "if_same_then_else"
+  },
+  {
+   "group": "restriction",
+   "symbol": "if_then_some_else_none"
+  },
+  {
+   "group": "correctness",
+   "symbol": "ifs_same_cond"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ignore_without_reason"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ignored_unit_patterns"
+  },
+  {
+   "group": "correctness",
+   "symbol": "impl_hash_borrow_with_str_and_bytes"
+  },
+  {
+   "group": "restriction",
+   "symbol": "impl_trait_in_params"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "implicit_clone"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "implicit_hasher"
+  },
+  {
+   "group": "restriction",
+   "symbol": "implicit_return"
+  },
+  {
+   "group": "style",
+   "symbol": "implicit_saturating_add"
+  },
+  {
+   "group": "style",
+   "symbol": "implicit_saturating_sub"
+  },
+  {
+   "group": "complexity",
+   "symbol": "implied_bounds_in_impls"
+  },
+  {
+   "group": "correctness",
+   "symbol": "impossible_comparisons"
+  },
+  {
+   "group": "nursery",
+   "symbol": "imprecise_flops"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "incompatible_msrv"
+  },
+  {
+   "group": "style",
+   "symbol": "inconsistent_digit_grouping"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "inconsistent_struct_constructor"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "index_refutable_slice"
+  },
+  {
+   "group": "restriction",
+   "symbol": "indexing_slicing"
+  },
+  {
+   "group": "correctness",
+   "symbol": "ineffective_bit_mask"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "ineffective_open_options"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "inefficient_to_string"
+  },
+  {
+   "group": "style",
+   "symbol": "infallible_destructuring_match"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "infallible_try_from"
+  },
+  {
+   "group": "correctness",
+   "symbol": "infinite_iter"
+  },
+  {
+   "group": "restriction",
+   "symbol": "infinite_loop"
+  },
+  {
+   "group": "style",
+   "symbol": "inherent_to_string"
+  },
+  {
+   "group": "correctness",
+   "symbol": "inherent_to_string_shadow_display"
+  },
+  {
+   "group": "style",
+   "symbol": "init_numbered_fields"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "inline_always"
+  },
+  {
+   "group": "restriction",
+   "symbol": "inline_asm_x86_att_syntax"
+  },
+  {
+   "group": "restriction",
+   "symbol": "inline_asm_x86_intel_syntax"
+  },
+  {
+   "group": "correctness",
+   "symbol": "inline_fn_without_body"
+  },
+  {
+   "group": "complexity",
+   "symbol": "inspect_for_each"
+  },
+  {
+   "group": "complexity",
+   "symbol": "int_plus_one"
+  },
+  {
+   "group": "restriction",
+   "symbol": "integer_division"
+  },
+  {
+   "group": "restriction",
+   "symbol": "integer_division_remainder_used"
+  },
+  {
+   "group": "style",
+   "symbol": "into_iter_on_ref"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "into_iter_without_iter"
+  },
+  {
+   "group": "correctness",
+   "symbol": "invalid_regex"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "invalid_upcast_comparisons"
+  },
+  {
+   "group": "correctness",
+   "symbol": "inverted_saturating_sub"
+  },
+  {
+   "group": "correctness",
+   "symbol": "invisible_characters"
+  },
+  {
+   "group": "style",
+   "symbol": "io_other_error"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ip_constant"
+  },
+  {
+   "group": "style",
+   "symbol": "is_digit_ascii_radix"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "items_after_statements"
+  },
+  {
+   "group": "style",
+   "symbol": "items_after_test_module"
+  },
+  {
+   "group": "style",
+   "symbol": "iter_cloned_collect"
+  },
+  {
+   "group": "complexity",
+   "symbol": "iter_count"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "iter_filter_is_ok"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "iter_filter_is_some"
+  },
+  {
+   "group": "complexity",
+   "symbol": "iter_kv_map"
+  },
+  {
+   "group": "correctness",
+   "symbol": "iter_next_loop"
+  },
+  {
+   "group": "style",
+   "symbol": "iter_next_slice"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "iter_not_returning_iterator"
+  },
+  {
+   "group": "style",
+   "symbol": "iter_nth"
+  },
+  {
+   "group": "style",
+   "symbol": "iter_nth_zero"
+  },
+  {
+   "group": "nursery",
+   "symbol": "iter_on_empty_collections"
+  },
+  {
+   "group": "nursery",
+   "symbol": "iter_on_single_items"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "iter_out_of_bounds"
+  },
+  {
+   "group": "restriction",
+   "symbol": "iter_over_hash_type"
+  },
+  {
+   "group": "perf",
+   "symbol": "iter_overeager_cloned"
+  },
+  {
+   "group": "style",
+   "symbol": "iter_skip_next"
+  },
+  {
+   "group": "correctness",
+   "symbol": "iter_skip_zero"
+  },
+  {
+   "group": "nursery",
+   "symbol": "iter_with_drain"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "iter_without_into_iter"
+  },
+  {
+   "group": "correctness",
+   "symbol": "iterator_step_by_zero"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "join_absolute_paths"
+  },
+  {
+   "group": "style",
+   "symbol": "just_underscores_and_digits"
+  },
+  {
+   "group": "perf",
+   "symbol": "large_const_arrays"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "large_digit_groups"
+  },
+  {
+   "group": "perf",
+   "symbol": "large_enum_variant"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "large_futures"
+  },
+  {
+   "group": "restriction",
+   "symbol": "large_include_file"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "large_stack_arrays"
+  },
+  {
+   "group": "nursery",
+   "symbol": "large_stack_frames"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "large_types_passed_by_value"
+  },
+  {
+   "group": "style",
+   "symbol": "legacy_numeric_constants"
+  },
+  {
+   "group": "style",
+   "symbol": "len_without_is_empty"
+  },
+  {
+   "group": "style",
+   "symbol": "len_zero"
+  },
+  {
+   "group": "style",
+   "symbol": "let_and_return"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "let_underscore_future"
+  },
+  {
+   "group": "correctness",
+   "symbol": "let_underscore_lock"
+  },
+  {
+   "group": "restriction",
+   "symbol": "let_underscore_must_use"
+  },
+  {
+   "group": "restriction",
+   "symbol": "let_underscore_untyped"
+  },
+  {
+   "group": "style",
+   "symbol": "let_unit_value"
+  },
+  {
+   "group": "complexity",
+   "symbol": "let_with_type_underscore"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "lines_filter_map_ok"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "linkedlist"
+  },
+  {
+   "group": "correctness",
+   "symbol": "lint_groups_priority"
+  },
+  {
+   "group": "nursery",
+   "symbol": "literal_string_with_formatting_args"
+  },
+  {
+   "group": "restriction",
+   "symbol": "little_endian_bytes"
+  },
+  {
+   "group": "restriction",
+   "symbol": "lossy_float_literal"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "macro_metavars_in_unsafe"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "macro_use_imports"
+  },
+  {
+   "group": "style",
+   "symbol": "main_recursion"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_abs_diff"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_assert"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_async_fn"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_bits"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_c_str_literals"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_checked_ops"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_clamp"
+  },
+  {
+   "group": "perf",
+   "symbol": "manual_contains"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_dangling_ptr"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_div_ceil"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_filter"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_filter_map"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_find"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_find_map"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_flatten"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_hash_one"
+  },
+  {
+   "group": "perf",
+   "symbol": "manual_ignore_case_cmp"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_ilog2"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_inspect"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_instant_elapsed"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_is_ascii_check"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_is_finite"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_is_infinite"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_is_multiple_of"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_is_power_of_two"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_is_variant_and"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_let_else"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_main_separator_str"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_map"
+  },
+  {
+   "group": "perf",
+   "symbol": "manual_memcpy"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_midpoint"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_next_back"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_non_exhaustive"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_noop_waker"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_ok_err"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_ok_or"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_option_as_slice"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_option_zip"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_pattern_char_comparison"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_pop_if"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_range_contains"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_range_patterns"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_rem_euclid"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_repeat_n"
+  },
+  {
+   "group": "perf",
+   "symbol": "manual_retain"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_rotate"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_saturating_arithmetic"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_slice_fill"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_slice_size_calculation"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_split_once"
+  },
+  {
+   "group": "perf",
+   "symbol": "manual_str_repeat"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "manual_string_new"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_strip"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_swap"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_take"
+  },
+  {
+   "group": "perf",
+   "symbol": "manual_try_fold"
+  },
+  {
+   "group": "complexity",
+   "symbol": "manual_unwrap_or"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "manual_unwrap_or_default"
+  },
+  {
+   "group": "style",
+   "symbol": "manual_while_let_some"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "many_single_char_names"
+  },
+  {
+   "group": "complexity",
+   "symbol": "map_all_any_identity"
+  },
+  {
+   "group": "style",
+   "symbol": "map_clone"
+  },
+  {
+   "group": "style",
+   "symbol": "map_collect_result_unit"
+  },
+  {
+   "group": "perf",
+   "symbol": "map_entry"
+  },
+  {
+   "group": "restriction",
+   "symbol": "map_err_ignore"
+  },
+  {
+   "group": "complexity",
+   "symbol": "map_flatten"
+  },
+  {
+   "group": "complexity",
+   "symbol": "map_identity"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "map_unwrap_or"
+  },
+  {
+   "group": "restriction",
+   "symbol": "map_with_unused_argument_over_ranges"
+  },
+  {
+   "group": "complexity",
+   "symbol": "match_as_ref"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "match_bool"
+  },
+  {
+   "group": "style",
+   "symbol": "match_like_matches_macro"
+  },
+  {
+   "group": "style",
+   "symbol": "match_overlapping_arm"
+  },
+  {
+   "group": "style",
+   "symbol": "match_ref_pats"
+  },
+  {
+   "group": "style",
+   "symbol": "match_result_ok"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "match_same_arms"
+  },
+  {
+   "group": "complexity",
+   "symbol": "match_single_binding"
+  },
+  {
+   "group": "correctness",
+   "symbol": "match_str_case_mismatch"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "match_wild_err_arm"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "match_wildcard_for_single_variants"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "maybe_infinite_iter"
+  },
+  {
+   "group": "restriction",
+   "symbol": "mem_forget"
+  },
+  {
+   "group": "style",
+   "symbol": "mem_replace_option_with_none"
+  },
+  {
+   "group": "style",
+   "symbol": "mem_replace_option_with_some"
+  },
+  {
+   "group": "style",
+   "symbol": "mem_replace_with_default"
+  },
+  {
+   "group": "correctness",
+   "symbol": "mem_replace_with_uninit"
+  },
+  {
+   "group": "restriction",
+   "symbol": "min_ident_chars"
+  },
+  {
+   "group": "correctness",
+   "symbol": "min_max"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "mismatching_type_param_order"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "misnamed_getters"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "misrefactored_assign_op"
+  },
+  {
+   "group": "restriction",
+   "symbol": "missing_assert_message"
+  },
+  {
+   "group": "restriction",
+   "symbol": "missing_asserts_for_indexing"
+  },
+  {
+   "group": "nursery",
+   "symbol": "missing_const_for_fn"
+  },
+  {
+   "group": "perf",
+   "symbol": "missing_const_for_thread_local"
+  },
+  {
+   "group": "restriction",
+   "symbol": "missing_docs_in_private_items"
+  },
+  {
+   "group": "style",
+   "symbol": "missing_enforced_import_renames"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "missing_errors_doc"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "missing_fields_in_debug"
+  },
+  {
+   "group": "restriction",
+   "symbol": "missing_inline_in_public_items"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "missing_panics_doc"
+  },
+  {
+   "group": "style",
+   "symbol": "missing_safety_doc"
+  },
+  {
+   "group": "perf",
+   "symbol": "missing_spin_loop"
+  },
+  {
+   "group": "restriction",
+   "symbol": "missing_trait_methods"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "missing_transmute_annotations"
+  },
+  {
+   "group": "correctness",
+   "symbol": "mistyped_literal_suffixes"
+  },
+  {
+   "group": "style",
+   "symbol": "mixed_attributes_style"
+  },
+  {
+   "group": "style",
+   "symbol": "mixed_case_hex_literals"
+  },
+  {
+   "group": "restriction",
+   "symbol": "mixed_read_write_in_expression"
+  },
+  {
+   "group": "restriction",
+   "symbol": "mod_module_files"
+  },
+  {
+   "group": "style",
+   "symbol": "module_inception"
+  },
+  {
+   "group": "restriction",
+   "symbol": "module_name_repetitions"
+  },
+  {
+   "group": "restriction",
+   "symbol": "modulo_arithmetic"
+  },
+  {
+   "group": "correctness",
+   "symbol": "modulo_one"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "multi_assignments"
+  },
+  {
+   "group": "style",
+   "symbol": "multiple_bound_locations"
+  },
+  {
+   "group": "cargo",
+   "symbol": "multiple_crate_versions"
+  },
+  {
+   "group": "restriction",
+   "symbol": "multiple_inherent_impl"
+  },
+  {
+   "group": "restriction",
+   "symbol": "multiple_unsafe_ops_per_block"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "must_use_candidate"
+  },
+  {
+   "group": "style",
+   "symbol": "must_use_unit"
+  },
+  {
+   "group": "correctness",
+   "symbol": "mut_from_ref"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "mut_mut"
+  },
+  {
+   "group": "style",
+   "symbol": "mut_mutex_lock"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "mut_range_bound"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "mutable_key_type"
+  },
+  {
+   "group": "restriction",
+   "symbol": "mutex_atomic"
+  },
+  {
+   "group": "restriction",
+   "symbol": "mutex_integer"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "naive_bytecount"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_arbitrary_self_type"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_as_bytes"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "needless_bitwise_bool"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_bool"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_bool_assign"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_borrow"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_borrowed_reference"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_borrows_for_generic_args"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "needless_character_iteration"
+  },
+  {
+   "group": "nursery",
+   "symbol": "needless_collect"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "needless_continue"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_doctest_main"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_else"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "needless_for_each"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_ifs"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_late_init"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_lifetimes"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_match"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "needless_maybe_sized"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_option_as_deref"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_option_take"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_parens_on_range_literals"
+  },
+  {
+   "group": "nursery",
+   "symbol": "needless_pass_by_ref_mut"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "needless_pass_by_value"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_pub_self"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_question_mark"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_range_loop"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "needless_raw_string_hashes"
+  },
+  {
+   "group": "restriction",
+   "symbol": "needless_raw_strings"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_return"
+  },
+  {
+   "group": "style",
+   "symbol": "needless_return_with_question_mark"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_splitn"
+  },
+  {
+   "group": "nursery",
+   "symbol": "needless_type_cast"
+  },
+  {
+   "group": "complexity",
+   "symbol": "needless_update"
+  },
+  {
+   "group": "complexity",
+   "symbol": "neg_cmp_op_on_partial_ord"
+  },
+  {
+   "group": "style",
+   "symbol": "neg_multiply"
+  },
+  {
+   "group": "cargo",
+   "symbol": "negative_feature_names"
+  },
+  {
+   "group": "correctness",
+   "symbol": "never_loop"
+  },
+  {
+   "group": "style",
+   "symbol": "new_ret_no_self"
+  },
+  {
+   "group": "style",
+   "symbol": "new_without_default"
+  },
+  {
+   "group": "complexity",
+   "symbol": "no_effect"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "no_effect_replace"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "no_effect_underscore_binding"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "no_mangle_with_rust_abi"
+  },
+  {
+   "group": "restriction",
+   "symbol": "non_ascii_literal"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "non_canonical_clone_impl"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "non_canonical_partial_ord_impl"
+  },
+  {
+   "group": "style",
+   "symbol": "non_minimal_cfg"
+  },
+  {
+   "group": "correctness",
+   "symbol": "non_octal_unix_permissions"
+  },
+  {
+   "group": "nursery",
+   "symbol": "non_send_fields_in_send_ty"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "non_std_lazy_statics"
+  },
+  {
+   "group": "restriction",
+   "symbol": "non_zero_suggestions"
+  },
+  {
+   "group": "complexity",
+   "symbol": "nonminimal_bool"
+  },
+  {
+   "group": "correctness",
+   "symbol": "nonsensical_open_options"
+  },
+  {
+   "group": "nursery",
+   "symbol": "nonstandard_macro_braces"
+  },
+  {
+   "group": "correctness",
+   "symbol": "not_unsafe_ptr_arg_deref"
+  },
+  {
+   "group": "style",
+   "symbol": "obfuscated_if_else"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "octal_escapes"
+  },
+  {
+   "group": "style",
+   "symbol": "ok_expect"
+  },
+  {
+   "group": "complexity",
+   "symbol": "only_used_in_recursion"
+  },
+  {
+   "group": "style",
+   "symbol": "op_ref"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "option_as_ref_cloned"
+  },
+  {
+   "group": "complexity",
+   "symbol": "option_as_ref_deref"
+  },
+  {
+   "group": "correctness",
+   "symbol": "option_env_unwrap"
+  },
+  {
+   "group": "complexity",
+   "symbol": "option_filter_map"
+  },
+  {
+   "group": "nursery",
+   "symbol": "option_if_let_else"
+  },
+  {
+   "group": "style",
+   "symbol": "option_map_or_none"
+  },
+  {
+   "group": "complexity",
+   "symbol": "option_map_unit_fn"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "option_option"
+  },
+  {
+   "group": "nursery",
+   "symbol": "or_fun_call"
+  },
+  {
+   "group": "complexity",
+   "symbol": "or_then_unwrap"
+  },
+  {
+   "group": "correctness",
+   "symbol": "out_of_bounds_indexing"
+  },
+  {
+   "group": "correctness",
+   "symbol": "overly_complex_bool_expr"
+  },
+  {
+   "group": "style",
+   "symbol": "owned_cow"
+  },
+  {
+   "group": "restriction",
+   "symbol": "panic"
+  },
+  {
+   "group": "restriction",
+   "symbol": "panic_in_result_fn"
+  },
+  {
+   "group": "correctness",
+   "symbol": "panicking_overflow_checks"
+  },
+  {
+   "group": "correctness",
+   "symbol": "panicking_unwrap"
+  },
+  {
+   "group": "restriction",
+   "symbol": "partial_pub_fields"
+  },
+  {
+   "group": "complexity",
+   "symbol": "partialeq_ne_impl"
+  },
+  {
+   "group": "style",
+   "symbol": "partialeq_to_none"
+  },
+  {
+   "group": "nursery",
+   "symbol": "path_buf_push_overwrite"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "path_ends_with_ext"
+  },
+  {
+   "group": "restriction",
+   "symbol": "pathbuf_init_then_push"
+  },
+  {
+   "group": "restriction",
+   "symbol": "pattern_type_mismatch"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "permissions_set_readonly_false"
+  },
+  {
+   "group": "restriction",
+   "symbol": "pointer_format"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "pointers_in_nomem_asm_block"
+  },
+  {
+   "group": "correctness",
+   "symbol": "possible_missing_comma"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "possible_missing_else"
+  },
+  {
+   "group": "complexity",
+   "symbol": "precedence"
+  },
+  {
+   "group": "restriction",
+   "symbol": "precedence_bits"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "print_in_format_impl"
+  },
+  {
+   "group": "style",
+   "symbol": "print_literal"
+  },
+  {
+   "group": "restriction",
+   "symbol": "print_stderr"
+  },
+  {
+   "group": "restriction",
+   "symbol": "print_stdout"
+  },
+  {
+   "group": "style",
+   "symbol": "print_with_newline"
+  },
+  {
+   "group": "style",
+   "symbol": "println_empty_string"
+  },
+  {
+   "group": "style",
+   "symbol": "ptr_arg"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ptr_as_ptr"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ptr_cast_constness"
+  },
+  {
+   "group": "style",
+   "symbol": "ptr_eq"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ptr_offset_by_literal"
+  },
+  {
+   "group": "complexity",
+   "symbol": "ptr_offset_with_cast"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "pub_underscore_fields"
+  },
+  {
+   "group": "restriction",
+   "symbol": "pub_use"
+  },
+  {
+   "group": "restriction",
+   "symbol": "pub_with_shorthand"
+  },
+  {
+   "group": "restriction",
+   "symbol": "pub_without_shorthand"
+  },
+  {
+   "group": "style",
+   "symbol": "question_mark"
+  },
+  {
+   "group": "restriction",
+   "symbol": "question_mark_used"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "range_minus_one"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "range_plus_one"
+  },
+  {
+   "group": "complexity",
+   "symbol": "range_zip_with_len"
+  },
+  {
+   "group": "restriction",
+   "symbol": "rc_buffer"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "rc_clone_in_vec_init"
+  },
+  {
+   "group": "restriction",
+   "symbol": "rc_mutex"
+  },
+  {
+   "group": "correctness",
+   "symbol": "read_line_without_trim"
+  },
+  {
+   "group": "nursery",
+   "symbol": "read_zero_byte_vec"
+  },
+  {
+   "group": "perf",
+   "symbol": "readonly_write_lock"
+  },
+  {
+   "group": "correctness",
+   "symbol": "recursive_format_impl"
+  },
+  {
+   "group": "perf",
+   "symbol": "redundant_allocation"
+  },
+  {
+   "group": "complexity",
+   "symbol": "redundant_as_str"
+  },
+  {
+   "group": "complexity",
+   "symbol": "redundant_async_block"
+  },
+  {
+   "group": "complexity",
+   "symbol": "redundant_at_rest_pattern"
+  },
+  {
+   "group": "nursery",
+   "symbol": "redundant_clone"
+  },
+  {
+   "group": "style",
+   "symbol": "redundant_closure"
+  },
+  {
+   "group": "complexity",
+   "symbol": "redundant_closure_call"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "redundant_closure_for_method_calls"
+  },
+  {
+   "group": "correctness",
+   "symbol": "redundant_comparisons"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "redundant_else"
+  },
+  {
+   "group": "cargo",
+   "symbol": "redundant_feature_names"
+  },
+  {
+   "group": "style",
+   "symbol": "redundant_field_names"
+  },
+  {
+   "group": "complexity",
+   "symbol": "redundant_guards"
+  },
+  {
+   "group": "perf",
+   "symbol": "redundant_iter_cloned"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "redundant_locals"
+  },
+  {
+   "group": "style",
+   "symbol": "redundant_pattern"
+  },
+  {
+   "group": "style",
+   "symbol": "redundant_pattern_matching"
+  },
+  {
+   "group": "nursery",
+   "symbol": "redundant_pub_crate"
+  },
+  {
+   "group": "complexity",
+   "symbol": "redundant_slicing"
+  },
+  {
+   "group": "style",
+   "symbol": "redundant_static_lifetimes"
+  },
+  {
+   "group": "restriction",
+   "symbol": "redundant_test_prefix"
+  },
+  {
+   "group": "restriction",
+   "symbol": "redundant_type_annotations"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ref_as_ptr"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ref_binding_to_reference"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ref_option"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "ref_option_ref"
+  },
+  {
+   "group": "restriction",
+   "symbol": "ref_patterns"
+  },
+  {
+   "group": "perf",
+   "symbol": "regex_creation_in_loops"
+  },
+  {
+   "group": "restriction",
+   "symbol": "renamed_function_params"
+  },
+  {
+   "group": "complexity",
+   "symbol": "repeat_once"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "repeat_vec_with_capacity"
+  },
+  {
+   "group": "perf",
+   "symbol": "replace_box"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "repr_packed_without_abi"
+  },
+  {
+   "group": "complexity",
+   "symbol": "reserve_after_initialization"
+  },
+  {
+   "group": "restriction",
+   "symbol": "rest_pat_in_fully_bound_structs"
+  },
+  {
+   "group": "complexity",
+   "symbol": "result_filter_map"
+  },
+  {
+   "group": "perf",
+   "symbol": "result_large_err"
+  },
+  {
+   "group": "style",
+   "symbol": "result_map_or_into_option"
+  },
+  {
+   "group": "complexity",
+   "symbol": "result_map_unit_fn"
+  },
+  {
+   "group": "style",
+   "symbol": "result_unit_err"
+  },
+  {
+   "group": "restriction",
+   "symbol": "return_and_then"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "return_self_not_must_use"
+  },
+  {
+   "group": "correctness",
+   "symbol": "reversed_empty_ranges"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "same_functions_in_if_condition"
+  },
+  {
+   "group": "style",
+   "symbol": "same_item_push"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "same_length_and_capacity"
+  },
+  {
+   "group": "restriction",
+   "symbol": "same_name_method"
+  },
+  {
+   "group": "nursery",
+   "symbol": "search_is_some"
+  },
+  {
+   "group": "complexity",
+   "symbol": "seek_from_current"
+  },
+  {
+   "group": "complexity",
+   "symbol": "seek_to_start_instead_of_rewind"
+  },
+  {
+   "group": "correctness",
+   "symbol": "self_assignment"
+  },
+  {
+   "group": "style",
+   "symbol": "self_named_constructors"
+  },
+  {
+   "group": "restriction",
+   "symbol": "self_named_module_files"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "self_only_used_in_recursion"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "semicolon_if_nothing_returned"
+  },
+  {
+   "group": "restriction",
+   "symbol": "semicolon_inside_block"
+  },
+  {
+   "group": "restriction",
+   "symbol": "semicolon_outside_block"
+  },
+  {
+   "group": "restriction",
+   "symbol": "separated_literal_suffix"
+  },
+  {
+   "group": "correctness",
+   "symbol": "serde_api_misuse"
+  },
+  {
+   "group": "nursery",
+   "symbol": "set_contains_or_insert"
+  },
+  {
+   "group": "restriction",
+   "symbol": "shadow_reuse"
+  },
+  {
+   "group": "restriction",
+   "symbol": "shadow_same"
+  },
+  {
+   "group": "restriction",
+   "symbol": "shadow_unrelated"
+  },
+  {
+   "group": "complexity",
+   "symbol": "short_circuit_statement"
+  },
+  {
+   "group": "style",
+   "symbol": "should_implement_trait"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "should_panic_without_expect"
+  },
+  {
+   "group": "nursery",
+   "symbol": "significant_drop_in_scrutinee"
+  },
+  {
+   "group": "nursery",
+   "symbol": "significant_drop_tightening"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "similar_names"
+  },
+  {
+   "group": "restriction",
+   "symbol": "single_call_fn"
+  },
+  {
+   "group": "style",
+   "symbol": "single_char_add_str"
+  },
+  {
+   "group": "restriction",
+   "symbol": "single_char_lifetime_names"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "single_char_pattern"
+  },
+  {
+   "group": "style",
+   "symbol": "single_component_path_imports"
+  },
+  {
+   "group": "complexity",
+   "symbol": "single_element_loop"
+  },
+  {
+   "group": "style",
+   "symbol": "single_match"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "single_match_else"
+  },
+  {
+   "group": "nursery",
+   "symbol": "single_option_map"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "single_range_in_vec_init"
+  },
+  {
+   "group": "correctness",
+   "symbol": "size_of_in_element_count"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "size_of_ref"
+  },
+  {
+   "group": "complexity",
+   "symbol": "skip_while_next"
+  },
+  {
+   "group": "perf",
+   "symbol": "sliced_string_as_bytes"
+  },
+  {
+   "group": "perf",
+   "symbol": "slow_vector_initialization"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "stable_sort_primitive"
+  },
+  {
+   "group": "restriction",
+   "symbol": "std_instead_of_alloc"
+  },
+  {
+   "group": "restriction",
+   "symbol": "std_instead_of_core"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "str_split_at_newline"
+  },
+  {
+   "group": "restriction",
+   "symbol": "str_to_string"
+  },
+  {
+   "group": "restriction",
+   "symbol": "string_add"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "string_add_assign"
+  },
+  {
+   "group": "style",
+   "symbol": "string_extend_chars"
+  },
+  {
+   "group": "complexity",
+   "symbol": "string_from_utf8_as_bytes"
+  },
+  {
+   "group": "nursery",
+   "symbol": "string_lit_as_bytes"
+  },
+  {
+   "group": "restriction",
+   "symbol": "string_lit_chars_any"
+  },
+  {
+   "group": "restriction",
+   "symbol": "string_slice"
+  },
+  {
+   "group": "complexity",
+   "symbol": "strlen_on_c_strings"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "struct_excessive_bools"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "struct_field_names"
+  },
+  {
+   "group": "nursery",
+   "symbol": "suboptimal_flops"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_arithmetic_impl"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_assignment_formatting"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_command_arg_space"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_doc_comments"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_else_formatting"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_map"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_op_assign_impl"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_open_options"
+  },
+  {
+   "group": "nursery",
+   "symbol": "suspicious_operation_groupings"
+  },
+  {
+   "group": "correctness",
+   "symbol": "suspicious_splitn"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_to_owned"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "suspicious_unary_op_formatting"
+  },
+  {
+   "group": "restriction",
+   "symbol": "suspicious_xor_used_as_pow"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "swap_ptr_to_ref"
+  },
+  {
+   "group": "complexity",
+   "symbol": "swap_with_temporary"
+  },
+  {
+   "group": "style",
+   "symbol": "tabs_in_doc_comments"
+  },
+  {
+   "group": "complexity",
+   "symbol": "temporary_assignment"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "test_attr_in_doctest"
+  },
+  {
+   "group": "restriction",
+   "symbol": "tests_outside_test_module"
+  },
+  {
+   "group": "style",
+   "symbol": "to_digit_is_some"
+  },
+  {
+   "group": "perf",
+   "symbol": "to_string_in_format_args"
+  },
+  {
+   "group": "style",
+   "symbol": "to_string_trait_impl"
+  },
+  {
+   "group": "restriction",
+   "symbol": "todo"
+  },
+  {
+   "group": "nursery",
+   "symbol": "too_long_first_doc_paragraph"
+  },
+  {
+   "group": "complexity",
+   "symbol": "too_many_arguments"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "too_many_lines"
+  },
+  {
+   "group": "style",
+   "symbol": "toplevel_ref_arg"
+  },
+  {
+   "group": "nursery",
+   "symbol": "trailing_empty_array"
+  },
+  {
+   "group": "nursery",
+   "symbol": "trait_duplication_in_bounds"
+  },
+  {
+   "group": "complexity",
+   "symbol": "transmute_bytes_to_str"
+  },
+  {
+   "group": "complexity",
+   "symbol": "transmute_int_to_bool"
+  },
+  {
+   "group": "complexity",
+   "symbol": "transmute_int_to_non_zero"
+  },
+  {
+   "group": "correctness",
+   "symbol": "transmute_null_to_fn"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "transmute_ptr_to_ptr"
+  },
+  {
+   "group": "complexity",
+   "symbol": "transmute_ptr_to_ref"
+  },
+  {
+   "group": "nursery",
+   "symbol": "transmute_undefined_repr"
+  },
+  {
+   "group": "complexity",
+   "symbol": "transmutes_expressible_as_ptr_casts"
+  },
+  {
+   "group": "correctness",
+   "symbol": "transmuting_null"
+  },
+  {
+   "group": "style",
+   "symbol": "trim_split_whitespace"
+  },
+  {
+   "group": "nursery",
+   "symbol": "trivial_regex"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "trivially_copy_pass_by_ref"
+  },
+  {
+   "group": "restriction",
+   "symbol": "try_err"
+  },
+  {
+   "group": "nursery",
+   "symbol": "tuple_array_conversions"
+  },
+  {
+   "group": "complexity",
+   "symbol": "type_complexity"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "type_id_on_box"
+  },
+  {
+   "group": "nursery",
+   "symbol": "type_repetition_in_bounds"
+  },
+  {
+   "group": "perf",
+   "symbol": "unbuffered_bytes"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unchecked_time_subtraction"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "unconditional_recursion"
+  },
+  {
+   "group": "restriction",
+   "symbol": "undocumented_unsafe_blocks"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unicode_not_nfc"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unimplemented"
+  },
+  {
+   "group": "nursery",
+   "symbol": "uninhabited_references"
+  },
+  {
+   "group": "correctness",
+   "symbol": "uninit_assumed_init"
+  },
+  {
+   "group": "correctness",
+   "symbol": "uninit_vec"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "uninlined_format_args"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unit_arg"
+  },
+  {
+   "group": "correctness",
+   "symbol": "unit_cmp"
+  },
+  {
+   "group": "correctness",
+   "symbol": "unit_hash"
+  },
+  {
+   "group": "correctness",
+   "symbol": "unit_return_expecting_ord"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_box_returns"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_cast"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "unnecessary_clippy_cfg"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_debug_formatting"
+  },
+  {
+   "group": "style",
+   "symbol": "unnecessary_fallible_conversions"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_filter_map"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_find_map"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_first_then_check"
+  },
+  {
+   "group": "style",
+   "symbol": "unnecessary_fold"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "unnecessary_get_then_check"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_join"
+  },
+  {
+   "group": "style",
+   "symbol": "unnecessary_lazy_evaluations"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_literal_bound"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_literal_unwrap"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_map_on_constructor"
+  },
+  {
+   "group": "style",
+   "symbol": "unnecessary_map_or"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_min_or_max"
+  },
+  {
+   "group": "style",
+   "symbol": "unnecessary_mut_passed"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_operation"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "unnecessary_option_map_or_else"
+  },
+  {
+   "group": "style",
+   "symbol": "unnecessary_owned_empty_strings"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "unnecessary_result_map_or_else"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unnecessary_safety_comment"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unnecessary_safety_doc"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unnecessary_self_imports"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_semicolon"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_sort_by"
+  },
+  {
+   "group": "nursery",
+   "symbol": "unnecessary_struct_initialization"
+  },
+  {
+   "group": "perf",
+   "symbol": "unnecessary_to_owned"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_trailing_comma"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unnecessary_unwrap"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnecessary_wraps"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unneeded_field_pattern"
+  },
+  {
+   "group": "style",
+   "symbol": "unneeded_struct_pattern"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unneeded_wildcard_pattern"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unnested_or_patterns"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unreachable"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unreadable_literal"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unsafe_derive_deserialize"
+  },
+  {
+   "group": "style",
+   "symbol": "unsafe_removed_from_name"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unseparated_literal_suffix"
+  },
+  {
+   "group": "correctness",
+   "symbol": "unsound_collection_transmute"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unused_async"
+  },
+  {
+   "group": "style",
+   "symbol": "unused_enumerate_index"
+  },
+  {
+   "group": "complexity",
+   "symbol": "unused_format_specs"
+  },
+  {
+   "group": "correctness",
+   "symbol": "unused_io_amount"
+  },
+  {
+   "group": "nursery",
+   "symbol": "unused_peekable"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unused_result_ok"
+  },
+  {
+   "group": "nursery",
+   "symbol": "unused_rounding"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "unused_self"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unused_trait_names"
+  },
+  {
+   "group": "style",
+   "symbol": "unused_unit"
+  },
+  {
+   "group": "style",
+   "symbol": "unusual_byte_groupings"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unwrap_in_result"
+  },
+  {
+   "group": "style",
+   "symbol": "unwrap_or_default"
+  },
+  {
+   "group": "restriction",
+   "symbol": "unwrap_used"
+  },
+  {
+   "group": "style",
+   "symbol": "upper_case_acronyms"
+  },
+  {
+   "group": "restriction",
+   "symbol": "use_debug"
+  },
+  {
+   "group": "nursery",
+   "symbol": "use_self"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "used_underscore_binding"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "used_underscore_items"
+  },
+  {
+   "group": "complexity",
+   "symbol": "useless_asref"
+  },
+  {
+   "group": "correctness",
+   "symbol": "useless_attribute"
+  },
+  {
+   "group": "complexity",
+   "symbol": "useless_concat"
+  },
+  {
+   "group": "complexity",
+   "symbol": "useless_conversion"
+  },
+  {
+   "group": "complexity",
+   "symbol": "useless_format"
+  },
+  {
+   "group": "nursery",
+   "symbol": "useless_let_if_seq"
+  },
+  {
+   "group": "complexity",
+   "symbol": "useless_nonzero_new_unchecked"
+  },
+  {
+   "group": "complexity",
+   "symbol": "useless_transmute"
+  },
+  {
+   "group": "perf",
+   "symbol": "useless_vec"
+  },
+  {
+   "group": "complexity",
+   "symbol": "vec_box"
+  },
+  {
+   "group": "perf",
+   "symbol": "vec_init_then_push"
+  },
+  {
+   "group": "correctness",
+   "symbol": "vec_resize_to_zero"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "verbose_bit_mask"
+  },
+  {
+   "group": "restriction",
+   "symbol": "verbose_file_reads"
+  },
+  {
+   "group": "nursery",
+   "symbol": "volatile_composites"
+  },
+  {
+   "group": "perf",
+   "symbol": "waker_clone_wake"
+  },
+  {
+   "group": "nursery",
+   "symbol": "while_float"
+  },
+  {
+   "group": "correctness",
+   "symbol": "while_immutable_condition"
+  },
+  {
+   "group": "complexity",
+   "symbol": "while_let_loop"
+  },
+  {
+   "group": "style",
+   "symbol": "while_let_on_iterator"
+  },
+  {
+   "group": "cargo",
+   "symbol": "wildcard_dependencies"
+  },
+  {
+   "group": "restriction",
+   "symbol": "wildcard_enum_match_arm"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "wildcard_imports"
+  },
+  {
+   "group": "complexity",
+   "symbol": "wildcard_in_or_patterns"
+  },
+  {
+   "group": "style",
+   "symbol": "write_literal"
+  },
+  {
+   "group": "style",
+   "symbol": "write_with_newline"
+  },
+  {
+   "group": "style",
+   "symbol": "writeln_empty_string"
+  },
+  {
+   "group": "style",
+   "symbol": "wrong_self_convention"
+  },
+  {
+   "group": "correctness",
+   "symbol": "wrong_transmute"
+  },
+  {
+   "group": "complexity",
+   "symbol": "zero_divided_by_zero"
+  },
+  {
+   "group": "complexity",
+   "symbol": "zero_prefixed_literal"
+  },
+  {
+   "group": "style",
+   "symbol": "zero_ptr"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "zero_repeat_side_effects"
+  },
+  {
+   "group": "pedantic",
+   "symbol": "zero_sized_map_values"
+  },
+  {
+   "group": "suspicious",
+   "symbol": "zombie_processes"
+  },
+  {
+   "group": "correctness",
+   "symbol": "zst_offset"
+  }
+ ],
+ "tool": "clippy",
+ "version": "0.1.96"
+}

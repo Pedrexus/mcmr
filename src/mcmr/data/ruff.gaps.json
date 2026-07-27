@@ -1,0 +1,7 @@
+{
+ "tool": "ruff",
+ "default": {
+  "coverage": "delegated",
+  "reason": "MCMR states no coverage of this rule. Ruff runs beside MCMR in this stack rather than underneath it, so a rule nothing in the catalog generalizes is answered by Ruff itself."
+ }
+}

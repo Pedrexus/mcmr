@@ -1,0 +1,16 @@
+{
+ "tool": "cppcheck",
+ "default": {
+  "coverage": "unavailable",
+  "reason": "No rule in this catalog answers this Cppcheck diagnostic and no tool in the stack was chosen to, so it remains unaccounted for."
+ },
+ "gaps": [
+  {
+   "coverage": "inapplicable",
+   "reason": "Information diagnostics describe the Cppcheck run or its configuration rather than a property of the source code under analysis.",
+   "groups": [
+    "information"
+   ]
+  }
+ ]
+}

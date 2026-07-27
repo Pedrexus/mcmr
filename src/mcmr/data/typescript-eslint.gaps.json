@@ -1,0 +1,16 @@
+{
+ "tool": "typescript-eslint",
+ "default": {
+  "coverage": "unavailable",
+  "reason": "No rule in this catalog answers this typescript-eslint rule and no tool in the stack was chosen to, so it remains unaccounted for."
+ },
+ "gaps": [
+  {
+   "coverage": "inapplicable",
+   "reason": "typescript-eslint has retired these rules, so they are historical compatibility entries rather than current code questions MCMR could leave unanswered.",
+   "groups": [
+    "deprecated"
+   ]
+  }
+ ]
+}

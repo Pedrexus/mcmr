@@ -1,0 +1,7 @@
+{
+ "tool": "clippy",
+ "default": {
+  "coverage": "delegated",
+  "reason": "MCMR states no coverage of this lint. Clippy runs beside MCMR on Rust rather than underneath it, so a lint nothing in the catalog generalizes is answered by Clippy itself."
+ }
+}

@@ -1,0 +1,38 @@
+# system
+.DS_Store
+
+# editors
+.idea/
+.vscode/
+
+# logs
+*.log
+
+# docs
+site/
+
+# generated
+dist/
+build/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+.pytest_cache/
+.pyrefly/
+.mypy_cache/
+.hypothesis/
+.coverage
+htmlcov/
+*.egg-info/
+.benchmarks/
+.chefe/
+.dist/
+target/
+kernel/target/
+
+# mcmr run records, which are local measurements rather than project evidence.
+# The evidence store beside them, .mcmr/<FactName>.json, is meant to be committed.
+.mcmr/runs/

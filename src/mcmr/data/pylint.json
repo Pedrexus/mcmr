@@ -1,0 +1,1951 @@
+{
+ "rules": [
+  {
+   "code": "C0103",
+   "group": "basic",
+   "symbol": "invalid-name"
+  },
+  {
+   "code": "C0104",
+   "group": "basic",
+   "symbol": "disallowed-name"
+  },
+  {
+   "code": "C0105",
+   "group": "basic",
+   "symbol": "typevar-name-incorrect-variance"
+  },
+  {
+   "code": "C0112",
+   "group": "basic",
+   "symbol": "empty-docstring"
+  },
+  {
+   "code": "C0114",
+   "group": "basic",
+   "symbol": "missing-module-docstring"
+  },
+  {
+   "code": "C0115",
+   "group": "basic",
+   "symbol": "missing-class-docstring"
+  },
+  {
+   "code": "C0116",
+   "group": "basic",
+   "symbol": "missing-function-docstring"
+  },
+  {
+   "code": "C0117",
+   "group": "refactoring",
+   "symbol": "unnecessary-negation"
+  },
+  {
+   "code": "C0121",
+   "group": "basic",
+   "symbol": "singleton-comparison"
+  },
+  {
+   "code": "C0123",
+   "group": "basic",
+   "symbol": "unidiomatic-typecheck"
+  },
+  {
+   "code": "C0131",
+   "group": "basic",
+   "symbol": "typevar-double-variance"
+  },
+  {
+   "code": "C0132",
+   "group": "basic",
+   "symbol": "typevar-name-mismatch"
+  },
+  {
+   "code": "C0200",
+   "group": "refactoring",
+   "symbol": "consider-using-enumerate"
+  },
+  {
+   "code": "C0201",
+   "group": "refactoring",
+   "symbol": "consider-iterating-dictionary"
+  },
+  {
+   "code": "C0202",
+   "group": "classes",
+   "symbol": "bad-classmethod-argument"
+  },
+  {
+   "code": "C0203",
+   "group": "classes",
+   "symbol": "bad-mcs-method-argument"
+  },
+  {
+   "code": "C0204",
+   "group": "classes",
+   "symbol": "bad-mcs-classmethod-argument"
+  },
+  {
+   "code": "C0205",
+   "group": "classes",
+   "symbol": "single-string-used-for-slots"
+  },
+  {
+   "code": "C0206",
+   "group": "refactoring",
+   "symbol": "consider-using-dict-items"
+  },
+  {
+   "code": "C0207",
+   "group": "refactoring",
+   "symbol": "use-maxsplit-arg"
+  },
+  {
+   "code": "C0208",
+   "group": "refactoring",
+   "symbol": "use-sequence-for-iteration"
+  },
+  {
+   "code": "C0209",
+   "group": "refactoring",
+   "symbol": "consider-using-f-string"
+  },
+  {
+   "code": "C0301",
+   "group": "format",
+   "symbol": "line-too-long"
+  },
+  {
+   "code": "C0302",
+   "group": "format",
+   "symbol": "too-many-lines"
+  },
+  {
+   "code": "C0303",
+   "group": "format",
+   "symbol": "trailing-whitespace"
+  },
+  {
+   "code": "C0304",
+   "group": "format",
+   "symbol": "missing-final-newline"
+  },
+  {
+   "code": "C0305",
+   "group": "format",
+   "symbol": "trailing-newlines"
+  },
+  {
+   "code": "C0321",
+   "group": "format",
+   "symbol": "multiple-statements"
+  },
+  {
+   "code": "C0325",
+   "group": "format",
+   "symbol": "superfluous-parens"
+  },
+  {
+   "code": "C0327",
+   "group": "format",
+   "symbol": "mixed-line-endings"
+  },
+  {
+   "code": "C0328",
+   "group": "format",
+   "symbol": "unexpected-line-ending-format"
+  },
+  {
+   "code": "C0401",
+   "group": "spelling",
+   "symbol": "wrong-spelling-in-comment"
+  },
+  {
+   "code": "C0402",
+   "group": "spelling",
+   "symbol": "wrong-spelling-in-docstring"
+  },
+  {
+   "code": "C0403",
+   "group": "spelling",
+   "symbol": "invalid-characters-in-docstring"
+  },
+  {
+   "code": "C0410",
+   "group": "imports",
+   "symbol": "multiple-imports"
+  },
+  {
+   "code": "C0411",
+   "group": "imports",
+   "symbol": "wrong-import-order"
+  },
+  {
+   "code": "C0412",
+   "group": "imports",
+   "symbol": "ungrouped-imports"
+  },
+  {
+   "code": "C0413",
+   "group": "imports",
+   "symbol": "wrong-import-position"
+  },
+  {
+   "code": "C0414",
+   "group": "imports",
+   "symbol": "useless-import-alias"
+  },
+  {
+   "code": "C0415",
+   "group": "imports",
+   "symbol": "import-outside-toplevel"
+  },
+  {
+   "code": "C1802",
+   "group": "refactoring",
+   "symbol": "use-implicit-booleaness-not-len"
+  },
+  {
+   "code": "C1803",
+   "group": "refactoring",
+   "symbol": "use-implicit-booleaness-not-comparison"
+  },
+  {
+   "code": "C1804",
+   "group": "refactoring",
+   "symbol": "use-implicit-booleaness-not-comparison-to-string"
+  },
+  {
+   "code": "C1805",
+   "group": "refactoring",
+   "symbol": "use-implicit-booleaness-not-comparison-to-zero"
+  },
+  {
+   "code": "C2401",
+   "group": "nonascii-checker",
+   "symbol": "non-ascii-name"
+  },
+  {
+   "code": "C2403",
+   "group": "nonascii-checker",
+   "symbol": "non-ascii-module-import"
+  },
+  {
+   "code": "C2503",
+   "group": "unicode_checker",
+   "symbol": "bad-file-encoding"
+  },
+  {
+   "code": "C2801",
+   "group": "unnecessary-dunder-call",
+   "symbol": "unnecessary-dunder-call"
+  },
+  {
+   "code": "C3001",
+   "group": "lambda-expressions",
+   "symbol": "unnecessary-lambda-assignment"
+  },
+  {
+   "code": "C3002",
+   "group": "lambda-expressions",
+   "symbol": "unnecessary-direct-lambda-call"
+  },
+  {
+   "code": "E0001",
+   "group": "main",
+   "symbol": "syntax-error"
+  },
+  {
+   "code": "E0011",
+   "group": "main",
+   "symbol": "unrecognized-inline-option"
+  },
+  {
+   "code": "E0013",
+   "group": "main",
+   "symbol": "bad-plugin-value"
+  },
+  {
+   "code": "E0014",
+   "group": "main",
+   "symbol": "bad-configuration-section"
+  },
+  {
+   "code": "E0015",
+   "group": "main",
+   "symbol": "unrecognized-option"
+  },
+  {
+   "code": "E0100",
+   "group": "basic",
+   "symbol": "init-is-generator"
+  },
+  {
+   "code": "E0101",
+   "group": "basic",
+   "symbol": "return-in-init"
+  },
+  {
+   "code": "E0102",
+   "group": "basic",
+   "symbol": "function-redefined"
+  },
+  {
+   "code": "E0103",
+   "group": "basic",
+   "symbol": "not-in-loop"
+  },
+  {
+   "code": "E0104",
+   "group": "basic",
+   "symbol": "return-outside-function"
+  },
+  {
+   "code": "E0105",
+   "group": "basic",
+   "symbol": "yield-outside-function"
+  },
+  {
+   "code": "E0106",
+   "group": "basic",
+   "symbol": "return-arg-in-generator"
+  },
+  {
+   "code": "E0107",
+   "group": "basic",
+   "symbol": "nonexistent-operator"
+  },
+  {
+   "code": "E0108",
+   "group": "basic",
+   "symbol": "duplicate-argument-name"
+  },
+  {
+   "code": "E0110",
+   "group": "basic",
+   "symbol": "abstract-class-instantiated"
+  },
+  {
+   "code": "E0111",
+   "group": "basic",
+   "symbol": "bad-reversed-sequence"
+  },
+  {
+   "code": "E0112",
+   "group": "basic",
+   "symbol": "too-many-star-expressions"
+  },
+  {
+   "code": "E0113",
+   "group": "basic",
+   "symbol": "invalid-star-assignment-target"
+  },
+  {
+   "code": "E0114",
+   "group": "basic",
+   "symbol": "star-needs-assignment-target"
+  },
+  {
+   "code": "E0115",
+   "group": "basic",
+   "symbol": "nonlocal-and-global"
+  },
+  {
+   "code": "E0117",
+   "group": "basic",
+   "symbol": "nonlocal-without-binding"
+  },
+  {
+   "code": "E0118",
+   "group": "basic",
+   "symbol": "used-prior-global-declaration"
+  },
+  {
+   "code": "E0119",
+   "group": "basic",
+   "symbol": "misplaced-format-function"
+  },
+  {
+   "code": "E0202",
+   "group": "classes",
+   "symbol": "method-hidden"
+  },
+  {
+   "code": "E0203",
+   "group": "classes",
+   "symbol": "access-member-before-definition"
+  },
+  {
+   "code": "E0211",
+   "group": "classes",
+   "symbol": "no-method-argument"
+  },
+  {
+   "code": "E0213",
+   "group": "classes",
+   "symbol": "no-self-argument"
+  },
+  {
+   "code": "E0236",
+   "group": "classes",
+   "symbol": "invalid-slots-object"
+  },
+  {
+   "code": "E0237",
+   "group": "classes",
+   "symbol": "assigning-non-slot"
+  },
+  {
+   "code": "E0238",
+   "group": "classes",
+   "symbol": "invalid-slots"
+  },
+  {
+   "code": "E0239",
+   "group": "classes",
+   "symbol": "inherit-non-class"
+  },
+  {
+   "code": "E0240",
+   "group": "classes",
+   "symbol": "inconsistent-mro"
+  },
+  {
+   "code": "E0241",
+   "group": "classes",
+   "symbol": "duplicate-bases"
+  },
+  {
+   "code": "E0242",
+   "group": "classes",
+   "symbol": "class-variable-slots-conflict"
+  },
+  {
+   "code": "E0243",
+   "group": "classes",
+   "symbol": "invalid-class-object"
+  },
+  {
+   "code": "E0244",
+   "group": "classes",
+   "symbol": "invalid-enum-extension"
+  },
+  {
+   "code": "E0245",
+   "group": "classes",
+   "symbol": "declare-non-slot"
+  },
+  {
+   "code": "E0301",
+   "group": "classes",
+   "symbol": "non-iterator-returned"
+  },
+  {
+   "code": "E0302",
+   "group": "classes",
+   "symbol": "unexpected-special-method-signature"
+  },
+  {
+   "code": "E0303",
+   "group": "classes",
+   "symbol": "invalid-length-returned"
+  },
+  {
+   "code": "E0304",
+   "group": "classes",
+   "symbol": "invalid-bool-returned"
+  },
+  {
+   "code": "E0305",
+   "group": "classes",
+   "symbol": "invalid-index-returned"
+  },
+  {
+   "code": "E0306",
+   "group": "classes",
+   "symbol": "invalid-repr-returned"
+  },
+  {
+   "code": "E0307",
+   "group": "classes",
+   "symbol": "invalid-str-returned"
+  },
+  {
+   "code": "E0308",
+   "group": "classes",
+   "symbol": "invalid-bytes-returned"
+  },
+  {
+   "code": "E0309",
+   "group": "classes",
+   "symbol": "invalid-hash-returned"
+  },
+  {
+   "code": "E0310",
+   "group": "classes",
+   "symbol": "invalid-length-hint-returned"
+  },
+  {
+   "code": "E0311",
+   "group": "classes",
+   "symbol": "invalid-format-returned"
+  },
+  {
+   "code": "E0312",
+   "group": "classes",
+   "symbol": "invalid-getnewargs-returned"
+  },
+  {
+   "code": "E0313",
+   "group": "classes",
+   "symbol": "invalid-getnewargs-ex-returned"
+  },
+  {
+   "code": "E0401",
+   "group": "imports",
+   "symbol": "import-error"
+  },
+  {
+   "code": "E0402",
+   "group": "imports",
+   "symbol": "relative-beyond-top-level"
+  },
+  {
+   "code": "E0601",
+   "group": "variables",
+   "symbol": "used-before-assignment"
+  },
+  {
+   "code": "E0602",
+   "group": "variables",
+   "symbol": "undefined-variable"
+  },
+  {
+   "code": "E0603",
+   "group": "variables",
+   "symbol": "undefined-all-variable"
+  },
+  {
+   "code": "E0604",
+   "group": "variables",
+   "symbol": "invalid-all-object"
+  },
+  {
+   "code": "E0605",
+   "group": "variables",
+   "symbol": "invalid-all-format"
+  },
+  {
+   "code": "E0606",
+   "group": "variables",
+   "symbol": "possibly-used-before-assignment"
+  },
+  {
+   "code": "E0611",
+   "group": "variables",
+   "symbol": "no-name-in-module"
+  },
+  {
+   "code": "E0633",
+   "group": "variables",
+   "symbol": "unpacking-non-sequence"
+  },
+  {
+   "code": "E0643",
+   "group": "variables",
+   "symbol": "potential-index-error"
+  },
+  {
+   "code": "E0701",
+   "group": "exceptions",
+   "symbol": "bad-except-order"
+  },
+  {
+   "code": "E0702",
+   "group": "exceptions",
+   "symbol": "raising-bad-type"
+  },
+  {
+   "code": "E0704",
+   "group": "exceptions",
+   "symbol": "misplaced-bare-raise"
+  },
+  {
+   "code": "E0705",
+   "group": "exceptions",
+   "symbol": "bad-exception-cause"
+  },
+  {
+   "code": "E0710",
+   "group": "exceptions",
+   "symbol": "raising-non-exception"
+  },
+  {
+   "code": "E0711",
+   "group": "exceptions",
+   "symbol": "notimplemented-raised"
+  },
+  {
+   "code": "E0712",
+   "group": "exceptions",
+   "symbol": "catching-non-exception"
+  },
+  {
+   "code": "E1003",
+   "group": "newstyle",
+   "symbol": "bad-super-call"
+  },
+  {
+   "code": "E1101",
+   "group": "typecheck",
+   "symbol": "no-member"
+  },
+  {
+   "code": "E1102",
+   "group": "typecheck",
+   "symbol": "not-callable"
+  },
+  {
+   "code": "E1111",
+   "group": "typecheck",
+   "symbol": "assignment-from-no-return"
+  },
+  {
+   "code": "E1120",
+   "group": "typecheck",
+   "symbol": "no-value-for-parameter"
+  },
+  {
+   "code": "E1121",
+   "group": "typecheck",
+   "symbol": "too-many-function-args"
+  },
+  {
+   "code": "E1123",
+   "group": "typecheck",
+   "symbol": "unexpected-keyword-arg"
+  },
+  {
+   "code": "E1124",
+   "group": "typecheck",
+   "symbol": "redundant-keyword-arg"
+  },
+  {
+   "code": "E1125",
+   "group": "typecheck",
+   "symbol": "missing-kwoa"
+  },
+  {
+   "code": "E1126",
+   "group": "typecheck",
+   "symbol": "invalid-sequence-index"
+  },
+  {
+   "code": "E1127",
+   "group": "typecheck",
+   "symbol": "invalid-slice-index"
+  },
+  {
+   "code": "E1128",
+   "group": "typecheck",
+   "symbol": "assignment-from-none"
+  },
+  {
+   "code": "E1129",
+   "group": "typecheck",
+   "symbol": "not-context-manager"
+  },
+  {
+   "code": "E1130",
+   "group": "typecheck",
+   "symbol": "invalid-unary-operand-type"
+  },
+  {
+   "code": "E1131",
+   "group": "typecheck",
+   "symbol": "unsupported-binary-operation"
+  },
+  {
+   "code": "E1132",
+   "group": "typecheck",
+   "symbol": "repeated-keyword"
+  },
+  {
+   "code": "E1133",
+   "group": "typecheck",
+   "symbol": "not-an-iterable"
+  },
+  {
+   "code": "E1134",
+   "group": "typecheck",
+   "symbol": "not-a-mapping"
+  },
+  {
+   "code": "E1135",
+   "group": "typecheck",
+   "symbol": "unsupported-membership-test"
+  },
+  {
+   "code": "E1136",
+   "group": "typecheck",
+   "symbol": "unsubscriptable-object"
+  },
+  {
+   "code": "E1137",
+   "group": "typecheck",
+   "symbol": "unsupported-assignment-operation"
+  },
+  {
+   "code": "E1138",
+   "group": "typecheck",
+   "symbol": "unsupported-delete-operation"
+  },
+  {
+   "code": "E1139",
+   "group": "typecheck",
+   "symbol": "invalid-metaclass"
+  },
+  {
+   "code": "E1141",
+   "group": "typecheck",
+   "symbol": "dict-iter-missing-items"
+  },
+  {
+   "code": "E1142",
+   "group": "typecheck",
+   "symbol": "await-outside-async"
+  },
+  {
+   "code": "E1143",
+   "group": "typecheck",
+   "symbol": "unhashable-member"
+  },
+  {
+   "code": "E1144",
+   "group": "typecheck",
+   "symbol": "invalid-slice-step"
+  },
+  {
+   "code": "E1145",
+   "group": "typecheck",
+   "symbol": "async-context-manager-with-regular-with"
+  },
+  {
+   "code": "E1200",
+   "group": "logging",
+   "symbol": "logging-unsupported-format"
+  },
+  {
+   "code": "E1201",
+   "group": "logging",
+   "symbol": "logging-format-truncated"
+  },
+  {
+   "code": "E1205",
+   "group": "logging",
+   "symbol": "logging-too-many-args"
+  },
+  {
+   "code": "E1206",
+   "group": "logging",
+   "symbol": "logging-too-few-args"
+  },
+  {
+   "code": "E1300",
+   "group": "string",
+   "symbol": "bad-format-character"
+  },
+  {
+   "code": "E1301",
+   "group": "string",
+   "symbol": "truncated-format-string"
+  },
+  {
+   "code": "E1302",
+   "group": "string",
+   "symbol": "mixed-format-string"
+  },
+  {
+   "code": "E1303",
+   "group": "string",
+   "symbol": "format-needs-mapping"
+  },
+  {
+   "code": "E1304",
+   "group": "string",
+   "symbol": "missing-format-string-key"
+  },
+  {
+   "code": "E1305",
+   "group": "string",
+   "symbol": "too-many-format-args"
+  },
+  {
+   "code": "E1306",
+   "group": "string",
+   "symbol": "too-few-format-args"
+  },
+  {
+   "code": "E1307",
+   "group": "string",
+   "symbol": "bad-string-format-type"
+  },
+  {
+   "code": "E1310",
+   "group": "string",
+   "symbol": "bad-str-strip-call"
+  },
+  {
+   "code": "E1507",
+   "group": "stdlib",
+   "symbol": "invalid-envvar-value"
+  },
+  {
+   "code": "E1519",
+   "group": "stdlib",
+   "symbol": "singledispatch-method"
+  },
+  {
+   "code": "E1520",
+   "group": "stdlib",
+   "symbol": "singledispatchmethod-function"
+  },
+  {
+   "code": "E1700",
+   "group": "async",
+   "symbol": "yield-inside-async-function"
+  },
+  {
+   "code": "E1701",
+   "group": "async",
+   "symbol": "not-async-context-manager"
+  },
+  {
+   "code": "E1901",
+   "group": "match_statements",
+   "symbol": "bare-name-capture-pattern"
+  },
+  {
+   "code": "E1902",
+   "group": "match_statements",
+   "symbol": "invalid-match-args-definition"
+  },
+  {
+   "code": "E1903",
+   "group": "match_statements",
+   "symbol": "too-many-positional-sub-patterns"
+  },
+  {
+   "code": "E1904",
+   "group": "match_statements",
+   "symbol": "multiple-class-sub-patterns"
+  },
+  {
+   "code": "E2501",
+   "group": "unicode_checker",
+   "symbol": "invalid-unicode-codec"
+  },
+  {
+   "code": "E2502",
+   "group": "unicode_checker",
+   "symbol": "bidirectional-unicode"
+  },
+  {
+   "code": "E2510",
+   "group": "unicode_checker",
+   "symbol": "invalid-character-backspace"
+  },
+  {
+   "code": "E2511",
+   "group": "unicode_checker",
+   "symbol": "invalid-character-carriage-return"
+  },
+  {
+   "code": "E2512",
+   "group": "unicode_checker",
+   "symbol": "invalid-character-sub"
+  },
+  {
+   "code": "E2513",
+   "group": "unicode_checker",
+   "symbol": "invalid-character-esc"
+  },
+  {
+   "code": "E2514",
+   "group": "unicode_checker",
+   "symbol": "invalid-character-nul"
+  },
+  {
+   "code": "E2515",
+   "group": "unicode_checker",
+   "symbol": "invalid-character-zero-width-space"
+  },
+  {
+   "code": "E3102",
+   "group": "method_args",
+   "symbol": "positional-only-arguments-expected"
+  },
+  {
+   "code": "E3701",
+   "group": "dataclass",
+   "symbol": "invalid-field-call"
+  },
+  {
+   "code": "E4702",
+   "group": "modified_iteration",
+   "symbol": "modified-iterating-dict"
+  },
+  {
+   "code": "E4703",
+   "group": "modified_iteration",
+   "symbol": "modified-iterating-set"
+  },
+  {
+   "code": "F0001",
+   "group": "main",
+   "symbol": "fatal"
+  },
+  {
+   "code": "F0002",
+   "group": "main",
+   "symbol": "astroid-error"
+  },
+  {
+   "code": "F0010",
+   "group": "main",
+   "symbol": "parse-error"
+  },
+  {
+   "code": "F0011",
+   "group": "main",
+   "symbol": "config-parse-error"
+  },
+  {
+   "code": "F0202",
+   "group": "classes",
+   "symbol": "method-check-failed"
+  },
+  {
+   "code": "I0001",
+   "group": "main",
+   "symbol": "raw-checker-failed"
+  },
+  {
+   "code": "I0010",
+   "group": "main",
+   "symbol": "bad-inline-option"
+  },
+  {
+   "code": "I0011",
+   "group": "main",
+   "symbol": "locally-disabled"
+  },
+  {
+   "code": "I0013",
+   "group": "main",
+   "symbol": "file-ignored"
+  },
+  {
+   "code": "I0020",
+   "group": "main",
+   "symbol": "suppressed-message"
+  },
+  {
+   "code": "I0021",
+   "group": "main",
+   "symbol": "useless-suppression"
+  },
+  {
+   "code": "I0022",
+   "group": "main",
+   "symbol": "deprecated-pragma"
+  },
+  {
+   "code": "I0023",
+   "group": "miscellaneous",
+   "symbol": "use-symbolic-message-instead"
+  },
+  {
+   "code": "I1101",
+   "group": "typecheck",
+   "symbol": "c-extension-no-member"
+  },
+  {
+   "code": "R0022",
+   "group": "main",
+   "symbol": "useless-option-value"
+  },
+  {
+   "code": "R0123",
+   "group": "basic",
+   "symbol": "literal-comparison"
+  },
+  {
+   "code": "R0124",
+   "group": "basic",
+   "symbol": "comparison-with-itself"
+  },
+  {
+   "code": "R0133",
+   "group": "basic",
+   "symbol": "comparison-of-constants"
+  },
+  {
+   "code": "R0202",
+   "group": "classes",
+   "symbol": "no-classmethod-decorator"
+  },
+  {
+   "code": "R0203",
+   "group": "classes",
+   "symbol": "no-staticmethod-decorator"
+  },
+  {
+   "code": "R0205",
+   "group": "classes",
+   "symbol": "useless-object-inheritance"
+  },
+  {
+   "code": "R0206",
+   "group": "classes",
+   "symbol": "property-with-parameters"
+  },
+  {
+   "code": "R0401",
+   "group": "imports",
+   "symbol": "cyclic-import"
+  },
+  {
+   "code": "R0402",
+   "group": "imports",
+   "symbol": "consider-using-from-import"
+  },
+  {
+   "code": "R0801",
+   "group": "similarities",
+   "symbol": "duplicate-code"
+  },
+  {
+   "code": "R0901",
+   "group": "design",
+   "symbol": "too-many-ancestors"
+  },
+  {
+   "code": "R0902",
+   "group": "design",
+   "symbol": "too-many-instance-attributes"
+  },
+  {
+   "code": "R0903",
+   "group": "design",
+   "symbol": "too-few-public-methods"
+  },
+  {
+   "code": "R0904",
+   "group": "design",
+   "symbol": "too-many-public-methods"
+  },
+  {
+   "code": "R0911",
+   "group": "design",
+   "symbol": "too-many-return-statements"
+  },
+  {
+   "code": "R0912",
+   "group": "design",
+   "symbol": "too-many-branches"
+  },
+  {
+   "code": "R0913",
+   "group": "design",
+   "symbol": "too-many-arguments"
+  },
+  {
+   "code": "R0914",
+   "group": "design",
+   "symbol": "too-many-locals"
+  },
+  {
+   "code": "R0915",
+   "group": "design",
+   "symbol": "too-many-statements"
+  },
+  {
+   "code": "R0916",
+   "group": "design",
+   "symbol": "too-many-boolean-expressions"
+  },
+  {
+   "code": "R0917",
+   "group": "design",
+   "symbol": "too-many-positional-arguments"
+  },
+  {
+   "code": "R1701",
+   "group": "refactoring",
+   "symbol": "consider-merging-isinstance"
+  },
+  {
+   "code": "R1702",
+   "group": "refactoring",
+   "symbol": "too-many-nested-blocks"
+  },
+  {
+   "code": "R1703",
+   "group": "refactoring",
+   "symbol": "simplifiable-if-statement"
+  },
+  {
+   "code": "R1704",
+   "group": "refactoring",
+   "symbol": "redefined-argument-from-local"
+  },
+  {
+   "code": "R1705",
+   "group": "refactoring",
+   "symbol": "no-else-return"
+  },
+  {
+   "code": "R1706",
+   "group": "refactoring",
+   "symbol": "consider-using-ternary"
+  },
+  {
+   "code": "R1707",
+   "group": "refactoring",
+   "symbol": "trailing-comma-tuple"
+  },
+  {
+   "code": "R1708",
+   "group": "refactoring",
+   "symbol": "stop-iteration-return"
+  },
+  {
+   "code": "R1709",
+   "group": "refactoring",
+   "symbol": "simplify-boolean-expression"
+  },
+  {
+   "code": "R1710",
+   "group": "refactoring",
+   "symbol": "inconsistent-return-statements"
+  },
+  {
+   "code": "R1711",
+   "group": "refactoring",
+   "symbol": "useless-return"
+  },
+  {
+   "code": "R1712",
+   "group": "refactoring",
+   "symbol": "consider-swap-variables"
+  },
+  {
+   "code": "R1713",
+   "group": "refactoring",
+   "symbol": "consider-using-join"
+  },
+  {
+   "code": "R1714",
+   "group": "refactoring",
+   "symbol": "consider-using-in"
+  },
+  {
+   "code": "R1715",
+   "group": "refactoring",
+   "symbol": "consider-using-get"
+  },
+  {
+   "code": "R1716",
+   "group": "refactoring",
+   "symbol": "chained-comparison"
+  },
+  {
+   "code": "R1717",
+   "group": "refactoring",
+   "symbol": "consider-using-dict-comprehension"
+  },
+  {
+   "code": "R1718",
+   "group": "refactoring",
+   "symbol": "consider-using-set-comprehension"
+  },
+  {
+   "code": "R1719",
+   "group": "refactoring",
+   "symbol": "simplifiable-if-expression"
+  },
+  {
+   "code": "R1720",
+   "group": "refactoring",
+   "symbol": "no-else-raise"
+  },
+  {
+   "code": "R1721",
+   "group": "refactoring",
+   "symbol": "unnecessary-comprehension"
+  },
+  {
+   "code": "R1722",
+   "group": "refactoring",
+   "symbol": "consider-using-sys-exit"
+  },
+  {
+   "code": "R1723",
+   "group": "refactoring",
+   "symbol": "no-else-break"
+  },
+  {
+   "code": "R1724",
+   "group": "refactoring",
+   "symbol": "no-else-continue"
+  },
+  {
+   "code": "R1725",
+   "group": "refactoring",
+   "symbol": "super-with-arguments"
+  },
+  {
+   "code": "R1726",
+   "group": "refactoring",
+   "symbol": "simplifiable-condition"
+  },
+  {
+   "code": "R1727",
+   "group": "refactoring",
+   "symbol": "condition-evals-to-constant"
+  },
+  {
+   "code": "R1728",
+   "group": "refactoring",
+   "symbol": "consider-using-generator"
+  },
+  {
+   "code": "R1729",
+   "group": "refactoring",
+   "symbol": "use-a-generator"
+  },
+  {
+   "code": "R1730",
+   "group": "refactoring",
+   "symbol": "consider-using-min-builtin"
+  },
+  {
+   "code": "R1731",
+   "group": "refactoring",
+   "symbol": "consider-using-max-builtin"
+  },
+  {
+   "code": "R1732",
+   "group": "refactoring",
+   "symbol": "consider-using-with"
+  },
+  {
+   "code": "R1733",
+   "group": "refactoring",
+   "symbol": "unnecessary-dict-index-lookup"
+  },
+  {
+   "code": "R1734",
+   "group": "refactoring",
+   "symbol": "use-list-literal"
+  },
+  {
+   "code": "R1735",
+   "group": "refactoring",
+   "symbol": "use-dict-literal"
+  },
+  {
+   "code": "R1736",
+   "group": "refactoring",
+   "symbol": "unnecessary-list-index-lookup"
+  },
+  {
+   "code": "R1737",
+   "group": "refactoring",
+   "symbol": "use-yield-from"
+  },
+  {
+   "code": "R1905",
+   "group": "match_statements",
+   "symbol": "match-class-bind-self"
+  },
+  {
+   "code": "R1906",
+   "group": "match_statements",
+   "symbol": "match-class-positional-attributes"
+  },
+  {
+   "code": "W0012",
+   "group": "main",
+   "symbol": "unknown-option-value"
+  },
+  {
+   "code": "W0101",
+   "group": "basic",
+   "symbol": "unreachable"
+  },
+  {
+   "code": "W0102",
+   "group": "basic",
+   "symbol": "dangerous-default-value"
+  },
+  {
+   "code": "W0104",
+   "group": "basic",
+   "symbol": "pointless-statement"
+  },
+  {
+   "code": "W0105",
+   "group": "basic",
+   "symbol": "pointless-string-statement"
+  },
+  {
+   "code": "W0106",
+   "group": "basic",
+   "symbol": "expression-not-assigned"
+  },
+  {
+   "code": "W0107",
+   "group": "basic",
+   "symbol": "unnecessary-pass"
+  },
+  {
+   "code": "W0108",
+   "group": "basic",
+   "symbol": "unnecessary-lambda"
+  },
+  {
+   "code": "W0109",
+   "group": "basic",
+   "symbol": "duplicate-key"
+  },
+  {
+   "code": "W0120",
+   "group": "basic",
+   "symbol": "useless-else-on-loop"
+  },
+  {
+   "code": "W0122",
+   "group": "basic",
+   "symbol": "exec-used"
+  },
+  {
+   "code": "W0123",
+   "group": "basic",
+   "symbol": "eval-used"
+  },
+  {
+   "code": "W0124",
+   "group": "basic",
+   "symbol": "confusing-with-statement"
+  },
+  {
+   "code": "W0125",
+   "group": "basic",
+   "symbol": "using-constant-test"
+  },
+  {
+   "code": "W0126",
+   "group": "basic",
+   "symbol": "missing-parentheses-for-call-in-test"
+  },
+  {
+   "code": "W0127",
+   "group": "basic",
+   "symbol": "self-assigning-variable"
+  },
+  {
+   "code": "W0128",
+   "group": "basic",
+   "symbol": "redeclared-assigned-name"
+  },
+  {
+   "code": "W0129",
+   "group": "basic",
+   "symbol": "assert-on-string-literal"
+  },
+  {
+   "code": "W0130",
+   "group": "basic",
+   "symbol": "duplicate-value"
+  },
+  {
+   "code": "W0131",
+   "group": "basic",
+   "symbol": "named-expr-without-context"
+  },
+  {
+   "code": "W0133",
+   "group": "basic",
+   "symbol": "pointless-exception-statement"
+  },
+  {
+   "code": "W0134",
+   "group": "basic",
+   "symbol": "return-in-finally"
+  },
+  {
+   "code": "W0135",
+   "group": "basic",
+   "symbol": "contextmanager-generator-missing-cleanup"
+  },
+  {
+   "code": "W0136",
+   "group": "basic",
+   "symbol": "continue-in-finally"
+  },
+  {
+   "code": "W0137",
+   "group": "basic",
+   "symbol": "break-in-finally"
+  },
+  {
+   "code": "W0143",
+   "group": "basic",
+   "symbol": "comparison-with-callable"
+  },
+  {
+   "code": "W0150",
+   "group": "basic",
+   "symbol": "lost-exception"
+  },
+  {
+   "code": "W0177",
+   "group": "basic",
+   "symbol": "nan-comparison"
+  },
+  {
+   "code": "W0199",
+   "group": "basic",
+   "symbol": "assert-on-tuple"
+  },
+  {
+   "code": "W0201",
+   "group": "classes",
+   "symbol": "attribute-defined-outside-init"
+  },
+  {
+   "code": "W0211",
+   "group": "classes",
+   "symbol": "bad-staticmethod-argument"
+  },
+  {
+   "code": "W0212",
+   "group": "classes",
+   "symbol": "protected-access"
+  },
+  {
+   "code": "W0213",
+   "group": "classes",
+   "symbol": "implicit-flag-alias"
+  },
+  {
+   "code": "W0221",
+   "group": "classes",
+   "symbol": "arguments-differ"
+  },
+  {
+   "code": "W0222",
+   "group": "classes",
+   "symbol": "signature-differs"
+  },
+  {
+   "code": "W0223",
+   "group": "classes",
+   "symbol": "abstract-method"
+  },
+  {
+   "code": "W0231",
+   "group": "classes",
+   "symbol": "super-init-not-called"
+  },
+  {
+   "code": "W0233",
+   "group": "classes",
+   "symbol": "non-parent-init-called"
+  },
+  {
+   "code": "W0236",
+   "group": "classes",
+   "symbol": "invalid-overridden-method"
+  },
+  {
+   "code": "W0237",
+   "group": "classes",
+   "symbol": "arguments-renamed"
+  },
+  {
+   "code": "W0238",
+   "group": "classes",
+   "symbol": "unused-private-member"
+  },
+  {
+   "code": "W0239",
+   "group": "classes",
+   "symbol": "overridden-final-method"
+  },
+  {
+   "code": "W0240",
+   "group": "classes",
+   "symbol": "subclassed-final-class"
+  },
+  {
+   "code": "W0244",
+   "group": "classes",
+   "symbol": "redefined-slots-in-subclass"
+  },
+  {
+   "code": "W0245",
+   "group": "classes",
+   "symbol": "super-without-brackets"
+  },
+  {
+   "code": "W0246",
+   "group": "classes",
+   "symbol": "useless-parent-delegation"
+  },
+  {
+   "code": "W0301",
+   "group": "format",
+   "symbol": "unnecessary-semicolon"
+  },
+  {
+   "code": "W0311",
+   "group": "format",
+   "symbol": "bad-indentation"
+  },
+  {
+   "code": "W0401",
+   "group": "imports",
+   "symbol": "wildcard-import"
+  },
+  {
+   "code": "W0404",
+   "group": "imports",
+   "symbol": "reimported"
+  },
+  {
+   "code": "W0406",
+   "group": "imports",
+   "symbol": "import-self"
+  },
+  {
+   "code": "W0407",
+   "group": "imports",
+   "symbol": "preferred-module"
+  },
+  {
+   "code": "W0410",
+   "group": "imports",
+   "symbol": "misplaced-future"
+  },
+  {
+   "code": "W0416",
+   "group": "imports",
+   "symbol": "shadowed-import"
+  },
+  {
+   "code": "W0511",
+   "group": "miscellaneous",
+   "symbol": "fixme"
+  },
+  {
+   "code": "W0601",
+   "group": "variables",
+   "symbol": "global-variable-undefined"
+  },
+  {
+   "code": "W0602",
+   "group": "variables",
+   "symbol": "global-variable-not-assigned"
+  },
+  {
+   "code": "W0603",
+   "group": "variables",
+   "symbol": "global-statement"
+  },
+  {
+   "code": "W0604",
+   "group": "variables",
+   "symbol": "global-at-module-level"
+  },
+  {
+   "code": "W0611",
+   "group": "variables",
+   "symbol": "unused-import"
+  },
+  {
+   "code": "W0612",
+   "group": "variables",
+   "symbol": "unused-variable"
+  },
+  {
+   "code": "W0613",
+   "group": "variables",
+   "symbol": "unused-argument"
+  },
+  {
+   "code": "W0614",
+   "group": "variables",
+   "symbol": "unused-wildcard-import"
+  },
+  {
+   "code": "W0621",
+   "group": "variables",
+   "symbol": "redefined-outer-name"
+  },
+  {
+   "code": "W0622",
+   "group": "variables",
+   "symbol": "redefined-builtin"
+  },
+  {
+   "code": "W0631",
+   "group": "variables",
+   "symbol": "undefined-loop-variable"
+  },
+  {
+   "code": "W0632",
+   "group": "variables",
+   "symbol": "unbalanced-tuple-unpacking"
+  },
+  {
+   "code": "W0640",
+   "group": "variables",
+   "symbol": "cell-var-from-loop"
+  },
+  {
+   "code": "W0641",
+   "group": "variables",
+   "symbol": "possibly-unused-variable"
+  },
+  {
+   "code": "W0642",
+   "group": "variables",
+   "symbol": "self-cls-assignment"
+  },
+  {
+   "code": "W0644",
+   "group": "variables",
+   "symbol": "unbalanced-dict-unpacking"
+  },
+  {
+   "code": "W0702",
+   "group": "exceptions",
+   "symbol": "bare-except"
+  },
+  {
+   "code": "W0705",
+   "group": "exceptions",
+   "symbol": "duplicate-except"
+  },
+  {
+   "code": "W0706",
+   "group": "exceptions",
+   "symbol": "try-except-raise"
+  },
+  {
+   "code": "W0707",
+   "group": "exceptions",
+   "symbol": "raise-missing-from"
+  },
+  {
+   "code": "W0711",
+   "group": "exceptions",
+   "symbol": "binary-op-exception"
+  },
+  {
+   "code": "W0715",
+   "group": "exceptions",
+   "symbol": "raising-format-tuple"
+  },
+  {
+   "code": "W0716",
+   "group": "exceptions",
+   "symbol": "wrong-exception-operation"
+  },
+  {
+   "code": "W0718",
+   "group": "exceptions",
+   "symbol": "broad-exception-caught"
+  },
+  {
+   "code": "W0719",
+   "group": "exceptions",
+   "symbol": "broad-exception-raised"
+  },
+  {
+   "code": "W1113",
+   "group": "typecheck",
+   "symbol": "keyword-arg-before-vararg"
+  },
+  {
+   "code": "W1114",
+   "group": "typecheck",
+   "symbol": "arguments-out-of-order"
+  },
+  {
+   "code": "W1115",
+   "group": "typecheck",
+   "symbol": "non-str-assignment-to-dunder-name"
+  },
+  {
+   "code": "W1116",
+   "group": "typecheck",
+   "symbol": "isinstance-second-argument-not-valid-type"
+  },
+  {
+   "code": "W1117",
+   "group": "typecheck",
+   "symbol": "kwarg-superseded-by-positional-arg"
+  },
+  {
+   "code": "W1201",
+   "group": "logging",
+   "symbol": "logging-not-lazy"
+  },
+  {
+   "code": "W1202",
+   "group": "logging",
+   "symbol": "logging-format-interpolation"
+  },
+  {
+   "code": "W1203",
+   "group": "logging",
+   "symbol": "logging-fstring-interpolation"
+  },
+  {
+   "code": "W1300",
+   "group": "string",
+   "symbol": "bad-format-string-key"
+  },
+  {
+   "code": "W1301",
+   "group": "string",
+   "symbol": "unused-format-string-key"
+  },
+  {
+   "code": "W1302",
+   "group": "string",
+   "symbol": "bad-format-string"
+  },
+  {
+   "code": "W1303",
+   "group": "string",
+   "symbol": "missing-format-argument-key"
+  },
+  {
+   "code": "W1304",
+   "group": "string",
+   "symbol": "unused-format-string-argument"
+  },
+  {
+   "code": "W1305",
+   "group": "string",
+   "symbol": "format-combined-specification"
+  },
+  {
+   "code": "W1306",
+   "group": "string",
+   "symbol": "missing-format-attribute"
+  },
+  {
+   "code": "W1307",
+   "group": "string",
+   "symbol": "invalid-format-index"
+  },
+  {
+   "code": "W1308",
+   "group": "string",
+   "symbol": "duplicate-string-formatting-argument"
+  },
+  {
+   "code": "W1309",
+   "group": "string",
+   "symbol": "f-string-without-interpolation"
+  },
+  {
+   "code": "W1310",
+   "group": "string",
+   "symbol": "format-string-without-interpolation"
+  },
+  {
+   "code": "W1401",
+   "group": "string",
+   "symbol": "anomalous-backslash-in-string"
+  },
+  {
+   "code": "W1402",
+   "group": "string",
+   "symbol": "anomalous-unicode-escape-in-string"
+  },
+  {
+   "code": "W1404",
+   "group": "string",
+   "symbol": "implicit-str-concat"
+  },
+  {
+   "code": "W1405",
+   "group": "string",
+   "symbol": "inconsistent-quotes"
+  },
+  {
+   "code": "W1406",
+   "group": "string",
+   "symbol": "redundant-u-string-prefix"
+  },
+  {
+   "code": "W1501",
+   "group": "stdlib",
+   "symbol": "bad-open-mode"
+  },
+  {
+   "code": "W1502",
+   "group": "stdlib",
+   "symbol": "boolean-datetime"
+  },
+  {
+   "code": "W1503",
+   "group": "stdlib",
+   "symbol": "redundant-unittest-assert"
+  },
+  {
+   "code": "W1506",
+   "group": "stdlib",
+   "symbol": "bad-thread-instantiation"
+  },
+  {
+   "code": "W1507",
+   "group": "stdlib",
+   "symbol": "shallow-copy-environ"
+  },
+  {
+   "code": "W1508",
+   "group": "stdlib",
+   "symbol": "invalid-envvar-default"
+  },
+  {
+   "code": "W1509",
+   "group": "stdlib",
+   "symbol": "subprocess-popen-preexec-fn"
+  },
+  {
+   "code": "W1510",
+   "group": "stdlib",
+   "symbol": "subprocess-run-check"
+  },
+  {
+   "code": "W1514",
+   "group": "stdlib",
+   "symbol": "unspecified-encoding"
+  },
+  {
+   "code": "W1515",
+   "group": "stdlib",
+   "symbol": "forgotten-debug-statement"
+  },
+  {
+   "code": "W1518",
+   "group": "stdlib",
+   "symbol": "method-cache-max-size-none"
+  },
+  {
+   "code": "W2101",
+   "group": "threading",
+   "symbol": "useless-with-lock"
+  },
+  {
+   "code": "W2301",
+   "group": "unnecessary_ellipsis",
+   "symbol": "unnecessary-ellipsis"
+  },
+  {
+   "code": "W2402",
+   "group": "nonascii-checker",
+   "symbol": "non-ascii-file-name"
+  },
+  {
+   "code": "W2601",
+   "group": "unsupported_version",
+   "symbol": "using-f-string-in-unsupported-version"
+  },
+  {
+   "code": "W2602",
+   "group": "unsupported_version",
+   "symbol": "using-final-decorator-in-unsupported-version"
+  },
+  {
+   "code": "W2603",
+   "group": "unsupported_version",
+   "symbol": "using-exception-groups-in-unsupported-version"
+  },
+  {
+   "code": "W2604",
+   "group": "unsupported_version",
+   "symbol": "using-generic-type-syntax-in-unsupported-version"
+  },
+  {
+   "code": "W2605",
+   "group": "unsupported_version",
+   "symbol": "using-assignment-expression-in-unsupported-version"
+  },
+  {
+   "code": "W2606",
+   "group": "unsupported_version",
+   "symbol": "using-positional-only-args-in-unsupported-version"
+  },
+  {
+   "code": "W3101",
+   "group": "method_args",
+   "symbol": "missing-timeout"
+  },
+  {
+   "code": "W3301",
+   "group": "nested_min_max",
+   "symbol": "nested-min-max"
+  },
+  {
+   "code": "W3601",
+   "group": "bad-chained-comparison",
+   "symbol": "bad-chained-comparison"
+  },
+  {
+   "code": "W4701",
+   "group": "modified_iteration",
+   "symbol": "modified-iterating-list"
+  },
+  {
+   "code": "W4901",
+   "group": "imports",
+   "symbol": "deprecated-module"
+  },
+  {
+   "code": "W4902",
+   "group": "stdlib",
+   "symbol": "deprecated-method"
+  },
+  {
+   "code": "W4903",
+   "group": "stdlib",
+   "symbol": "deprecated-argument"
+  },
+  {
+   "code": "W4904",
+   "group": "stdlib",
+   "symbol": "deprecated-class"
+  },
+  {
+   "code": "W4905",
+   "group": "stdlib",
+   "symbol": "deprecated-decorator"
+  },
+  {
+   "code": "W4906",
+   "group": "stdlib",
+   "symbol": "deprecated-attribute"
+  }
+ ],
+ "tool": "pylint",
+ "version": "4.0.6"
+}

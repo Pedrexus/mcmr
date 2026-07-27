@@ -1,0 +1,1374 @@
+{
+ "rules": [
+  {
+   "group": "portability",
+   "symbol": "AssignmentAddressToInteger"
+  },
+  {
+   "group": "portability",
+   "symbol": "AssignmentIntegerToAddress"
+  },
+  {
+   "group": "portability",
+   "symbol": "CastAddressToIntegerAtReturn"
+  },
+  {
+   "group": "portability",
+   "symbol": "CastIntegerToAddressAtReturn"
+  },
+  {
+   "group": "error",
+   "symbol": "IOWithoutPositioning"
+  },
+  {
+   "group": "warning",
+   "symbol": "StlMissingComparison"
+  },
+  {
+   "group": "portability",
+   "symbol": "UnionZeroInit"
+  },
+  {
+   "group": "warning",
+   "symbol": "accessForwarded"
+  },
+  {
+   "group": "warning",
+   "symbol": "accessMoved"
+  },
+  {
+   "group": "warning",
+   "symbol": "argumentSize"
+  },
+  {
+   "group": "portability",
+   "symbol": "arithOperationsOnVoidPointer"
+  },
+  {
+   "group": "error",
+   "symbol": "arrayIndexOutOfBounds"
+  },
+  {
+   "group": "warning",
+   "symbol": "arrayIndexOutOfBoundsCond"
+  },
+  {
+   "group": "style",
+   "symbol": "arrayIndexThenCheck"
+  },
+  {
+   "group": "warning",
+   "symbol": "assertWithSideEffect"
+  },
+  {
+   "group": "style",
+   "symbol": "assignBoolToFloat"
+  },
+  {
+   "group": "error",
+   "symbol": "assignBoolToPointer"
+  },
+  {
+   "group": "style",
+   "symbol": "assignIfError"
+  },
+  {
+   "group": "warning",
+   "symbol": "assignmentInAssert"
+  },
+  {
+   "group": "style",
+   "symbol": "assignmentInCondition"
+  },
+  {
+   "group": "error",
+   "symbol": "autoVariables"
+  },
+  {
+   "group": "error",
+   "symbol": "autovarInvalidDeallocation"
+  },
+  {
+   "group": "warning",
+   "symbol": "badBitmaskCheck"
+  },
+  {
+   "group": "style",
+   "symbol": "bitwiseOnBoolean"
+  },
+  {
+   "group": "error",
+   "symbol": "bufferAccessOutOfBounds"
+  },
+  {
+   "group": "style",
+   "symbol": "catchExceptionByValue"
+  },
+  {
+   "group": "warning",
+   "symbol": "charBitOp"
+  },
+  {
+   "group": "warning",
+   "symbol": "charLiteralWithCharPtrCompare"
+  },
+  {
+   "group": "warning",
+   "symbol": "checkCastIntToCharAndBack"
+  },
+  {
+   "group": "style",
+   "symbol": "clarifyCalculation"
+  },
+  {
+   "group": "style",
+   "symbol": "clarifyCondition"
+  },
+  {
+   "group": "warning",
+   "symbol": "clarifyStatement"
+  },
+  {
+   "group": "information",
+   "symbol": "class_X_Y"
+  },
+  {
+   "group": "style",
+   "symbol": "commaSeparatedReturn"
+  },
+  {
+   "group": "warning",
+   "symbol": "compareBoolExpressionWithInt"
+  },
+  {
+   "group": "error",
+   "symbol": "comparePointers"
+  },
+  {
+   "group": "style",
+   "symbol": "compareValueOutOfTypeRangeError"
+  },
+  {
+   "group": "style",
+   "symbol": "comparisonError"
+  },
+  {
+   "group": "warning",
+   "symbol": "comparisonFunctionIsAlwaysTrueOrFalse"
+  },
+  {
+   "group": "style",
+   "symbol": "comparisonOfBoolWithBoolError"
+  },
+  {
+   "group": "warning",
+   "symbol": "comparisonOfBoolWithInvalidComparator"
+  },
+  {
+   "group": "style",
+   "symbol": "comparisonOfFuncReturningBoolError"
+  },
+  {
+   "group": "style",
+   "symbol": "comparisonOfTwoFuncsReturningBoolError"
+  },
+  {
+   "group": "style",
+   "symbol": "constParameter"
+  },
+  {
+   "group": "style",
+   "symbol": "constParameterCallback"
+  },
+  {
+   "group": "style",
+   "symbol": "constParameterPointer"
+  },
+  {
+   "group": "style",
+   "symbol": "constParameterReference"
+  },
+  {
+   "group": "warning",
+   "symbol": "constStatement"
+  },
+  {
+   "group": "style",
+   "symbol": "constVariable"
+  },
+  {
+   "group": "style",
+   "symbol": "constVariablePointer"
+  },
+  {
+   "group": "style",
+   "symbol": "constVariableReference"
+  },
+  {
+   "group": "error",
+   "symbol": "containerOutOfBounds"
+  },
+  {
+   "group": "error",
+   "symbol": "containerOutOfBoundsIndexExpression"
+  },
+  {
+   "group": "warning",
+   "symbol": "copyCtorAndEqOperator"
+  },
+  {
+   "group": "warning",
+   "symbol": "copyCtorPointerCopying"
+  },
+  {
+   "group": "error",
+   "symbol": "coutCerrMisusage"
+  },
+  {
+   "group": "style",
+   "symbol": "cstyleCast"
+  },
+  {
+   "group": "warning",
+   "symbol": "dangerousTypeCast"
+  },
+  {
+   "group": "error",
+   "symbol": "danglingLifetime"
+  },
+  {
+   "group": "error",
+   "symbol": "danglingReference"
+  },
+  {
+   "group": "error",
+   "symbol": "danglingTempReference"
+  },
+  {
+   "group": "error",
+   "symbol": "danglingTemporaryLifetime"
+  },
+  {
+   "group": "error",
+   "symbol": "deallocret"
+  },
+  {
+   "group": "error",
+   "symbol": "deallocuse"
+  },
+  {
+   "group": "warning",
+   "symbol": "derefInvalidIterator"
+  },
+  {
+   "group": "warning",
+   "symbol": "divideSizeof"
+  },
+  {
+   "group": "error",
+   "symbol": "doubleFree"
+  },
+  {
+   "group": "warning",
+   "symbol": "duplInheritedMember"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateAssignExpression"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateBranch"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateBreak"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateCondition"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateConditionalAssign"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateExpression"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateExpressionTernary"
+  },
+  {
+   "group": "style",
+   "symbol": "duplicateValueTernary"
+  },
+  {
+   "group": "error",
+   "symbol": "eraseDereference"
+  },
+  {
+   "group": "error",
+   "symbol": "eraseIteratorOutOfBounds"
+  },
+  {
+   "group": "warning",
+   "symbol": "eraseIteratorOutOfBoundsCond"
+  },
+  {
+   "group": "warning",
+   "symbol": "exceptDeallocThrow"
+  },
+  {
+   "group": "style",
+   "symbol": "exceptRethrowCopy"
+  },
+  {
+   "group": "warning",
+   "symbol": "exceptThrowInDestructor"
+  },
+  {
+   "group": "warning",
+   "symbol": "fcloseInLoopCondition"
+  },
+  {
+   "group": "portability",
+   "symbol": "fflushOnInputStream"
+  },
+  {
+   "group": "error",
+   "symbol": "floatConversionOverflow"
+  },
+  {
+   "group": "style",
+   "symbol": "funcArgNamesDifferent"
+  },
+  {
+   "group": "warning",
+   "symbol": "funcArgOrderDifferent"
+  },
+  {
+   "group": "style",
+   "symbol": "functionConst"
+  },
+  {
+   "group": "style",
+   "symbol": "functionStatic"
+  },
+  {
+   "group": "warning",
+   "symbol": "globalLockGuard"
+  },
+  {
+   "group": "warning",
+   "symbol": "identicalConditionAfterEarlyExit"
+  },
+  {
+   "group": "warning",
+   "symbol": "identicalInnerCondition"
+  },
+  {
+   "group": "style",
+   "symbol": "ignoredReturnErrorCode"
+  },
+  {
+   "group": "warning",
+   "symbol": "ignoredReturnValue"
+  },
+  {
+   "group": "error",
+   "symbol": "includeNestedTooDeeply"
+  },
+  {
+   "group": "warning",
+   "symbol": "incompatibleFileOpen"
+  },
+  {
+   "group": "warning",
+   "symbol": "incompleteArrayFill"
+  },
+  {
+   "group": "warning",
+   "symbol": "incorrectCharBooleanError"
+  },
+  {
+   "group": "warning",
+   "symbol": "incorrectLogicOperator"
+  },
+  {
+   "group": "warning",
+   "symbol": "incorrectStringBooleanError"
+  },
+  {
+   "group": "warning",
+   "symbol": "incorrectStringCompare"
+  },
+  {
+   "group": "style",
+   "symbol": "incrementboolean"
+  },
+  {
+   "group": "style",
+   "symbol": "initializerList"
+  },
+  {
+   "group": "portability",
+   "symbol": "intToPointerCast"
+  },
+  {
+   "group": "error",
+   "symbol": "integerOverflow"
+  },
+  {
+   "group": "portability",
+   "symbol": "invalidConstFunctionType"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidContainer"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidContainerLoop"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidContainerReference"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidFree"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidFunctionArg"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidFunctionArgBool"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidFunctionArgStr"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidIterator1"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidLengthModifierError"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidLifetime"
+  },
+  {
+   "group": "portability",
+   "symbol": "invalidPointerCast"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidPrintfArgType_float"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidPrintfArgType_n"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidPrintfArgType_p"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidPrintfArgType_s"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidPrintfArgType_sint"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidPrintfArgType_uint"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidScanfArgType_float"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidScanfArgType_int"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidScanfArgType_s"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidScanfFormatWidth"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidScanfFormatWidth_smaller"
+  },
+  {
+   "group": "error",
+   "symbol": "invalidSuppression"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidTestForOverflow"
+  },
+  {
+   "group": "warning",
+   "symbol": "invalidscanf"
+  },
+  {
+   "group": "error",
+   "symbol": "iterators1"
+  },
+  {
+   "group": "error",
+   "symbol": "iterators3"
+  },
+  {
+   "group": "style",
+   "symbol": "knownArgument"
+  },
+  {
+   "group": "style",
+   "symbol": "knownArgumentHiddenVariableExpression"
+  },
+  {
+   "group": "style",
+   "symbol": "knownConditionTrueFalse"
+  },
+  {
+   "group": "style",
+   "symbol": "knownEmptyContainer"
+  },
+  {
+   "group": "style",
+   "symbol": "knownPointerToBool"
+  },
+  {
+   "group": "error",
+   "symbol": "leakNoVarFunctionCall"
+  },
+  {
+   "group": "error",
+   "symbol": "leakReturnValNotUsed"
+  },
+  {
+   "group": "warning",
+   "symbol": "leakUnsafeArgAlloc"
+  },
+  {
+   "group": "warning",
+   "symbol": "literalWithCharPtrCompare"
+  },
+  {
+   "group": "warning",
+   "symbol": "localMutex"
+  },
+  {
+   "group": "error",
+   "symbol": "mallocOnClassError"
+  },
+  {
+   "group": "warning",
+   "symbol": "mallocOnClassWarning"
+  },
+  {
+   "group": "error",
+   "symbol": "memleak"
+  },
+  {
+   "group": "error",
+   "symbol": "memleakOnRealloc"
+  },
+  {
+   "group": "error",
+   "symbol": "memsetClass"
+  },
+  {
+   "group": "portability",
+   "symbol": "memsetClassFloat"
+  },
+  {
+   "group": "error",
+   "symbol": "memsetClassReference"
+  },
+  {
+   "group": "portability",
+   "symbol": "memsetFloat"
+  },
+  {
+   "group": "warning",
+   "symbol": "memsetValueOutOfRange"
+  },
+  {
+   "group": "warning",
+   "symbol": "memsetZeroBytes"
+  },
+  {
+   "group": "error",
+   "symbol": "mismatchAllocDealloc"
+  },
+  {
+   "group": "style",
+   "symbol": "mismatchingBitAnd"
+  },
+  {
+   "group": "warning",
+   "symbol": "mismatchingContainerExpression"
+  },
+  {
+   "group": "error",
+   "symbol": "mismatchingContainerIterator"
+  },
+  {
+   "group": "error",
+   "symbol": "mismatchingContainers"
+  },
+  {
+   "group": "error",
+   "symbol": "missingFile"
+  },
+  {
+   "group": "information",
+   "symbol": "missingInclude"
+  },
+  {
+   "group": "error",
+   "symbol": "missingIncludeExplicit"
+  },
+  {
+   "group": "information",
+   "symbol": "missingIncludeSystem"
+  },
+  {
+   "group": "warning",
+   "symbol": "missingMemberCopy"
+  },
+  {
+   "group": "style",
+   "symbol": "missingOverride"
+  },
+  {
+   "group": "error",
+   "symbol": "missingReturn"
+  },
+  {
+   "group": "warning",
+   "symbol": "moduloAlwaysTrueFalse"
+  },
+  {
+   "group": "style",
+   "symbol": "moduloofone"
+  },
+  {
+   "group": "style",
+   "symbol": "multiCondition"
+  },
+  {
+   "group": "warning",
+   "symbol": "multiplySizeof"
+  },
+  {
+   "group": "style",
+   "symbol": "nanInArithmeticExpression"
+  },
+  {
+   "group": "error",
+   "symbol": "negativeArraySize"
+  },
+  {
+   "group": "warning",
+   "symbol": "negativeContainerIndex"
+  },
+  {
+   "group": "error",
+   "symbol": "negativeIndex"
+  },
+  {
+   "group": "error",
+   "symbol": "negativeMemoryAllocationSize"
+  },
+  {
+   "group": "style",
+   "symbol": "noConstructor"
+  },
+  {
+   "group": "warning",
+   "symbol": "noCopyConstructor"
+  },
+  {
+   "group": "warning",
+   "symbol": "noDestructor"
+  },
+  {
+   "group": "style",
+   "symbol": "noExplicitConstructor"
+  },
+  {
+   "group": "warning",
+   "symbol": "noOperatorEq"
+  },
+  {
+   "group": "portability",
+   "symbol": "nonStandardCharLiteral"
+  },
+  {
+   "group": "error",
+   "symbol": "nullPointer"
+  },
+  {
+   "group": "error",
+   "symbol": "nullPointerArithmetic"
+  },
+  {
+   "group": "warning",
+   "symbol": "nullPointerArithmeticRedundantCheck"
+  },
+  {
+   "group": "warning",
+   "symbol": "nullPointerDefaultArg"
+  },
+  {
+   "group": "warning",
+   "symbol": "nullPointerOutOfMemory"
+  },
+  {
+   "group": "warning",
+   "symbol": "nullPointerOutOfResources"
+  },
+  {
+   "group": "warning",
+   "symbol": "nullPointerRedundantCheck"
+  },
+  {
+   "group": "error",
+   "symbol": "objectIndex"
+  },
+  {
+   "group": "error",
+   "symbol": "operatorEqMissingReturnStatement"
+  },
+  {
+   "group": "style",
+   "symbol": "operatorEqRetRefThis"
+  },
+  {
+   "group": "style",
+   "symbol": "operatorEqShouldBeLeftUnimplemented"
+  },
+  {
+   "group": "warning",
+   "symbol": "operatorEqToSelf"
+  },
+  {
+   "group": "warning",
+   "symbol": "operatorEqVarError"
+  },
+  {
+   "group": "style",
+   "symbol": "oppositeExpression"
+  },
+  {
+   "group": "warning",
+   "symbol": "oppositeInnerCondition"
+  },
+  {
+   "group": "warning",
+   "symbol": "overlappingInnerCondition"
+  },
+  {
+   "group": "warning",
+   "symbol": "overlappingStrcmp"
+  },
+  {
+   "group": "error",
+   "symbol": "overlappingWriteFunction"
+  },
+  {
+   "group": "error",
+   "symbol": "overlappingWriteUnion"
+  },
+  {
+   "group": "performance",
+   "symbol": "passedByValue"
+  },
+  {
+   "group": "warning",
+   "symbol": "pointerAdditionResultNotNull"
+  },
+  {
+   "group": "error",
+   "symbol": "pointerArithBool"
+  },
+  {
+   "group": "style",
+   "symbol": "pointerLessThanZero"
+  },
+  {
+   "group": "portability",
+   "symbol": "pointerOutOfBounds"
+  },
+  {
+   "group": "portability",
+   "symbol": "pointerOutOfBoundsCond"
+  },
+  {
+   "group": "style",
+   "symbol": "pointerPositive"
+  },
+  {
+   "group": "warning",
+   "symbol": "pointerSize"
+  },
+  {
+   "group": "performance",
+   "symbol": "postfixOperator"
+  },
+  {
+   "group": "error",
+   "symbol": "preprocessorErrorDirective"
+  },
+  {
+   "group": "warning",
+   "symbol": "publicAllocationError"
+  },
+  {
+   "group": "warning",
+   "symbol": "pureVirtualCall"
+  },
+  {
+   "group": "information",
+   "symbol": "purgedConfiguration"
+  },
+  {
+   "group": "error",
+   "symbol": "raceAfterInterlockedDecrement"
+  },
+  {
+   "group": "error",
+   "symbol": "readWriteOnlyFile"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantAssignInSwitch"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantAssignment"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantBitwiseOperationInSwitch"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantCondition"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantContinue"
+  },
+  {
+   "group": "performance",
+   "symbol": "redundantCopy"
+  },
+  {
+   "group": "performance",
+   "symbol": "redundantCopyLocalConst"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantIfRemove"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantInitialization"
+  },
+  {
+   "group": "style",
+   "symbol": "redundantPointerOp"
+  },
+  {
+   "group": "error",
+   "symbol": "resourceLeak"
+  },
+  {
+   "group": "error",
+   "symbol": "rethrowNoCurrentException"
+  },
+  {
+   "group": "performance",
+   "symbol": "returnByReference"
+  },
+  {
+   "group": "error",
+   "symbol": "returnDanglingLifetime"
+  },
+  {
+   "group": "style",
+   "symbol": "returnNonBoolInBooleanFunction"
+  },
+  {
+   "group": "error",
+   "symbol": "returnReference"
+  },
+  {
+   "group": "performance",
+   "symbol": "returnStdMoveLocal"
+  },
+  {
+   "group": "error",
+   "symbol": "returnTempReference"
+  },
+  {
+   "group": "style",
+   "symbol": "sameIteratorExpression"
+  },
+  {
+   "group": "warning",
+   "symbol": "seekOnAppendedFile"
+  },
+  {
+   "group": "style",
+   "symbol": "selfAssignment"
+  },
+  {
+   "group": "error",
+   "symbol": "selfInitialization"
+  },
+  {
+   "group": "style",
+   "symbol": "shadowArgument"
+  },
+  {
+   "group": "style",
+   "symbol": "shadowFunction"
+  },
+  {
+   "group": "style",
+   "symbol": "shadowMember"
+  },
+  {
+   "group": "style",
+   "symbol": "shadowVariable"
+  },
+  {
+   "group": "error",
+   "symbol": "shiftNegative"
+  },
+  {
+   "group": "portability",
+   "symbol": "shiftNegativeLHS"
+  },
+  {
+   "group": "error",
+   "symbol": "shiftTooManyBits"
+  },
+  {
+   "group": "error",
+   "symbol": "shiftTooManyBitsSigned"
+  },
+  {
+   "group": "warning",
+   "symbol": "signConversion"
+  },
+  {
+   "group": "warning",
+   "symbol": "signedCharArrayIndex"
+  },
+  {
+   "group": "warning",
+   "symbol": "sizeofCalculation"
+  },
+  {
+   "group": "portability",
+   "symbol": "sizeofDereferencedVoidPointer"
+  },
+  {
+   "group": "warning",
+   "symbol": "sizeofDivisionMemfunc"
+  },
+  {
+   "group": "warning",
+   "symbol": "sizeofFunctionCall"
+  },
+  {
+   "group": "portability",
+   "symbol": "sizeofVoid"
+  },
+  {
+   "group": "warning",
+   "symbol": "sizeofsizeof"
+  },
+  {
+   "group": "warning",
+   "symbol": "sizeofwithnumericparameter"
+  },
+  {
+   "group": "warning",
+   "symbol": "sizeofwithsilentarraypointer"
+  },
+  {
+   "group": "error",
+   "symbol": "sprintfOverlappingData"
+  },
+  {
+   "group": "style",
+   "symbol": "staticFunction"
+  },
+  {
+   "group": "warning",
+   "symbol": "staticStringCompare"
+  },
+  {
+   "group": "error",
+   "symbol": "stlBoundaries"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlFindInsert"
+  },
+  {
+   "group": "warning",
+   "symbol": "stlIfFind"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlIfStrFind"
+  },
+  {
+   "group": "error",
+   "symbol": "stlOutOfBounds"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlSize"
+  },
+  {
+   "group": "error",
+   "symbol": "stlcstr"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlcstrAssignment"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlcstrConcat"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlcstrConstructor"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlcstrParam"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlcstrReturn"
+  },
+  {
+   "group": "performance",
+   "symbol": "stlcstrStream"
+  },
+  {
+   "group": "error",
+   "symbol": "stlcstrthrow"
+  },
+  {
+   "group": "error",
+   "symbol": "strPlusChar"
+  },
+  {
+   "group": "warning",
+   "symbol": "stringCompare"
+  },
+  {
+   "group": "error",
+   "symbol": "stringLiteralWrite"
+  },
+  {
+   "group": "warning",
+   "symbol": "suspiciousCase"
+  },
+  {
+   "group": "style",
+   "symbol": "suspiciousFloatingPointCast"
+  },
+  {
+   "group": "warning",
+   "symbol": "suspiciousSemicolon"
+  },
+  {
+   "group": "error",
+   "symbol": "syntaxError"
+  },
+  {
+   "group": "warning",
+   "symbol": "terminateStrncpy"
+  },
+  {
+   "group": "warning",
+   "symbol": "thisSubtraction"
+  },
+  {
+   "group": "warning",
+   "symbol": "thisUseAfterFree"
+  },
+  {
+   "group": "error",
+   "symbol": "throwInEntryPoint"
+  },
+  {
+   "group": "error",
+   "symbol": "throwInNoexceptFunction"
+  },
+  {
+   "group": "information",
+   "symbol": "toomanyconfigs"
+  },
+  {
+   "group": "style",
+   "symbol": "truncLongCastAssignment"
+  },
+  {
+   "group": "style",
+   "symbol": "truncLongCastReturn"
+  },
+  {
+   "group": "style",
+   "symbol": "unassignedVariable"
+  },
+  {
+   "group": "error",
+   "symbol": "unhandledChar"
+  },
+  {
+   "group": "style",
+   "symbol": "unhandledExceptionSpecification"
+  },
+  {
+   "group": "warning",
+   "symbol": "uninitDerivedMemberVar"
+  },
+  {
+   "group": "warning",
+   "symbol": "uninitDerivedMemberVarPrivate"
+  },
+  {
+   "group": "warning",
+   "symbol": "uninitMemberVar"
+  },
+  {
+   "group": "warning",
+   "symbol": "uninitMemberVarPrivate"
+  },
+  {
+   "group": "error",
+   "symbol": "uninitStructMember"
+  },
+  {
+   "group": "error",
+   "symbol": "uninitdata"
+  },
+  {
+   "group": "error",
+   "symbol": "unknownEvaluationOrder"
+  },
+  {
+   "group": "portability",
+   "symbol": "unknownSignCharArrayIndex"
+  },
+  {
+   "group": "style",
+   "symbol": "unpreciseMathCall"
+  },
+  {
+   "group": "style",
+   "symbol": "unreachableCode"
+  },
+  {
+   "group": "style",
+   "symbol": "unreadVariable"
+  },
+  {
+   "group": "style",
+   "symbol": "unsafeClassCanLeak"
+  },
+  {
+   "group": "warning",
+   "symbol": "unsafeClassRefMember"
+  },
+  {
+   "group": "style",
+   "symbol": "unsignedLessThanZero"
+  },
+  {
+   "group": "style",
+   "symbol": "unsignedPositive"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedAllocatedMemory"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedFunction"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedLabel"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedLabelConfiguration"
+  },
+  {
+   "group": "warning",
+   "symbol": "unusedLabelSwitch"
+  },
+  {
+   "group": "warning",
+   "symbol": "unusedLabelSwitchConfiguration"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedPrivateFunction"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedScopedObject"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedStructMember"
+  },
+  {
+   "group": "style",
+   "symbol": "unusedVariable"
+  },
+  {
+   "group": "error",
+   "symbol": "useClosedFile"
+  },
+  {
+   "group": "performance",
+   "symbol": "useInitializationList"
+  },
+  {
+   "group": "style",
+   "symbol": "useStandardLibrary"
+  },
+  {
+   "group": "style",
+   "symbol": "useStlAlgorithm"
+  },
+  {
+   "group": "style",
+   "symbol": "uselessAssignmentArg"
+  },
+  {
+   "group": "warning",
+   "symbol": "uselessAssignmentPtrArg"
+  },
+  {
+   "group": "warning",
+   "symbol": "uselessCallsCompare"
+  },
+  {
+   "group": "performance",
+   "symbol": "uselessCallsConstructor"
+  },
+  {
+   "group": "warning",
+   "symbol": "uselessCallsEmpty"
+  },
+  {
+   "group": "warning",
+   "symbol": "uselessCallsRemove"
+  },
+  {
+   "group": "performance",
+   "symbol": "uselessCallsSubstr"
+  },
+  {
+   "group": "performance",
+   "symbol": "uselessCallsSwap"
+  },
+  {
+   "group": "style",
+   "symbol": "uselessOverride"
+  },
+  {
+   "group": "error",
+   "symbol": "va_end_missing"
+  },
+  {
+   "group": "error",
+   "symbol": "va_list_usedBeforeStarted"
+  },
+  {
+   "group": "error",
+   "symbol": "va_start_referencePassed"
+  },
+  {
+   "group": "error",
+   "symbol": "va_start_subsequentCalls"
+  },
+  {
+   "group": "warning",
+   "symbol": "va_start_wrongParameter"
+  },
+  {
+   "group": "portability",
+   "symbol": "varFuncNullUB"
+  },
+  {
+   "group": "style",
+   "symbol": "variableScope"
+  },
+  {
+   "group": "style",
+   "symbol": "virtualCallInConstructor"
+  },
+  {
+   "group": "error",
+   "symbol": "virtualDestructor"
+  },
+  {
+   "group": "error",
+   "symbol": "writeReadOnlyFile"
+  },
+  {
+   "group": "error",
+   "symbol": "wrongPrintfScanfArgNum"
+  },
+  {
+   "group": "warning",
+   "symbol": "wrongPrintfScanfParameterPositionError"
+  },
+  {
+   "group": "warning",
+   "symbol": "wrongmathcall"
+  },
+  {
+   "group": "error",
+   "symbol": "zerodiv"
+  },
+  {
+   "group": "warning",
+   "symbol": "zerodivcond"
+  }
+ ],
+ "tool": "cppcheck",
+ "version": "2.21.0"
+}

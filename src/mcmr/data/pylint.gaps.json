@@ -1,0 +1,585 @@
+{
+ "tool": "pylint",
+ "default": {
+  "coverage": "unavailable",
+  "reason": "No rule in this catalog answers this message and no tool in the stack was chosen to, so it is unaccounted for rather than quietly covered."
+ },
+ "gaps": [
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `undefined-local-with-import-star` (F403) at the wildcard itself.",
+   "symbols": [
+    "wildcard-import"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "A formatter settles line length before a linter sees it, so this belongs to Ruff format rather than to any rule.",
+   "symbols": [
+    "line-too-long"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's pydocstyle rules own docstring presence. MCMR judges what a docstring says instead of whether one exists, which is what `PY-DOCU0001` reads.",
+   "symbols": [
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "missing-module-docstring"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `multiple-imports-on-one-line` (E401) and its formatter splits it.",
+   "symbols": [
+    "multiple-imports"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's isort rules (I001) sort and group imports, and sorting them is a better answer than reporting that they are unsorted.",
+   "symbols": [
+    "wrong-import-order"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's isort rules (I001) group imports by origin as part of sorting them.",
+   "symbols": [
+    "ungrouped-imports"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `module-import-not-at-top-of-file` (E402).",
+   "symbols": [
+    "wrong-import-position"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `redefined-while-unused` (F811), which covers the second import of a name along with every other rebinding of one.",
+   "symbols": [
+    "reimported"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `deprecated-import` (UP035) and rewrites the import.",
+   "symbols": [
+    "deprecated-module"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's `banned-api` (TID251) takes the same module-to-module mapping from configuration.",
+   "symbols": [
+    "preferred-module"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `undefined-name` (F821) from the same scope analysis pyflakes does.",
+   "symbols": [
+    "undefined-variable"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `undefined-export` (F822).",
+   "symbols": [
+    "undefined-all-variable"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `unused-variable` (F841) with a fix.",
+   "symbols": [
+    "unused-variable"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's flake8-unused-arguments rules (ARG001 through ARG005) report this per callable kind, which is finer than one message for all of them.",
+   "symbols": [
+    "unused-argument"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports the wildcard itself as `undefined-local-with-import-star` (F403) rather than waiting to see which names went unused.",
+   "symbols": [
+    "unused-wildcard-import"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's flake8-builtins rules (A001 and A002) report a shadowed builtin per binding kind.",
+   "symbols": [
+    "redefined-builtin"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `function-uses-loop-variable` (B023).",
+   "symbols": [
+    "cell-var-from-loop"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `comparison-of-constant` (PLR0133), singular where Pylint made it plural.",
+   "symbols": [
+    "comparison-of-constants"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `sys-exit-alias` (PLR1722) and rewrites the call.",
+   "symbols": [
+    "consider-using-sys-exit"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `non-ascii-import-name` (PLC2403).",
+   "symbols": [
+    "non-ascii-module-import"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `repeated-keyword-argument` (PLE1132).",
+   "symbols": [
+    "repeated-keyword"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `single-string-slots` (PLC0205).",
+   "symbols": [
+    "single-string-used-for-slots"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `subprocess-run-without-check` (PLW1510).",
+   "symbols": [
+    "subprocess-run-check"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `yield-from-in-async-function` (PLE1700), naming the construct that is actually forbidden rather than the one that is not.",
+   "symbols": [
+    "yield-inside-async-function"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `is-literal` (F632), which pyflakes owns rather than its Pylint set.",
+   "symbols": [
+    "literal-comparison"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-first-argument-name-for-method` (N805), beside the class and static forms of the same question.",
+   "symbols": [
+    "no-self-argument"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `break-outside-loop` (F701) and `continue-outside-loop` (F702), one per jump rather than one message for both.",
+   "symbols": [
+    "not-in-loop"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Nothing answers this today. Ruff's `invalid-first-argument-name-for-method` (N805) reads the name of a first parameter and says nothing when there is none, so the delegation this entry used to claim was empty. A method declaring no receiver at all is reachable from the function family, which carries the owning class and the parameter list, so this is a gap with a rule behind it rather than a limit.",
+   "symbols": [
+    "no-method-argument"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `manual-from-import` (PLR0402) and rewrites the import.",
+   "symbols": [
+    "consider-using-from-import"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `self-or-cls-assignment` (PLW0642), covering the instance receiver and the class receiver alike.",
+   "symbols": [
+    "self-cls-assignment"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `nested-min-max` (PLW3301) and flattens the call.",
+   "symbols": [
+    "nested-min-max"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `lambda-assignment` (E731), at module scope and inside a body.",
+   "symbols": [
+    "unnecessary-lambda-assignment"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `loop-iterator-mutation` (B909), which answers for a list, a dictionary, and a set through one rule where Pylint spends three messages, and which reads a mutating method call that Pylint's own dictionary arm misses.",
+   "symbols": [
+    "modified-iterating-dict"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `loop-iterator-mutation` (B909), the same rule that answers for the dictionary and the set, so one delegation covers the family Pylint splits in three.",
+   "symbols": [
+    "modified-iterating-list"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-first-argument-name-for-class-method` (N804), which is where its sibling `bad-staticmethod-argument` already goes.",
+   "symbols": [
+    "bad-classmethod-argument"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `request-without-timeout` (S113) from the import alone. Pylint has to infer that `requests.get` is `requests.api.get` and stays silent when the package is not installed, so Ruff is the more reliable of the two readers here.",
+   "symbols": [
+    "missing-timeout"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `redefined-while-unused` (F811) at the same lines, which is where `reimported` already goes, since an import shadowed by another import is one case of a name rebound before anything read it.",
+   "symbols": [
+    "shadowed-import"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `unnecessary-placeholder` (PIE790) and deletes the line.",
+   "symbols": [
+    "unnecessary-ellipsis"
+   ]
+  },
+  {
+   "coverage": "inapplicable",
+   "reason": "This asks a pragma to name a Pylint message by its symbol rather than by its identifier, so it is about how Pylint is configured inside a comment rather than about the code that comment sits beside.",
+   "symbols": [
+    "use-symbolic-message-instead"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs to know which assignments reach a use, which is a control flow graph rather than a structural one. The kernel builds no basic blocks and no edges between them, so the repository graph records that a name is reached and never in what order.",
+   "symbols": [
+    "access-member-before-definition",
+    "possibly-used-before-assignment",
+    "undefined-loop-variable",
+    "used-before-assignment"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the installed environment for a third-party module. For a repository-owned one it needs the resolution outcome of an import binding, which the graph settles internally and no fact family reports, so both halves are missing today and only the second is ever reachable from a repository MCMR never imports.",
+   "symbols": [
+    "import-error"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the exported names of the module an import reaches, which for anything outside the repository is the installed environment. Inside the repository it needs the resolution outcome of an import binding, which the graph settles internally and no fact family reports. MCMR reads a repository and never imports it.",
+   "symbols": [
+    "no-name-in-module"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the sub-patterns of one `match` case. The neutral vocabulary every frontend fills carries twelve statement kinds and no pattern among them, so a `case` arrives as an unnamed statement with its patterns collapsed into it, and nothing is left to count, to name, or to line up against `__match_args__`.",
+   "symbols": [
+    "bare-name-capture-pattern",
+    "invalid-match-args-definition",
+    "match-class-bind-self",
+    "match-class-positional-attributes",
+    "multiple-class-sub-patterns",
+    "too-many-positional-sub-patterns"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the inferred type of an expression. MCMR reads syntax and a resolved graph, so a type checker owns it and the project runs mypy, pyrefly, and ty for exactly this.",
+   "symbols": [
+    "assigning-non-slot",
+    "bad-mcs-classmethod-argument",
+    "bad-mcs-method-argument",
+    "class-variable-slots-conflict",
+    "declare-non-slot",
+    "implicit-flag-alias",
+    "inconsistent-mro",
+    "inherit-non-class",
+    "invalid-class-object",
+    "invalid-enum-extension",
+    "invalid-format-returned",
+    "invalid-getnewargs-ex-returned",
+    "invalid-getnewargs-returned",
+    "invalid-length-hint-returned",
+    "invalid-repr-returned",
+    "invalid-slots",
+    "invalid-slots-object",
+    "method-check-failed",
+    "non-iterator-returned",
+    "not-a-mapping",
+    "not-an-iterable",
+    "not-async-context-manager",
+    "unbalanced-dict-unpacking",
+    "unbalanced-tuple-unpacking",
+    "unpacking-non-sequence"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-bool-return-type` (PLE0304), keeping Pylint's identifier and renaming the rule.",
+   "symbols": [
+    "invalid-bool-returned"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-bytes-return-type` (PLE0308), keeping Pylint's identifier and renaming the rule.",
+   "symbols": [
+    "invalid-bytes-returned"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-hash-return-type` (PLE0309), keeping Pylint's identifier and renaming the rule.",
+   "symbols": [
+    "invalid-hash-returned"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-index-return-type` (PLE0305), keeping Pylint's identifier and renaming the rule.",
+   "symbols": [
+    "invalid-index-returned"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-length-return-type` (PLE0303), keeping Pylint's identifier and renaming the rule.",
+   "symbols": [
+    "invalid-length-returned"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff reports this as `invalid-str-return-type` (PLE0307), keeping Pylint's identifier and renaming the rule.",
+   "symbols": [
+    "invalid-str-returned"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs every method of one class at once, because an attribute is only reported where the initializer does not set it too. A syntax fact is one declaration and a class tree stops at the methods that carry their own, so the two halves of that comparison never meet inside one rule.",
+   "symbols": [
+    "attribute-defined-outside-init"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs a module's own names and one body's local bindings side by side. The symbol family carries module scope, the syntax family carries the body, and a rule receives exactly one family, so neither half can see the other.",
+   "symbols": [
+    "redefined-outer-name"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the `global` statement itself, which the neutral vocabulary has no node for and which therefore arrives unnamed, and then the module's own bindings out of a second family to prove the name it declares is missing.",
+   "symbols": [
+    "global-variable-undefined"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the parameter kinds of the callee at the call site. A call fact carries the keyword names a caller passes and a handle on the callee, never the signature that handle resolved to, so the keyword and the parameter forbidding it sit in two families.",
+   "symbols": [
+    "positional-only-arguments-expected"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs the operators of a chained comparison. The neutral vocabulary collapses every comparison, Boolean, unary, and binary expression into one operation node that records no operator, so nothing distinguishes `a < b < c` from `a < b in c`.",
+   "symbols": [
+    "bad-chained-comparison"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding this needs to know that a bare `field` is the one `dataclasses` exports and that the class holding the call is not a dataclass. A syntax tree names a callee as the source spells it, so an imported `field` and a local one read alike, and the decorators of the enclosing class are not beside the call.",
+   "symbols": [
+    "invalid-field-call"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff implements this message under the same name, and duplicating a lint that already runs in this stack would report it twice.",
+   "symbols": [
+    "assert-on-string-literal",
+    "await-outside-async",
+    "bad-open-mode",
+    "bad-staticmethod-argument",
+    "bad-str-strip-call",
+    "bad-string-format-type",
+    "bidirectional-unicode",
+    "binary-op-exception",
+    "comparison-with-itself",
+    "continue-in-finally",
+    "duplicate-bases",
+    "global-at-module-level",
+    "global-statement",
+    "global-variable-not-assigned",
+    "import-self",
+    "invalid-all-format",
+    "invalid-all-object",
+    "invalid-character-backspace",
+    "invalid-character-esc",
+    "invalid-character-nul",
+    "invalid-character-sub",
+    "invalid-character-zero-width-space",
+    "invalid-envvar-value",
+    "logging-too-few-args",
+    "logging-too-many-args",
+    "misplaced-bare-raise",
+    "modified-iterating-set",
+    "nan-comparison",
+    "no-classmethod-decorator",
+    "no-staticmethod-decorator",
+    "non-ascii-name",
+    "nonlocal-without-binding",
+    "potential-index-error",
+    "property-with-parameters",
+    "redefined-argument-from-local",
+    "redefined-slots-in-subclass",
+    "return-in-init",
+    "self-assigning-variable",
+    "singledispatch-method",
+    "singledispatchmethod-function",
+    "super-without-brackets",
+    "too-many-arguments",
+    "too-many-boolean-expressions",
+    "too-many-branches",
+    "too-many-locals",
+    "too-many-positional-arguments",
+    "too-many-return-statements",
+    "too-many-statements",
+    "unexpected-special-method-signature",
+    "unnecessary-dict-index-lookup",
+    "unnecessary-direct-lambda-call",
+    "unnecessary-dunder-call",
+    "unnecessary-lambda",
+    "unnecessary-list-index-lookup",
+    "unspecified-encoding",
+    "useless-else-on-loop",
+    "useless-import-alias",
+    "useless-object-inheritance",
+    "useless-return",
+    "useless-with-lock"
+   ]
+  },
+  {
+   "coverage": "unavailable",
+   "reason": "Deciding these needs inferred types for arbitrary expressions. MCMR reads syntax and a resolved graph and has no inference engine, so a type checker owns them and the project runs mypy, pyrefly, and ty for exactly this.",
+   "groups": [
+    "typecheck"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's pyupgrade and target-version rules already gate syntax on the interpreter a project declares.",
+   "groups": [
+    "unsupported_version"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "A formatter settles layout before a linter sees it.",
+   "groups": [
+    "format"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Spelling is checked by codespell in the pre-commit stack.",
+   "groups": [
+    "spelling"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff implements the confusable and bidirectional checks.",
+   "groups": [
+    "unicode_checker"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's pyflakes and flake8-bugbear rules own format-string and quoting defects.",
+   "groups": [
+    "string"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's flake8-logging-format rules own logging call shape. MCMR judges which logger a call goes through rather than how its arguments are spelled.",
+   "groups": [
+    "logging"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's flake8-bugbear and pyupgrade rules own standard-library misuse.",
+   "groups": [
+    "stdlib"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's pyflakes, flake8-bugbear, and tryceratops rules own exception shape. MCMR judges how wide a try block is and where shared exceptions live.",
+   "groups": [
+    "exceptions"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's flake8-simplify, flake8-comprehensions, and pyupgrade rules own these rewrites, and each ships a fix.",
+   "groups": [
+    "refactoring"
+   ]
+  },
+  {
+   "coverage": "delegated",
+   "reason": "Ruff's pyflakes and pycodestyle rules own these, which are local syntax defects needing no graph.",
+   "groups": [
+    "basic"
+   ]
+  },
+  {
+   "coverage": "inapplicable",
+   "reason": "These report on Pylint's own run, such as a plugin that failed to load, a configuration section that could not be parsed, or a suppression Pylint decided it did not need. They describe the tool rather than the repository, so there is no finding inside them for any other tool to reach.",
+   "groups": [
+    "main"
+   ]
+  }
+ ]
+}

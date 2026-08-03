@@ -1,34 +1,51 @@
 [workspace]
 name = "mcmr"
 platforms = ["linux-64"]
-channels = ["conda-forge"]
+channels = [
+    "conda-forge",
+]
 
 [deps]
 nodejs = ">=26.3,<26.4"
 pnpm = ">=11.7,<12"
-python-freethreading = ">=3.14.6,<3.15"
+polars = ">=1.41,<2"
+python-freethreading = ">=3.14.6,<3.15.0a0"
 rust = ">=1.96,<1.97"
 
 [python.deps]
+annotated-types = ">=0.8,<1"
 anyio = ">=4.14,<5"
 cyclopts = ">=4.21,<5"
-mcmr = { path = ".", editable = true }
+mcmr = { path = "src/rules", editable = true }
+mcmr-api = { path = ".", editable = true }
+packaging = ">=26,<27"
+patos = { path = "../patos", editable = true }
+pathspec = ">=1.1,<2"
 pydantic = ">=2.13,<3"
 rich = ">=14,<16"
 
 [dev.python.deps]
 build = ">=1.3,<2"
+cppcheck = "==1.5.1"
+debugpy = ">=1.8.20,<2"
+flake8 = ">=7.3,<8"
 hypothesis = ">=6.155,<7"
+hatchling = ">=1.28,<2"
+lizard = ">=1.23,<2"
+mainboard = { path = "../mainboard", editable = true }
 pylint = ">=4,<5"
 mypy = ">=2.3,<3"
 pyrefly = ">=1.1,<2"
 pytest = ">=9.1,<10"
 pytest-cov = ">=7.1,<8"
+patchelf = ">=0.17,<1"
 ruff = ">=0.15,<0.16"
 ty = ">=0.0.61,<0.1"
+vulture = ">=2.16,<3"
 
 [dev.deps]
 clang-tools = ">=22.1,<23"
+maturin = ">=1.10,<2"
 
 [nodejs]
 manager = "pnpm"
@@ -39,15 +56,23 @@ typescript-eslint = "^8.65.0"
 
 [tasks]
 format = "ruff format . && ruff check --fix ."
-setup = "cargo build --release --manifest-path kernel/Cargo.toml"
-kernel = "cargo build --release --manifest-path kernel/Cargo.toml"
-kernel-format = "cargo fmt --manifest-path kernel/Cargo.toml"
-kernel-test = "cargo test --manifest-path kernel/Cargo.toml"
-kernel-bench = "cargo bench --manifest-path kernel/Cargo.toml"
-kernel-lint = "cargo clippy --manifest-path kernel/Cargo.toml -- -D warnings && cargo fmt --manifest-path kernel/Cargo.toml --check"
-check = "python -m mcmr.cli check"
+native = "maturin develop --release && cargo build --release --manifest-path src/core/Cargo.toml --target-dir .chefe/target-kernel --no-default-features --bin mcmr-kernel"
+setup = { depends = ["native"] }
+extension = { depends = ["native"] }
+core-build = "cargo build --release --manifest-path src/core/Cargo.toml --target-dir .chefe/target-kernel --no-default-features --bin mcmr-kernel"
+core-format = "cargo fmt --manifest-path src/core/Cargo.toml"
+core-test = "cargo test --manifest-path src/core/Cargo.toml"
+core-bench = "cargo bench --manifest-path src/core/Cargo.toml"
+core-lint = "cargo clippy --manifest-path src/core/Cargo.toml --all-targets --no-default-features -- -D warnings && cargo clippy --manifest-path src/core/Cargo.toml --all-targets --features python -- -D warnings && cargo fmt --manifest-path src/core/Cargo.toml --check"
+check = "python -m mcmr.commands.cli check"
+self-check = "python -m mcmr.commands.cli check . --format concise --limit 100"
+full-check = "python -m mcmr.commands.cli check . --contextual --format concise --limit 100"
+model-sweep = "python -m mcmr.commands.cli model-sweep ."
 lint = "ruff check . && ruff format --check ."
-typecheck = "mypy src && pyrefly check && ty check --error-on-warning"
-test = "python -m pytest"
-floor = "python -m mcmr.cli floor --samples 9 --output .benchmarks/mock-floor.json"
+typecheck = "mypy src && pyrefly check && env -u PYTHONPATH ty check --error-on-warning"
+test = { run = "python -m pytest", env = { MCMR_F401_CORPUS = "../chefe:../mainboard" } }
+floor = "python -m mcmr.commands.cli floor --samples 9 --output .benchmarks/mock-floor.json"
 build = "python -m build --outdir .dist"
+architecture = "python -m mcmr.commands.cli diagram . --kind package --format d2"
+debug = "python -X dev -m mcmr.commands.cli check . --format full --limit 100 --report-only"
+contribute = { depends = ["lint", "typecheck", "test", "core-lint", "core-test"] }

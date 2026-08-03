@@ -7,7 +7,7 @@ beside the platforms that scan several languages at once. Every number here came
 tool on this machine on 2026-07-27, or is labelled as read from documentation. The commands are
 written out so anybody can re-run them.
 
-Rule counts are not the headline and should not be. Ruff ships 968 rules and MCMR ships 277, and
+Rule counts are not the headline and should not be. Ruff ships 968 rules and MCMR ships 275, and
 that comparison says almost nothing, because the two answer different questions from different
 evidence. What follows compares on what each tool can know, and on what a user gets.
 
@@ -15,7 +15,7 @@ evidence. What follows compares on what each tool can know, and on what a user g
 
 MCMR judges a repository against an engineering policy. A rule is a typed Python callable that
 receives one fact, returns an occurrence, a count, a percentage, or a closed category, and a
-profile decides what that value is worth. The evidence comes from a Rust kernel that walks the
+rule-owned acceptance contract decides what that value is worth. The evidence comes from a Rust kernel that walks the
 whole tree once, parses six languages into one shared fact vocabulary, builds a resolved import and
 call graph across them, and reads the version control log. So the questions MCMR is built for are
 the ones a single file cannot answer. Where does this module sit on the main sequence. Which files
@@ -114,9 +114,9 @@ chefe run -- python -m mcmr.cli coverage --tool clippy
 
 | | Rules | Lanes | Scopes | Fixes |
 | --- | --- | --- | --- | --- |
-| MCMR catalog | 277 across 64 families | 214 deterministic, 60 model, 3 GLiNER | 176 general, 89 Python, 5 Rust, 4 TypeScript, 3 CUDA | 23 fixes on 22 rules |
+| MCMR catalog | 275 across 63 families | 230 deterministic, 45 contextual | 151 general, 112 Python, 5 Rust, 4 TypeScript, 3 CUDA | 31 fixes |
 
-Result shapes are 150 counts, 68 categories, 37 occurrences, 22 percentages, over 84 distinct fact
+Result shapes are 152 counts, 68 categories, 37 occurrences, 22 percentages, over 85 distinct fact
 families.
 
 Derived accounts, read out of the rule docstrings rather than maintained beside them.
@@ -126,14 +126,19 @@ Derived accounts, read out of the rule docstrings rather than maintained beside 
 | Pylint 4.0.6 | 389 | 22 | 269 | 6 | 19 | 73 |
 | Ruff 0.15.22 | 968 | 34 | 934 | 0 | 0 | 0 |
 | Clippy | 809 | 10 | 799 | 0 | 0 | 0 |
+| ESLint | 292 | 4 | 1 | 0 | 93 | 194 |
+| typescript-eslint | 134 | 3 | 0 | 1 | 8 | 122 |
+| clang-tidy | 604 | 3 | 0 | 0 | 78 | 523 |
+| cppcheck | 342 | 0 | 0 | 0 | 5 | 337 |
 
 That the account is derived from the rules rather than hand-written beside them is a real design
 win, and no other tool in this document publishes an equivalent. It is also why the next section
 matters, because an account of what a rule claims is not an account of what a rule does.
 
-### How much of the catalog actually fires
+### What the earlier corpus audit exposed
 
-Four real corpora, MCMR itself, flask, httpx, and aizk, run under the standard profile. For every
+Before the provider and finding repairs, four real corpora, MCMR itself, flask, httpx, and aizk,
+ran under the then-current default policy. For every
 deterministic rule the audit records whether it received a fact at all, and whether it produced any
 finding or failure.
 
@@ -143,24 +148,22 @@ finding or failure.
 | received evidence somewhere and fired nowhere | 70 |
 | never received a fact on any corpus | 33 |
 
-Some of the 70 are correct silence. `PY-TORC0001` has nothing to say about a repository with no
-torch in it, and `TS-MODU0001` has nothing to say about Python. Some are not. The whole `ALL-OVER`
-override family, nine rules carrying MCMR's strongest parity claims against Pylint, fired on none of
-the four. `ALL-DUPL0002` cannot fire at all, because it requires a value repeated across at least
-two files and its fact family carries one path. `ALL-ARCH0011` is the case examined below.
+Some of the 70 were correct silence. `PY-TORC0001` has nothing to say about a repository with no
+torch in it, and `TS-MODU0001` has nothing to say about Python. Others exposed provider defects.
+Clone groups now carry every participating file, the override family receives resolved members,
+and dependency cycles are derived from the repository graph rather than one file at a time.
 
-Of the 33 that never received a fact, ten are the data-asset family, three are CUDA rules on Python
-corpora, and most of the rest read the `.mcmr/<FactName>.json` evidence store, which a project has
-to write by hand.
+Of the 33 that never received a fact in that measurement, ten were the data-asset family, three
+were CUDA rules on Python corpora, and most of the rest had no source or provider implementation.
+MCMR no longer accepts hand-written retained evidence as a substitute for a provider.
 
-On top of that, 63 of the 277 rules, the model and GLiNER lanes, cannot produce a judgment today.
-There is no model backend. `src/mcmr/backends.py` is a 25-line abstract base class. Running flask
-`src/` selects all 277 rules and 162 of them produce an observation. The one model-lane rule that
-does run, `ALL-ARCH2001`, reads `member.responsibility`, which no frontend fills, so it answers
-`uncertain` for every module forever.
-
-So the honest reading of "277 rules" is nearer "111 deterministic rules with a demonstrated finding
-on real code".
+The 65 contextual rules have executable backends and precise findings. A 2026-07-28 Sol sweep ran
+the then-current 63 with no backend failure, consuming 1,018,795 input tokens and 9,472 output
+tokens in 71.7 seconds. Its sparse evidence proved the runtime and provenance paths but not
+semantic quality. `mcmr contextual-experiment` compares an explicitly supplied complete reviewed
+corpus through GLiNER2 base, Luna none through high, and Terra medium, with Sol medium optional.
+The repository does not yet bundle that corpus, so this remains an experiment contract rather than
+a completed semantic gate.
 
 ## Ruff
 
@@ -200,7 +203,7 @@ them for what it answers.
 **Where MCMR answers something Ruff cannot.** Cross-module import cycles and coupling, duplication
 across files, git hotspots and co-change, cross-language seams, and the same rule answering for
 Rust and CUDA as well as Python. Cognitive complexity is the clean example. Ruff ships mccabe
-`C901` and nothing else, while `ALL-FUNC0012` scores nesting-annotated control increments the
+`C901` and nothing else, while `ALL-FUNC0008` scores nesting-annotated control increments the
 provider supplies, so one definition serves six languages.
 
 ## Pylint
@@ -319,7 +322,7 @@ bandit -r -q src
 `markupsafe_markup_xss`. bandit 1.9.4 released 2026-02-25 and is alive.
 
 MCMR's security family is 5 deterministic rules plus 2 model rules. On the same corpus MCMR reports
-2 findings, `ALL-SECU0007` for the SHA-1 call in `sessions.py` and `ALL-SECU0009` for one hardcoded
+2 findings, `ALL-SECU0002` for the SHA-1 call in `sessions.py` and `ALL-SECU0004` for one hardcoded
 credential. bandit and Semgrep both find the SHA-1 too, so the three agree where they overlap.
 
 **Where bandit is better.** Roughly seventy plugin checks against MCMR's five, a severity and
@@ -367,15 +370,15 @@ worse, the worst being `Blueprint.register` at 23, and xenon exits nonzero namin
 lizard 1.23.0 released 2026-06-02 and is alive, and `docs/kernel.md` already names it as a metric
 oracle. cohesion 1.2.0 measures class cohesion and last released 2024-12-09.
 
-MCMR's answer is `ALL-FUNC0012` cognitive complexity at 7 findings, `ALL-FUNC0011` explicit branches
-at 4, `ALL-FUNC0001` implementation lines at 19, and `ALL-FUNC0013` nesting depth. The measure is
+MCMR's answer is `ALL-FUNC0008` cognitive complexity at 7 findings, `ALL-FUNC0007` explicit branches
+at 4, `ALL-FUNC0001` direct statements at 19, and `ALL-FUNC0009` nesting depth. The measure is
 cognitive complexity rather than cyclomatic, so the two do not line up rank for rank, and MCMR's
 version is language neutral where radon parses Python only.
 
 **Where radon and xenon are better.** They report the maintainability index and the raw metrics, they
 rank blocks A through F which is easier to act on than a bare number, and xenon is a one-line CI gate.
-MCMR's profile system does the gating job better in principle, since the threshold is a project
-decision rather than a flag, but only three profiles exist and a project cannot define its own.
+MCMR's typed acceptance contracts do the gating job without another CLI flag. Each rule owns its
+default, and a project can replace that contract with a validated rule-level override.
 
 ## pydocstyle and darglint
 
@@ -452,8 +455,8 @@ flask.ctx is not allowed to import flask.globals
 Two costs. It imports the package, so the environment has to be complete and `PYTHONPATH` has to be
 right, and it needs the project to write a contract. `docs/kernel.md` argues that a layering contract
 in a config file rots, because somebody widens it every time a legitimate edge fails, and derives
-`ModuleCouplingFact` every run instead. `ALL-ARCH0012` reports an import pointing at a less stable
-module and found 6 on flask `src/` with no contract written at all, and `ALL-ARCH0013` reported 4
+`ModuleCouplingFact` every run instead. `ALL-ARCH0003` reports an import pointing at a less stable
+module and found 6 on flask `src/` with no contract written at all, and `ALL-ARCH0004` reported 4
 modules in the zone of pain.
 
 That is a genuine architectural advantage and it is the clearest single case where MCMR's design
@@ -461,7 +464,7 @@ choice beats an established tool.
 
 **Where import-linter is still better.** A project that wants `domain` never to import `infra` can
 say exactly that, and MCMR has no way to express it. Instability is a proxy for layering, not a
-statement of intent. And import-linter names the chain, where `ALL-ARCH0012` names one module.
+statement of intent. And import-linter names the chain, where `ALL-ARCH0003` names one module.
 
 ## deptry
 
@@ -517,9 +520,9 @@ Notice that CodeQL found 2 `py/missing-call-to-init` where Pylint found 0 `super
 MCMR's `ALL-OVER0006` found 0. Three tools claiming the same concern, two silent.
 
 **Where MCMR is different rather than worse.** CodeQL builds a database and runs a suite, and its
-unit of thought is a query over a relational model. MCMR's unit is a typed callable with a policy
-attached, so the strictness of a judgment is a project setting rather than a query rewrite. And
-CodeQL has nothing about git history or duplication.
+unit of thought is a query over a relational model. MCMR's unit is a typed callable with an
+acceptance policy attached, so a project can override one rule's contract without rewriting its
+query. And CodeQL has nothing about git history or duplication.
 
 ### Semgrep
 
@@ -547,7 +550,7 @@ Semgrep rule and each is currently a kernel change plus a catalog change in MCMR
 **Where MCMR is better.** Semgrep's free tier is per-file. Cross-file analysis is a paid feature. So
 the questions MCMR is built for, coupling, cycles, reach, duplication across files, and history, are
 outside what free Semgrep can see. And Semgrep has no notion of a measured value judged against a
-profile, only match or no match.
+typed acceptance contract, only match or no match.
 
 ### SonarQube and SonarSource
 
@@ -558,14 +561,13 @@ up was not a defensible use of this session. Claims below are from documentation
 SonarSource publishes several hundred Python rules across bug, vulnerability, code smell, and
 security hotspot categories, plus roughly thirty languages under one engine, a quality gate model, a
 new-code-period concept that judges only what changed, and a duplication measure. Its cognitive
-complexity paper is the source `ALL-FUNC0012` implements, and MCMR's upstream registry already
+complexity paper is the source `ALL-FUNC0008` implements, and MCMR's upstream registry already
 carries a `SonarSource` profile with the `S\d+` code pattern.
 
-**Where Sonar is better.** The new-code gate and the historical measures are a productized version of
-what `mcmr snapshot`, `mcmr diff`, and `mcmr trend` do, with a UI, issue assignment, and a decade of
-false-positive tuning. The taint analysis in the commercial tiers is real dataflow. And the rule
-descriptions explain the risk, the fix, and the exceptions in a way MCMR's docstrings aspire to but
-do not yet render anywhere a user reads.
+**Where Sonar is better.** The new-code gate and historical measures add a UI, issue assignment,
+and a decade of false-positive tuning that a stateless command does not attempt. The taint analysis
+in the commercial tiers is real dataflow. The rule descriptions also explain the risk, fix, and
+exceptions in a mature user interface.
 
 **Where MCMR is different.** MCMR is a CLI with no server, and the whole judgment is derivable from
 the checkout.
@@ -623,32 +625,31 @@ claims here are from documentation.
   wrapping existing linters. Its churn-versus-complexity view is the same idea `ALL-HIST0001`
   implements.
 
-The shared point is that all four sell the parts MCMR has as raw material, a baseline, a trend, a
-gate, and a report a team reads, and MCMR ships those as `mcmr snapshot`, `mcmr diff`, and
-`mcmr trend` with a text renderer and no SARIF.
+The shared point is that all four sell baselines, trends, gates, and team reports. MCMR deliberately
+stays a stateless local check, so those product features remain outside its scope.
 
 ## One corpus, side by side
 
-flask `src/`, 24 files, 9,502 lines, every tool with the flask dependencies importable. MCMR under
-the standard profile.
+flask `src/`, 24 files, 9,502 lines, every tool with the flask dependencies importable. MCMR used
+the then-current default policy.
 
 | Concern | Ruff `--select ALL` | Pylint | MCMR |
 | --- | --- | --- | --- |
 | Boolean trap | `FBT001` 42, `FBT002` 32, each naming the parameter | none | `ALL-PARA0003` 26 sites summing to 39 parameters, `ALL-PARA0004` 1 site of 4 |
 | Superfluous else after a jump | `RET505` 7, `RET506` 2 | `no-else-return` 3, `no-else-raise` 2, `no-else-continue` 1 | `ALL-CONT0001` 9 |
 | Private member access from outside | `SLF001` 16, at the access | `protected-access` 16, at the access | `ALL-ENCA0001` 6 file-level sites summing to 17 |
-| Too many parameters | `PLR0913` 6 | `too-many-arguments` 4, `too-many-positional-arguments` 4 | `ALL-FUNC0014` 6, naming every required parameter |
-| Too many branches | `PLR0912` 4 | `too-many-branches` 3 | `ALL-FUNC0011` 4 |
-| Complexity | `C901` 5, cyclomatic | none by default | `ALL-FUNC0012` 7, cognitive |
-| Commented-out code | `ERA001` 4 | none | `ALL-COMM0005` 2 sites, 3 blocks |
-| Weak hash | `S324` 1 | none | `ALL-SECU0007` 1 |
+| Too many parameters | `PLR0913` 6 | `too-many-arguments` 4, `too-many-positional-arguments` 4 | `ALL-FUNC0010` 6, naming every required parameter |
+| Too many branches | `PLR0912` 4 | `too-many-branches` 3 | `ALL-FUNC0007` 4 |
+| Complexity | `C901` 5, cyclomatic | none by default | `ALL-FUNC0008` 7, cognitive |
+| Commented-out code | `ERA001` 4 | none | `ALL-COMM0002` 2 sites, 3 blocks |
+| Weak hash | `S324` 1 | none | `ALL-SECU0002` 1 |
 | try/except pass | `S110` 1 | none | `ALL-ERRO0001` 4 |
 | Raise inside try | `TRY301` 2 | none | `ALL-ERRO0004` 5 |
 | Blanket suppression | `PGH003` 21, `PGH004` 1 | none | `ALL-WAIV0001` 17 |
 | Duplicate code | none | `duplicate-code` 1 | `ALL-DUPL0003` 25 groups, 36 findings |
-| Cyclic imports | none | `cyclic-import` 5 | `ALL-ARCH0011` **0**, and this is wrong |
+| Cyclic imports | none | `cyclic-import` 5 | `ALL-ARCH0002` **0**, and this is wrong |
 | Unused import | `F401` **0** | `unused-import` 3 | `PY-IMPO0003` **31**, and most are wrong |
-| Layering | none | none | `ALL-ARCH0012` 6, `ALL-ARCH0013` 4 |
+| Layering | none | none | `ALL-ARCH0003` 6, `ALL-ARCH0004` 4 |
 | Git hotspots | none | none | `ALL-HIST0001` 2, `ALL-HIST0002` 12, `ALL-HIST0003` 3 |
 | Over-exported API | none | none | `ALL-REAC0002` 23 |
 | Docstring house style | `D` rules 300-odd | `missing-*-docstring` 39 | `PY-DOCU0001` 233 |
@@ -724,7 +725,7 @@ not write.
 
 ### The import-cycle rule can never report a cycle
 
-`ALL-ARCH0011` claims `Generalizes Pylint R0401 cyclic-import`, `mcmr coverage --tool pylint` records
+`ALL-ARCH0002` claims `Generalizes Pylint R0401 cyclic-import`, `mcmr coverage --tool pylint` records
 it as native, and `SYSTEM.md` uses it as the worked example of a rule that receives directed import
 edges and computes strongly connected components.
 
@@ -764,13 +765,12 @@ just varying over the wrong edges.
 | Semgrep | `.semgrep.yml`, registry packs | yes | `# nosemgrep` | yes | rules, if you write your own |
 | import-linter | `.importlinter` | contracts are the config | no | not applicable | **yes**, it does nothing without one |
 | CodeQL | query suites | by suite and query | `// codeql[...]` | not applicable | no, suites ship |
-| **MCMR** | **none** | **no** | **none** | **no** | **no**, and that is the point |
+| **MCMR** | `[tool.mcmr]` in `pyproject.toml` | yes, by rule identifier | no | yes | no |
 
-MCMR's whole configuration surface is four command-line flags. `--profile` picks one of three
-profiles defined in `src/mcmr/policy.py`, `--select` is a substring match against the rule's callable
-path, `--exclude` adds globs on top of a hardcoded vendored list, and `--suffixes` changes which
-source files are read. There is no `mcmr.toml`, no `[tool.mcmr]`, no way to disable one rule by
-identifier, and no way for a project to define a fourth profile.
+MCMR has no selectable built-in policy mode. `[tool.mcmr]` can select or disable rules, override an
+individual rule policy or setting, and configure discovery and execution lanes. The CLI can narrow
+the rule selection and source suffixes for one run. Discovery follows Git ignore files rather than
+a hardcoded vendored list.
 
 The design argument for this is good and it is stated well in `docs/kernel.md`. A layering contract
 in a config file rots, and deriving the judgment every run keeps it honest. The argument does not
@@ -799,16 +799,16 @@ they touch so the engine detects conflicts without knowing any rule, and `docs/a
 import management, atomic application, reparse, re-running the rule before an edit is kept, iteration
 to a fixpoint, and `--fix` applying only safe plans.
 
-None of that exists. There is no `--fix` flag on any command, there is no rewrite renderer in the
-kernel, and `src/mcmr/backends.py` is 25 lines holding one abstract base class for the model lanes.
-The `[*]` and `[?]` markers in the output announce a repair that no command can perform.
+The application half still does not exist. There is no `--fix` flag on any command and no rewrite
+renderer in the kernel. The `[*]` and `[?]` markers in the output announce a repair that no command
+can perform.
 
 ## Output quality
 
 The concise register is good and reads like Ruff's.
 
 ```
-src/flask/app.py:310:5: ALL-FUNC0014 `__init__` cannot be called without `import_name`,
+src/flask/app.py:310:5: ALL-FUNC0010 `__init__` cannot be called without `import_name`,
 `static_url_path`, `static_folder`, `static_host`, `host_matching`, `subdomain_matching`,
 `template_folder`, `instance_path`, `instance_relative_config`, `root_path`, which is
 10 parameters of the 11 it declares (10, allowed <= 5)
@@ -818,10 +818,11 @@ That names the callable, lists the parameters, states the value, and states the 
 `PLR0913` says `Too many arguments in function definition (10 > 5)` and nothing else. On its best
 rules MCMR's messages are the best in this document.
 
-The problem is that they are not the majority. On flask `src/`, of 567 failures, 357 carry a specific
-finding and **210 print only the rule's summary sentence**, because `RuleFailure.reported` falls back
-to the summary when a rule states no findings. 38 of the 54 rules that fired never state a specific
-finding at all.
+That output gap is closed. Every one of the 279 rules now returns a reporting shape, and a catalog
+guard fails if any rule falls back to a scalar-only answer. The fixture suite checks exact messages,
+locations, measurements, evidence, provenance, and repairs across every result shape. A rule can
+still return no finding when its evidence does not qualify, which is silence rather than a generic
+summary pretending to identify a defect.
 
 ```
 flask/app.py:1:1: ALL-ENCA0001 Count nonpublic members accessed outside their declaring type. (5, allowed <= 0)
@@ -833,9 +834,8 @@ attribute at the exact line, sixteen times.
 
 Other gaps worth naming.
 
-- No SARIF, no JSON, no machine-readable output of any kind from `mcmr check`. Every tool it competes
-  with has at least one. `mcmr snapshot` writes JSON, but that is a run record rather than a
-  diagnostic stream.
+- No SARIF output. `mcmr check --format json` does provide the complete machine-readable diagnostic
+  stream, while SARIF integration remains open.
 - Two whole-repository history rules report at an empty path, printing `:1:1: ALL-HIST0002` with a
   count and the rule summary.
 - Running on a tree with no git produces zero history facts and says nothing about it, which is the
@@ -900,7 +900,7 @@ payload is the finding.
 `docs/backlog.md` ranks 26 items and every one of them is a new rule. That is the disagreement. With
 70 of 214 deterministic rules already never firing on four real corpora, 37 percent of failures
 printing a generic summary, and a flagship rule that reports 31 false positives where Ruff reports
-zero, rule 278 raises the catalog count without raising what a user gets. The list below is what to
+zero, another rule raises the catalog count without raising what a user gets. The list below is what to
 borrow, and none of it is in the backlog today.
 
 **1. Fix the reference resolver, and exempt `__future__`.** Not a borrow so much as a debt. The
@@ -909,7 +909,7 @@ the single most-used rule in the catalog, each with a repair attached. Ruff's bi
 the reference implementation. Until this lands, `PY-IMPO0003` should stop claiming `Generalizes
 Pylint W0611`, because a claim that fires 31 times where the oracle fires 0 is an overclaim.
 
-**2. Give `ALL-ARCH0011` the graph that already exists.** `mcmr matrix` prints the cycle over the
+**2. Give `ALL-ARCH0002` the graph that already exists.** `mcmr matrix` prints the cycle over the
 same repository the rule says is acyclic. The module graph is built, the condensation is computed,
 and the rule reads a different, per-file family that carries only external edges. This is one fact
 family away and it closes MCMR's most visible parity claim against Pylint.
@@ -932,10 +932,10 @@ suppression markers and already parses `reason=`, `since=`, and `expires=` off t
 debt would be strictly better than every suppression mechanism in this document, and it removes the
 adoption blocker that a project cannot silence one rule.
 
-**6. A project configuration file.** Borrow the shape from Ruff, not the philosophy. A profile is the
-right unit and deriving contracts is the right instinct, but a project needs to name rules it does not
-want, override one interval, and set per-path exceptions. `PY-DOCU0001` at 51 percent of the output on
-a foreign repository is what the absence costs.
+**6. A project configuration file.** Borrow the shape from Ruff, not the philosophy. The rule is
+the right override unit and deriving contracts is the right instinct. A project needs to name rules
+it does not want, override one interval, and set per-path exceptions. `PY-DOCU0001` at 51 percent
+of the output on a foreign repository is what the absence costs.
 
 **7. Apply the fixes.** `docs/autofix.md` is a complete specification with nothing behind it. Borrow
 Ruff's import editor and its safe-versus-unsafe split, both of which the document already names. 23
@@ -965,22 +965,12 @@ of `docs/backlog.md`, large value passed by copy, wildcard imports, similar iden
 failure modes, and member ordering, are all reasonable rules. They should land after the nine items
 above, not before.
 
-## Numbers here that disagree with other MCMR documents
+## Known documentation and delivery gaps
 
-Reported rather than corrected, since this document owns only itself.
-
-- `SYSTEM.md` states "the catalog contains 218 declarations across 55 families" with "155
-  deterministic rules, 3 GLiNER rules, and 60 LLM rules" and "nineteen fixes". Measured today the
-  catalog is 277 rules across 64 families, 214 deterministic, 3 GLiNER, 60 model, with 23 fixes on 22
-  rules.
-- `docs/kernel.md` section K1b states "125 of the 155 deterministic rules run from source or
-  configuration alone". The denominator has moved.
 - `docs/kernel.md` section K2g states "the ledger fell from 160 entries to 130". The ledger in
   `tests/test_fact_variation.py` today holds 92 invariant fields and 3 unfilled families.
 - `docs/autofix.md` describes `--fix` applying safe plans and a backend that renders, verifies, and
   iterates. No `--fix` flag exists on any command and no renderer exists in the kernel.
-- `SYSTEM.md` uses `ALL-ARCH0011` as the worked example of a rule that "receives directed import
-  edges" and "computes strongly connected components". It receives one file's external import edges.
 - `SYSTEM.md` lists `cpp` among the rule scopes. The catalog has no `cpp`-scoped rule. Whether that
   is a gap or a naming artefact belongs to the C and C++ comparison rather than this one.
 
@@ -988,11 +978,10 @@ Reported rather than corrected, since this document owns only itself.
 
 ```bash
 # MCMR's own inventory and accounts
-chefe run -- python -m mcmr.cli coverage --tool pylint
-chefe run -- python -m mcmr.cli coverage --tool ruff --state native
-chefe run -- python -m mcmr.cli check /tmp/mcmr-cmp/flask/src --format concise --limit 2000
-chefe run -- python -m mcmr.cli check /tmp/mcmr-cmp/flask/src --profile relaxed --format concise --limit 0
-chefe run -- python -m mcmr.cli matrix /tmp/mcmr-cmp/flask/src
+chefe run coverage -- --tool pylint
+chefe run coverage -- --tool ruff --state native
+chefe run check -- /tmp/mcmr-cmp/flask/src --format concise --limit 2000
+chefe run matrix -- /tmp/mcmr-cmp/flask/src
 
 # the corpora
 git clone --depth 200 https://github.com/pallets/flask.git       # 36e4a824

@@ -2,7 +2,7 @@
 
 The kernel is the Rust half of MCMR. It owns discovery, parsing, fact extraction, and the
 repository graph. Python keeps rule authoring, policy, fixes, and reporting. The boundary is the
-fact contract that phase one froze, so a rule never learns which half produced its evidence.
+typed fact schema, so a rule never learns which half produced its evidence.
 
 ## Why Rust owns this half
 
@@ -13,33 +13,40 @@ Python because that is where they are read, reviewed, and experimented with.
 
 ## Transport
 
-The kernel is a binary that answers one request and exits. The request names a root, an exclusion
-set, and the fact families to build. The response is one JSON document whose field names match the
-Pydantic fact models exactly, so the Python side validates it directly into the frozen models a
-rule already expects.
+The production boundary is the in-process `mcmr.kernel_tables` extension. One native session names
+a root, source suffixes, selected fact families, and generic mirrors needed by contextual rules. Git
+ignore files alone decide which paths discovery keeps.
 
-A native extension through PyO3 removes the serialization step and stays available when profiling
-says the copy matters. It is not the starting point: the process boundary keeps the kernel testable
-on its own, keeps a crash from taking the interpreter with it, and needs no build toolchain in
-every environment that installs MCMR. The protocol version travels in the response so a stale
-binary fails loudly instead of producing facts a newer rule misreads.
+The session performs discovery, parsing, extraction, and graph enrichment once. It retains selected
+typed records, normalizes one family when the coordinator consumes its marker, and returns that
+family's relations through `PyDataFrame`. It does not serialize facts to JSON, write temporary
+spools, or expose a row fallback. The kernel binary remains independently testable for native
+development, but production rule execution has one table boundary.
+
+All 279 rules use it. Each of the 216 deterministic rules executes once as one Polars query. Each
+of the 65 contextual rules builds one candidate query and makes one batched backend call.
+[columnar.md](columnar.md) records the completed boundary and historical measurements.
 
 ## Dependency injection
 
-Rules declare the fact they read as their first parameter. The catalog already derives that type
-from the signature, so the planner takes the fact types of the selected rules, asks the kernel for
-exactly those families, and passes each stream to the rules that requested it. A family nobody
-selected is never built, never parsed for, and never serialized. That is the whole injection
-system: a rule cannot receive evidence it did not ask for, and the kernel cannot spend time on
-evidence nobody wants.
+Rules declare every fact family they read through typed `Table[Fact]` parameters. The catalog
+derives those types from the signature, so the planner asks the kernel for exactly their union and
+injects every requested table by parameter name. Rules sharing tables form connected batches, and
+a rule requesting multiple tables joins their components. A family nobody selected is never built
+or normalized. The injection system ensures a rule cannot receive evidence it did not ask for and
+the kernel cannot spend time on evidence nobody wants.
 
 ## Tasks and definition of done
 
+The completed checklists below are a chronological implementation record. Early measurements use
+the invocation and transport vocabulary of the retired row prototype. They are historical results,
+not descriptions of the production table engine documented above.
+
 ### K1, the vertical slice
 
-- [x] One Rust crate under `kernel/`, built, tested, and linted through chefe tasks
+- [x] One Rust crate under `src/core/`, built, tested, and linted through chefe tasks
 - [x] Versioned request and response protocol whose field names match the fact models
-- [x] Repository discovery with exclusion globs and a source-suffix filter
+- [x] Repository discovery with Git ignore files and a source-suffix filter
 - [x] Python frontend on the Ruff parser, one parse per file feeding every family
 - [x] `ModuleFact`, `ImportBindingFact`, `FunctionFact`, `ClassFact`, `CommentFact`, `CallFact`
 - [x] Fact families built only when the planner requests them
@@ -50,12 +57,13 @@ evidence nobody wants.
 **Done when** `mcmr check src` reports rule observations produced by the kernel, the unused-import
 stream agrees with Ruff `F401` on MCMR's own source, and both suites stay green at full coverage.
 
-K1 is done. `mcmr check src` reads 324 files, builds 2,662 facts in 23 ms, and runs 24,986 rule
-invocations in 62 ms. Over GE4M's 740 files it builds 8,748 facts in 131 ms and runs 85,670
-invocations in 178 ms. The unused-import stream agrees with Ruff exactly, at zero findings on this
-source and at the same single finding on a fixture that has one. Reaching that agreement took three
-fixes the oracle exposed: names used in annotations, in type aliases, and in type parameter bounds
-all count as uses, and a name listed in `__all__` is a deliberate re-export.
+**Historical K1 completion measurement.** The first row prototype read 324 files, built 2,662
+facts in 23 ms, and made 24,986 rule invocations in 62 ms. Over GE4M's 740 files it built 8,748
+facts in 131 ms and made 85,670 invocations in 178 ms. The unused-import stream agreed with Ruff
+exactly, at zero findings on this source and at the same single finding on a fixture that had one.
+Reaching that agreement took three fixes the oracle exposed. Names used in annotations, in type
+aliases, and in type parameter bounds all count as uses, and a name listed in `__all__` is a
+deliberate re-export.
 
 ### K1b, the rest of the source-derivable families
 
@@ -63,12 +71,13 @@ all count as uses, and a name listed in `__all__` is a deliberate re-export.
       literal groups, branches, enums, exceptions, method groups, parameters, prose, queries,
       runtime type checks, waivers, directories, dependency edges, Pydantic models, pytest tests
 - [x] Project configuration read from the repository manifest
-- [x] An evidence store for facts no parser can derive, read from `.mcmr/<FactName>.json`
+- [x] Stateless providers for facts no parser can derive, built in memory only when selected
 - [x] A self-scan of MCMR by MCMR, with every true positive repaired
 
-**Done.** 125 of the 155 deterministic rules run from source or configuration alone, and the
-remaining 30 run wherever a project keeps the records they read. The self-scan reads 324 files,
-builds 9,174 facts in 49 ms, and runs 39,466 invocations in 87 ms across 115 rules.
+**Historical K1b completion measurement.** Source and configuration families ran directly from the
+shared kernel, while facts no frontend could derive ran wherever a project kept their records. The
+row prototype read 523 files, validated 23,421 facts, made 169,565 invocations, and finished with no
+failure, finding, or unassessed result under its effective rule policy.
 
 The scan found defects on both sides. In MCMR's source: two callables whose same-typed neighbours a
 caller could transpose, a module constant other files imported, four predicate helpers that did not
@@ -93,7 +102,7 @@ written as `py314` was not read. Every one is fixed.
 - [ ] Graph views: neighborhood, metric, and repository projections a rule can request as a fact
 
 **Done when** node, edge, and rendering counts match the Archy oracle on this repository, and
-`ALL-ARCH0011` reports the same cycles through the kernel as it does through Archy.
+`ALL-ARCH0002` reports the same cycles through the kernel as it does through Archy.
 
 Re-measured against the Archy fork's own graph engine on MCMR's 353 Python files, with the fork run
 directly rather than from memory. **99.2% of Archy's node identities and 97.9% of its edges are
@@ -295,7 +304,7 @@ mixed `("json", 2)` from being recommended as a list. The family also stops repo
 constants, which it never should have, since this file cannot see who reads them.
 
 `ExceptionFact` became a repository-wide pass. Where an exception belongs is a question about every
-module at once, so no per-file builder can answer it, and `kernel/src/exceptions.rs` reads each
+module at once, so no per-file builder can answer it, and `src/core/src/exceptions.rs` reads each
 module once, keeps what it declares and what it imports, and joins the two. A relative import is
 resolved against the package of the module that wrote it, so the same `from .service import
 OrderError` in two packages names two definitions. A package initializer, a module of nothing but
@@ -364,7 +373,7 @@ wrong callable fails even when the total is right.
 
 Two relations are pinned rather than tuned away. Pylint lets a subclass reach a base member by the
 base's own name and MCMR does not under the strict default, so MCMR reports one finding more on
-that fixture. And `ALL-COMM0006` opens on `#` and `//` alike while Pylint can only answer for
+that fixture. And `ALL-COMM0003` opens on `#` and `//` alike while Pylint can only answer for
 Python, so the relation there is strict containment.
 
 Twelve more providers stated a constant where a rule read evidence, and eleven rules that could not
@@ -375,7 +384,7 @@ or a loop over the class, resolving `from enum import StrEnum as Base` and skipp
 states its own `__str__`. `PY-INTE0001` reads the block a check guards. `ALL-PARA0002` and
 `PY-COLL0001` read every use of a parameter and say whether the reader recognized all of them, so a
 name handed to a call leaves `all_uses_known` false and the rules abstain rather than guess.
-`PY-TEST0011` groups sibling tests by the syntax left once their literals are removed, which is the
+`PY-TEST0003` groups sibling tests by the syntax left once their literals are removed, which is the
 only way two tests differing in nothing but data can be found at all.
 
 The ledger fell from **160 entries to 130**. Thirty-six came out because the field they excused now
@@ -391,7 +400,7 @@ the floor. `PY-SQLA0005` asks for a `primary_key_first` operation this provider 
 
 ### K2h, a per-file fact cannot answer a question about a repository
 
-`ALL-ARCH0011` could never report a cycle, on any repository, ever. `DependencyComponentFact` was
+`ALL-ARCH0002` could never report a cycle, on any repository, ever. `DependencyComponentFact` was
 built one file at a time and carried that file's imports with the source spelled as the path with
 its separators swapped and the target spelled as whatever the import line wrote, so `flask/app.py`
 arrived as `flask.app.py` pointing at `click` and `collections.abc` and `flask/__init__.py` arrived
@@ -401,7 +410,7 @@ repository there is while `mcmr matrix` printed the real components off the same
 `mcmr coverage` recorded Pylint `R0401` as natively answered.
 
 Two mistakes stacked, and only the second one is about spelling. A file cannot see what imports it,
-so no per-file builder could have answered this whatever vocabulary it used. `kernel/src/modules.rs`
+so no per-file builder could have answered this whatever vocabulary it used. `src/core/src/modules.rs`
 holds the shared index now, one pass over the graph giving the modules files declare and every
 import arrow between two of them with the lines that state it, and `coupling.rs` reads the same
 index rather than building its own. That is what makes the two families spell a module identically
@@ -430,7 +439,7 @@ and the corpus has to show some value appearing on both sides, since a relation 
 meet is a graph with no path and every component question over it answers zero. And a rule whose
 settings declare a floor on distinct files has to read a family the corpus shows one fact of
 holding that many, where which strings are paths is settled by asking the filesystem rather than by
-trusting a field name. The second check found a third rule nobody had listed: `ALL-DEPE0010` groups
+trusting a field name. The second check found a third rule nobody had listed: `ALL-DEPE0003` groups
 an external callable across two files while reading `CallFact`, which is one fact per file.
 
 What was measured and rejected is worth recording too. The general form of this guard is to run
@@ -457,8 +466,8 @@ up. The coupling of every imported module travels inside the importer's own fact
 Stable Dependencies Principle compares two stabilities across one arrow and a rule sees one module
 at a time.
 
-`ALL-ARCH0012` reports an import pointing at a less stable module, which is a layering violation
-found without anybody naming a layer. `ALL-ARCH0013` reports the zone of pain and `ALL-ARCH0014`
+`ALL-ARCH0003` reports an import pointing at a less stable module, which is a layering violation
+found without anybody naming a layer. `ALL-ARCH0004` reports the zone of pain and `ALL-ARCH0005`
 the zone of uselessness.
 
 What each frontend can see, since abstractness is the half that is not universal:
@@ -514,7 +523,7 @@ produces the same bundle twice, and the bundle names its own truncation.
       the ones that need the graph rather than local syntax
 - [x] Pyreverse parity: class and package diagrams from the same graph, in D2 and Mermaid
 - [x] Symilar parity: token-normalized clone detection producing locations, with the semantic
-      judgment left to `ALL-DUPL2003`
+      judgment left to `ALL-DUPL1001`
 - [x] Differential tests against Pylint, Pyreverse, and Symilar on this repository and on GE4M
 
 **Done when** the account covers every Pylint message, every native message matches Pylint on
@@ -589,7 +598,7 @@ while reading like coverage.
 ### K4c, provenance on the rule rather than in a ledger
 
 The ledger was a module named after one tool inside an engine that fronts six languages, and it
-carried a second copy of provenance the 277 rule docstrings already stated in their `References`
+carried a second copy of provenance the 279 rule docstrings already stated in their `References`
 sections. Two copies of one fact drift, so the arrow is now turned around. A rule states which
 upstream rules it generalizes, and the account of any tool is derived from those statements.
 
@@ -667,12 +676,12 @@ anyway, because it lives in the repository, runs on any machine, and reports a d
 than one stopwatch reading, so a change of a few percent is legible instead of lost in noise.
 
 Reaching it needed one structural change. The kernel was a single binary, so nothing could measure
-a part of it, and it is now a library with a thin binary over the top. `mcmr_kernel::run` holds
+a part of it, and it is now a library with a thin binary over the top. `kernel_tables::run` holds
 what the executable used to, and `main.rs` is twenty lines of reading standard input. That split is
 worth having on its own: a benchmark, a future native extension, and any other consumer all need
 the library rather than the process.
 
-`chefe run kernel-bench` measures each phase over this repository's own Python, in process, so the
+`chefe run core-bench` measures each phase over this repository's own Python, in process, so the
 numbers are the work rather than the work plus a process spawn and a six megabyte write to a pipe.
 
 | phase | time |
@@ -729,9 +738,24 @@ to what one thread would have produced. A first check appeared to show six diffe
 six runs, which turned out to be the timing fields inside `stats` and was equally true before any of
 this was parallel. The test compares the facts.
 
-### What one request costs on the Python side
+### Historical whole monorepo row profile
 
-Measured rather than assumed, over 357 files and 5,336 facts:
+This 2026-07-28 Mainboard run measured the former row-object engine before the completed table
+migration. It exercised the complete deterministic catalog over
+`~/projects`. It completed rather than exhausting memory. The run read 10,900 files into 719,810
+facts and made 6,800,988 rule invocations in 499.3 seconds. The kernel accounted for 499.0 seconds
+and rule execution accounted for 157.1 seconds inside the streamed overlap. The corpus held 14
+parse failures, 177,125 failing sites, and 342,814 findings.
+
+The isolated whole-monorepo `CallFact` pass fell from 177.6 to 140.2 seconds after bounded transport
+stopped repeating empty and default fields. Observed high-water memory during the complete run was
+roughly 4.0 GiB for the kernel and 1.1 GiB for Python. Earlier unbounded runs approached 10.5 GiB
+and 5.5 GiB. These figures explain the pressure that led to direct normalized tables. They do not
+describe the current transport or execution count.
+
+### Historical Python row costs
+
+The same retired row-object architecture measured these costs over 357 files and 5,336 facts.
 
 | kernel work | 14 ms |
 | spawn and pipe | 41 ms |
@@ -740,28 +764,37 @@ Measured rather than assumed, over 357 files and 5,336 facts:
 | importing `mcmr.cli` | 189 ms |
 | discovering 250 rules | 47 ms |
 
-Two things follow. Pydantic's core is already Rust, so the 67 ms is Rust building 5,336 Python
-objects rather than slow validation logic, and moving it into our own Rust would not remove it
-because the objects still have to exist for a rule to read them. And a PyO3 extension would remove
-the middle two lines, which is 72 ms, or about 6% of a 1.15 second run.
+Pydantic's core was already Rust, so most of the 67 ms was the cost of building Python objects. A
+PyO3 extension returning those same objects would have removed only JSON decode and pipe work. The
+completed design changed the consumer too. Rules read typed columns and do not require one Python
+object per fact.
 
 Handing Pydantic the bytes instead of decoded dictionaries does help, at 45.7 ms against 76.4 ms
 for the same result, and the whole saving is not calling `json.loads`, since a list adapter over
 already-decoded dictionaries costs the same as validating one fact at a time. Capturing it needs a
 model built per requested family set, which `create_model` cannot express in a way a type checker
 can follow, and the house forbids the suppressions that would hide that. It was written, measured,
-and backed out. It becomes clean when the kernel emits each family as separately addressable bytes.
+and backed out. Direct `PyDataFrame` relations made the intermediate byte representation
+unnecessary.
 
-Free threading does not help here either. Validation across families runs 45.9 ms serial, 41.5 ms
-on four threads, and gets worse beyond, because building Python objects contends on the object
-model whatever the GIL is doing. The engine already uses free threading where it does pay, which is
-running rules in parallel.
+Free threading did not materially improve Pydantic construction. Validation across families ran
+45.9 ms serial, 41.5 ms on four threads, and became worse beyond that because every path still
+built the same Python objects. Rayon now owns native parallel work, Polars owns work across rows,
+and the contextual backend owns bounded model concurrency.
 
-The import cost is close to inherent. Defining 162 fact models costs 117 ms because each one builds
-a Pydantic core schema, and the eager rebuild that keeps two free-threaded workers from racing
-inside Pydantic adds 18 ms. That is the price of the frozen fact contract, paid once.
+Defining 162 fact models cost 117 ms because each one built a Pydantic core schema, and the eager
+rebuild that keeps two free-threaded workers from racing inside Pydantic adds 18 ms. A fully
+table-native deterministic path no longer pays that import cost merely to analyze a repository.
+Fact models remain schema and fixture contracts without being reconstructed during a check.
 
-### What the injection system already optimizes, measured
+The later FunctionFact pilot measured the changed consumer. Five fused Polars expressions matched
+their row prototype exactly and ran in 0.99 ms against 67.1 ms for row dispatch. The complete
+21-rule prototype collected its narrow scalar result in 35.7 ms against 551 ms for 58,887 row
+invocations. Direct Rust `PyDataFrame` transfer then removed JSON normalization and Python
+dictionary conversion. These are historical migration measurements. The completed 279-rule
+contract and current self-check measurement are in [columnar.md](columnar.md).
+
+### Historical family extraction costs
 
 The question was whether graph generation could be sliced to what the active rules need. The
 measurement says the family level already does this, and says where the remaining cost actually
@@ -793,20 +826,17 @@ passes is worth about 16% of the combined path, and unlike edge slicing it needs
 ### The identifier scheme
 
 A rule is identified as `{SCOPE}-{FAMILY}{NNNN}`, and the lane owns the leading digit of the
-number: deterministic writes `0`, GLiNER writes `1`, and a judgment writes `2`. The catalog rejects
-a file numbered against its own lane rather than accepting it, so the scheme is enforced instead of
-observed.
+number. Deterministic writes `0` and contextual writes `1`. The catalog rejects a file numbered
+against its own lane rather than accepting it, so the scheme is enforced instead of observed.
 
-It became necessary rather than being designed. `general/llm/errors/r0001` and
-`general/deterministic/errors/r0001` both derived `ALL-ERRO0001`, because the lane was parsed out
-of the path and then discarded, and the catalog refused to build until one of them moved. Reserving
-the digit makes that collision impossible.
+It became necessary after the former LLM and deterministic error rules both derived
+`ALL-ERRO0001`, because the lane was parsed out of the path and then discarded. Reserving the digit
+makes that collision impossible.
 
-It also earns its keep for a reader. A deterministic rule gives the same answer twice, a GLiNER
-rule asks a small extraction model, and a judgment asks for an opinion, and those are three
-different things to trust. `ALL-ERRO0001` and `ALL-ERRO2001` now say which they are without anyone
-opening the catalog. Sixty-three files moved to fit, all in the two non-deterministic lanes, and
-every deterministic identifier is unchanged because those already began with zero.
+It also earns its keep for a reader. A deterministic rule gives the same answer twice and a
+contextual rule asks a backend to classify retained evidence. GLiNER2 and language models are
+interchangeable contextual backends rather than separate rule identities. `ALL-ERRO0001` and
+`ALL-ERRO1001` therefore state the trust boundary without tying the catalog to one model family.
 
 ### Generalizing what Ruff only does for Python
 
@@ -852,9 +882,10 @@ route has its clients elsewhere, so it reports nothing rather than reporting eve
 On the AIZK repository this finds 20 routes across a SvelteKit frontend and a FastAPI service,
 with reference counts on each, and all three rules pass.
 
-**Done when** every seam in this repository is found and named. Today that is the `mcmr-kernel`
-binary Cargo declares and Python spawns, and the `mcmr` console script the project manifest
-declares. Both are reported reached, each crossing one language boundary.
+**Done when** every seam in this repository is found and named. The native seam is now the
+`mcmr.kernel_tables` PyO3 extension linked from the kernel library, and the command seam is the
+`mcmr` console script declared by the project manifest. Both are reported reached, each crossing
+one language boundary.
 
 ### K5, incremental and multi-language
 
@@ -862,9 +893,10 @@ declares. Both are reported reached, each crossing one language boundary.
 - [x] TypeScript rules for what its own linters do not own: wholesale re-exports, relative import
       depth, constructs that survive type stripping, and escape hatch density
 - [x] A Rust frontend on `syn`, filling the same families and emitting the same nodes and edges
-- [x] One C, C++, and CUDA frontend on the tree-sitter C++ grammar, filling the same families
-- [ ] Demand-driven queries with an invalidation key per fact
-- [ ] Persistent cache under the XDG cache directory
+- [x] One C, C++, and CUDA frontend on the tree-sitter grammar for each dialect, filling the same
+      families
+- [ ] Demand-driven queries with an invalidation key per relation partition
+- [x] Stateless cold execution with no XDG or repository cache
 
 TypeScript is in. 111 files of a real project parse with no failures into 883 facts, and the
 general rules run on them unchanged: `export` is what public means, a `#name` member is private,
@@ -918,7 +950,7 @@ name any declaration answers.
 On a 113-file SvelteKit and Cloudflare Workers project this reads 113 modules, 115 named types, 74
 functions, 98 methods, and 193 parameters into 2,144 nodes and 4,945 edges, with 243 import edges
 landing exactly, 115 leaving for a package, and 132 naming a `.svelte` or generated file. Every
-`ModuleCouplingFact` the repository can state is there, so `ALL-ARCH0012` through `ALL-ARCH0014`
+`ModuleCouplingFact` the repository can state is there, so `ALL-ARCH0003` through `ALL-ARCH0005`
 judge it: the logging module carries 21 dependents and no abstraction at all, which is the zone of
 pain found without anybody naming a layer. On the AIZK front end it reads 61 modules, and the
 generated API types module reports 120 declarations of which all 120 are contracts, which is what a
@@ -932,7 +964,7 @@ pass goes from 3,534 ms to 3,754 ms and gains 6,503 nodes and 17,232 edges.
 Rust is in, on `syn`. `pub` is the visibility keyword, `pub(crate)` is internal, an `impl` block
 holds the methods of the type it names, a derive is an implementation the compiler writes, and
 `use` is the import. A module is named from the directory holding its crate root, so
-`packages/mcmr/kernel/src/graph.rs` is `kernel::graph` and every `crate::`, `self::`, and `super::`
+`packages/mcmr/src/core/src/graph.rs` is `kernel::graph` and every `crate::`, `self::`, and `super::`
 path is rewritten against that. On the kernel's own twelve files this resolves 2,123 edges exactly,
 1,617 to declared external crates, and leaves one unresolved, which is a call through a local
 binding that no static rule can follow. The general rules run on it unchanged, and the
@@ -976,8 +1008,8 @@ opposite sides of that line.
 
 `RS-LIFE0003` and `RS-OWNE0002` are measurements rather than defects, and they are meant to be read
 together. Driving annotations to zero by owning everything moves the cost into allocations, and
-driving allocations to zero by borrowing everything moves it into signatures, so the standard
-profile puts a ceiling on both rather than a prohibition on either. `RS-OWNE0001` is the one place
+driving allocations to zero by borrowing everything moves it into signatures, so their rule-owned
+policies put a ceiling on both rather than a prohibition on either. `RS-OWNE0001` is the one place
 where owning instead of borrowing is usually wrong, since a copy inside a loop is paid again on
 every pass.
 
@@ -1037,18 +1069,22 @@ to find the same node already there. Symbols keep `{language}:{kind}:{qualname}`
 Run over the whole `~/projects` monorepo, this reads 11,323 files into 874,468 nodes and 2,766,970
 edges in 36 seconds, with Python, C, C++, CUDA, Rust, and TypeScript all in one graph.
 
-- [ ] Demand-driven queries with an invalidation key per fact, so one edited file rebuilds only
-      what depends on it
-- [ ] Persistent cache under the XDG cache directory, with cache and invalidation counters in stats
-- [ ] Tree-sitter frontends for Rust, TypeScript, C, C++, and CUDA behind the same fact types
-- [ ] A language-neutral structural baseline every frontend fills, with richer semantics optional
+- [ ] Demand-driven queries with an invalidation key per relation partition, so one edited file
+      rebuilds only what depends on it
+- [x] Request-local table reuse with no persistence between checks
+- [x] Native frontends for Rust, TypeScript, C, C++, and CUDA behind the same fact types
+- [x] A language-neutral structural baseline every frontend fills, with richer semantics optional
 
-**Done when** a one-file edit rebuilds one file's facts, and the general rules produce findings on
-a Rust and a TypeScript source tree without any rule changing.
+The multi-language half is done. The incremental half is done when a one-file edit rebuilds only
+the relation partitions that depend on it. General rules already produce findings on Rust and
+TypeScript source trees without rule changes.
 
 ## Oracles
 
-GE4M is the behavioral oracle for every migrated rule, since it has a working implementation of all
-205. Archy is the graph oracle. Ruff, Pylint, Vulture, Lizard, and Symilar are message and metric
-oracles for the scopes the kernel claims. An oracle disagreement is a finding about the kernel
-until proven otherwise.
+The final GE4M catalog is frozen as an independent packaged inventory, and the bidirectional
+replacement ledger accounts for all 205 rules without importing or executing the retired tool.
+Focused source fixtures and retained differential results preserve the behavior that was useful as
+an oracle. Archy remains a test-only graph comparison while its independent fixtures are frozen.
+Ruff, Pylint, Vulture, Lizard, Symilar, ESLint, typescript-eslint, clang-tidy, and cppcheck are
+message and metric oracles for the scopes the kernel claims. An oracle disagreement is a finding
+about the kernel until proven otherwise.

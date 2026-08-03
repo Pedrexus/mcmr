@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling>=1.28,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcmr"
+version = "0.0.1"
+description = "Define and enforce the engineering rules that make your code yours."
+requires-python = ">=3.14"
+license = "Apache-2.0"
+dependencies = ["mcmr-api==0.0.1"]
+
+[project.entry-points."mcmr.rules"]
+builtin = "mcmr.rules"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["mcmr/rules"]

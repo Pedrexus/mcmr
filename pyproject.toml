@@ -1,9 +1,9 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["maturin>=1.10,<2"]
+build-backend = "maturin"
 
 [project]
-name = "mcmr"
+name = "mcmr-api"
 version = "0.0.1"
 description = "Define and enforce the engineering rules that make your code yours."
 readme = "README.md"
@@ -25,8 +25,13 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
+  "annotated-types>=0.8,<1",
   "anyio>=4.14,<5",
   "cyclopts>=4",
+  "packaging>=26,<27",
+  "patos>=0.0.9,<0.1",
+  "pathspec>=1.1,<2",
+  "polars>=1.41,<2",
   "pydantic>=2.13,<3",
   "rich>=14,<16",
 ]
@@ -47,7 +52,7 @@ dev = [
   "dirty-equals>=0.8",
 ]
 [project.scripts]
-mcmr = "mcmr.cli:app"
+mcmr = "mcmr.commands.cli:app"
 
 [project.urls]
 Homepage = "https://phvv.me/mcmr"
@@ -55,29 +60,41 @@ Documentation = "https://phvv.me/mcmr"
 Repository = "https://github.com/phvv-me/mcmr"
 Issues = "https://github.com/phvv-me/mcmr/issues"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/mcmr"]
+[tool.maturin]
+features = ["extension-module"]
+manifest-path = "src/core/Cargo.toml"
+module-name = "mcmr.kernel_tables"
+python-source = "src/api"
 
 [tool.ruff]
 line-length = 99
+namespace-packages = ["src/rules/mcmr"]
+src = ["src/api", "src/rules"]
 target-version = "py314"
 
 [tool.ruff.lint]
 select = ["ASYNC", "B", "E", "F", "I", "PERF", "SIM", "TC", "UP"]
 
 [tool.ruff.lint.flake8-type-checking]
-exempt-modules = ["mcmr.models"]
-runtime-evaluated-base-classes = ["mcmr.bases.FrozenFlexModel"]
+exempt-modules = ["mcmr.domain.contracts", "pathlib"]
+runtime-evaluated-base-classes = [
+  "mcmr.execution.backends.base.ClassificationBackend",
+  "patos.Component",
+  "patos.FrozenFlexModel",
+  "patos.FrozenModel",
+]
 runtime-evaluated-decorators = [
   "cyclopts.App.command",
+  "hypothesis.given",
+  "mcmr.commands.interface.app.command",
   "mcmr.rule",
-  "mcmr.decorators.rule",
-  "mcmr.models.Rule.fix",
+  "mcmr.declaration.decorators.rule",
+  "mcmr.domain.contracts.Rule.fix",
 ]
 
 [tool.pyrefly]
-project-includes = ["src", "tests"]
-search-path = ["src", "."]
+project-includes = ["src/api", "src/rules", "tests"]
+search-path = ["src/api", "src/rules", "."]
 python-version = "3.14"
 python-interpreter-path = ".chefe/.pixi/envs/default/bin/python"
 
@@ -85,9 +102,10 @@ python-interpreter-path = ".chefe/.pixi/envs/default/bin/python"
 python_version = "3.14"
 strict = true
 disallow_any_explicit = true
-files = ["src"]
-mypy_path = "src"
-namespace_packages = false
+explicit_package_bases = true
+files = ["src/api", "src/rules"]
+mypy_path = ["src/api", "src/rules"]
+namespace_packages = true
 plugins = ["pydantic.mypy"]
 
 [tool.pydantic-mypy]
@@ -96,13 +114,13 @@ init_typed = true
 [tool.ty.environment]
 python = ".chefe/.pixi/envs/default"
 python-version = "3.14"
-root = ["src"]
+root = ["src/api", "src/rules"]
 
 [tool.ty.src]
-include = ["src"]
+include = ["src/api", "src/rules"]
 
 [tool.pytest.ini_options]
-addopts = "-q -ra --strict-markers --cov=mcmr --cov-report=term-missing"
+addopts = "-q -ra --strict --import-mode=importlib --cov=mcmr --cov-report=term-missing"
 testpaths = ["tests"]
 
 [tool.coverage.run]
@@ -118,3 +136,13 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "\\.\\.\\.$",
 ]
+
+[tool.mcmr]
+
+[tool.mcmr.contextual]
+backend = "codex"
+model = "gpt-5.6-terra"
+reasoning_effort = "medium"
+
+[tool.mcmr.rules.ALL-FILE0002]
+framework_roots = ["src/rules/mcmr/rules"]

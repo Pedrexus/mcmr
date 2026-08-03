@@ -1,0 +1,62 @@
+from enum import StrEnum, auto
+
+from ...... import Category, rule
+from ......execution import ClassificationBackend
+from ......execution.queries import ModelQuery
+from ......facts import PerformanceDecisionFact
+from ......table import Table
+
+
+class _BenchmarkQuality(StrEnum):
+    REPRESENTATIVE = auto()
+    MICRO_ONLY = auto()
+    UNCONTROLLED = auto()
+    STALE = auto()
+    NOT_NEEDED = auto()
+    UNCERTAIN = auto()
+
+
+@rule(
+    "ALL-PERF1003",
+    policy=Category.outcomes(
+        _BenchmarkQuality,
+        good={_BenchmarkQuality.NOT_NEEDED, _BenchmarkQuality.REPRESENTATIVE},
+        neutral={_BenchmarkQuality.UNCERTAIN},
+    ),
+)
+def benchmark_quality(
+    subject: Table[PerformanceDecisionFact],
+    backend: ClassificationBackend,
+) -> ModelQuery[_BenchmarkQuality]:
+    """Judge whether a benchmark supports the decision made from it.
+
+    Definition
+    ----------
+    Compare the decision, workload distribution, data size, environment, warmup, repetitions,
+    variance, baseline, resources, end-to-end effects, and recency.
+
+    Evidence
+    --------
+    Findings cite benchmark code, commands, environments, samples, statistics, and the claimed
+    decision.
+
+    Exceptions
+    ----------
+    Focused microbenchmarks are valid for isolated mechanism questions with bounded claims.
+
+    Examples
+    --------
+    A representative service workload with controlled comparisons is `representative`. Timing one
+    parser token and claiming end-to-end speedup is `micro_only`.
+
+    References
+    ----------
+    Cites "Systems Performance"
+    Cites "The Python Standard Library", timeit
+    Cites "Beyond the Basic Stuff with Python", Measuring Performance and Big O
+    """
+    return backend.classification(
+        subject,
+        category=_BenchmarkQuality,
+        instructions=benchmark_quality.instructions,
+    )

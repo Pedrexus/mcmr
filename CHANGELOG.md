@@ -1,5 +1,15 @@
 # Changelog
 
+- External fact packages can now register typed providers through `mcmr.providers`. Provider
+  ownership is exact, settings are namespaced, and only requested families are collected in
+  memory.
+- Repair safety is declared once on `@rule`. `FixQuery` no longer repeats it and optional node and
+  import relations receive typed empty defaults.
+- `PY-EXCE0004` detects the exact one-return exception boundary that can become
+  `contextlib.suppress` and offers a safe import-aware replacement.
+- README, system architecture, and roadmap now center the version 0.0.1 contract and the DataHub
+  hackathon delivery path.
+
 All notable changes to My Code, My Rules are documented here.
 
 The format follows Keep a Changelog, and releases are cut from the version in `pyproject.toml`.
@@ -8,13 +18,80 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Added
 
+- Exact evidence-backed autofixes for empty directories, class-owned helpers, grouped unused import
+  bindings, unused explicit exports, and explicit `__all__` declarations outside package
+  initializers. File and directory changes share one guarded rollback transaction, and every
+  applied repair is verified by rerunning its originating rule.
+- Cross-file Python moves retain relative and type-only imports. `PY-MODU0003` places an
+  initializer function beside its one exact sibling class owner, while `PY-IMPO0005` reuses the
+  existing public-facade proof for safe deep-import repairs.
+
+- Seven Numba CUDA and four CUDA Python rules over typed Python call, function, and syntax tables.
+  They cover kernel returns, divergent barriers, unbounded grid indices, dynamic local storage,
+  streamless transfers and launches, global synchronization, unsupported core construction,
+  legacy default streams, and blocking raw memory APIs. Exact kernel decorator joins keep ordinary
+  indexed Python calls out of the launch rule.
+- A Maturin-built `mcmr.kernel_tables` extension with a free-threaded PyO3 `AnalysisSession`.
+  One repository pass now exposes normalized Polars relations for all 85 selected fact families.
+  Production fact transport has no JSON stream, temporary spool, or row fallback.
+- Shared typed records filled directly by the Python, Rust, TypeScript, C, C++, and CUDA frontends.
+  Repository graph enrichment completes those records before the kernel normalizes them into
+  specialized and generic relations.
+- A complete columnar execution design based on a census of all 278 rules and 85 declared fact
+  families. `docs/columnar.md` defines normalized entity and child tables, the direct Rust Polars
+  to Python `PyDataFrame` boundary, the free-threaded PyO3 contract, and the completed table-only
+  execution invariants.
+- One table contract for the complete catalog. Each of the 215 deterministic declarations runs
+  once and returns one lazy `RuleQuery`. Each of the 63 contextual declarations runs once, returns
+  one candidate `ModelQuery`, and makes one batched backend call. Aggregate values cross into
+  ordinary Python results while detailed evidence and relational fixes materialize only for
+  bounded failures.
+- Specialized FunctionFact, CallFact, ClassFact, ImportBindingFact, and SyntaxFact relations, plus
+  typed generic relations for the remaining families. Exact semantic cases cover settings,
+  exclusions, ordering, values, findings, spans, evidence, measurements, and repairs.
+- A generic `Table[Fact]` boundary backed by a validated ordinary dictionary of enum-keyed Polars
+  frames. Plans register through Patos, one coordinator retains selected tables, and there is no
+  setting or family branch that can select an alternate execution engine.
+- Historical migration measurements for the FunctionFact and CallFact pilots. Five fused function
+  expressions ran about 68 times faster than the former row dispatch, the complete CallFact
+  judgment ran about 1.83 times faster, and flat CallFact relations retained about one tenth the
+  memory of the equivalent Pydantic graph. These measurements explain the design and do not
+  describe a production fallback.
+- An exact deterministic analysis cache keyed by the repository fingerprint, selected rule
+  contracts, policies, settings, exclusions, retained evidence, and the Python and Rust tool
+  implementation. A malformed entry discards itself, writes are atomic, `--no-cache` bypasses it,
+  and run statistics distinguish hits, misses, reads, and writes.
+- `PY-PYDA0007`, which reports arbitrary-length tuple annotations on declared Pydantic fields while
+  leaving fixed record tuples and `ClassVar` declarations alone. The provider resolves imported
+  `typing.Tuple` aliases and nested tuple shapes without guessing a replacement representation.
+- A complete GE4M replacement ledger. Independent packaged inventories account for all 205 old
+  rules and all 18 externally meaningful capabilities in both directions. `mcmr replacement`
+  validates every live target and reports zero missing capabilities without importing GE4M.
+- The ABI-neutral PyPI `cppcheck` wheel as a development dependency. It runs the live overlap,
+  listing, and harness oracles inside CPython 3.14t, reducing five absent-tool skips to one explicit
+  release mismatch while the newer 2.21.0 inventory remains unchanged.
+- Normal `mcmr check` runs contextual rules when `[tool.mcmr.model]` explicitly enables the
+  isolated schema-constrained Codex backend. `mcmr backends` shows the exact model, reasoning
+  effort, and timeout without starting it.
+- `mcmr model-sweep`, which runs every contextual rule through the configured Codex harness with
+  bounded concurrency and stable output order. Each result retains its answer, findings, model,
+  token counts, and elapsed work, while an empty report, synchronous contextual rule, missing
+  provenance, or negative duration fails at the typed boundary.
+- Complete JSON check output through `--format json` and `--output`, plus `--report-only` for audit
+  jobs that retain findings without choosing a failing status.
+- `mcmr catalog`, which exports all 278 live typed declarations directly and replaces a generated
+  registry that could drift from execution.
+- `mcmr dependencies refresh`, which reads direct Python requirements from `pyproject.toml` and
+  `chefe.toml`, prefers exact `uv.lock` resolutions, collects bounded PyPI and GitHub evidence, and
+  writes the typed `.mcmr/DependencyFact.json` used by later offline checks. Unknown release,
+  project, repository, and yanked states stay unknown rather than becoming healthy defaults.
 - Initial public project scaffolding.
-- A Rust analysis kernel under `kernel/` that discovers, reads, and parses a repository once and
+- A Rust analysis kernel under `src/core/` that discovers, reads, and parses a repository once and
   builds `ModuleFact`, `ImportBindingFact`, `FunctionFact`, `ClassFact`, `CommentFact`, and
   `CallFact`. It builds only the families the selected rules read, which is the whole dependency
   injection system: a rule cannot receive evidence it did not ask for.
-- `mcmr check`, which runs the catalog over a repository through the kernel. MCMR's own source is
-  324 files, 2,662 facts in 23 ms, and 24,986 rule invocations in 62 ms.
+- `mcmr check`, which runs the selected catalog over one native repository session and reports
+  aggregate observations with bounded detailed findings.
 - `docs/kernel.md`, holding the kernel task list and the definition of done for each phase.
 - Twenty-four more fact families in the kernel, covering symbols, attribute accesses, annotations,
   try blocks, comprehensions, collections, strings, literals, branches, enums, exceptions, method
@@ -54,11 +131,20 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   unbounded blocking calls, commented-out code, and two CUDA rules for blocking transfers inside a
   stream scope and raw barriers where Cooperative Groups states the same synchronization.
 - `docs/backlog.md`, which records what to build next and which tool already owns what.
-- Fixes are rewrite programs over resolved nodes. `Remove`, `Replace`, `Move`, `Unwrap`, and
-  `Rename` each expose the spans they touch, so the engine detects conflicting fixes without
+- Fixes are rewrite programs over resolved nodes. `Remove`, `Replace`, `Move`, `Unwrap`, `Rename`,
+  and `Inline` each expose the spans they touch, so the engine detects conflicting fixes without
   knowing any rule, and a fix is testable without a provider. `docs/autofix.md` states the contract
   the language backend fulfills, including import management, atomic application, reparse, and
   re-running the rule before an edit is kept.
+- A complete Python autofix path. The renderer supports all six rewrite operations with UTF-8 byte
+  coordinates, exact retained-source checks, import management, conflict detection, syntax
+  validation, unified diffs, atomic writes, rollback, and fresh originating-rule verification.
+  `mcmr check --repair preview` previews patches and `--repair apply` writes safe plans to a
+  bounded fixpoint. One repair mode makes preview and application mutually exclusive.
+- Rich terminal presentation for checks and repository reports. Interactive runs show loading
+  states, compact analysis and timing tables, detailed finding panels, source context, evidence,
+  measurements, model provenance, repair safety, and readable fix previews. Plain full and concise
+  check formats remain available.
 - Shared `Visibility`, `MemberKind`, and `ReceiverKind` vocabulary, mapped to each language in
   `docs/generalization.md`, with the remaining generalization candidates ranked.
 - Recorded runs, so MCMR can say whether a repository is getting better rather than only what it is
@@ -99,7 +185,9 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 - `mcmr coverage`, which accounts for every rule an upstream tool ships and says what MCMR does
   about each one. It reads a frozen inventory per tool and derives the account from the rules
   themselves. Pylint reads 22 native, 269 delegated, 6 adapted, 19 inapplicable, and 73 unavailable
-  over 389 messages, Ruff reads 34 of 968 generalized, and Clippy 10 of 809.
+  over 389 messages, Ruff reads 34 of 968 generalized, and Clippy 10 of 809. Its default view
+  summarizes all seven inventories and 3,538 rules in one table, while `--tool` opens the full
+  per-rule account for one tool.
 - A machine-readable grammar for the `References` section of a rule docstring. A line reading
   `relation tool identity [identity]`, where the relation is `Generalizes`, `Adapts`, or `Cites`,
   names one rule of one upstream tool. Everything else stays prose, and a bare URL line attaches to
@@ -125,8 +213,8 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   all become edges. Specifiers settle the way TypeScript settles them, through extensionless
   relative paths, `index` files, `.d.ts` declarations, and the aliases a `tsconfig.json` states
   across its `extends` chain, and a re-export is followed to the module that declares the symbol.
-  Everything downstream now reads TypeScript: `ModuleCouplingFact` and so `ALL-ARCH0012` through
-  `ALL-ARCH0014`, `OverrideFact`, `SymbolReachFact`, the class and package diagrams, the design
+  Everything downstream now reads TypeScript: `ModuleCouplingFact` and so `ALL-ARCH0003` through
+  `ALL-ARCH0005`, `OverrideFact`, `SymbolReachFact`, the class and package diagrams, the design
   structure matrix, and the impact set. On a 113-file SvelteKit project this is 2,144 nodes and
   4,945 edges where there were 180 and 179.
 - `tests/test_fact_variation.py`, which finds a fact field a provider never varies. It builds every
@@ -135,7 +223,7 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   a newly frozen field and a stale entry each turn the suite red. It records 160 fields and three
   families today, tells apart a field no frontend writes, a literal every frontend states, and a
   field the corpus simply never moves, and it found one more unsatisfiable rule in `PY-COLL0002`.
-- A registry of works in `src/mcmr/data/works.json` and an influence table derived from it. Every
+- A registry of works in `src/api/mcmr/data/works.json` and an influence table derived from it. Every
   work a rule may cite is registered with its canonical title, its kind, its author, and its link,
   which is what a generated rule page needs to render a citation. `InfluenceReport` reads the whole
   catalog and reports, per source, how many references were made and how many rules made them, with
@@ -148,6 +236,22 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Fixed
 
+- Python stub files now receive their real import module name without the `.pyi` suffix. Imports
+  of native declarations therefore reach the public symbols stated by their PEP 561 stub instead
+  of leaving those declarations falsely unreferenced.
+- The Archy matrix oracle now states its stub limitation explicitly. It compares runtime modules
+  after removing Archy's package fallback for imports whose actual target is a stub.
+- `ClassFact` now distinguishes structural typing protocols from runtime implementation classes.
+  The nonpublic top-level class rule accepts an intentionally private `Protocol` while still
+  reporting private concrete classes, so internal invocation contracts do not have to become a
+  false public API.
+- Every rule now returns its value beside precise findings. Deterministic findings name the exact
+  declaration or record that qualified, while model findings retain each criterion, confidence,
+  evidence identifier, provenance, and local decision-table result. The completed catalog guard
+  rejects any scalar-only rule.
+- Reach findings now use declaration spans, typing placement findings name exact declaration and
+  import spans, inherited class-method calls reach their receiver class, and pytest strictness and
+  import mode reflect the effective command-line and configuration controls.
 - Four invalid provider states found by the property sweep are no longer constructible. Duplicate
   and type-escape counts cannot exceed their totals, comprehension loop counts are nonnegative,
   and comment normalization requires a positive denominator. The rules keep no clamps, so a
@@ -187,9 +291,9 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   is no longer compared as though it were.
 - The native frontend dropped the receiver from a member call, so `state.exec(...)` arrived as
   `exec` and every general rule matching a builtin by name was unsound on C, C++, and CUDA.
-  `ALL-FUNC0015` reported 35 reflective scope reads on cuCollections, all false, and they are gone.
+  `ALL-FUNC0011` reported 35 reflective scope reads on cuCollections, all false, and they are gone.
   The Rust frontend had the same defect and it is closed the same way.
-- `kernel/src/interop.rs` read a CUDA artifact as the word following `__global__`, so the complete
+- `src/core/src/interop.rs` read a CUDA artifact as the word following `__global__`, so the complete
   list it found on a real tokenizer was `__launch_bounds__`, `inline`, `void`, `kernels`, and
   `cuco`. A kernel is now named by the identifier its parameter list opens on, past the return
   type, a launch bound, and a template argument list, and a marker inside a comment declares
@@ -215,10 +319,10 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   stream harmlessly where no other stream exists, so `KernelLaunchFact` now says whether its
   translation unit meets a stream at all, and the rule falls from 12 findings to 2 on a tokenizer
   and from 51 to 2 on cuCollections, keeping exactly the launches in units that create streams.
-- `ALL-COMM0002` failed all 206 files of cuCollections on the Apache notice each of them opens
+- `ALL-COMM0001` failed all 206 files of cuCollections on the Apache notice each of them opens
   with. A licence is the same words in every file of a project and says nothing about the file, so
   it is left out of the measurement and the rule reports 51.
-- `ALL-SECU0010` read any operator on a launcher's first argument as a command line assembled from
+- `ALL-SECU0005` read any operator on a launcher's first argument as a command line assembled from
   parts, so `state.exec(exec_tag::sync | exec_tag::timer, ...)` was reported as shell injection. A
   command line now has to state part of the command inside it.
 - `mcmr check` rendered through a Rich console with emoji substitution on, so every location on
@@ -241,7 +345,7 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   name, and the ordered regions its members sit in. Only the asyncio a file actually imported
   counts as scheduling work, so a project function named `create_task` is no longer read as one.
 - Who subclasses a class, who builds one, who imports it, and what its bases already supply are
-  questions about every module at once, so `kernel/src/classes.rs` reads the repository once and
+  questions about every module at once, so `src/core/src/classes.rs` reads the repository once and
   joins them, the way the exception pass already does. That fills the resolved inheritance graph,
   the instantiation and export evidence, the order-sensitive base collisions, the proposed home for
   a reused model, and whether one callable takes part in dispatch anywhere.
@@ -253,7 +357,7 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   need, so the rule now reports a `cached_property` that never reads its receiver, which is the
   defect it was named for.
 - `direct_statement_count` no longer counts the docstring, which all three rules reading it already
-  said in their own definitions, and `ALL-CLAS0002` no longer refuses to sort a class holding a
+  said in their own definitions, and `ALL-CLAS0001` no longer refuses to sort a class holding a
   member kind the configured order leaves out.
 
 - Four providers stated a hardcoded constant where a rule read evidence, which is a rule that
@@ -290,8 +394,8 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   parametrization, `TestCaseGroupFact` groups siblings by the syntax left once the literals are
   removed, and `SymbolFact` names the scope that binds each name. Eleven rules that could not fire
   now do: over `research` `PY-INTE0001` reports 196, `ALL-PARA0002` 1,189, `PY-COLL0001` 537,
-  `PY-TEST0016` 204, `PY-TEST0021` 127, `PY-TEST0011` 71, `PY-TEST0022` 15 and `PY-ENUM0002` 9,
-  and over `aizk` `PY-TEST0017` reports 100 calls to `asyncio.run` inside a synchronous test.
+  `PY-TEST0008` 204, `PY-TEST0013` 127, `PY-TEST0003` 71, `PY-TEST0014` 15 and `PY-ENUM0002` 9,
+  and over `aizk` `PY-TEST0009` reports 100 calls to `asyncio.run` inside a synchronous test.
 - The differential oracle compared file paths where it claimed to compare findings. The
   `protected-access` case asserted that both readers named `generated.py`, which is true of any
   answer on a one-file tree, and the work-marker case compared fact spans that all start at line
@@ -300,13 +404,32 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Changed
 
-- Kernel fact streams validate concurrently by family on the free-threaded Python build. Mainboard
-  measured the stage at 2.20 to 2.34 seconds sequentially and 1.64 to 1.76 seconds by family under
-  the regular interpreter. On MCMR's GIL-free environment three bounded runs moved from 584 to 792
-  milliseconds sequentially to 462 to 473 milliseconds concurrently. Per-item threading and a
-  fresh asynchronous event loop were both slower and are not used.
+- Packaging now uses Maturin so the Rust table extension and Python package ship as one wheel.
+  Polars comes from Conda in development because its free-threaded runtime wheel otherwise falls
+  back to an unsupported source build. The unavailable Python 3.15 preview environment was
+  removed so it no longer prevents the default environment from resolving.
+- Rule execution now uses one in-process `AnalysisSession` and one registered table path for every
+  selected family. Family-specific flags, coordinator branches, row adapters, and execution
+  switches are gone.
+- Call providers now build typed records directly in Python, Rust, C, C++, and CUDA frontends.
+  Repository graph resolution enriches those records before direct relational normalization.
+- `PY-TYPE0001` now describes `from __future__ import annotations` precisely for Python 3.14 and
+  newer. The import is unnecessary for deferred evaluation but remains supported because it
+  explicitly selects the older PEP 563 stringized representation, so its removal stays a review
+  fix rather than being presented as removal of deprecated syntax.
+- Historical migration evidence showed why the dual transport was retired. Bounded CallFact
+  spooling reduced an isolated whole-monorepo row pass from 177.6 to 140.2 seconds, while a complete
+  10,900-file row check still took 499.3 seconds and peaked near 4.0 GiB in the kernel and 1.1 GiB
+  in Python. Earlier unbounded row runs approached 10.5 GiB and 5.5 GiB. Production no longer uses
+  that transport.
+- Historical free-threaded validation experiments measured 2.20 through 2.34 seconds sequentially
+  and 1.64 through 1.76 seconds by family under the regular interpreter. Three bounded GIL-free
+  runs moved from 584 through 792 milliseconds sequentially to 462 through 473 milliseconds by
+  family. Per-item threading and a fresh asynchronous event loop were slower. Production now lets
+  Rayon own native construction, Polars own row parallelism, and the contextual backend own bounded
+  request concurrency.
 - Provenance is stated on the rule and the coverage of any tool is derived from it, rather than
-  maintained by hand in a table beside it. Each of the 277 rules names the upstream rules it
+  maintained by hand in a table beside it. Each of the 278 rules names the upstream rules it
   generalizes, adapts, or merely cites in its own `References` section, and two copies of one fact
   can no longer drift apart. The Pylint arithmetic is unchanged by the move.
 - The literature half of that provenance is exact too. It was free prose, so `Fluent Python` and
@@ -320,11 +443,9 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 - A rule docstring closes its quotes on their own line. A References section ends in a quoted work
   title, and a line ending in a quote written against the closing quotes is not valid Python.
 
-- A fix returns the rewrites it wants rather than a plan. The framework decides whether those
-  rewrites amount to one, and the fix's own first line of documentation is the summary, which
-  removed the `plan` and `removal` helpers, the empty check every fix repeated, and the summary
-  each one restated. The `Insert` operation went with them: nothing ever used it, and MCMR found it
-  in its own source once a type reference became an edge.
+- A repair is now one lazy `FixQuery` beside the rule's value and finding queries. The collector
+  materializes normalized rewrite, node, and import rows only for bounded failures and decides
+  whether they form a `FixPlan`. The `Insert` operation is gone because no repair used it.
 - A type reference is an edge. An annotation is a dependency in every typed language and left no
   other trace, so a class used only in signatures read as unreached by everything. Unreached public
   declarations in this repository fell from 177 to 76.
@@ -342,10 +463,10 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
   kernel has to be built. Three rule defects surfaced the same way and were fixed: swappable
   parameters ignored keyword-only arguments, the parameter extractor claimed uses it had not
   resolved, and rule modules named after testing were treated as pytest test files.
-- The rule engine runs on bounded AnyIO workers instead of one serial loop. Facts are grouped into
-  chunks so a thread handoff costs less than the work it carries, validation and result
-  construction happen in the worker beside the rule, and the worker count follows whether the
-  interpreter still holds the GIL. A 43,200-invocation workload went from 605 ms to 86 ms.
+- The rule engine no longer schedules facts on bounded AnyIO workers. It invokes each declaration
+  once, lets Polars evaluate the complete family relation, and collects aggregate values plus
+  bounded failure rows. Contextual declarations preserve bounded concurrency behind one batched
+  backend request per rule.
 - Scope now names the language a rule answers for, with `rust`, `typescript`, `cpp`, and `cuda`
   beside `general` and `python`. A rule whose language no fact carries is skipped and counted
   rather than refused.
@@ -366,6 +487,12 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Removed
 
+- Selectable policy profiles and `mcmr check --profile`. Every rule now owns its one acceptance
+  contract, and project configuration may only replace that contract with a validated rule-level
+  override. The tool has no named acceptance mode.
+- The executable GE4M source tree and its two dedicated workflows after the independent replacement
+  audit reached all 205 rules and all 18 externally meaningful capabilities. MCMR retains the four
+  frozen ledgers as packaged audit evidence and has no GE4M runtime dependency.
 - `mcmr/pylint.py` and the `mcmr ledger` command, replaced by `mcmr/upstream.py` and
   `mcmr coverage`. A module named after one tool was the wrong shape for an engine that fronts six
   languages and generalizes patterns from Pylint, Ruff, Clippy, clang-tidy, and SonarSource alike.

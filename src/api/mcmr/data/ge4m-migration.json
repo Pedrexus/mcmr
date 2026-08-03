@@ -1,0 +1,1387 @@
+{
+  "rules": [
+    {
+      "relation": "generalized",
+      "source_id": "PY-ABST0001",
+      "target_ids": [
+        "ALL-ABST1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0001",
+      "target_ids": [
+        "ALL-ARCH1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0002",
+      "target_ids": [
+        "ALL-ARCH1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0003",
+      "target_ids": [
+        "ALL-ARCH1003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0004",
+      "target_ids": [
+        "ALL-ARCH1004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0005",
+      "target_ids": [
+        "ALL-ARCH1005"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0007",
+      "target_ids": [
+        "ALL-ARCH1006"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0008",
+      "target_ids": [
+        "ALL-ARCH1007"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0010",
+      "target_ids": [
+        "ALL-ARCH0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ARCH0011",
+      "target_ids": [
+        "ALL-ARCH0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ASYN0001",
+      "target_ids": [
+        "PY-ASYN0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ASYN0002",
+      "target_ids": [
+        "PY-ASYN0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ASYN0003",
+      "target_ids": [
+        "PY-ASYN0003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ASYN0004",
+      "target_ids": [
+        "PY-ASYN0004"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ASYN0005",
+      "target_ids": [
+        "PY-ASYN0005"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CACH0001",
+      "target_ids": [
+        "PY-CACH0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CACH0002",
+      "target_ids": [
+        "PY-CACH0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-CI0001",
+      "target_ids": [
+        "ALL-CI0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-CI0002",
+      "target_ids": [
+        "ALL-CI0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CLAS0001",
+      "target_ids": [
+        "PY-CLAS0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-CLAS0002",
+      "target_ids": [
+        "ALL-CLAS0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-CLAS0003",
+      "target_ids": [
+        "ALL-CLAS1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-CLAS0004",
+      "target_ids": [
+        "ALL-CLAS1002"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0005",
+      "target_ids": [
+        "PY-CLAS0002"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-CLAS0006",
+      "target_ids": []
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0007",
+      "target_ids": [
+        "PY-CLAS0003"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0008",
+      "target_ids": [
+        "PY-CLAS0004"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0009",
+      "target_ids": [
+        "PY-CLAS0005"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0010",
+      "target_ids": [
+        "PY-CLAS0006"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0011",
+      "target_ids": [
+        "PY-CLAS0007"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0012",
+      "target_ids": [
+        "PY-CLAS0008"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-CLAS0013",
+      "target_ids": [
+        "PY-CLAS0009"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CLI0001",
+      "target_ids": [
+        "PY-CLI0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-COLL0001",
+      "target_ids": [
+        "PY-COLL0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-COLL0002",
+      "target_ids": [
+        "PY-COLL0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-COLL0003",
+      "target_ids": [
+        "PY-COLL0003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-COLL0004",
+      "target_ids": [
+        "PY-COLL0004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-COMM0002",
+      "target_ids": [
+        "ALL-COMM0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-COMM0003",
+      "target_ids": [
+        "ALL-COMM1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-COMM0004",
+      "target_ids": [
+        "ALL-COMM1002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-COMP0001",
+      "target_ids": [
+        "PY-COMP0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-COMP0002",
+      "target_ids": [
+        "PY-COMP0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-CONF0001",
+      "target_ids": [
+        "ALL-CONF0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CONS0001",
+      "target_ids": [
+        "PY-CONS0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CONS0002",
+      "target_ids": [
+        "PY-CONS0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-CONS0003",
+      "target_ids": [
+        "PY-CONS0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0001",
+      "target_ids": [
+        "ALL-DATA0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0002",
+      "target_ids": [
+        "ALL-DATA0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0003",
+      "target_ids": [
+        "ALL-DATA0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0004",
+      "target_ids": [
+        "ALL-DATA0004"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DATA0005",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0006",
+      "target_ids": [
+        "ALL-DATA0006"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0007",
+      "target_ids": [
+        "ALL-DATA0007"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0008",
+      "target_ids": [
+        "ALL-DATA0008"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0009",
+      "target_ids": [
+        "ALL-DATA0009"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DATA0010",
+      "target_ids": [
+        "ALL-DATA0010"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-DEAD0001",
+      "target_ids": [
+        "PY-DEAD0001"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DEPE0002",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DEPE0003",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPE0005",
+      "target_ids": [
+        "ALL-DEPE0001"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DEPE0006",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPE0007",
+      "target_ids": [
+        "ALL-DEPE0002"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DEPE0008",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DEPE0009",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPE0010",
+      "target_ids": [
+        "ALL-DEPE0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPE0011",
+      "target_ids": [
+        "ALL-DEPE0004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPL0001",
+      "target_ids": [
+        "ALL-DEPL0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPL0002",
+      "target_ids": [
+        "ALL-DEPL1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPL0003",
+      "target_ids": [
+        "ALL-DEPL1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPL0004",
+      "target_ids": [
+        "ALL-DEPL1003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DEPL0005",
+      "target_ids": [
+        "ALL-DEPL1004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DESI0001",
+      "target_ids": [
+        "ALL-DESI1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DESI0002",
+      "target_ids": [
+        "ALL-DESI1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DESI0003",
+      "target_ids": [
+        "ALL-DESI1003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-DOCU0001",
+      "target_ids": [
+        "PY-DOCU0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-DOCU0002",
+      "target_ids": [
+        "PY-DOCU0002"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-DOCU0003",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DUPL0001",
+      "target_ids": [
+        "ALL-DUPL0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DUPL0002",
+      "target_ids": [
+        "ALL-DUPL0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-DUPL0003",
+      "target_ids": [
+        "ALL-DUPL1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ENCA0001",
+      "target_ids": [
+        "ALL-ENCA0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ENUM0001",
+      "target_ids": [
+        "PY-ENUM0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ENUM0002",
+      "target_ids": [
+        "PY-ENUM0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ENUM0003",
+      "target_ids": [
+        "PY-ENUM0003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ENUM0004",
+      "target_ids": [
+        "PY-ENUM0004"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-ENUM0005",
+      "target_ids": [
+        "PY-ENUM0005"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-ERRO0001",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-ERRO0002",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-ERRO0003",
+      "target_ids": []
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-EXCE0001",
+      "target_ids": [
+        "PY-EXCE0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-EXCE0002",
+      "target_ids": [
+        "PY-EXCE0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-EXCE0003",
+      "target_ids": [
+        "PY-EXCE0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FILE0001",
+      "target_ids": [
+        "ALL-FILE0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FILE0002",
+      "target_ids": [
+        "ALL-FILE0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FILE0003",
+      "target_ids": [
+        "ALL-FILE0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0001",
+      "target_ids": [
+        "ALL-FUNC0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0002",
+      "target_ids": [
+        "ALL-FUNC0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0003",
+      "target_ids": [
+        "ALL-FUNC0003"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-FUNC0004",
+      "target_ids": [
+        "PY-FUNC0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0005",
+      "target_ids": [
+        "ALL-FUNC1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0006",
+      "target_ids": [
+        "ALL-FUNC1002"
+      ]
+    },
+    {
+      "relation": "split",
+      "source_id": "PY-FUNC0007",
+      "target_ids": [
+        "ALL-PARA0003",
+        "ALL-PARA0004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0008",
+      "target_ids": [
+        "ALL-FUNC0004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0009",
+      "target_ids": [
+        "ALL-FUNC0005"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0010",
+      "target_ids": [
+        "ALL-FUNC0006"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-FUNC0011",
+      "target_ids": [
+        "ALL-FUNC0007"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-IMPO0001",
+      "target_ids": [
+        "PY-IMPO0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-IMPO0002",
+      "target_ids": [
+        "PY-IMPO0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-INTE0001",
+      "target_ids": [
+        "PY-INTE0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-INTE0002",
+      "target_ids": [
+        "ALL-INTE1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-INTE0003",
+      "target_ids": [
+        "PY-INTE1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-LIFE0001",
+      "target_ids": [
+        "ALL-LIFE0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-LIFE0002",
+      "target_ids": [
+        "ALL-LIFE0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-LOGG0001",
+      "target_ids": [
+        "PY-LOGG0001"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-MIGR0001",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-MIGR0003",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-MIGR0004",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-MIGR0005",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-MODE0001",
+      "target_ids": [
+        "PY-MODE1001"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-MODE0002",
+      "target_ids": [
+        "PY-MODE0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-MODE0003",
+      "target_ids": [
+        "PY-MODE1002"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-MODE0004",
+      "target_ids": [
+        "PY-MODE0003"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-MODE0005",
+      "target_ids": [
+        "PY-MODE0004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-MODU0001",
+      "target_ids": [
+        "ALL-MODU0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-MODU0002",
+      "target_ids": [
+        "ALL-MODU0002"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-MODU0003",
+      "target_ids": [
+        "PY-MODU0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-NAMI0001",
+      "target_ids": [
+        "PY-NAMI1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-OBSE0001",
+      "target_ids": [
+        "ALL-OBSE1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-OBSE0002",
+      "target_ids": [
+        "ALL-OBSE1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-OBSE0003",
+      "target_ids": [
+        "ALL-OBSE0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-OBSE0004",
+      "target_ids": [
+        "ALL-OBSE0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-ONBO0001",
+      "target_ids": [
+        "ALL-ONBO0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-OPER0001",
+      "target_ids": [
+        "ALL-OPER0001"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-OPER0002",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-OPER0003",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-OPER0004",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-OPER0005",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-PERF0001",
+      "target_ids": [
+        "ALL-PERF1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-PERF0002",
+      "target_ids": [
+        "ALL-PERF1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-PERF0003",
+      "target_ids": [
+        "ALL-PERF0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-PERF0004",
+      "target_ids": [
+        "ALL-PERF1003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-PERF0005",
+      "target_ids": [
+        "ALL-PERF1004"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-PERF0006",
+      "target_ids": [
+        "PY-PERF0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-PYDA0001",
+      "target_ids": [
+        "PY-PYDA0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-PYDA0002",
+      "target_ids": [
+        "PY-PYDA0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-PYDA0003",
+      "target_ids": [
+        "PY-PYDA0003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-PYDA0004",
+      "target_ids": [
+        "PY-PYDA0004"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-PYDA0005",
+      "target_ids": [
+        "PY-PYDA0005"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-PYDA0006",
+      "target_ids": [
+        "PY-PYDA0006"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-RELE0001",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-RELI0002",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-RELI0003",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-RELI0004",
+      "target_ids": [
+        "ALL-RELI1003"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-RELI0005",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-RELI0006",
+      "target_ids": []
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-RELI0007",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-REVI0001",
+      "target_ids": [
+        "ALL-REVI1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-REVI0002",
+      "target_ids": [
+        "ALL-REVI0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-SECU0002",
+      "target_ids": [
+        "ALL-SECU1003"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-SECU0003",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-SECU0006",
+      "target_ids": [
+        "ALL-SECU1002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-SQLA0001",
+      "target_ids": [
+        "PY-SQLA0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-SQLA0002",
+      "target_ids": [
+        "PY-SQLA0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-SQLA0003",
+      "target_ids": [
+        "PY-SQLA0003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-SQLA0004",
+      "target_ids": [
+        "PY-SQLA0004"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-SQLA0005",
+      "target_ids": [
+        "PY-SQLA0005"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-STAT0001",
+      "target_ids": [
+        "ALL-STAT1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-STAT0002",
+      "target_ids": [
+        "ALL-STAT1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-STRI0001",
+      "target_ids": [
+        "ALL-STRI0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-STRI0002",
+      "target_ids": [
+        "ALL-STRI1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-STRI0003",
+      "target_ids": [
+        "ALL-STRI0002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-TEST0003",
+      "target_ids": [
+        "ALL-TEST1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-TEST0004",
+      "target_ids": [
+        "ALL-TEST1002"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-TEST0006",
+      "target_ids": [
+        "ALL-TEST1001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-TEST0008",
+      "target_ids": [
+        "ALL-TEST0002"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0009",
+      "target_ids": [
+        "PY-TEST0001"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0010",
+      "target_ids": [
+        "PY-TEST0002"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0011",
+      "target_ids": [
+        "PY-TEST0003"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0012",
+      "target_ids": [
+        "PY-TEST0004"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0013",
+      "target_ids": [
+        "PY-TEST0005"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0014",
+      "target_ids": [
+        "PY-TEST0006"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0015",
+      "target_ids": [
+        "PY-TEST0007"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0016",
+      "target_ids": [
+        "PY-TEST0008"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0017",
+      "target_ids": [
+        "PY-TEST0009"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0018",
+      "target_ids": [
+        "PY-TEST0010"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0019",
+      "target_ids": [
+        "PY-TEST0011"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0020",
+      "target_ids": [
+        "PY-TEST0012"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0021",
+      "target_ids": [
+        "PY-TEST0013"
+      ]
+    },
+    {
+      "relation": "renumbered",
+      "source_id": "PY-TEST0022",
+      "target_ids": [
+        "PY-TEST0014"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TORC0001",
+      "target_ids": [
+        "PY-TORC0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0001",
+      "target_ids": [
+        "PY-TYPE0001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0002",
+      "target_ids": [
+        "PY-TYPE0002"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0003",
+      "target_ids": [
+        "PY-TYPE0003"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0004",
+      "target_ids": [
+        "PY-TYPE0004"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0005",
+      "target_ids": [
+        "PY-TYPE0005"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-TYPE0006",
+      "target_ids": [
+        "PY-TYPE1001"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0007",
+      "target_ids": [
+        "PY-TYPE0007"
+      ]
+    },
+    {
+      "relation": "same_id",
+      "source_id": "PY-TYPE0008",
+      "target_ids": [
+        "PY-TYPE0008"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-WAIV0001",
+      "target_ids": [
+        "ALL-WAIV0001"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-WRIT0001",
+      "target_ids": [
+        "ALL-WRIT0001"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-WRIT0002",
+      "target_ids": []
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-WRIT0003",
+      "target_ids": [
+        "ALL-WRIT0003"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-WRIT0004",
+      "target_ids": [
+        "ALL-WRIT0004"
+      ]
+    },
+    {
+      "relation": "generalized",
+      "source_id": "PY-WRIT0005",
+      "target_ids": [
+        "ALL-WRIT0005"
+      ]
+    },
+    {
+      "relation": "retired",
+      "source_id": "PY-WRIT0006",
+      "target_ids": []
+    }
+  ],
+  "schema": 1,
+  "source": "GE4M 0.0.1",
+  "target": "MCMR"
+}

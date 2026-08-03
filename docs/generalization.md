@@ -31,14 +31,12 @@ operator are marked `is_protocol_name` so a rule can order or exempt them withou
 
 ## Rules generalized
 
-* **`ALL-CLAS0002` class method order**, was `PY-CLAS0002`. The Python-shaped `category_order`
+* **`ALL-CLAS0001` class method order**, was `PY-CLAS0002`. The Python-shaped `category_order`
   tuple of fourteen strings became two orthogonal settings, `visibility_order` and `kind_order`,
   with lifecycle names first and protocol members second. Any language that declares members inside
   a type now sorts under one policy.
-* **`ALL-CLAS0006` nonpublic top level class count**, was `PY-CLAS0006` top level private class
-  count. Underscore matching became a visibility check. The count is the measurement and the policy
-  decides the threshold, which is what lets a Rust or Go project use the same rule with a different
-  expectation than a Python one.
+* **`ALL-CLAS0002` nonpublic top level class count** was retired. Module-local classes are exactly
+  what a narrow public surface needs, so forbidding them contradicted `ALL-REAC0002`.
 * **`ALL-ENCA0001` external nonpublic attribute access**, was `PY-ENCA0001`. Underscore matching and
   the `self`, `cls`, `current_class` receiver strings became `Visibility` and `ReceiverKind`. This
   is the classic encapsulation break in Java, C#, C++, and TypeScript alike.
@@ -64,15 +62,15 @@ instead of Python spelling, in roughly descending order of value.
 6. ~~**`PY-FUNC0007` positional configuration parameter.**~~ Retired. The Boolean trap is
    language-neutral and now lands as `ALL-PARA0003` for a flag a caller cannot name and
    `ALL-PARA0004` for the state space every flag adds, whichever way it is passed.
-7. **`PY-CLAS0007` utility namespace class.** A class of only static members is a namespace in Java,
+7. **`PY-CLAS0003` utility namespace class.** A class of only static members is a namespace in Java,
    C#, and TypeScript too.
-8. **`PY-CLAS0009`, `PY-CLAS0010` speculative base and pass-through layer.** Inheritance smells that
+8. **`PY-CLAS0005`, `PY-CLAS0006` speculative base and pass-through layer.** Inheritance smells that
    need no Python specifics, once their verdict fields become graph evidence.
 9. **`PY-EXCE0001`, `PY-EXCE0002`, `PY-EXCE0003` exception region rules.** Protected regions exist in
    every language with exceptions.
 10. **`PY-TYPE0004` prohibited annotation.** The escape hatch type is `Any`, `any`, `interface{}`,
     or `Object` depending on the language, and the list is already a setting.
-11. **`PY-TEST0016`, `PY-TEST0019`, `PY-TEST0020`, `PY-TEST0021` test shape rules.** Shared test
+11. **`PY-TEST0008`, `PY-TEST0011`, `PY-TEST0012`, `PY-TEST0013` test shape rules.** Shared test
     state, branching tests, oversized tests, and hand-rolled case loops are the same smells in
     JUnit, Go table tests, and Jest.
 

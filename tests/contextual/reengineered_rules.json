@@ -1,0 +1,2131 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "name": "cohesive",
+      "rule": "ALL-ARCH1001",
+      "fact_id": "module:cohesive.py",
+      "path": "cohesive.py",
+      "subject": {
+        "fields": {
+          "class_count": 0,
+          "constant_placements.length": 0,
+          "constant_placements.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "function_count": 4,
+          "has_only_imports_and_all": false,
+          "is_package_initializer": false,
+          "is_test": false,
+          "members.length": 4,
+          "members.present": true,
+          "physical_line_count": 14,
+          "statement_count": 8
+        },
+        "records": [
+          {
+            "relation": "members",
+            "parent_id": "module:cohesive.py",
+            "record_id": "module:cohesive.py/members:0",
+            "ordinal": 0,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "parse_invoice",
+            "signal": null,
+            "source": "def parse_invoice(text):\n    return text.split(',')"
+          },
+          {
+            "relation": "members",
+            "parent_id": "module:cohesive.py",
+            "record_id": "module:cohesive.py/members:1",
+            "ordinal": 1,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "validate_invoice",
+            "signal": null,
+            "source": "def validate_invoice(invoice):\n    return invoice.total >= 0"
+          },
+          {
+            "relation": "members",
+            "parent_id": "module:cohesive.py",
+            "record_id": "module:cohesive.py/members:2",
+            "ordinal": 2,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "total_invoice",
+            "signal": null,
+            "source": "def total_invoice(invoice):\n    return sum(item.price for item in invoice.items)"
+          },
+          {
+            "relation": "members",
+            "parent_id": "module:cohesive.py",
+            "record_id": "module:cohesive.py/members:3",
+            "ordinal": 3,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "serialize_invoice",
+            "signal": null,
+            "source": "def serialize_invoice(invoice):\n    return {'total': invoice.total}"
+          }
+        ],
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:module:cohesive.py",
+          "detail": "{\"class_count\": 0, \"constant_placements.length\": 0, \"constant_placements.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"function_count\": 4, \"has_only_imports_and_all\": false, \"is_package_initializer\": false, \"is_test\": false, \"members.length\": 4, \"members.present\": true, \"physical_line_count\": 14, \"statement_count\": 8}",
+          "source": "cohesive.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:cohesive.py/members:0",
+          "detail": "{\"name\": \"parse_invoice\", \"relation\": \"members\", \"source\": \"def parse_invoice(text):\\n    return text.split(',')\"}",
+          "source": "cohesive.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:cohesive.py/members:1",
+          "detail": "{\"name\": \"validate_invoice\", \"relation\": \"members\", \"source\": \"def validate_invoice(invoice):\\n    return invoice.total >= 0\"}",
+          "source": "cohesive.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:cohesive.py/members:2",
+          "detail": "{\"name\": \"total_invoice\", \"relation\": \"members\", \"source\": \"def total_invoice(invoice):\\n    return sum(item.price for item in invoice.items)\"}",
+          "source": "cohesive.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:cohesive.py/members:3",
+          "detail": "{\"name\": \"serialize_invoice\", \"relation\": \"members\", \"source\": \"def serialize_invoice(invoice):\\n    return {'total': invoice.total}\"}",
+          "source": "cohesive.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "cohesive",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "mixed",
+      "rule": "ALL-ARCH1001",
+      "fact_id": "module:mixed.py",
+      "path": "mixed.py",
+      "subject": {
+        "fields": {
+          "class_count": 0,
+          "constant_placements.length": 0,
+          "constant_placements.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "function_count": 4,
+          "has_only_imports_and_all": false,
+          "is_package_initializer": false,
+          "is_test": false,
+          "members.length": 4,
+          "members.present": true,
+          "physical_line_count": 14,
+          "statement_count": 8
+        },
+        "records": [
+          {
+            "relation": "members",
+            "parent_id": "module:mixed.py",
+            "record_id": "module:mixed.py/members:0",
+            "ordinal": 0,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "price_order",
+            "signal": null,
+            "source": "def price_order(order):\n    return order.total"
+          },
+          {
+            "relation": "members",
+            "parent_id": "module:mixed.py",
+            "record_id": "module:mixed.py/members:1",
+            "ordinal": 1,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "send_marketing_email",
+            "signal": null,
+            "source": "def send_marketing_email(customer):\n    return mail(customer.email)"
+          },
+          {
+            "relation": "members",
+            "parent_id": "module:mixed.py",
+            "record_id": "module:mixed.py/members:2",
+            "ordinal": 2,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "resize_avatar",
+            "signal": null,
+            "source": "def resize_avatar(image):\n    return image.resize((64, 64))"
+          },
+          {
+            "relation": "members",
+            "parent_id": "module:mixed.py",
+            "record_id": "module:mixed.py/members:3",
+            "ordinal": 3,
+            "confidence": null,
+            "detail": null,
+            "intervening_statement_count": null,
+            "name": "migrate_database",
+            "signal": null,
+            "source": "def migrate_database(connection):\n    return connection.execute('alter table orders add column note text')"
+          }
+        ],
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:module:mixed.py",
+          "detail": "{\"class_count\": 0, \"constant_placements.length\": 0, \"constant_placements.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"function_count\": 4, \"has_only_imports_and_all\": false, \"is_package_initializer\": false, \"is_test\": false, \"members.length\": 4, \"members.present\": true, \"physical_line_count\": 14, \"statement_count\": 8}",
+          "source": "mixed.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:mixed.py/members:0",
+          "detail": "{\"name\": \"price_order\", \"relation\": \"members\", \"source\": \"def price_order(order):\\n    return order.total\"}",
+          "source": "mixed.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:mixed.py/members:1",
+          "detail": "{\"name\": \"send_marketing_email\", \"relation\": \"members\", \"source\": \"def send_marketing_email(customer):\\n    return mail(customer.email)\"}",
+          "source": "mixed.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:mixed.py/members:2",
+          "detail": "{\"name\": \"resize_avatar\", \"relation\": \"members\", \"source\": \"def resize_avatar(image):\\n    return image.resize((64, 64))\"}",
+          "source": "mixed.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "module:mixed.py/members:3",
+          "detail": "{\"name\": \"migrate_database\", \"relation\": \"members\", \"source\": \"def migrate_database(connection):\\n    return connection.execute('alter table orders add column note text')\"}",
+          "source": "mixed.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "mixed",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "cohesive",
+      "rule": "ALL-ARCH1004",
+      "fact_id": "classes:classes.py:class:0",
+      "path": "classes.py",
+      "subject": {
+        "fields": {
+          "name": "Invoice",
+          "scope": "module",
+          "source": "class Invoice:\n    def validate(self):\n        return self.total >= 0\n\n    def subtotal(self):\n        return sum(item.price for item in self.items)\n\n    def tax(self):\n        return self.subtotal() * 0.1\n\n    def total_due(self):\n        return self.subtotal() + self.tax()",
+          "visibility": "public",
+          "base_is_removable_overlap": false,
+          "class_keywords.length": 0,
+          "decorators.length": 0,
+          "descendant_count": 0,
+          "direct_bases.length": 0,
+          "direct_subclasses.length": 0,
+          "directly_inherits_pydantic_base_model": false,
+          "duplicate_component_alias_count": 0,
+          "field_count": 0,
+          "has_explicit_registry_name": false,
+          "has_instance_fields": false,
+          "has_noncooperative_concrete_collision": false,
+          "has_ordinary_behavior": true,
+          "has_redundant_direct_base": false,
+          "importing_modules.length": 0,
+          "inherits_approved_model_foundation": false,
+          "is_dataclass": false,
+          "is_declarative_model": false,
+          "is_exported": false,
+          "is_instantiated": false,
+          "is_pass_through_layer": false,
+          "is_protocol": false,
+          "methods.length": 4,
+          "only_cross_module_reference_is_subclass": false,
+          "proposed_model_destination": "",
+          "has_approved_model_foundation_policy": true
+        },
+        "records": [
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:0",
+            "record_id": "classes:classes.py/classes:0/classes.methods:0",
+            "ordinal": 0,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "validate",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": true,
+            "source": "def validate(self):\n        return self.total >= 0",
+            "span.end_column": 30,
+            "span.end_line": 3,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 2,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          },
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:0",
+            "record_id": "classes:classes.py/classes:0/classes.methods:1",
+            "ordinal": 1,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "subtotal",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": true,
+            "source": "def subtotal(self):\n        return sum(item.price for item in self.items)",
+            "span.end_column": 53,
+            "span.end_line": 6,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 5,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          },
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:0",
+            "record_id": "classes:classes.py/classes:0/classes.methods:2",
+            "ordinal": 2,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "tax",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": false,
+            "source": "def tax(self):\n        return self.subtotal() * 0.1",
+            "span.end_column": 36,
+            "span.end_line": 9,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 8,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          },
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:0",
+            "record_id": "classes:classes.py/classes:0/classes.methods:3",
+            "ordinal": 3,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "total_due",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": false,
+            "source": "def total_due(self):\n        return self.subtotal() + self.tax()",
+            "span.end_column": 43,
+            "span.end_line": 12,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 11,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          }
+        ],
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:classes:classes.py:class:0",
+          "detail": "{\"base_is_removable_overlap\": false, \"class_keywords.length\": 0, \"decorators.length\": 0, \"descendant_count\": 0, \"direct_bases.length\": 0, \"direct_subclasses.length\": 0, \"directly_inherits_pydantic_base_model\": false, \"duplicate_component_alias_count\": 0, \"field_count\": 0, \"has_approved_model_foundation_policy\": true, \"has_explicit_registry_name\": false, \"has_instance_fields\": false, \"has_noncooperative_concrete_collision\": false, \"has_ordinary_behavior\": true, \"has_redundant_direct_base\": false, \"importing_modules.length\": 0, \"inherits_approved_model_foundation\": false, \"is_dataclass\": false, \"is_declarative_model\": false, \"is_exported\": false, \"is_instantiated\": false, \"is_pass_through_layer\": false, \"is_protocol\": false, \"methods.length\": 4, \"name\": \"Invoice\", \"only_cross_module_reference_is_subclass\": false, \"proposed_model_destination\": \"\", \"scope\": \"module\", \"source\": \"class Invoice:\\n    def validate(self):\\n        return self.total >= 0\\n\\n    def subtotal(self):\\n        return sum(item.price for item in self.items)\\n\\n    def tax(self):\\n        return self.subtotal() * 0.1\\n\\n    def total_due(self):\\n        return self.subtotal() + self.tax()\", \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:0/classes.methods:0",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"validate\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": true, \"region\": 0, \"relation\": \"methods\", \"source\": \"def validate(self):\\n        return self.total >= 0\", \"span.end_column\": 30, \"span.end_line\": 3, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 2, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:0/classes.methods:1",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"subtotal\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": true, \"region\": 0, \"relation\": \"methods\", \"source\": \"def subtotal(self):\\n        return sum(item.price for item in self.items)\", \"span.end_column\": 53, \"span.end_line\": 6, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 5, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:0/classes.methods:2",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"tax\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": false, \"region\": 0, \"relation\": \"methods\", \"source\": \"def tax(self):\\n        return self.subtotal() * 0.1\", \"span.end_column\": 36, \"span.end_line\": 9, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 8, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:0/classes.methods:3",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"total_due\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": false, \"region\": 0, \"relation\": \"methods\", \"source\": \"def total_due(self):\\n        return self.subtotal() + self.tax()\", \"span.end_column\": 43, \"span.end_line\": 12, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 11, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "cohesive",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "mixed",
+      "rule": "ALL-ARCH1004",
+      "fact_id": "classes:classes.py:class:1",
+      "path": "classes.py",
+      "subject": {
+        "fields": {
+          "name": "Utility",
+          "scope": "module",
+          "source": "class Utility:\n    def price_order(self, order):\n        return order.total\n\n    def send_marketing_email(self, customer):\n        return mail(customer.email)\n\n    def resize_avatar(self, image):\n        return image.resize((64, 64))\n\n    def migrate_database(self, connection):\n        return connection.execute('alter table orders add column note text')",
+          "visibility": "public",
+          "base_is_removable_overlap": false,
+          "class_keywords.length": 0,
+          "decorators.length": 0,
+          "descendant_count": 0,
+          "direct_bases.length": 0,
+          "direct_subclasses.length": 0,
+          "directly_inherits_pydantic_base_model": false,
+          "duplicate_component_alias_count": 0,
+          "field_count": 0,
+          "has_explicit_registry_name": false,
+          "has_instance_fields": false,
+          "has_noncooperative_concrete_collision": false,
+          "has_ordinary_behavior": true,
+          "has_redundant_direct_base": false,
+          "importing_modules.length": 0,
+          "inherits_approved_model_foundation": false,
+          "is_dataclass": false,
+          "is_declarative_model": false,
+          "is_exported": false,
+          "is_instantiated": false,
+          "is_pass_through_layer": false,
+          "is_protocol": false,
+          "methods.length": 4,
+          "only_cross_module_reference_is_subclass": false,
+          "proposed_model_destination": "",
+          "has_approved_model_foundation_policy": true
+        },
+        "records": [
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:1",
+            "record_id": "classes:classes.py/classes:1/classes.methods:0",
+            "ordinal": 0,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "price_order",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": false,
+            "source": "def price_order(self, order):\n        return order.total",
+            "span.end_column": 26,
+            "span.end_line": 17,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 16,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          },
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:1",
+            "record_id": "classes:classes.py/classes:1/classes.methods:1",
+            "ordinal": 1,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "send_marketing_email",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": false,
+            "source": "def send_marketing_email(self, customer):\n        return mail(customer.email)",
+            "span.end_column": 35,
+            "span.end_line": 20,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 19,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          },
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:1",
+            "record_id": "classes:classes.py/classes:1/classes.methods:2",
+            "ordinal": 2,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "resize_avatar",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": false,
+            "source": "def resize_avatar(self, image):\n        return image.resize((64, 64))",
+            "span.end_column": 37,
+            "span.end_line": 23,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 22,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          },
+          {
+            "relation": "methods",
+            "parent_id": "classes:classes.py:class:1",
+            "record_id": "classes:classes.py/classes:1/classes.methods:3",
+            "ordinal": 3,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "is_protocol_name": false,
+            "kind": "method",
+            "name": "migrate_database",
+            "owner_qualified_calls.length": 0,
+            "owner_qualified_calls.present": true,
+            "region": 0,
+            "reads_receiver": false,
+            "reads_receiver_state": false,
+            "source": "def migrate_database(self, connection):\n        return connection.execute('alter table orders add column note text')",
+            "span.end_column": 76,
+            "span.end_line": 26,
+            "span.path": "classes.py",
+            "span.start_column": 4,
+            "span.start_line": 25,
+            "visibility": "public",
+            "confidence": null,
+            "detail": null,
+            "signal": null
+          }
+        ],
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:classes:classes.py:class:1",
+          "detail": "{\"base_is_removable_overlap\": false, \"class_keywords.length\": 0, \"decorators.length\": 0, \"descendant_count\": 0, \"direct_bases.length\": 0, \"direct_subclasses.length\": 0, \"directly_inherits_pydantic_base_model\": false, \"duplicate_component_alias_count\": 0, \"field_count\": 0, \"has_approved_model_foundation_policy\": true, \"has_explicit_registry_name\": false, \"has_instance_fields\": false, \"has_noncooperative_concrete_collision\": false, \"has_ordinary_behavior\": true, \"has_redundant_direct_base\": false, \"importing_modules.length\": 0, \"inherits_approved_model_foundation\": false, \"is_dataclass\": false, \"is_declarative_model\": false, \"is_exported\": false, \"is_instantiated\": false, \"is_pass_through_layer\": false, \"is_protocol\": false, \"methods.length\": 4, \"name\": \"Utility\", \"only_cross_module_reference_is_subclass\": false, \"proposed_model_destination\": \"\", \"scope\": \"module\", \"source\": \"class Utility:\\n    def price_order(self, order):\\n        return order.total\\n\\n    def send_marketing_email(self, customer):\\n        return mail(customer.email)\\n\\n    def resize_avatar(self, image):\\n        return image.resize((64, 64))\\n\\n    def migrate_database(self, connection):\\n        return connection.execute('alter table orders add column note text')\", \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:1/classes.methods:0",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"price_order\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": false, \"region\": 0, \"relation\": \"methods\", \"source\": \"def price_order(self, order):\\n        return order.total\", \"span.end_column\": 26, \"span.end_line\": 17, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 16, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:1/classes.methods:1",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"send_marketing_email\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": false, \"region\": 0, \"relation\": \"methods\", \"source\": \"def send_marketing_email(self, customer):\\n        return mail(customer.email)\", \"span.end_column\": 35, \"span.end_line\": 20, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 19, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:1/classes.methods:2",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"resize_avatar\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": false, \"region\": 0, \"relation\": \"methods\", \"source\": \"def resize_avatar(self, image):\\n        return image.resize((64, 64))\", \"span.end_column\": 37, \"span.end_line\": 23, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 22, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "classes:classes.py/classes:1/classes.methods:3",
+          "detail": "{\"decorators.length\": 0, \"decorators.present\": true, \"is_protocol_name\": false, \"kind\": \"method\", \"name\": \"migrate_database\", \"owner_qualified_calls.length\": 0, \"owner_qualified_calls.present\": true, \"reads_receiver\": false, \"reads_receiver_state\": false, \"region\": 0, \"relation\": \"methods\", \"source\": \"def migrate_database(self, connection):\\n        return connection.execute('alter table orders add column note text')\", \"span.end_column\": 76, \"span.end_line\": 26, \"span.path\": \"classes.py\", \"span.start_column\": 4, \"span.start_line\": 25, \"visibility\": \"public\"}",
+          "source": "classes.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "mixed",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "subtype",
+      "rule": "ALL-CLAS1001",
+      "fact_id": "override:inheritance.HtmlReport:inheritance.Report",
+      "path": "inheritance.py",
+      "subject": {
+        "fields": {
+          "ancestor_names.length": 1,
+          "ancestor_names.present": true,
+          "base": "inheritance.Report",
+          "base_decorators.length": 0,
+          "base_decorators.present": true,
+          "base_names.length": 1,
+          "base_names.present": true,
+          "declared.length": 1,
+          "declared.present": true,
+          "depth": 1,
+          "derived": "inheritance.HtmlReport",
+          "derived_decorators.length": 0,
+          "derived_decorators.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "inherited.length": 1,
+          "inherited.present": true,
+          "initializer_calls.length": 0,
+          "initializer_calls.present": true,
+          "overridden_member_count": 1
+        },
+        "records": [
+          {
+            "relation": "declared",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 7,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        return f'<p>{width}</p>'"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 2,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        return str(width)"
+          },
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          }
+        ],
+        "values": [
+          {
+            "relation": "ancestor_names",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "container_id": "override:inheritance.HtmlReport:inheritance.Report/ancestor_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.HtmlReport:inheritance.Report/ancestor_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          },
+          {
+            "relation": "base_names",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "container_id": "override:inheritance.HtmlReport:inheritance.Report/base_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.HtmlReport:inheritance.Report/base_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:override:inheritance.HtmlReport:inheritance.Report",
+          "detail": "{\"ancestor_names.length\": 1, \"ancestor_names.present\": true, \"base\": \"inheritance.Report\", \"base_decorators.length\": 0, \"base_decorators.present\": true, \"base_names.length\": 1, \"base_names.present\": true, \"declared.length\": 1, \"declared.present\": true, \"depth\": 1, \"derived\": \"inheritance.HtmlReport\", \"derived_decorators.length\": 0, \"derived_decorators.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"inherited.length\": 1, \"inherited.present\": true, \"initializer_calls.length\": 0, \"initializer_calls.present\": true, \"overridden_member_count\": 1}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 7, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"declared\", \"source\": \"def render(self, width=80):\\n        return f'<p>{width}</p>'\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 2, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"inherited\", \"source\": \"def render(self, width=80):\\n        return str(width)\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "subtype",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "composition",
+      "rule": "ALL-CLAS1001",
+      "fact_id": "override:inheritance.SalesReport:inheritance.DatabaseClient",
+      "path": "inheritance.py",
+      "subject": {
+        "fields": {
+          "ancestor_names.length": 1,
+          "ancestor_names.present": true,
+          "base": "inheritance.DatabaseClient",
+          "base_decorators.length": 0,
+          "base_decorators.present": true,
+          "base_names.length": 1,
+          "base_names.present": true,
+          "declared.length": 1,
+          "declared.present": true,
+          "depth": 1,
+          "derived": "inheritance.SalesReport",
+          "derived_decorators.length": 0,
+          "derived_decorators.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "inherited.length": 2,
+          "inherited.present": true,
+          "initializer_calls.length": 0,
+          "initializer_calls.present": true,
+          "overridden_member_count": 0
+        },
+        "records": [
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/declared:0",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/declared:0/declared.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "declared",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/declared:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 30,
+            "name": "render",
+            "parameters.length": 1,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self):\n        rows = self.query('select * from sales')\n        return '\\n'.join(str(row) for row in rows)"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:0",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:0/inherited.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 22,
+            "name": "connect",
+            "parameters.length": 1,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def connect(self):\n        return self.connection"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1/inherited.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1/inherited.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "statement",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient",
+            "record_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1",
+            "ordinal": 1,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 25,
+            "name": "query",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def query(self, statement):\n        return self.connection.execute(statement)"
+          }
+        ],
+        "values": [
+          {
+            "relation": "ancestor_names",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient",
+            "container_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/ancestor_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/ancestor_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "DatabaseClient",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          },
+          {
+            "relation": "base_names",
+            "parent_id": "override:inheritance.SalesReport:inheritance.DatabaseClient",
+            "container_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/base_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.SalesReport:inheritance.DatabaseClient/base_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "DatabaseClient",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:override:inheritance.SalesReport:inheritance.DatabaseClient",
+          "detail": "{\"ancestor_names.length\": 1, \"ancestor_names.present\": true, \"base\": \"inheritance.DatabaseClient\", \"base_decorators.length\": 0, \"base_decorators.present\": true, \"base_names.length\": 1, \"base_names.present\": true, \"declared.length\": 1, \"declared.present\": true, \"depth\": 1, \"derived\": \"inheritance.SalesReport\", \"derived_decorators.length\": 0, \"derived_decorators.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"inherited.length\": 2, \"inherited.present\": true, \"initializer_calls.length\": 0, \"initializer_calls.present\": true, \"overridden_member_count\": 0}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/declared:0/declared.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/declared:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 30, \"name\": \"render\", \"parameters.length\": 1, \"parameters.present\": true, \"relation\": \"declared\", \"source\": \"def render(self):\\n        rows = self.query('select * from sales')\\n        return '\\\\n'.join(str(row) for row in rows)\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:0/inherited.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 22, \"name\": \"connect\", \"parameters.length\": 1, \"parameters.present\": true, \"relation\": \"inherited\", \"source\": \"def connect(self):\\n        return self.connection\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1/inherited.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1/inherited.parameters:1",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"statement\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.SalesReport:inheritance.DatabaseClient/inherited:1",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 25, \"name\": \"query\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"inherited\", \"source\": \"def query(self, statement):\\n        return self.connection.execute(statement)\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "composition",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "preserved",
+      "rule": "ALL-CLAS1002",
+      "fact_id": "override:inheritance.HtmlReport:inheritance.Report",
+      "path": "inheritance.py",
+      "subject": {
+        "fields": {
+          "ancestor_names.length": 1,
+          "ancestor_names.present": true,
+          "base": "inheritance.Report",
+          "base_decorators.length": 0,
+          "base_decorators.present": true,
+          "base_names.length": 1,
+          "base_names.present": true,
+          "declared.length": 1,
+          "declared.present": true,
+          "depth": 1,
+          "derived": "inheritance.HtmlReport",
+          "derived_decorators.length": 0,
+          "derived_decorators.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "inherited.length": 1,
+          "inherited.present": true,
+          "initializer_calls.length": 0,
+          "initializer_calls.present": true,
+          "overridden_member_count": 1
+        },
+        "records": [
+          {
+            "relation": "declared",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 7,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        return f'<p>{width}</p>'"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 2,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        return str(width)"
+          },
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          }
+        ],
+        "values": [
+          {
+            "relation": "ancestor_names",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "container_id": "override:inheritance.HtmlReport:inheritance.Report/ancestor_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.HtmlReport:inheritance.Report/ancestor_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          },
+          {
+            "relation": "base_names",
+            "parent_id": "override:inheritance.HtmlReport:inheritance.Report",
+            "container_id": "override:inheritance.HtmlReport:inheritance.Report/base_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.HtmlReport:inheritance.Report/base_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:override:inheritance.HtmlReport:inheritance.Report",
+          "detail": "{\"ancestor_names.length\": 1, \"ancestor_names.present\": true, \"base\": \"inheritance.Report\", \"base_decorators.length\": 0, \"base_decorators.present\": true, \"base_names.length\": 1, \"base_names.present\": true, \"declared.length\": 1, \"declared.present\": true, \"depth\": 1, \"derived\": \"inheritance.HtmlReport\", \"derived_decorators.length\": 0, \"derived_decorators.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"inherited.length\": 1, \"inherited.present\": true, \"initializer_calls.length\": 0, \"initializer_calls.present\": true, \"overridden_member_count\": 1}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/declared:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 7, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"declared\", \"source\": \"def render(self, width=80):\\n        return f'<p>{width}</p>'\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/inherited:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 2, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"inherited\", \"source\": \"def render(self, width=80):\\n        return str(width)\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/declared:0/declared.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.HtmlReport:inheritance.Report/inherited:0/inherited.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "preserved",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "narrowed",
+      "rule": "ALL-CLAS1002",
+      "fact_id": "override:inheritance.NarrowReport:inheritance.Report",
+      "path": "inheritance.py",
+      "subject": {
+        "fields": {
+          "ancestor_names.length": 1,
+          "ancestor_names.present": true,
+          "base": "inheritance.Report",
+          "base_decorators.length": 0,
+          "base_decorators.present": true,
+          "base_names.length": 1,
+          "base_names.present": true,
+          "declared.length": 1,
+          "declared.present": true,
+          "depth": 1,
+          "derived": "inheritance.NarrowReport",
+          "derived_decorators.length": 0,
+          "derived_decorators.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "inherited.length": 1,
+          "inherited.present": true,
+          "initializer_calls.length": 0,
+          "initializer_calls.present": true,
+          "overridden_member_count": 1
+        },
+        "records": [
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.NarrowReport:inheritance.Report/declared:0/declared.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "declared",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report",
+            "record_id": "override:inheritance.NarrowReport:inheritance.Report/declared:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 12,
+            "name": "render",
+            "parameters.length": 1,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self):\n        return '<p>fixed</p>'"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.NarrowReport:inheritance.Report/inherited:0/inherited.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report",
+            "record_id": "override:inheritance.NarrowReport:inheritance.Report/inherited:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 2,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        return str(width)"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.NarrowReport:inheritance.Report/inherited:0/inherited.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          }
+        ],
+        "values": [
+          {
+            "relation": "ancestor_names",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report",
+            "container_id": "override:inheritance.NarrowReport:inheritance.Report/ancestor_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.NarrowReport:inheritance.Report/ancestor_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          },
+          {
+            "relation": "base_names",
+            "parent_id": "override:inheritance.NarrowReport:inheritance.Report",
+            "container_id": "override:inheritance.NarrowReport:inheritance.Report/base_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.NarrowReport:inheritance.Report/base_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:override:inheritance.NarrowReport:inheritance.Report",
+          "detail": "{\"ancestor_names.length\": 1, \"ancestor_names.present\": true, \"base\": \"inheritance.Report\", \"base_decorators.length\": 0, \"base_decorators.present\": true, \"base_names.length\": 1, \"base_names.present\": true, \"declared.length\": 1, \"declared.present\": true, \"depth\": 1, \"derived\": \"inheritance.NarrowReport\", \"derived_decorators.length\": 0, \"derived_decorators.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"inherited.length\": 1, \"inherited.present\": true, \"initializer_calls.length\": 0, \"initializer_calls.present\": true, \"overridden_member_count\": 1}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.NarrowReport:inheritance.Report/declared:0/declared.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.NarrowReport:inheritance.Report/declared:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 12, \"name\": \"render\", \"parameters.length\": 1, \"parameters.present\": true, \"relation\": \"declared\", \"source\": \"def render(self):\\n        return '<p>fixed</p>'\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.NarrowReport:inheritance.Report/inherited:0/inherited.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.NarrowReport:inheritance.Report/inherited:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 2, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"inherited\", \"source\": \"def render(self, width=80):\\n        return str(width)\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.NarrowReport:inheritance.Report/inherited:0/inherited.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "narrowed",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "refused",
+      "rule": "ALL-CLAS1002",
+      "fact_id": "override:inheritance.RefusingReport:inheritance.Report",
+      "path": "inheritance.py",
+      "subject": {
+        "fields": {
+          "ancestor_names.length": 1,
+          "ancestor_names.present": true,
+          "base": "inheritance.Report",
+          "base_decorators.length": 0,
+          "base_decorators.present": true,
+          "base_names.length": 1,
+          "base_names.present": true,
+          "declared.length": 1,
+          "declared.present": true,
+          "depth": 1,
+          "derived": "inheritance.RefusingReport",
+          "derived_decorators.length": 0,
+          "derived_decorators.present": true,
+          "evidence.length": 0,
+          "evidence.present": true,
+          "inherited.length": 1,
+          "inherited.present": true,
+          "initializer_calls.length": 0,
+          "initializer_calls.present": true,
+          "overridden_member_count": 1
+        },
+        "records": [
+          {
+            "relation": "inherited",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report",
+            "record_id": "override:inheritance.RefusingReport:inheritance.Report/inherited:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 2,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        return str(width)"
+          },
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.RefusingReport:inheritance.Report/declared:0/declared.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "declared",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report",
+            "record_id": "override:inheritance.RefusingReport:inheritance.Report/declared:0",
+            "ordinal": 0,
+            "asynchronous": false,
+            "confidence": null,
+            "decorators.length": 0,
+            "decorators.present": true,
+            "detail": null,
+            "has_default": null,
+            "kind": null,
+            "line": 17,
+            "name": "render",
+            "parameters.length": 2,
+            "parameters.present": true,
+            "signal": null,
+            "source": "def render(self, width=80):\n        raise NotImplementedError('rendering is unsupported')"
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.RefusingReport:inheritance.Report/inherited:0/inherited.parameters:0",
+            "ordinal": 0,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": false,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "self",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "declared.parameters",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report/declared:0",
+            "record_id": "override:inheritance.RefusingReport:inheritance.Report/declared:0/declared.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          },
+          {
+            "relation": "inherited.parameters",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report/inherited:0",
+            "record_id": "override:inheritance.RefusingReport:inheritance.Report/inherited:0/inherited.parameters:1",
+            "ordinal": 1,
+            "asynchronous": null,
+            "confidence": null,
+            "decorators.length": null,
+            "decorators.present": null,
+            "detail": null,
+            "has_default": true,
+            "kind": "positional_or_keyword",
+            "line": null,
+            "name": "width",
+            "parameters.length": null,
+            "parameters.present": null,
+            "signal": null,
+            "source": null
+          }
+        ],
+        "values": [
+          {
+            "relation": "ancestor_names",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report",
+            "container_id": "override:inheritance.RefusingReport:inheritance.Report/ancestor_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.RefusingReport:inheritance.Report/ancestor_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          },
+          {
+            "relation": "base_names",
+            "parent_id": "override:inheritance.RefusingReport:inheritance.Report",
+            "container_id": "override:inheritance.RefusingReport:inheritance.Report/base_names",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "override:inheritance.RefusingReport:inheritance.Report/base_names:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "Report",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:override:inheritance.RefusingReport:inheritance.Report",
+          "detail": "{\"ancestor_names.length\": 1, \"ancestor_names.present\": true, \"base\": \"inheritance.Report\", \"base_decorators.length\": 0, \"base_decorators.present\": true, \"base_names.length\": 1, \"base_names.present\": true, \"declared.length\": 1, \"declared.present\": true, \"depth\": 1, \"derived\": \"inheritance.RefusingReport\", \"derived_decorators.length\": 0, \"derived_decorators.present\": true, \"evidence.length\": 0, \"evidence.present\": true, \"inherited.length\": 1, \"inherited.present\": true, \"initializer_calls.length\": 0, \"initializer_calls.present\": true, \"overridden_member_count\": 1}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.RefusingReport:inheritance.Report/inherited:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 2, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"inherited\", \"source\": \"def render(self, width=80):\\n        return str(width)\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.RefusingReport:inheritance.Report/declared:0/declared.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.RefusingReport:inheritance.Report/declared:0",
+          "detail": "{\"asynchronous\": false, \"decorators.length\": 0, \"decorators.present\": true, \"line\": 17, \"name\": \"render\", \"parameters.length\": 2, \"parameters.present\": true, \"relation\": \"declared\", \"source\": \"def render(self, width=80):\\n        raise NotImplementedError('rendering is unsupported')\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.RefusingReport:inheritance.Report/inherited:0/inherited.parameters:0",
+          "detail": "{\"has_default\": false, \"kind\": \"positional_or_keyword\", \"name\": \"self\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.RefusingReport:inheritance.Report/declared:0/declared.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"declared.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "override:inheritance.RefusingReport:inheritance.Report/inherited:0/inherited.parameters:1",
+          "detail": "{\"has_default\": true, \"kind\": \"positional_or_keyword\", \"name\": \"width\", \"relation\": \"inherited.parameters\"}",
+          "source": "inheritance.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "refused",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "rationale",
+      "rule": "ALL-COMM1001",
+      "fact_id": "comments:comments.py/groups:0",
+      "path": "comments.py",
+      "subject": {
+        "fields": {
+          "text": "Retry because the peer closes idle sockets.",
+          "preceding_source": "def connect(peer):",
+          "following_source": "    return retry(peer)\n\n",
+          "line_count": 1,
+          "character_count": 45,
+          "token_count": 8,
+          "parses_as_source": false,
+          "is_directive": false,
+          "is_documentation": false
+        },
+        "records": null,
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:comments:comments.py/groups:0",
+          "detail": "{\"character_count\": 45, \"following_source\": \"    return retry(peer)\\n\\n\", \"is_directive\": false, \"is_documentation\": false, \"line_count\": 1, \"parses_as_source\": false, \"preceding_source\": \"def connect(peer):\", \"text\": \"Retry because the peer closes idle sockets.\", \"token_count\": 8}",
+          "source": "comments.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "rationale",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "restatement",
+      "rule": "ALL-COMM1001",
+      "fact_id": "comments:comments.py/groups:1",
+      "path": "comments.py",
+      "subject": {
+        "fields": {
+          "text": "Increment count by one.",
+          "preceding_source": "\n\ndef increment(count):",
+          "following_source": "    return count + 1\n\n",
+          "line_count": 1,
+          "character_count": 25,
+          "token_count": 5,
+          "parses_as_source": false,
+          "is_directive": false,
+          "is_documentation": false
+        },
+        "records": null,
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:comments:comments.py/groups:1",
+          "detail": "{\"character_count\": 25, \"following_source\": \"    return count + 1\\n\\n\", \"is_directive\": false, \"is_documentation\": false, \"line_count\": 1, \"parses_as_source\": false, \"preceding_source\": \"\\n\\ndef increment(count):\", \"text\": \"Increment count by one.\", \"token_count\": 5}",
+          "source": "comments.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "restatement",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "current",
+      "rule": "ALL-COMM1002",
+      "fact_id": "comments:comments.py/groups:2",
+      "path": "comments.py",
+      "subject": {
+        "fields": {
+          "text": "Retry the configured three times.",
+          "preceding_source": "\n\ndef current_retry(operation):",
+          "following_source": "    for _ in range(3):\n        operation()\n",
+          "line_count": 1,
+          "character_count": 35,
+          "token_count": 6,
+          "parses_as_source": false,
+          "is_directive": false,
+          "is_documentation": false
+        },
+        "records": null,
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:comments:comments.py/groups:2",
+          "detail": "{\"character_count\": 35, \"following_source\": \"    for _ in range(3):\\n        operation()\\n\", \"is_directive\": false, \"is_documentation\": false, \"line_count\": 1, \"parses_as_source\": false, \"preceding_source\": \"\\n\\ndef current_retry(operation):\", \"text\": \"Retry the configured three times.\", \"token_count\": 6}",
+          "source": "comments.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "current",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "stale",
+      "rule": "ALL-COMM1002",
+      "fact_id": "comments:comments.py/groups:3",
+      "path": "comments.py",
+      "subject": {
+        "fields": {
+          "text": "Retry exactly three times.",
+          "preceding_source": "\n\ndef stale_retry(operation):",
+          "following_source": "    for _ in range(5):\n        operation()",
+          "line_count": 1,
+          "character_count": 28,
+          "token_count": 5,
+          "parses_as_source": false,
+          "is_directive": false,
+          "is_documentation": false
+        },
+        "records": null,
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:comments:comments.py/groups:3",
+          "detail": "{\"character_count\": 28, \"following_source\": \"    for _ in range(5):\\n        operation()\", \"is_directive\": false, \"is_documentation\": false, \"line_count\": 1, \"parses_as_source\": false, \"preceding_source\": \"\\n\\ndef stale_retry(operation):\", \"text\": \"Retry exactly three times.\", \"token_count\": 5}",
+          "source": "comments.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "stale",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "shared",
+      "rule": "ALL-DUPL1001",
+      "fact_id": "clone:tax",
+      "path": "left.py",
+      "subject": {
+        "fields": {
+          "evidence.length": 0,
+          "evidence.present": true,
+          "fragments.length": 2,
+          "fragments.present": true,
+          "repository_line_count": 200,
+          "token_length": 90
+        },
+        "records": [
+          {
+            "relation": "fragments",
+            "parent_id": "clone:tax",
+            "record_id": "clone:tax/fragments:0",
+            "ordinal": 0,
+            "confidence": null,
+            "detail": null,
+            "end_line": 10,
+            "path": "left.py",
+            "signal": null,
+            "source": "def calculate_tax(total):\n    rate = 0.10\n    return total * rate",
+            "start_line": 1
+          },
+          {
+            "relation": "fragments",
+            "parent_id": "clone:tax",
+            "record_id": "clone:tax/fragments:1",
+            "ordinal": 1,
+            "confidence": null,
+            "detail": null,
+            "end_line": 10,
+            "path": "right.py",
+            "signal": null,
+            "source": "def compute_tax(total):\n    rate = 0.10\n    return total * rate",
+            "start_line": 1
+          }
+        ],
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:clone:tax",
+          "detail": "{\"evidence.length\": 0, \"evidence.present\": true, \"fragments.length\": 2, \"fragments.present\": true, \"repository_line_count\": 200, \"token_length\": 90}",
+          "source": "left.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "clone:tax/fragments:0",
+          "detail": "{\"end_line\": 10, \"path\": \"left.py\", \"relation\": \"fragments\", \"source\": \"def calculate_tax(total):\\n    rate = 0.10\\n    return total * rate\", \"start_line\": 1}",
+          "source": "left.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "clone:tax/fragments:1",
+          "detail": "{\"end_line\": 10, \"path\": \"right.py\", \"relation\": \"fragments\", \"source\": \"def compute_tax(total):\\n    rate = 0.10\\n    return total * rate\", \"start_line\": 1}",
+          "source": "left.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "shared_knowledge",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "shape",
+      "rule": "ALL-DUPL1001",
+      "fact_id": "clone:shape",
+      "path": "left.py",
+      "subject": {
+        "fields": {
+          "evidence.length": 0,
+          "evidence.present": true,
+          "fragments.length": 2,
+          "fragments.present": true,
+          "repository_line_count": 200,
+          "token_length": 90
+        },
+        "records": [
+          {
+            "relation": "fragments",
+            "parent_id": "clone:shape",
+            "record_id": "clone:shape/fragments:0",
+            "ordinal": 0,
+            "confidence": null,
+            "detail": null,
+            "end_line": 10,
+            "path": "left.py",
+            "signal": null,
+            "source": "def validate_order(order):\n    if not order.id:\n        raise ValueError('missing order')\n    return order",
+            "start_line": 1
+          },
+          {
+            "relation": "fragments",
+            "parent_id": "clone:shape",
+            "record_id": "clone:shape/fragments:1",
+            "ordinal": 1,
+            "confidence": null,
+            "detail": null,
+            "end_line": 10,
+            "path": "right.py",
+            "signal": null,
+            "source": "def validate_user(user):\n    if not user.id:\n        raise ValueError('missing user')\n    return user",
+            "start_line": 1
+          }
+        ],
+        "values": null
+      },
+      "evidence": [
+        {
+          "signal": "fact:clone:shape",
+          "detail": "{\"evidence.length\": 0, \"evidence.present\": true, \"fragments.length\": 2, \"fragments.present\": true, \"repository_line_count\": 200, \"token_length\": 90}",
+          "source": "left.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "clone:shape/fragments:0",
+          "detail": "{\"end_line\": 10, \"path\": \"left.py\", \"relation\": \"fragments\", \"source\": \"def validate_order(order):\\n    if not order.id:\\n        raise ValueError('missing order')\\n    return order\", \"start_line\": 1}",
+          "source": "left.py",
+          "confidence": 1.0
+        },
+        {
+          "signal": "clone:shape/fragments:1",
+          "detail": "{\"end_line\": 10, \"path\": \"right.py\", \"relation\": \"fragments\", \"source\": \"def validate_user(user):\\n    if not user.id:\\n        raise ValueError('missing user')\\n    return user\", \"start_line\": 1}",
+          "source": "left.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "similar_shape",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "dataclass",
+      "rule": "PY-MODE1001",
+      "fact_id": "classes:models.py:class:0",
+      "path": "models.py",
+      "subject": {
+        "fields": {
+          "name": "LegacyRecord",
+          "scope": "module",
+          "source": "@dataclass(frozen=True, slots=True)\nclass LegacyRecord:\n    name: str",
+          "visibility": "public",
+          "base_is_removable_overlap": false,
+          "class_keywords.length": 0,
+          "decorators.length": 1,
+          "descendant_count": 0,
+          "direct_bases.length": 0,
+          "direct_subclasses.length": 0,
+          "directly_inherits_pydantic_base_model": false,
+          "duplicate_component_alias_count": 0,
+          "field_count": 1,
+          "has_explicit_registry_name": false,
+          "has_instance_fields": true,
+          "has_noncooperative_concrete_collision": false,
+          "has_ordinary_behavior": false,
+          "has_redundant_direct_base": false,
+          "importing_modules.length": 0,
+          "inherits_approved_model_foundation": false,
+          "is_dataclass": true,
+          "is_declarative_model": true,
+          "is_exported": false,
+          "is_instantiated": false,
+          "is_pass_through_layer": false,
+          "is_protocol": false,
+          "methods.length": 0,
+          "only_cross_module_reference_is_subclass": false,
+          "proposed_model_destination": "",
+          "has_approved_model_foundation_policy": true
+        },
+        "records": null,
+        "values": [
+          {
+            "relation": "classes.decorators",
+            "parent_id": "classes:models.py/classes:0",
+            "container_id": "classes:models.py/classes:0/classes.decorators",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "classes:models.py/classes:0/classes.decorators:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "dataclass(frozen=True, slots=True)",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:classes:models.py:class:0",
+          "detail": "{\"base_is_removable_overlap\": false, \"class_keywords.length\": 0, \"decorators.length\": 1, \"descendant_count\": 0, \"direct_bases.length\": 0, \"direct_subclasses.length\": 0, \"directly_inherits_pydantic_base_model\": false, \"duplicate_component_alias_count\": 0, \"field_count\": 1, \"has_approved_model_foundation_policy\": true, \"has_explicit_registry_name\": false, \"has_instance_fields\": true, \"has_noncooperative_concrete_collision\": false, \"has_ordinary_behavior\": false, \"has_redundant_direct_base\": false, \"importing_modules.length\": 0, \"inherits_approved_model_foundation\": false, \"is_dataclass\": true, \"is_declarative_model\": true, \"is_exported\": false, \"is_instantiated\": false, \"is_pass_through_layer\": false, \"is_protocol\": false, \"methods.length\": 0, \"name\": \"LegacyRecord\", \"only_cross_module_reference_is_subclass\": false, \"proposed_model_destination\": \"\", \"scope\": \"module\", \"source\": \"@dataclass(frozen=True, slots=True)\\nclass LegacyRecord:\\n    name: str\", \"visibility\": \"public\"}",
+          "source": "models.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "use_frozen_model",
+        "criteria": {}
+      }
+    },
+    {
+      "name": "bypass",
+      "rule": "PY-MODE1001",
+      "fact_id": "classes:models.py:class:1",
+      "path": "models.py",
+      "subject": {
+        "fields": {
+          "name": "BypassRecord",
+          "scope": "module",
+          "source": "class BypassRecord(BaseModel):\n    name: str",
+          "visibility": "public",
+          "base_is_removable_overlap": false,
+          "class_keywords.length": 0,
+          "decorators.length": 0,
+          "descendant_count": 0,
+          "direct_bases.length": 1,
+          "direct_subclasses.length": 0,
+          "directly_inherits_pydantic_base_model": true,
+          "duplicate_component_alias_count": 0,
+          "field_count": 1,
+          "has_explicit_registry_name": false,
+          "has_instance_fields": true,
+          "has_noncooperative_concrete_collision": false,
+          "has_ordinary_behavior": false,
+          "has_redundant_direct_base": false,
+          "importing_modules.length": 0,
+          "inherits_approved_model_foundation": false,
+          "is_dataclass": false,
+          "is_declarative_model": true,
+          "is_exported": false,
+          "is_instantiated": false,
+          "is_pass_through_layer": false,
+          "is_protocol": false,
+          "methods.length": 0,
+          "only_cross_module_reference_is_subclass": false,
+          "proposed_model_destination": "",
+          "has_approved_model_foundation_policy": true
+        },
+        "records": null,
+        "values": [
+          {
+            "relation": "classes.direct_bases",
+            "parent_id": "classes:models.py/classes:1",
+            "container_id": "classes:models.py/classes:1/classes.direct_bases",
+            "container_ordinal": null,
+            "container_length": 1,
+            "entry_kind": "value",
+            "value_id": "classes:models.py/classes:1/classes.direct_bases:0",
+            "ordinal": 0,
+            "map_key": null,
+            "string_value": "BaseModel",
+            "integer_value": null,
+            "float_value": null,
+            "boolean_value": null
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "signal": "fact:classes:models.py:class:1",
+          "detail": "{\"base_is_removable_overlap\": false, \"class_keywords.length\": 0, \"decorators.length\": 0, \"descendant_count\": 0, \"direct_bases.length\": 1, \"direct_subclasses.length\": 0, \"directly_inherits_pydantic_base_model\": true, \"duplicate_component_alias_count\": 0, \"field_count\": 1, \"has_approved_model_foundation_policy\": true, \"has_explicit_registry_name\": false, \"has_instance_fields\": true, \"has_noncooperative_concrete_collision\": false, \"has_ordinary_behavior\": false, \"has_redundant_direct_base\": false, \"importing_modules.length\": 0, \"inherits_approved_model_foundation\": false, \"is_dataclass\": false, \"is_declarative_model\": true, \"is_exported\": false, \"is_instantiated\": false, \"is_pass_through_layer\": false, \"is_protocol\": false, \"methods.length\": 0, \"name\": \"BypassRecord\", \"only_cross_module_reference_is_subclass\": false, \"proposed_model_destination\": \"\", \"scope\": \"module\", \"source\": \"class BypassRecord(BaseModel):\\n    name: str\", \"visibility\": \"public\"}",
+          "source": "models.py",
+          "confidence": 1.0
+        }
+      ],
+      "expected": {
+        "classification": "use_frozen_model",
+        "criteria": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "product": "GE4M 0.0.1",
+  "schema": 1,
+  "capabilities": [
+    {"id": "architecture", "summary": "Render and inspect repository architecture."},
+    {"id": "backend-overview", "summary": "Show configured contextual model backends."},
+    {"id": "check", "summary": "Analyze a repository and enforce configured policy."},
+    {"id": "fix", "summary": "Preview and apply verified source fixes."},
+    {"id": "registry", "summary": "Export the complete machine-readable rule catalog."},
+    {"id": "dependency-refresh", "summary": "Refresh objective dependency release and project evidence."},
+    {"id": "research-code", "summary": "Research an implementation question against one source range."},
+    {"id": "model-fallback", "summary": "Retry a contextual judgment through another configured model."},
+    {"id": "model-consensus", "summary": "Combine several contextual model judgments."},
+    {"id": "backend-plugins", "summary": "Load third-party model backends from entry points."},
+    {"id": "provider-plugins", "summary": "Load third-party artifact providers from entry points."},
+    {"id": "explicit-context", "summary": "Load project-stated evidence that source parsing cannot derive."},
+    {"id": "generated-context", "summary": "Generate contextual evidence before model judgment."},
+    {"id": "json-report", "summary": "Emit a deterministic complete JSON check report."},
+    {"id": "report-only", "summary": "Report failed policy without a failing process status."},
+    {"id": "process-stats", "summary": "Measure analysis resource use and throughput."},
+    {"id": "configuration", "summary": "Read project-local analyzer configuration."},
+    {"id": "policy-and-selection", "summary": "Select rules and apply project policy overrides."}
+  ]
+}

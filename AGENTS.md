@@ -19,7 +19,7 @@ The development environment and tasks are owned by `chefe.toml`.
 - Typecheck with `chefe run typecheck`
 - Test with `chefe run test`
 - Measure the mock floor with `chefe run floor`
-- Build the analysis kernel with `chefe run kernel`, test it with `chefe run kernel-test`, and lint
-  it with `chefe run kernel-lint`
+- Build the core crate with `chefe run core-build`, test it with `chefe run core-test`, and lint it
+  with `chefe run core-lint`
 - Analyze a repository with `chefe run check <path>`
 - Build with `chefe run build`

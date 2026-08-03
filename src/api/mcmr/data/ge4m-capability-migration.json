@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "source": "GE4M 0.0.1",
+  "target": "MCMR",
+  "capabilities": [
+    {"source_id": "architecture", "state": "native", "replacement": "mcmr graph, diagram, matrix, impact, and simulate", "reason": "Typed graph projections cover structure, reach, boundaries, impact, and proposed change."},
+    {"source_id": "backend-overview", "state": "native", "replacement": "mcmr backends", "reason": "The normal check backend is visible without loading or running it."},
+    {"source_id": "check", "state": "native", "replacement": "mcmr check", "reason": "One streamed kernel pass runs every selected deterministic and contextual rule."},
+    {"source_id": "fix", "state": "native", "replacement": "mcmr check --repair preview or --repair apply", "reason": "Typed rewrite plans are parsed, applied atomically, and retained only after rule verification."},
+    {"source_id": "registry", "state": "native", "replacement": "mcmr catalog", "reason": "The live typed catalog exports itself, so generated registry files cannot drift from execution."},
+    {"source_id": "dependency-refresh", "state": "native", "replacement": "mcmr dependencies refresh", "reason": "Bounded concurrent refresh writes the exact typed fact ordinary offline checks already consume."},
+    {"source_id": "research-code", "state": "delegated", "replacement": "Codex read-only research", "reason": "Open-ended implementation research belongs to the development agent rather than the analyzer."},
+    {"source_id": "model-fallback", "state": "retired", "replacement": "one schema-constrained Codex assessment", "reason": "Changing judges after a failure obscures provenance and makes repeated checks incomparable."},
+    {"source_id": "model-consensus", "state": "retired", "replacement": "independent criteria plus deterministic reducers", "reason": "MCMR separates factual model estimates from policy instead of voting over final judgments."},
+    {"source_id": "backend-plugins", "state": "retired", "replacement": "ClassificationBackend typed dependency", "reason": "The engine keeps an explicit typed service boundary without dynamic entry-point discovery."},
+    {"source_id": "provider-plugins", "state": "native", "replacement": "typed stateless FactProvider components", "reason": "Providers register by fact family and build only explicitly requested evidence in memory."},
+    {"source_id": "explicit-context", "state": "retired", "replacement": "source facts and stateless providers", "reason": "MCMR accepts no retained evidence directory or hand-written fact artifact."},
+    {"source_id": "generated-context", "state": "retired", "replacement": "kernel facts or stateless provider evidence", "reason": "Evidence provenance remains visible and no hidden pre-check model call manufactures context."},
+    {"source_id": "json-report", "state": "native", "replacement": "mcmr check --format json or --output", "reason": "The same CheckReport backs terminal and complete machine-readable output."},
+    {"source_id": "report-only", "state": "native", "replacement": "mcmr check --report-only", "reason": "Audit runs retain findings while explicitly choosing a zero status."},
+    {"source_id": "process-stats", "state": "delegated", "replacement": "check timing and mainboard profiling", "reason": "Checks retain kernel and rule timing while mainboard owns deep CPU and memory profiling."},
+    {"source_id": "configuration", "state": "native", "replacement": "[tool.mcmr]", "reason": "Typed configuration owns scan, execution, contextual backends, policy, exclusions, and settings."},
+    {"source_id": "policy-and-selection", "state": "native", "replacement": "MCMR rule policies, select, ignore, and exact rule tables", "reason": "Selection and policy validate against the live catalog before execution."}
+  ]
+}

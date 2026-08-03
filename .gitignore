@@ -18,6 +18,7 @@ build/
 # python
 __pycache__/
 *.py[cod]
+*.so
 .venv/
 .ruff_cache/
 .pytest_cache/
@@ -31,8 +32,3 @@ htmlcov/
 .chefe/
 .dist/
 target/
-kernel/target/
-
-# mcmr run records, which are local measurements rather than project evidence.
-# The evidence store beside them, .mcmr/<FactName>.json, is meant to be committed.
-.mcmr/runs/

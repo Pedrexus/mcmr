@@ -1,0 +1,3412 @@
+{
+  "changes": [
+    {
+      "other_file_count": 2,
+      "paths": [
+        "tests/test_contracts.py",
+        "tests/test_coupling.py",
+        "tests/test_dsm.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "src/archy/engine/__init__.py",
+        "src/archy/engine/base.py",
+        "src/archy/engine/builder.py",
+        "src/archy/engine/enums.py",
+        "src/archy/engine/facts.py",
+        "src/archy/engine/imports.py",
+        "src/archy/engine/repository_graph.py",
+        "src/archy/engine/resolver.py",
+        "src/archy/engine/source.py",
+        "src/archy/engine/structure.py",
+        "src/archy/entrypoint.py",
+        "tests/test_engine.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "bench/pattern_detection.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "bench/agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "bench/agent_footprint.py",
+        "tests/test_agent_footprint.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/contracts.py",
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 9,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "tests/install/unit/test_claude.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "bench/duplicates_recall_experiment.py",
+        "bench/near_duplicates_sweep.py",
+        "src/archy/cli.py",
+        "src/archy/complexity.py",
+        "src/archy/duplicates.py",
+        "src/archy/mcp.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "bench/duplicates_recall_experiment.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "bench/duplicates_cochange_sweep.py",
+        "src/archy/cli.py",
+        "src/archy/duplicates.py",
+        "src/archy/mcp.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/coupling.py",
+        "src/archy/impact.py",
+        "src/archy/mcp.py",
+        "tests/test_coupling.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "bench/coupling_sweep.py",
+        "src/archy/cli.py",
+        "src/archy/coupling.py",
+        "src/archy/duplicates.py",
+        "src/archy/gitlog.py",
+        "src/archy/hotspots.py",
+        "tests/test_coupling.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/duplicates.py",
+        "src/archy/mcp.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 9,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/complexity.py",
+        "src/archy/duplicates.py",
+        "src/archy/mcp.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "src/archy/watcher.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/complexity.py",
+        "src/archy/duplicates.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "bench/_common.py",
+        "bench/duplicates_sweep.py",
+        "bench/hotspots_sweep.py",
+        "src/archy/cli.py",
+        "src/archy/complexity.py",
+        "src/archy/duplicates.py",
+        "src/archy/graph.py",
+        "src/archy/index.py",
+        "tests/test_duplicates.py"
+      ]
+    },
+    {
+      "other_file_count": 18,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "tests/test_mcp.py",
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/dsm.py",
+        "src/archy/mcp.py",
+        "tests/test_dsm.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 8,
+      "paths": [
+        "bench/call_weighted_modularity.py",
+        "bench/hotspots_sweep.py",
+        "bench/run.py",
+        "bench/simulate_oracle.py",
+        "src/archy/score.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "bench/acyclicity_dilution.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/cli.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/layers.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_graph.py",
+        "tests/test_layers.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "bench/run.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/simulate.py",
+        "tests/test_simulate.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/affected.py",
+        "src/archy/cli.py",
+        "tests/test_affected.py",
+        "tests/test_cli.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/affected.py",
+        "tests/test_affected.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/dsm.py",
+        "tests/test_dsm.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/layers.py",
+        "tests/test_layers.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/history.py",
+        "tests/test_history.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/install/adapters/claude.py",
+        "src/archy/install/adapters/codex.py",
+        "src/archy/install/adapters/continue_.py",
+        "src/archy/install/adapters/cursor.py",
+        "src/archy/install/adapters/opencode.py",
+        "src/archy/install/base.py",
+        "src/archy/install/merge.py",
+        "src/archy/install/runner.py",
+        "tests/install/integration/test_filesystem.py",
+        "tests/install/unit/test_base.py",
+        "tests/install/unit/test_claude.py",
+        "tests/install/unit/test_merge.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/cli.py",
+        "tests/test_cli.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "bench/community_partitioner.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "bench/delta_direction.py",
+        "tests/test_delta_direction.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/__init__.py",
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/hotspots.py",
+        "tests/test_hotspots.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "src/archy/index.py",
+        "tests/test_index.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/graph.py",
+        "tests/test_graph.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/cli.py",
+        "tests/test_cli.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/contracts.py",
+        "tests/test_contracts.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/mcp.py",
+        "src/archy/refactor.py",
+        "tests/test_mcp.py",
+        "tests/test_refactor.py"
+      ]
+    },
+    {
+      "other_file_count": 11,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "src/archy/refactor.py",
+        "tests/test_mcp.py",
+        "tests/test_refactor.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/__init__.py",
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 10,
+      "paths": [
+        "bench/simulate_oracle.py",
+        "src/archy/cli.py",
+        "src/archy/diff_summary.py",
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "src/archy/simulate.py",
+        "tests/test_cli.py",
+        "tests/test_mcp.py",
+        "tests/test_simulate.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/__init__.py",
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/diff.py",
+        "src/archy/diff_summary.py",
+        "tests/test_diff_summary.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/impact.py",
+        "src/archy/mcp.py",
+        "tests/test_impact.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "bench/inloop_prevalence.py",
+        "src/archy/graph.py",
+        "src/archy/index.py",
+        "src/archy/watcher.py",
+        "tests/test_graph.py",
+        "tests/test_index.py"
+      ]
+    },
+    {
+      "other_file_count": 19,
+      "paths": [
+        "bench/call_weighted_modularity.py",
+        "bench/run.py",
+        "bench/score_redesign.py",
+        "bench/typehint_coverage.py",
+        "src/archy/dsm.py",
+        "src/archy/reach.py",
+        "src/archy/score.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/__init__.py",
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 11,
+      "paths": [
+        "src/archy/index.py",
+        "src/archy/install/base.py",
+        "src/archy/mcp.py",
+        "src/archy/watcher.py",
+        "tests/install/unit/test_claude.py",
+        "tests/test_mcp.py",
+        "tests/test_watcher.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/index.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_index.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/install/__init__.py",
+        "src/archy/install/adapters/claude.py",
+        "src/archy/install/adapters/codex.py",
+        "src/archy/install/adapters/continue_.py",
+        "src/archy/install/adapters/cursor.py",
+        "src/archy/install/adapters/opencode.py",
+        "src/archy/install/base.py",
+        "src/archy/install/merge.py",
+        "src/archy/install/runner.py",
+        "src/archy/install/writer.py",
+        "tests/install/contract/test_contracts.py",
+        "tests/install/integration/test_filesystem.py",
+        "tests/install/unit/test_base.py",
+        "tests/install/unit/test_merge.py",
+        "tests/install/unit/test_runner.py"
+      ]
+    },
+    {
+      "other_file_count": 9,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/install/__init__.py",
+        "src/archy/install/adapters/__init__.py",
+        "src/archy/install/adapters/claude.py",
+        "src/archy/install/adapters/codex.py",
+        "src/archy/install/adapters/continue_.py",
+        "src/archy/install/adapters/cursor.py",
+        "src/archy/install/adapters/opencode.py",
+        "src/archy/install/base.py",
+        "src/archy/install/merge.py",
+        "src/archy/install/paths.py",
+        "src/archy/install/registry.py",
+        "src/archy/install/runner.py",
+        "src/archy/install/writer.py",
+        "tests/install/__init__.py",
+        "tests/install/conftest.py",
+        "tests/install/contract/__init__.py",
+        "tests/install/contract/test_contracts.py",
+        "tests/install/e2e_assert_config.py",
+        "tests/install/integration/__init__.py",
+        "tests/install/integration/test_filesystem.py",
+        "tests/install/snapshot/__init__.py",
+        "tests/install/snapshot/test_snapshots.py",
+        "tests/install/unit/__init__.py",
+        "tests/install/unit/test_base.py",
+        "tests/install/unit/test_claude.py",
+        "tests/install/unit/test_codex.py",
+        "tests/install/unit/test_continue.py",
+        "tests/install/unit/test_cursor.py",
+        "tests/install/unit/test_merge.py",
+        "tests/install/unit/test_opencode.py",
+        "tests/install/unit/test_paths.py",
+        "tests/install/unit/test_registry.py",
+        "tests/install/unit/test_runner.py",
+        "tests/install/unit/test_tool_names_pin.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/__init__.py",
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "tests/test_plugin.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/affected.py",
+        "src/archy/cli.py",
+        "src/archy/mcp.py",
+        "tests/test_affected.py",
+        "tests/test_cli.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/diff.py",
+        "src/archy/diff_summary.py",
+        "src/archy/mcp.py",
+        "tests/test_diff_summary.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "bench/score_redesign.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/score.py",
+        "tests/test_score.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/dsm.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_dsm.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "bench/dsm.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "bench/typehint_coverage.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "bench/run.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "bench/call_weighted_modularity.py"
+      ]
+    },
+    {
+      "other_file_count": 8,
+      "paths": [
+        "bench/call_weighted_modularity.py",
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/score.py",
+        "tests/test_score.py"
+      ]
+    },
+    {
+      "other_file_count": 8,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/diff.py",
+        "src/archy/history.py",
+        "src/archy/mcp.py",
+        "src/archy/score.py",
+        "src/archy/trend.py",
+        "tests/test_cli.py",
+        "tests/test_history.py",
+        "tests/test_score.py"
+      ]
+    },
+    {
+      "other_file_count": 24,
+      "paths": [
+        "tests/smoke_install.py"
+      ]
+    },
+    {
+      "other_file_count": 11,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 11,
+      "paths": [
+        "bench/hotspots_sweep.py",
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/hotspots.py",
+        "tests/test_hotspots.py"
+      ]
+    },
+    {
+      "other_file_count": 12,
+      "paths": [
+        "bench/run.py",
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/complexity.py",
+        "src/archy/graph.py",
+        "src/archy/parser.py",
+        "src/archy/score.py",
+        "tests/test_complexity.py",
+        "tests/test_graph.py",
+        "tests/test_score.py"
+      ]
+    },
+    {
+      "other_file_count": 11,
+      "paths": [
+        "bench/run.py",
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/parser.py",
+        "src/archy/score.py",
+        "tests/test_graph.py",
+        "tests/test_parser.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/contracts.py",
+        "tests/test_contracts.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/graph.py",
+        "src/archy/mcp.py",
+        "src/archy/risk.py",
+        "tests/test_mcp.py",
+        "tests/test_risk.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/impact.py",
+        "src/archy/mcp.py",
+        "src/archy/reach.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/impact.py",
+        "src/archy/mcp.py",
+        "src/archy/reach.py",
+        "src/archy/score.py",
+        "tests/test_impact.py",
+        "tests/test_reach.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "bench/run.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/mcp.py",
+        "tests/test_graph.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "src/archy/layers.py",
+        "tests/test_cli.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/layers.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "bench/run.py",
+        "src/archy/diff.py",
+        "src/archy/mcp.py",
+        "tests/test_diff.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "bench/run.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/instability.py",
+        "src/archy/layers.py",
+        "tests/test_cli.py",
+        "tests/test_instability.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/diff.py",
+        "src/archy/graph.py",
+        "src/archy/layers.py",
+        "src/archy/mcp.py",
+        "src/archy/score.py",
+        "tests/test_diff.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/contracts.py",
+        "src/archy/cycles.py",
+        "src/archy/diff.py",
+        "src/archy/graph.py",
+        "src/archy/history.py",
+        "src/archy/impact.py",
+        "src/archy/layers.py",
+        "src/archy/parser.py",
+        "src/archy/score.py",
+        "tests/test_layers.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/contracts.py",
+        "src/archy/diff.py",
+        "src/archy/mcp.py",
+        "tests/test_contracts.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/contracts.py",
+        "tests/test_contracts.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "bench/run.py",
+        "src/archy/mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 0,
+      "paths": [
+        "src/archy/mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 7,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/contracts.py",
+        "src/archy/mcp.py",
+        "tests/test_contracts.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "bench/run.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/diff.py",
+        "src/archy/history.py",
+        "src/archy/mcp.py",
+        "src/archy/score.py",
+        "tests/test_history.py",
+        "tests/test_score.py",
+        "tests/test_trend.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/diff.py",
+        "src/archy/mcp.py",
+        "tests/test_diff.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/impact.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_impact.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 1,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/layers.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_graph.py",
+        "tests/test_history.py",
+        "tests/test_layers.py",
+        "tests/test_mcp.py",
+        "tests/test_smoke.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/layers.py",
+        "src/archy/mcp.py",
+        "tests/test_cli.py",
+        "tests/test_layers.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 4,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/__init__.py"
+      ]
+    },
+    {
+      "other_file_count": 6,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/mcp.py",
+        "tests/test_mcp.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/cycles.py",
+        "src/archy/graph.py",
+        "tests/test_cycles.py",
+        "tests/test_graph.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/history.py",
+        "src/archy/trend.py",
+        "tests/test_cli.py",
+        "tests/test_history.py",
+        "tests/test_trend.py"
+      ]
+    },
+    {
+      "other_file_count": 8,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "src/archy/layers.py",
+        "src/archy/parser.py",
+        "src/archy/score.py",
+        "tests/test_cli.py",
+        "tests/test_cycles.py",
+        "tests/test_score.py"
+      ]
+    },
+    {
+      "other_file_count": 5,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/layers.py",
+        "tests/test_cli.py",
+        "tests/test_layers.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/cycles.py",
+        "tests/test_cli.py",
+        "tests/test_cycles.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/graph.py",
+        "src/archy/parser.py",
+        "tests/test_graph.py",
+        "tests/test_parser.py"
+      ]
+    },
+    {
+      "other_file_count": 3,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/parser.py",
+        "tests/test_graph.py",
+        "tests/test_parser.py"
+      ]
+    },
+    {
+      "other_file_count": 9,
+      "paths": [
+        "src/archy/cli.py",
+        "src/archy/graph.py",
+        "src/archy/parser.py",
+        "tests/test_graph.py",
+        "tests/test_parser.py"
+      ]
+    },
+    {
+      "other_file_count": 2,
+      "paths": [
+        "src/archy/__init__.py",
+        "src/archy/cli.py",
+        "tests/__init__.py",
+        "tests/test_smoke.py"
+      ]
+    }
+  ],
+  "evidence": [],
+  "files": [
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 20,
+      "imports": [
+        "from __future__ import annotations",
+        "import subprocess",
+        "from pathlib import Path",
+        "import yaml  # type: ignore[import-untyped]"
+      ],
+      "is_test": false,
+      "line_count": 57,
+      "path": "bench/_common.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 30,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import math",
+        "import statistics as st",
+        "import sys",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from archy import score as S  # noqa: E402",
+        "from archy.cycles import find_cycles  # noqa: E402",
+        "from archy.graph import build_graph  # noqa: E402"
+      ],
+      "is_test": false,
+      "line_count": 315,
+      "path": "bench/acyclicity_dilution.py"
+    },
+    {
+      "additional_commit_count": 7,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import json",
+        "import os",
+        "import re",
+        "import shutil",
+        "import statistics",
+        "import subprocess",
+        "import sys",
+        "from math import comb",
+        "from pathlib import Path",
+        "from pydantic import BaseModel, ConfigDict"
+      ],
+      "is_test": false,
+      "line_count": 1108,
+      "path": "bench/agent_footprint.py"
+    },
+    {
+      "additional_commit_count": 3,
+      "author_count": 1,
+      "days_since_last_change": 30,
+      "imports": [
+        "from __future__ import annotations",
+        "import sys",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from run import clone_or_update, load_manifest, pearson",
+        "from archy.graph import build_graph",
+        "from archy.score import ("
+      ],
+      "is_test": false,
+      "line_count": 218,
+      "path": "bench/call_weighted_modularity.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 42,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import sys",
+        "import time",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from archy.graph import build_graph  # noqa: E402"
+      ],
+      "is_test": false,
+      "line_count": 303,
+      "path": "bench/community_partitioner.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import statistics",
+        "import sys",
+        "from pathlib import Path",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest",
+        "from archy.coupling import compute_coupling, git_cochange, internal_module_paths",
+        "from archy.duplicates import is_test_path",
+        "from archy.graph import build_graph"
+      ],
+      "is_test": false,
+      "line_count": 195,
+      "path": "bench/coupling_sweep.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 42,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import sys",
+        "import tempfile",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from archy.cycles import find_cycles  # noqa: E402",
+        "from archy.diff import compute_diff, take_snapshot  # noqa: E402",
+        "from archy.graph import build_graph  # noqa: E402"
+      ],
+      "is_test": false,
+      "line_count": 399,
+      "path": "bench/delta_direction.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 69,
+      "imports": [
+        "from __future__ import annotations",
+        "import sys",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from run import clone_or_update, load_manifest, pearson",
+        "from archy.graph import build_graph",
+        "from archy.reach import compute_propagation_cost",
+        "from archy.score import ("
+      ],
+      "is_test": false,
+      "line_count": 271,
+      "path": "bench/dsm.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import statistics",
+        "import sys",
+        "from pathlib import Path",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest",
+        "from archy.coupling import git_cochange",
+        "from archy.duplicates import (",
+        "from archy.graph import parse_project"
+      ],
+      "is_test": false,
+      "line_count": 140,
+      "path": "bench/duplicates_cochange_sweep.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import ast",
+        "import datetime as dt",
+        "import sys",
+        "from collections import Counter",
+        "from pathlib import Path",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest",
+        "from archy.complexity import compute_function_complexity, extract_token_bags",
+        "from archy.duplicates import DEFAULT_MIN_SIMILARITY"
+      ],
+      "is_test": false,
+      "line_count": 297,
+      "path": "bench/duplicates_recall_experiment.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 20,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import json",
+        "import statistics",
+        "import subprocess",
+        "import sys",
+        "from pathlib import Path",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest"
+      ],
+      "is_test": false,
+      "line_count": 201,
+      "path": "bench/duplicates_sweep.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 20,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import json",
+        "import statistics",
+        "import subprocess",
+        "import sys",
+        "from pathlib import Path",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest"
+      ],
+      "is_test": false,
+      "line_count": 226,
+      "path": "bench/hotspots_sweep.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 58,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import json",
+        "import statistics",
+        "import subprocess",
+        "import sys",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from archy.graph import build_graph",
+        "from archy.score import compute_score"
+      ],
+      "is_test": false,
+      "line_count": 302,
+      "path": "bench/inloop_prevalence.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import statistics",
+        "import sys",
+        "import time",
+        "from pathlib import Path",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest",
+        "from archy.duplicates import compute_near_duplicates",
+        "from archy.graph import parse_project"
+      ],
+      "is_test": false,
+      "line_count": 122,
+      "path": "bench/near_duplicates_sweep.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import json",
+        "import subprocess",
+        "import sys",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from _common import REPO_ROOT, clone_or_update, load_manifest",
+        "from archy.graph import DEFAULT_IGNORED_DIRS, assemble_graph, parse_project"
+      ],
+      "is_test": false,
+      "line_count": 487,
+      "path": "bench/pattern_detection.py"
+    },
+    {
+      "additional_commit_count": 10,
+      "author_count": 1,
+      "days_since_last_change": 30,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import json",
+        "import math",
+        "import os",
+        "import shutil",
+        "import subprocess",
+        "import sys",
+        "from itertools import combinations",
+        "from pathlib import Path",
+        "import yaml  # type: ignore[import-untyped]"
+      ],
+      "is_test": false,
+      "line_count": 527,
+      "path": "bench/run.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 60,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import datetime as dt",
+        "import json",
+        "import math",
+        "import statistics",
+        "import subprocess",
+        "import sys",
+        "from collections.abc import Callable",
+        "from itertools import combinations",
+        "from pathlib import Path",
+        "import networkx as nx  # type: ignore[import-untyped]",
+        "import yaml  # type: ignore[import-untyped]"
+      ],
+      "is_test": false,
+      "line_count": 769,
+      "path": "bench/score_redesign.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 30,
+      "imports": [
+        "from __future__ import annotations",
+        "import argparse",
+        "import sys",
+        "import time",
+        "from pathlib import Path",
+        "import yaml",
+        "from archy.diff import compute_diff, take_snapshot",
+        "from archy.dsm import build_dsm, diff_dsm",
+        "from archy.graph import build_graph",
+        "from archy.reach import compute_propagation_cost",
+        "from archy.simulate import find_simulate",
+        "import random",
+        "import networkx as nx",
+        "import tempfile"
+      ],
+      "is_test": false,
+      "line_count": 497,
+      "path": "bench/simulate_oracle.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 60,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import subprocess",
+        "import sys",
+        "from pathlib import Path",
+        "import tree_sitter_python",
+        "from pydantic import BaseModel, ConfigDict",
+        "from tree_sitter import Language, Node, Parser",
+        "from run import REPO_ROOT, clone_or_update, load_manifest, pearson"
+      ],
+      "is_test": false,
+      "line_count": 285,
+      "path": "bench/typehint_coverage.py"
+    },
+    {
+      "additional_commit_count": 47,
+      "author_count": 1,
+      "days_since_last_change": 7,
+      "imports": [
+        "from __future__ import annotations"
+      ],
+      "is_test": false,
+      "line_count": 3,
+      "path": "src/archy/__init__.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 38,
+      "imports": [
+        "from __future__ import annotations",
+        "import re",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.impact import _index_by_path"
+      ],
+      "is_test": false,
+      "line_count": 230,
+      "path": "src/archy/affected.py"
+    },
+    {
+      "additional_commit_count": 49,
+      "author_count": 2,
+      "days_since_last_change": 7,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import sys",
+        "from pathlib import Path",
+        "from typing import cast",
+        "import click",
+        "import networkx as nx",
+        "from archy import __version__",
+        "from archy.affected import DEFAULT_DEPTH, Affected, find_affected",
+        "from archy.contracts import (",
+        "from archy.coupling import (",
+        "from archy.cycles import Cycle, find_cycles",
+        "from archy.diff import (",
+        "from archy.diff_summary import summarize_diff",
+        "from archy.duplicates import (",
+        "from archy.graph import (",
+        "from archy.history import append as append_history",
+        "from archy.history import git_metadata, row_from_score",
+        "from archy.history import read as read_history",
+        "from archy.hotspots import Hotspot, compute_hotspots, git_churn",
+        "from archy.impact import DEFAULT_MAX_CHAINS, Impact, find_impact",
+        "from archy.layers import (",
+        "from archy.refactor import (",
+        "from archy.score import Score, compute_score",
+        "from archy.simulate import SimulateReport, find_simulate",
+        "from archy.trend import render_text as render_trend",
+        "import path back to a changed module (the \"because\") for the closest",
+        "from archy.dsm import (",
+        "from archy.mcp import create_server",
+        "from archy.index import default_db_path, open_index",
+        "from archy.index import sync as sync_index",
+        "from archy.index import default_db_path",
+        "from archy.index import default_db_path, open_index",
+        "from archy.install import detect_all",
+        "from archy.install import (",
+        "from archy.install import (",
+        "from archy.install.writer import DryRunWriteSystem"
+      ],
+      "is_test": false,
+      "line_count": 2255,
+      "path": "src/archy/cli.py"
+    },
+    {
+      "additional_commit_count": 4,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import hashlib",
+        "from collections import Counter",
+        "import tree_sitter_python as tsp",
+        "from pydantic import BaseModel, ConfigDict",
+        "from tree_sitter import Language, Parser"
+      ],
+      "is_test": false,
+      "line_count": 361,
+      "path": "src/archy/complexity.py"
+    },
+    {
+      "additional_commit_count": 5,
+      "author_count": 2,
+      "days_since_last_change": 7,
+      "imports": [
+        "from __future__ import annotations",
+        "import contextlib",
+        "import os",
+        "import sys",
+        "import warnings",
+        "from pathlib import Path",
+        "from typing import TYPE_CHECKING",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.layers import LayerConfig, LayerConfigError, load_config",
+        "from importlinter.application.user_options import UserOptions",
+        "from importlinter import configuration as _configuration  # noqa: F401",
+        "from importlinter import configuration",
+        "from importlinter.application.use_cases import (",
+        "from importlinter.application.user_options import UserOptions"
+      ],
+      "is_test": false,
+      "line_count": 274,
+      "path": "src/archy/contracts.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import subprocess",
+        "from collections import Counter",
+        "from itertools import combinations",
+        "from pathlib import Path",
+        "from typing import NamedTuple",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.gitlog import fold_rename, normalize_py_path, resolve_repo_root"
+      ],
+      "is_test": false,
+      "line_count": 340,
+      "path": "src/archy/coupling.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 75,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict"
+      ],
+      "is_test": false,
+      "line_count": 60,
+      "path": "src/archy/cycles.py"
+    },
+    {
+      "additional_commit_count": 8,
+      "author_count": 1,
+      "days_since_last_change": 52,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "from pathlib import Path",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.cycles import Cycle, CycleEdge, find_cycles",
+        "from archy.layers import (",
+        "from archy.score import Score, ScoreInputs, compute_score",
+        "from archy.score import compute_complexity"
+      ],
+      "is_test": false,
+      "line_count": 381,
+      "path": "src/archy/diff.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 52,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "from archy.diff import DiffReport, DiffSummary, DiffSummaryItem",
+        "from archy.risk import compute_edit_risk"
+      ],
+      "is_test": false,
+      "line_count": 298,
+      "path": "src/archy/diff_summary.py"
+    },
+    {
+      "additional_commit_count": 3,
+      "author_count": 1,
+      "days_since_last_change": 30,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from typing import Literal, cast",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "import json",
+        "import json"
+      ],
+      "is_test": false,
+      "line_count": 574,
+      "path": "src/archy/dsm.py"
+    },
+    {
+      "additional_commit_count": 7,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from `archy.graph.parse_project` instead.",
+        "from __future__ import annotations",
+        "import warnings",
+        "from collections import Counter",
+        "from collections.abc import Callable, Iterator",
+        "from itertools import combinations",
+        "from pathlib import Path",
+        "from typing import TypeVar",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.complexity import (",
+        "from archy.graph import Module",
+        "from archy.parser import ParseResult"
+      ],
+      "is_test": false,
+      "line_count": 579,
+      "path": "src/archy/duplicates.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from archy.engine.builder import GraphTooLargeError, RepositoryGraphBuilder",
+        "from archy.engine.enums import DerivationKind, EdgeKind, NodeKind, ResolutionKind",
+        "from archy.engine.facts import Evidence, GraphEdge, GraphNode, SourceSpan",
+        "from archy.engine.repository_graph import RepositoryGraph",
+        "from archy.engine.source import SourceUnit"
+      ],
+      "is_test": false,
+      "line_count": 20,
+      "path": "src/archy/engine/__init__.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from pydantic import BaseModel, ConfigDict"
+      ],
+      "is_test": false,
+      "line_count": 7,
+      "path": "src/archy/engine/base.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "import ast",
+        "from collections.abc import Iterable, Mapping",
+        "from operator import attrgetter",
+        "from pathlib import Path",
+        "from pydantic import Field",
+        "from archy import __version__",
+        "from archy.engine.base import FrozenModel",
+        "from archy.engine.enums import DerivationKind, EdgeKind, NodeKind, ResolutionKind",
+        "from archy.engine.facts import Evidence, GraphEdge, GraphNode, SourceSpan",
+        "from archy.engine.imports import PythonImports",
+        "from archy.engine.repository_graph import RepositoryGraph",
+        "from archy.engine.resolver import PythonSymbolResolver",
+        "from archy.engine.source import SourceUnit",
+        "from archy.engine.structure import ("
+      ],
+      "is_test": false,
+      "line_count": 362,
+      "path": "src/archy/engine/builder.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from enum import Enum"
+      ],
+      "is_test": false,
+      "line_count": 46,
+      "path": "src/archy/engine/enums.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from hashlib import blake2b",
+        "from pathlib import Path",
+        "from pydantic import Field, computed_field",
+        "from archy.engine.base import FrozenModel",
+        "from archy.engine.enums import DerivationKind, EdgeKind, NodeKind, ResolutionKind"
+      ],
+      "is_test": false,
+      "line_count": 82,
+      "path": "src/archy/engine/facts.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from archy.engine.base import FrozenModel",
+        "from archy.engine.enums import NodeKind",
+        "from archy.engine.facts import GraphNode",
+        "from archy.engine.source import SourceUnit"
+      ],
+      "is_test": false,
+      "line_count": 48,
+      "path": "src/archy/engine/imports.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from functools import cached_property",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from archy.cycles import Cycle, find_cycles",
+        "from archy.engine.base import FrozenModel",
+        "from archy.engine.enums import EdgeKind, NodeKind",
+        "from archy.engine.facts import GraphEdge, GraphNode"
+      ],
+      "is_test": false,
+      "line_count": 75,
+      "path": "src/archy/engine/repository_graph.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "import builtins",
+        "from collections.abc import Mapping, Sequence",
+        "from functools import cached_property",
+        "from archy.engine.base import FrozenModel",
+        "from archy.engine.enums import NodeKind, ResolutionKind",
+        "from archy.engine.facts import GraphEdge, GraphNode",
+        "from archy.engine.structure import SymbolReference"
+      ],
+      "is_test": false,
+      "line_count": 152,
+      "path": "src/archy/engine/resolver.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "import ast",
+        "from hashlib import sha256",
+        "from pathlib import Path",
+        "from pydantic import field_validator",
+        "from archy.engine.base import FrozenModel"
+      ],
+      "is_test": false,
+      "line_count": 28,
+      "path": "src/archy/engine/source.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "import ast",
+        "from collections.abc import Iterable",
+        "from archy.engine.base import FrozenModel",
+        "from archy.engine.enums import EdgeKind, NodeKind",
+        "from archy.engine.facts import GraphNode, SourceSpan",
+        "from archy.engine.source import SourceUnit"
+      ],
+      "is_test": false,
+      "line_count": 307,
+      "path": "src/archy/engine/structure.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from archy.cli import main as cli"
+      ],
+      "is_test": false,
+      "line_count": 9,
+      "path": "src/archy/entrypoint.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import subprocess",
+        "from pathlib import Path"
+      ],
+      "is_test": false,
+      "line_count": 68,
+      "path": "src/archy/gitlog.py"
+    },
+    {
+      "additional_commit_count": 17,
+      "author_count": 1,
+      "days_since_last_change": 20,
+      "imports": [
+        "from __future__ import annotations",
+        "from collections.abc import Iterable",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.complexity import FunctionComplexity",
+        "from archy.instability import compute_instability",
+        "from archy.parser import CallRef, ImportRef, ParseResult, parse_file",
+        "from archy.reach import compute_propagation_cost",
+        "from archy.risk import compute_edit_risk"
+      ],
+      "is_test": false,
+      "line_count": 749,
+      "path": "src/archy/graph.py"
+    },
+    {
+      "additional_commit_count": 4,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "import datetime as dt",
+        "import json",
+        "import subprocess",
+        "from pathlib import Path",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.score import Score"
+      ],
+      "is_test": false,
+      "line_count": 248,
+      "path": "src/archy/history.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import subprocess",
+        "from collections import Counter",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.gitlog import fold_rename, normalize_py_path, resolve_repo_root"
+      ],
+      "is_test": false,
+      "line_count": 157,
+      "path": "src/archy/hotspots.py"
+    },
+    {
+      "additional_commit_count": 5,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "from itertools import pairwise",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.coupling import CoChangeHint"
+      ],
+      "is_test": false,
+      "line_count": 191,
+      "path": "src/archy/impact.py"
+    },
+    {
+      "additional_commit_count": 4,
+      "author_count": 1,
+      "days_since_last_change": 20,
+      "imports": [
+        "from __future__ import annotations",
+        "import hashlib",
+        "import sqlite3",
+        "from collections.abc import Iterable",
+        "from datetime import datetime, timezone",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict, ValidationError",
+        "from archy.graph import (",
+        "from archy.parser import ParseResult, parse_file"
+      ],
+      "is_test": false,
+      "line_count": 230,
+      "path": "src/archy/index.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 75,
+      "imports": [
+        "import this one. Counts how depended-on the module is by others.",
+        "from __future__ import annotations",
+        "import networkx as nx"
+      ],
+      "is_test": false,
+      "line_count": 40,
+      "path": "src/archy/instability.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.install.base import AgentAdapter, FileAction, Scope",
+        "from archy.install.registry import adapter_ids, all_adapters, get_adapter",
+        "from archy.install.runner import (",
+        "from archy.install.writer import InstallError"
+      ],
+      "is_test": false,
+      "line_count": 41,
+      "path": "src/archy/install/__init__.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations"
+      ],
+      "is_test": false,
+      "line_count": 8,
+      "path": "src/archy/install/adapters/__init__.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "from pathlib import Path",
+        "from archy.install import paths",
+        "from archy.install.base import (",
+        "from archy.install.merge import ("
+      ],
+      "is_test": false,
+      "line_count": 140,
+      "path": "src/archy/install/adapters/claude.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.install import paths",
+        "from archy.install.base import (",
+        "from archy.install.merge import render_toml_mcp, strip_toml_mcp"
+      ],
+      "is_test": false,
+      "line_count": 77,
+      "path": "src/archy/install/adapters/codex.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.install import paths",
+        "from archy.install.base import (",
+        "from archy.install.merge import render_continue_yaml"
+      ],
+      "is_test": false,
+      "line_count": 77,
+      "path": "src/archy/install/adapters/continue_.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.install import paths",
+        "from archy.install.base import (",
+        "from archy.install.merge import render_json_mcp, strip_json_mcp"
+      ],
+      "is_test": false,
+      "line_count": 77,
+      "path": "src/archy/install/adapters/cursor.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.install import paths",
+        "from archy.install.base import (",
+        "from archy.install.merge import render_opencode_mcp, strip_opencode_mcp"
+      ],
+      "is_test": false,
+      "line_count": 70,
+      "path": "src/archy/install/adapters/opencode.py"
+    },
+    {
+      "additional_commit_count": 9,
+      "author_count": 1,
+      "days_since_last_change": 7,
+      "imports": [
+        "from __future__ import annotations",
+        "import shutil",
+        "from abc import ABC, abstractmethod",
+        "from collections.abc import Callable",
+        "from enum import Enum",
+        "from pathlib import Path",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.install import paths",
+        "from archy.install.writer import WriteSystem"
+      ],
+      "is_test": false,
+      "line_count": 276,
+      "path": "src/archy/install/base.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import sys",
+        "from typing import cast",
+        "import tomli_w",
+        "import yaml",
+        "import tomllib",
+        "import tomli as tomllib",
+        "from archy.install.base import (",
+        "from archy.install.writer import InstallError"
+      ],
+      "is_test": false,
+      "line_count": 234,
+      "path": "src/archy/install/merge.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import os",
+        "from pathlib import Path",
+        "import sys"
+      ],
+      "is_test": false,
+      "line_count": 66,
+      "path": "src/archy/install/paths.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.install.adapters.claude import ClaudeAdapter",
+        "from archy.install.adapters.codex import CodexAdapter",
+        "from archy.install.adapters.continue_ import ContinueAdapter",
+        "from archy.install.adapters.cursor import CursorAdapter",
+        "from archy.install.adapters.opencode import OpencodeAdapter",
+        "from archy.install.base import AgentAdapter"
+      ],
+      "is_test": false,
+      "line_count": 43,
+      "path": "src/archy/install/registry.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "from collections.abc import Callable",
+        "from pathlib import Path",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.install.base import AgentAdapter, FileAction, Scope, apply_plan, apply_uninstall",
+        "from archy.install.registry import all_adapters, get_adapter",
+        "from archy.install.writer import ("
+      ],
+      "is_test": false,
+      "line_count": 201,
+      "path": "src/archy/install/runner.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import os",
+        "import tempfile",
+        "from dataclasses import dataclass, field",
+        "from pathlib import Path",
+        "from typing import Protocol, runtime_checkable",
+        "from pydantic import BaseModel, ConfigDict"
+      ],
+      "is_test": false,
+      "line_count": 129,
+      "path": "src/archy/install/writer.py"
+    },
+    {
+      "additional_commit_count": 10,
+      "author_count": 1,
+      "days_since_last_change": 34,
+      "imports": [
+        "from __future__ import annotations",
+        "import keyword",
+        "import re",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "import yaml",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.instability import compute_instability"
+      ],
+      "is_test": false,
+      "line_count": 407,
+      "path": "src/archy/layers.py"
+    },
+    {
+      "additional_commit_count": 43,
+      "author_count": 1,
+      "days_since_last_change": 7,
+      "imports": [
+        "from __future__ import annotations",
+        "import sqlite3",
+        "import threading",
+        "from pathlib import Path",
+        "from typing import cast",
+        "from mcp.server.fastmcp import FastMCP",
+        "from mcp.types import ToolAnnotations",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.affected import DEFAULT_DEPTH, Affected, find_affected",
+        "from archy.contracts import ContractCheck",
+        "from archy.coupling import (",
+        "from archy.cycles import Cycle, find_cycles",
+        "from archy.diff import (",
+        "from archy.diff_summary import summarize_diff",
+        "from archy.dsm import (",
+        "from archy.duplicates import (",
+        "from archy.graph import (",
+        "from archy.history import append as append_history",
+        "from archy.history import git_metadata, row_from_score",
+        "from archy.history import read as read_history",
+        "from archy.hotspots import git_churn",
+        "from archy.impact import DEFAULT_MAX_CHAINS, Impact, find_impact",
+        "from archy.instability import compute_instability",
+        "from archy.layers import (",
+        "from archy.reach import compute_propagation_cost",
+        "from archy.refactor import DEFAULT_MIN_RISK, compute_refactor_priorities",
+        "from archy.risk import compute_edit_risk",
+        "from archy.score import Score, ScoreInputs, compute_score",
+        "from archy.simulate import EdgeSpec, SimulateReport, find_simulate",
+        "from archy.watcher import IndexManager",
+        "use `archy_graph(path, focus=[<file or qualname>])` instead.",
+        "from archy.contracts import (",
+        "import networkx as nx",
+        "import networkx as nx"
+      ],
+      "is_test": false,
+      "line_count": 1942,
+      "path": "src/archy/mcp.py"
+    },
+    {
+      "additional_commit_count": 6,
+      "author_count": 1,
+      "days_since_last_change": 71,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import tree_sitter_python as tsp",
+        "from pydantic import BaseModel, ConfigDict",
+        "from tree_sitter import Language, Parser, Query, QueryCursor",
+        "from archy.complexity import FunctionComplexity, walk_functions",
+        "from `as`, or None if the name was imported under its source spelling."
+      ],
+      "is_test": false,
+      "line_count": 295,
+      "path": "src/archy/parser.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 60,
+      "imports": [
+        "import `n` (so a change to `n` could ripple to them) together with `n`",
+        "from __future__ import annotations",
+        "import networkx as nx"
+      ],
+      "is_test": false,
+      "line_count": 56,
+      "path": "src/archy/reach.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 47,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.hotspots import compute_hotspots",
+        "from archy.instability import compute_instability",
+        "from archy.reach import compute_propagation_cost",
+        "from archy.risk import compute_edit_risk"
+      ],
+      "is_test": false,
+      "line_count": 218,
+      "path": "src/archy/refactor.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 72,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "from archy.instability import compute_instability",
+        "from archy.reach import compute_propagation_cost",
+        "from both the per-module map and the fan-in normalization denominator).",
+        "from or be imported by."
+      ],
+      "is_test": false,
+      "line_count": 66,
+      "path": "src/archy/risk.py"
+    },
+    {
+      "additional_commit_count": 11,
+      "author_count": 1,
+      "days_since_last_change": 30,
+      "imports": [
+        "from diagnostic to score axis in v0.20; the v0.20 divisor",
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.cycles import find_cycles",
+        "from archy.reach import compute_propagation_cost"
+      ],
+      "is_test": false,
+      "line_count": 322,
+      "path": "src/archy/score.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 38,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from pydantic import BaseModel, ConfigDict, Field",
+        "from archy.diff import (",
+        "from archy.diff_summary import DiffSummary, summarize_diff",
+        "from archy.dsm import build_dsm, diff_dsm",
+        "from archy.graph import resolve_modules",
+        "from archy.reach import compute_propagation_cost"
+      ],
+      "is_test": false,
+      "line_count": 252,
+      "path": "src/archy/simulate.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 69,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.history import HistoryRow"
+      ],
+      "is_test": false,
+      "line_count": 65,
+      "path": "src/archy/trend.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 20,
+      "imports": [
+        "from __future__ import annotations",
+        "import contextlib",
+        "import threading",
+        "from collections.abc import Iterable",
+        "from datetime import datetime, timezone",
+        "from pathlib import Path",
+        "from typing import Protocol",
+        "import networkx as nx",
+        "from archy.graph import DEFAULT_IGNORED_DIRS, assemble_graph, discover_modules",
+        "from archy.index import SyncStats, default_db_path, open_index, sync",
+        "from watchdog.events import FileSystemEventHandler",
+        "from watchdog.observers import Observer"
+      ],
+      "is_test": false,
+      "line_count": 189,
+      "path": "src/archy/watcher.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 76,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/__init__.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/install/__init__.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import pytest",
+        "from pydantic import BaseModel, ConfigDict",
+        "from archy.install import base, paths"
+      ],
+      "is_test": true,
+      "line_count": 73,
+      "path": "tests/install/conftest.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/install/contract/__init__.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import sys",
+        "import pytest",
+        "import yaml",
+        "from archy.install.base import Scope, apply_plan, permission_patterns",
+        "from archy.install.registry import get_adapter",
+        "from archy.install.writer import DryRunWriteSystem",
+        "import tomllib",
+        "import tomli as tomllib"
+      ],
+      "is_test": true,
+      "line_count": 137,
+      "path": "tests/install/contract/test_contracts.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import sys",
+        "from pathlib import Path",
+        "from typing import cast",
+        "import yaml",
+        "from archy.install.base import Scope",
+        "from archy.install.registry import get_adapter",
+        "import tomllib",
+        "import tomli as tomllib"
+      ],
+      "is_test": true,
+      "line_count": 66,
+      "path": "tests/install/e2e_assert_config.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/install/integration/__init__.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import sys",
+        "import pytest",
+        "from archy.install.base import Scope",
+        "from archy.install.registry import adapter_ids",
+        "from archy.install.runner import resolve_targets, run_install, run_uninstall",
+        "from archy.install.writer import InstallError, RealWriteSystem"
+      ],
+      "is_test": true,
+      "line_count": 166,
+      "path": "tests/install/integration/test_filesystem.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/install/snapshot/__init__.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from one Linux runner by faking the platform via `simulate_os`. Paths are",
+        "from __future__ import annotations",
+        "import pytest",
+        "from archy.install.base import Scope, apply_plan",
+        "from archy.install.registry import adapter_ids, get_adapter",
+        "from archy.install.writer import DryRunWriteSystem",
+        "from tests.install.conftest import PLATFORMS"
+      ],
+      "is_test": true,
+      "line_count": 32,
+      "path": "tests/install/snapshot/test_snapshots.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/install/unit/__init__.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy.install.base import (",
+        "from archy.install.writer import DryRunWriteSystem",
+        "from archy.install import base"
+      ],
+      "is_test": true,
+      "line_count": 154,
+      "path": "tests/install/unit/test_base.py"
+    },
+    {
+      "additional_commit_count": 3,
+      "author_count": 1,
+      "days_since_last_change": 7,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "from archy.install.adapters.claude import ClaudeAdapter",
+        "from archy.install.base import Scope",
+        "from archy.install.base import TOOL_NAMES"
+      ],
+      "is_test": true,
+      "line_count": 110,
+      "path": "tests/install/unit/test_claude.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.install.adapters.codex import CodexAdapter",
+        "from archy.install.base import Scope"
+      ],
+      "is_test": true,
+      "line_count": 43,
+      "path": "tests/install/unit/test_codex.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.install.adapters.continue_ import ContinueAdapter",
+        "from archy.install.base import Scope"
+      ],
+      "is_test": true,
+      "line_count": 42,
+      "path": "tests/install/unit/test_continue.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.install.adapters.cursor import CursorAdapter",
+        "from archy.install.base import Scope"
+      ],
+      "is_test": true,
+      "line_count": 48,
+      "path": "tests/install/unit/test_cursor.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import sys",
+        "import pytest",
+        "import yaml",
+        "import tomllib",
+        "import tomli as tomllib",
+        "from archy.install.base import permission_patterns",
+        "from archy.install.merge import (",
+        "from archy.install.writer import InstallError"
+      ],
+      "is_test": true,
+      "line_count": 180,
+      "path": "tests/install/unit/test_merge.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.install.adapters.opencode import OpencodeAdapter",
+        "from archy.install.base import Scope"
+      ],
+      "is_test": true,
+      "line_count": 41,
+      "path": "tests/install/unit/test_opencode.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.install import paths"
+      ],
+      "is_test": true,
+      "line_count": 44,
+      "path": "tests/install/unit/test_paths.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import pytest",
+        "from archy.install.base import AgentAdapter",
+        "from archy.install.registry import adapter_ids, all_adapters, get_adapter"
+      ],
+      "is_test": true,
+      "line_count": 37,
+      "path": "tests/install/unit/test_registry.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import pytest",
+        "from archy.install import runner",
+        "from archy.install.base import Scope",
+        "from archy.install.registry import adapter_ids",
+        "from archy.install.runner import (",
+        "from archy.install.writer import DryRunWriteSystem, InstallError"
+      ],
+      "is_test": true,
+      "line_count": 103,
+      "path": "tests/install/unit/test_runner.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import re",
+        "from pathlib import Path",
+        "from archy.install.base import TOOL_NAMES, permission_patterns"
+      ],
+      "is_test": true,
+      "line_count": 36,
+      "path": "tests/install/unit/test_tool_names_pin.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 69,
+      "imports": [
+        "from __future__ import annotations",
+        "import shutil",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "from pathlib import Path"
+      ],
+      "is_test": true,
+      "line_count": 84,
+      "path": "tests/smoke_install.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 38,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy.affected import _compile_glob, find_affected",
+        "from archy.graph import build_graph"
+      ],
+      "is_test": true,
+      "line_count": 239,
+      "path": "tests/test_affected.py"
+    },
+    {
+      "additional_commit_count": 7,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import os",
+        "import subprocess",
+        "import sys",
+        "from pathlib import Path",
+        "import pytest",
+        "import agent_footprint as af  # ty: ignore[unresolved-import]  (added to sys.path above)"
+      ],
+      "is_test": true,
+      "line_count": 894,
+      "path": "tests/test_agent_footprint.py"
+    },
+    {
+      "additional_commit_count": 17,
+      "author_count": 2,
+      "days_since_last_change": 34,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "from pathlib import Path",
+        "import click",
+        "import pytest",
+        "from click.testing import CliRunner",
+        "from archy.cli import _parse_edge_spec, main"
+      ],
+      "is_test": true,
+      "line_count": 977,
+      "path": "tests/test_cli.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 71,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.complexity import compute_function_complexity"
+      ],
+      "is_test": true,
+      "line_count": 134,
+      "path": "tests/test_complexity.py"
+    },
+    {
+      "additional_commit_count": 3,
+      "author_count": 3,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "import sys",
+        "import textwrap",
+        "from pathlib import Path",
+        "from typing import cast",
+        "import pytest",
+        "from archy.contracts import (",
+        "from importlinter.application.user_options import UserOptions",
+        "from importlinter.application import use_cases",
+        "from importlib.metadata import version"
+      ],
+      "is_test": true,
+      "line_count": 281,
+      "path": "tests/test_contracts.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 2,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "import json as _json",
+        "import subprocess",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "import pytest",
+        "from click.testing import CliRunner",
+        "from pydantic import ValidationError",
+        "from archy.cli import main",
+        "from archy.coupling import (",
+        "from archy.mcp import _run_impact"
+      ],
+      "is_test": true,
+      "line_count": 427,
+      "path": "tests/test_coupling.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 76,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "import pytest",
+        "from archy.cycles import find_cycles",
+        "from archy.graph import build_graph"
+      ],
+      "is_test": true,
+      "line_count": 207,
+      "path": "tests/test_cycles.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 42,
+      "imports": [
+        "from __future__ import annotations",
+        "import sys",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "import pytest",
+        "import delta_direction as dd  # ty: ignore[unresolved-import]  (added to sys.path above)"
+      ],
+      "is_test": true,
+      "line_count": 71,
+      "path": "tests/test_delta_direction.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 74,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.diff import compute_diff, read_snapshot, take_snapshot, write_snapshot",
+        "from archy.graph import build_graph"
+      ],
+      "is_test": true,
+      "line_count": 146,
+      "path": "tests/test_diff.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 52,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.diff import compute_diff, take_snapshot",
+        "from archy.diff_summary import summarize_diff",
+        "from archy.graph import build_graph"
+      ],
+      "is_test": true,
+      "line_count": 169,
+      "path": "tests/test_diff_summary.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 2,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "import pytest",
+        "from pydantic import ValidationError",
+        "from archy.dsm import ("
+      ],
+      "is_test": true,
+      "line_count": 434,
+      "path": "tests/test_dsm.py"
+    },
+    {
+      "additional_commit_count": 6,
+      "author_count": 1,
+      "days_since_last_change": 19,
+      "imports": [
+        "from __future__ import annotations",
+        "import json as _json",
+        "import subprocess",
+        "from pathlib import Path",
+        "import pytest",
+        "from click.testing import CliRunner",
+        "from pydantic import BaseModel",
+        "from archy.cli import main",
+        "from archy.complexity import (",
+        "from archy.duplicates import (",
+        "from archy.graph import Module, parse_project",
+        "from archy.parser import ParseResult",
+        "from collections import Counter"
+      ],
+      "is_test": true,
+      "line_count": 766,
+      "path": "tests/test_duplicates.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 0,
+      "imports": [
+        "import ast",
+        "from collections.abc import Mapping",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy.engine import ("
+      ],
+      "is_test": true,
+      "line_count": 171,
+      "path": "tests/test_engine.py"
+    },
+    {
+      "additional_commit_count": 10,
+      "author_count": 1,
+      "days_since_last_change": 34,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy.graph import (",
+        "import archy.graph as graph_mod"
+      ],
+      "is_test": true,
+      "line_count": 619,
+      "path": "tests/test_graph.py"
+    },
+    {
+      "additional_commit_count": 4,
+      "author_count": 1,
+      "days_since_last_change": 41,
+      "imports": [
+        "from __future__ import annotations",
+        "import datetime as dt",
+        "import json",
+        "import subprocess",
+        "from pathlib import Path",
+        "from archy.history import (",
+        "from archy.score import Score, ScoreInputs"
+      ],
+      "is_test": true,
+      "line_count": 262,
+      "path": "tests/test_history.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 44,
+      "imports": [
+        "from __future__ import annotations",
+        "import subprocess",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from click.testing import CliRunner",
+        "from archy.cli import main",
+        "from archy.hotspots import compute_hotspots, git_churn",
+        "import json as _json",
+        "import json as _json"
+      ],
+      "is_test": true,
+      "line_count": 219,
+      "path": "tests/test_hotspots.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 52,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.graph import build_graph",
+        "from archy.impact import find_impact"
+      ],
+      "is_test": true,
+      "line_count": 189,
+      "path": "tests/test_impact.py"
+    },
+    {
+      "additional_commit_count": 2,
+      "author_count": 1,
+      "days_since_last_change": 44,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import os",
+        "import time",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy.graph import build_graph, discover_modules, graph_to_dict",
+        "from archy.index import (",
+        "from archy.parser import ParseResult",
+        "import archy.index as index_mod"
+      ],
+      "is_test": true,
+      "line_count": 288,
+      "path": "tests/test_index.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 75,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "import pytest",
+        "from archy.instability import compute_instability",
+        "from archy.layers import find_sdp_violations"
+      ],
+      "is_test": true,
+      "line_count": 94,
+      "path": "tests/test_instability.py"
+    },
+    {
+      "additional_commit_count": 5,
+      "author_count": 1,
+      "days_since_last_change": 34,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "import pytest",
+        "from archy.layers import ("
+      ],
+      "is_test": true,
+      "line_count": 285,
+      "path": "tests/test_layers.py"
+    },
+    {
+      "additional_commit_count": 28,
+      "author_count": 2,
+      "days_since_last_change": 0,
+      "imports": [
+        "from __future__ import annotations",
+        "import asyncio",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy.dsm import DSM, DSMSummary",
+        "from archy.layers import LayerConfigError",
+        "from archy.mcp import (",
+        "from archy.simulate import EdgeSpec, SimulateReport",
+        "from archy.graph import build_graph",
+        "from jsonschema import Draft202012Validator",
+        "from mcp.server.fastmcp.exceptions import ToolError",
+        "from archy.dsm import DSMDiff, build_dsm, write_dsm",
+        "from archy.mcp import _load_graph",
+        "from archy.mcp import DiffErrorPayload",
+        "from archy.diff import DiffReport",
+        "from archy.graph import graph_to_dict",
+        "from archy.mcp import _manager_cache_key",
+        "from archy.mcp import _MANAGERS, _manager_for",
+        "from archy.impact import Impact",
+        "from archy.affected import Affected",
+        "from mcp.server.fastmcp.exceptions import ToolError",
+        "import networkx as nx",
+        "from archy.mcp import _pagerank",
+        "import networkx as nx",
+        "from archy.mcp import _pagerank",
+        "import subprocess",
+        "import os",
+        "import subprocess",
+        "from archy.graph import ScanTooLargeError",
+        "from archy.mcp import _load_graph"
+      ],
+      "is_test": true,
+      "line_count": 1445,
+      "path": "tests/test_mcp.py"
+    },
+    {
+      "additional_commit_count": 3,
+      "author_count": 1,
+      "days_since_last_change": 71,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.parser import parse_source"
+      ],
+      "is_test": true,
+      "line_count": 175,
+      "path": "tests/test_parser.py"
+    },
+    {
+      "additional_commit_count": 8,
+      "author_count": 1,
+      "days_since_last_change": 27,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "import os",
+        "import shutil",
+        "import signal",
+        "import subprocess",
+        "import time",
+        "from pathlib import Path",
+        "import pytest"
+      ],
+      "is_test": true,
+      "line_count": 260,
+      "path": "tests/test_plugin.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 72,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "import pytest",
+        "from archy.reach import compute_propagation_cost"
+      ],
+      "is_test": true,
+      "line_count": 100,
+      "path": "tests/test_reach.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 47,
+      "imports": [
+        "from __future__ import annotations",
+        "import json",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from click.testing import CliRunner",
+        "from archy.cli import main",
+        "from archy.refactor import DEFAULT_MIN_RISK, compute_refactor_priorities"
+      ],
+      "is_test": true,
+      "line_count": 268,
+      "path": "tests/test_refactor.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 72,
+      "imports": [
+        "from __future__ import annotations",
+        "import networkx as nx",
+        "from archy.risk import compute_edit_risk"
+      ],
+      "is_test": true,
+      "line_count": 86,
+      "path": "tests/test_risk.py"
+    },
+    {
+      "additional_commit_count": 5,
+      "author_count": 1,
+      "days_since_last_change": 68,
+      "imports": [
+        "from __future__ import annotations",
+        "import math",
+        "import networkx as nx",
+        "import pytest",
+        "from archy.score import ("
+      ],
+      "is_test": true,
+      "line_count": 366,
+      "path": "tests/test_score.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 38,
+      "imports": [
+        "from __future__ import annotations",
+        "from pathlib import Path",
+        "from archy.diff import compute_diff, take_snapshot",
+        "from archy.graph import build_graph",
+        "from archy.simulate import find_simulate"
+      ],
+      "is_test": true,
+      "line_count": 224,
+      "path": "tests/test_simulate.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 76,
+      "imports": [],
+      "is_test": true,
+      "line_count": 0,
+      "path": "tests/test_smoke.py"
+    },
+    {
+      "additional_commit_count": 1,
+      "author_count": 1,
+      "days_since_last_change": 75,
+      "imports": [
+        "from __future__ import annotations",
+        "from archy.history import HistoryRow",
+        "from archy.trend import render_text, sparkline"
+      ],
+      "is_test": true,
+      "line_count": 99,
+      "path": "tests/test_trend.py"
+    },
+    {
+      "additional_commit_count": 0,
+      "author_count": 1,
+      "days_since_last_change": 62,
+      "imports": [
+        "from __future__ import annotations",
+        "import sys",
+        "import time",
+        "from pathlib import Path",
+        "import pytest",
+        "from archy import watcher as watcher_mod",
+        "from archy.graph import build_graph, graph_to_dict",
+        "from archy.watcher import IndexManager"
+      ],
+      "is_test": true,
+      "line_count": 152,
+      "path": "tests/test_watcher.py"
+    }
+  ],
+  "key": "history",
+  "language": null,
+  "span": {
+    "end_column": 0,
+    "end_line": 1,
+    "path": "",
+    "start_column": 0,
+    "start_line": 1
+  },
+  "unscoped_commit_count": 82
+}

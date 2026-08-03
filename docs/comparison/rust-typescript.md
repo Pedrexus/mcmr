@@ -67,7 +67,7 @@ Two corpora, both real code nobody wrote to satisfy a rule.
 **Rust.** Five widely used crates copied out of the local cargo registry, `tokio-1.53.1`,
 `syn-2.0.119`, `regex-1.13.1`, `clap-4.6.4`, and `rayon-1.12.0`, which is 875 `.rs` files and
 8.1 MB. A second copy holds only the 824 files that are pure ASCII, for the reason given under
-"the crash" below. Plus MCMR's own kernel, `kernel/src`, 24 files and 21,143 lines, which is the one
+"the crash" below. Plus MCMR's own core crate under `src/core/src`, which is the one
 Rust codebase where a head-to-head against Clippy on identical source is possible.
 
 **TypeScript.** Two real SvelteKit and Cloudflare Workers projects, `personal/my` and
@@ -87,7 +87,7 @@ installed here. Everything else was run.
 ## The dividing line is evidence, not rule count
 
 A rule count is close to meaningless as a headline. Clippy ships 809 lints, ESLint core plus
-typescript-eslint, SonarJS, unicorn, import, and security ships 1,106, and MCMR ships 277 across six
+typescript-eslint, SonarJS, unicorn, import, and security ships 1,106, and MCMR ships 279 across six
 languages. Those three numbers answer different questions and comparing them says nothing.
 
 What matters is what each tool can know. Here is the real ladder, measured where a command settles
@@ -104,7 +104,7 @@ it.
 | Dependency manifest and lockfile | yes, and cargo-audit, cargo-deny read the lockfile | no | no | no | partly, the manifest only |
 | Dependency source code | cargo-geiger reads the whole tree | no | through `.d.ts` | no | **no** |
 | Git history | no | no | no | no | yes |
-| Two points in time | cargo-semver-checks, over two published API snapshots | no | no | no | yes, `mcmr diff` over two recorded judgments |
+| Two points in time | cargo-semver-checks, over two published API snapshots | no | no | no | no, checks are stateless |
 | Runtime behavior | Miri, under interpretation | no | no | no | no |
 
 Clippy sees a fully type-checked HIR. That is a genuine and very large advantage, and it is the
@@ -176,7 +176,7 @@ more evidence than MCMR can offer.
 
 ### What MCMR actually does on Rust, measured
 
-The catalog is 277 rules. Five are `RS-` scoped and 116 are general and deterministic, so 121 rules
+The catalog is 279 rules. Five are `RS-` scoped and 116 are general and deterministic, so 121 rules
 are eligible for a Rust repository.
 
 ```sh
@@ -189,10 +189,10 @@ Over the 824-file ASCII corpus.
 | --- | --- |
 | the family the rule reads is non-empty | 69 general, plus all 5 Rust rules |
 | the family is built but empty for Rust | 17 |
-| the family is not built from source at all and needs a `.mcmr/` record file | 30 |
+| the family had no source or provider implementation in this measurement | 30 |
 | ran on real evidence and never returned anything but zero | 38 |
 | returned a non-zero value at least once | 36 |
-| failed the standard profile at least once | 34 distinct rules, 5,811 failures, 22,292 findings |
+| failed the then-current default policy at least once | 34 distinct rules, 5,811 failures, 22,292 findings |
 
 Those 17 rules read eleven families the Rust frontend does not fill, which are
 `AttributeAccessFact`, `BranchFact`, `DependencyComponentFact`, `InteropFact`, `LiteralGroupFact`,
@@ -214,7 +214,7 @@ thread '<unnamed>' panicked at src/rust.rs:112:25:
 start byte index 5748 is not a char boundary; it is inside '🐕'
 ```
 
-The lexical comment scanner in `kernel/src/rust.rs` advances one byte at a time and then slices
+The lexical comment scanner in `src/core/src/rust.rs` advances one byte at a time and then slices
 `&text[at..]`, which panics on any multi-byte UTF-8 character it steps onto. Probed with minimal
 fixtures, a non-ASCII character panics the whole kernel run when it sits in a `char` literal, inside
 a block comment, or inside an identifier. Line comments and string literals are safe because the
@@ -243,7 +243,7 @@ MCMR's own kernel is 24 files and 21,143 lines of Rust, and the repository gates
 | `cargo-machete` | 0.02 s | 0 |
 | `cargo-audit` | 0.49 s | 0 |
 | `cargo-geiger` | 9.1 s | whole-tree unsafe census |
-| `mcmr check kernel/src --suffixes .rs` | 0.99 s | 360 failures, 340 findings, 22 distinct rules |
+| `mcmr check src/core/src --suffixes .rs` | 0.99 s | 360 failures, 340 findings, 22 distinct rules |
 
 The overlap in kind is close to nil, and that is the honest headline. Clippy's 218 are idiom and API
 shape, `map(f).unwrap_or(a)`, `this could be a const fn`, `casting usize to u32 may truncate`,
@@ -292,7 +292,7 @@ a default Clippy run does not report. But `redundant_clone` names the exact `.cl
 **Every one of the five Rust rules produces zero findings.**
 
 ```
-$ mcmr check kernel/src --suffixes .rs --select rust.deterministic.lifetimes
+$ mcmr check src/core/src --suffixes .rs --select rust.deterministic.lifetimes
 classes.rs:1:1: RS-LIFE0001 Count lifetime annotations the compiler would have inferred on its own. (2, allowed <= 0)
 ...
 24 files, 24 facts, 72 invocations, 9 failures, 0 findings, 0 unassessed
@@ -309,14 +309,14 @@ of the 10 native claims against a real Rust corpus.
 
 | Clippy lint | MCMR rule | Does it answer for Rust |
 | --- | --- | --- |
-| `too_many_arguments` | `ALL-FUNC0014` | yes, 4,863 non-zero over the corpus |
+| `too_many_arguments` | `ALL-FUNC0010` | yes, 4,863 non-zero over the corpus |
 | `let_underscore_must_use` | `ALL-ERRO0001` | yes, 78 failures |
 | `fn_params_excessive_bools` | `ALL-PARA0004` | yes, 73 non-zero |
 | `dbg_macro`, `print_stdout` | `ALL-CONT0003` | yes |
 | `module_inception` | `ALL-MODU0003` | yes |
 | `redundant_clone` | `RS-OWNE0002` | yes, 189 non-zero |
-| `excessive_nesting` | `ALL-CONT0004` and `ALL-FUNC0013` | partly, `ALL-CONT0004` answers and `ALL-FUNC0013` cannot |
-| `cognitive_complexity` | `ALL-FUNC0012` | **no**, always zero on Rust |
+| `excessive_nesting` | `ALL-CONT0004` and `ALL-FUNC0009` | partly, `ALL-CONT0004` answers and `ALL-FUNC0009` cannot |
+| `cognitive_complexity` | `ALL-FUNC0008` | **no**, always zero on Rust |
 | `no_effect` | `ALL-CONT0002` | **no**, the rule's own docstring says it "answers for Python and waits on the others" |
 
 So the real figure is 8 of 809, not 10. `ALL-CONT0002` is the sharper case, because the rule is
@@ -395,7 +395,7 @@ mcmr check /home/pedro/projects/personal/my/src --suffixes .ts --format concise
 | --- | --- |
 | the family the rule reads is non-empty | 49 general, plus all 4 TypeScript rules |
 | the family is built but empty for TypeScript | **37** |
-| the family needs a `.mcmr/` record file | 30 |
+| the family had no source or provider implementation in this measurement | 30 |
 | ran on real evidence and never returned anything but zero | 26 |
 | returned a non-zero value at least once | 27 |
 
@@ -552,12 +552,12 @@ oracle comparisons.
 
 | Claimed rule | MCMR rule | Answers for TypeScript |
 | --- | --- | --- |
-| typescript-eslint `max-params` | `ALL-FUNC0014` | yes |
+| typescript-eslint `max-params` | `ALL-FUNC0010` | yes |
 | typescript-eslint `no-restricted-imports` | `TS-MODU0002` | adapted, not equivalent |
 | typescript-eslint `no-explicit-any`, `no-non-null-assertion` | `TS-TYPE0002` | fires, 86 percent false positives |
 | ESLint `no-unused-expressions` | `ALL-CONT0002` | yes, oracle checked |
 | ESLint `no-console`, `no-debugger` | `ALL-CONT0003` | yes, oracle checked |
-| ESLint `max-depth` | `ALL-FUNC0013` | yes |
+| ESLint `max-depth` | `ALL-FUNC0009` | yes |
 
 All four previously inert ESLint claims now receive provider evidence. The restricted import rule
 is recorded as adapted because it measures distance instead of enforcing a configured list.
@@ -582,7 +582,7 @@ cpp         tangled    increments= 0  cognitive= 0  nesting=0
 
 `FunctionFact.control_increments` is filled by the Python frontend and by nothing else. Over 9,912
 Rust functions and 227 TypeScript functions in the corpora, not one carries a single control
-increment. `ALL-FUNC0012` cognitive complexity and `ALL-FUNC0013` nesting depth therefore answer for
+increment. `ALL-FUNC0008` cognitive complexity and `ALL-FUNC0009` nesting depth therefore answer for
 Python and return zero everywhere else, which is precisely the failure mode `docs/kernel.md` names
 under K2d as the worst shape a rule can have. The backlog page states the opposite of what the code
 does, and it is the load-bearing claim of the whole cross-language thesis.
@@ -599,7 +599,7 @@ enters the ledger. Neither test runs a non-Python corpus.
 
 That said, the vocabulary claim is not empty. Three rules were verified to work identically across
 languages from one definition, `ALL-NAMI0001` uninformative local names finding 803 sites in Rust,
-`ALL-COMM0006` work markers finding 45, and `ALL-COMM0005` commented-out code finding 8. The
+`ALL-COMM0003` work markers finding 45, and `ALL-COMM0002` commented-out code finding 8. The
 mechanism is real. What is not real is the specific rule the backlog nominates as its proof.
 
 ## Configuration, derived contract against stated contract
@@ -617,31 +617,29 @@ layering down.
 `docs/kernel.md` argues against this under K2c, that a layering contract in a config file rots,
 somebody adds a legitimate edge, the check fails, they widen the rule, and within a year the file
 describes the code instead of constraining it. `ModuleCouplingFact` therefore derives Martin's
-instability and abstractness every run, and `ALL-ARCH0012` reports an import pointing at a less
+instability and abstractness every run, and `ALL-ARCH0003` reports an import pointing at a less
 stable module without anyone naming a layer.
 
 The argument is good and the counter-argument is equally good. A derived measure cannot express an
 intention the code does not already hold. `dependency-cruiser` can forbid an edge that has never
-been written, which is exactly what a layering contract is for. `ALL-ARCH0012` can only report an
+been written, which is exactly what a layering contract is for. `ALL-ARCH0003` can only report an
 edge that exists. A team that wants "the domain layer must never import the HTTP layer" gets it from
 `dependency-cruiser` on day one and gets nothing from MCMR until someone writes the offending
 import.
 
 The two also differ in what a reader learns. Run on `personal/my/src`, `dependency-cruiser` reported
 six violations against a three-rule contract in 0.46 s, every one naming the rule the project itself
-wrote. On the same target `ALL-ARCH0012` reported nothing at all, and the seventeen findings
-`ALL-ARCH0014` did produce are a derived zone-of-uselessness judgment the reader has to accept on
+wrote. On the same target `ALL-ARCH0003` reported nothing at all, and the seventeen findings
+`ALL-ARCH0005` did produce are a derived zone-of-uselessness judgment the reader has to accept on
 the tool's terms.
 
 The honest conclusion is that these are complements, not competitors, and MCMR's design note reads
 as if it settled a debate it only took one side of.
 
-MCMR's real configuration story is the profile system, and it is genuinely distinctive. `relaxed`,
-`standard`, and `strict` decide how much of an opinionated measurement a project wants, a rule with
-no policy stays `unassessed` rather than guessed, and `mcmr diff` refuses to compare two runs judged
-under different profiles. Nothing in either language's ecosystem does that. Clippy has group levels
-and ESLint has severities, but neither models "this measurement is a fact and the bar is a separate
-decision" the way MCMR does, and neither can tell you a rule got worse at the same site.
+MCMR now has one policy system. Each rule owns its acceptance contract, and a project may override
+that contract without selecting a built-in mode. A result outside the stated good and bad
+sets stays `unassessed` rather than guessed. Clippy has group levels and ESLint has severities, but
+neither models a measurement and its acceptance contract as separate values the way MCMR does.
 
 ## Fixes
 
@@ -663,8 +661,8 @@ attaches a plan to a finding and nothing writes a byte.
 For these two languages the point is close to moot anyway. Of the 23 fixes, 18 are Python-scoped.
 The five general ones are commented-out code, three inline-a-helper fixes, and a multiline string
 literal that the design doc itself records as guarding on `subject.language` until a language backend
-exists. On the Rust corpus exactly one fix-carrying rule fires, `ALL-COMM0005`, eight times. **On
-TypeScript, zero fix-carrying rules can fire at all**, because `ALL-COMM0005` reads `CommentFact`
+exists. On the Rust corpus exactly one fix-carrying rule fires, `ALL-COMM0002`, eight times. **On
+TypeScript, zero fix-carrying rules can fire at all**, because `ALL-COMM0002` reads `CommentFact`
 and the TypeScript frontend does not fill it.
 
 Meanwhile `cargo clippy --fix` would rewrite 169 sites in the kernel today.
@@ -695,7 +693,7 @@ Where MCMR does carry a finding it is often very good, and better than a linter 
 states the aggregate reasoning a per-occurrence rule cannot.
 
 ```
-ALL-ARCH0013 `kernel::discovery` is imported by 10 modules and 0 of the 7 types it declares
+ALL-ARCH0004 `kernel::discovery` is imported by 10 modules and 0 of the 7 types it declares
 state a contract, so every one of those importers is wired to an implementation
 ALL-REAC0002 `dictionary.store.svelte.HistoryItem` is a public class read 2 times inside this
 file and nowhere outside it
@@ -718,7 +716,7 @@ MCMR will never answer any of them. This is not a gap to close, it is the shape 
 
 **Clippy is already on.** Every Rust project that runs `cargo clippy` in CI gets 482 lints with zero
 configuration, and 68 of them at `deny`. MCMR is an additional tool with an additional install and
-an additional profile decision.
+its own rule contracts.
 
 **Clippy fixes 169 things on MCMR's own kernel and MCMR fixes zero.**
 
@@ -730,9 +728,8 @@ an additional profile decision.
 advisory database, licence metadata, and the source of every transitive dependency. MCMR reads the
 manifest and stops. Supply chain is a whole axis where MCMR contributes nothing.
 
-**cargo-semver-checks answers a question MCMR's `diff` cannot.** `mcmr diff` compares two judgments
-of the same repository. `cargo-semver-checks` compares two public APIs and tells you whether the
-version number is a lie.
+**cargo-semver-checks answers a question MCMR does not attempt.** It compares two public APIs and
+tells you whether the version number is a lie, while MCMR checks one current repository.
 
 **Miri finds undefined behavior.** No static tool does, MCMR included.
 
@@ -778,17 +775,12 @@ catch, and it slips through because MCMR's own repository does have a `pyproject
 
 Kept short because the losses above are the point of this document, but these are real.
 
-**The repository is the unit.** `ALL-ARCH0012` through `ALL-ARCH0014` place every module against
+**The repository is the unit.** `ALL-ARCH0003` through `ALL-ARCH0005` place every module against
 Martin's main sequence and name the zone of pain without anyone writing a layering file. Nothing in
 either ecosystem does this.
 
-**Recorded runs.** `mcmr snapshot`, `mcmr diff`, and `mcmr trend` answer whether a codebase is
-getting better, and they refuse to compare two runs judged differently. ESLint and Clippy answer
-only what the code is today. This is MCMR's strongest genuinely unique capability and it works for
-Rust and TypeScript already, because it is built on the judgment layer rather than on any frontend.
-
-**Measurement separated from policy.** A count is a count and the bar is a profile decision, and a
-rule with no policy stays `unassessed` rather than guessed.
+**Measurement separated from policy.** A count is a count and each rule owns the bar. Project
+configuration can replace that rule's contract after validating the same output shape.
 
 **One graph over a polyglot repository.** Python beside Rust beside TypeScript beside CUDA, with
 cross-language seams found where one language declares a binary and another names it. A monorepo
@@ -808,12 +800,12 @@ by value, and large enum variants. Every one of them is a good rule and every on
 high, because all four sit behind evidence the frontends do not produce and two of them need type
 inference MCMR does not have. Fixing what already claims to work should come first.
 
-**1. Stop the kernel crashing on non-ASCII Rust.** `kernel/src/rust.rs` lines 112 and 138 slice on a
+**1. Stop the kernel crashing on non-ASCII Rust.** `src/core/src/rust.rs` lines 112 and 138 slice on a
 byte index. Four crates out of five in a normal corpus contain a character that kills the whole run.
 Nothing else on this list matters until `mcmr check` finishes on real Rust.
 
 **2. Fill `control_increments` in the Rust, TypeScript, and native frontends.** This is one field and
-it unlocks `ALL-FUNC0012` and `ALL-FUNC0013`, restores the truth of the backlog's own cross-language
+it unlocks `ALL-FUNC0008` and `ALL-FUNC0009`, restores the truth of the backlog's own cross-language
 claim, makes the `cognitive_complexity` Clippy claim real, completes the `excessive_nesting` one, and
 makes the ESLint `max-depth` claim real too. The Python frontend already computes nesting-annotated
 increments, so the model is settled and only the walk is missing. Higher value per line of work than
@@ -848,7 +840,7 @@ percent of MCMR's output on a real SvelteKit project is currently about files no
 item and made the three ESLint syntax claims executable.
 
 **9. Fill `CallFact` and `CommentFact` from the TypeScript frontend.** Six more general rules, and
-`CommentFact` is what makes `ALL-COMM0005` the first fix any TypeScript project could use.
+`CommentFact` is what makes `ALL-COMM0002` the first fix any TypeScript project could use.
 
 **10. Read `.svelte`, `.vue`, and `.astro` for references.** Not full parsing, just enough to count
 a symbol as reached. Forty-seven percent of the reach findings on a Svelte project are wrong today,
@@ -910,11 +902,11 @@ claim.
 The stale TypeScript `SyntaxFact` gap was removed from `tests/test_language_coverage.py`. Its
 remaining TypeScript gap is `CommentFact`, which is explicit and fails in both directions.
 
-`src/mcmr/rules/rust/deterministic/lifetimes/r0001.py` documents an exception its implementation does
+`src/rules/mcmr/rules/rust/deterministic/lifetimes/r0001.py` documents an exception its implementation does
 not honour, "A trait or type that names a lifetime is not judged here at all", and `is_elidable`
 never reads `annotation.kind`.
 
-`src/mcmr/rules/typescript/deterministic/types/r0002.py` documents "Each finding names the module,
+`src/rules/mcmr/rules/typescript/deterministic/types/r0002.py` documents "Each finding names the module,
 its measured lines, and every hatch with its kind and line", and returns a bare `Percentage` with no
 findings. The same mismatch between a documented `Evidence` section and a bare value appears in all
 five `RS-` rules and all four `TS-` rules.
@@ -931,10 +923,10 @@ node -e "require('@biomejs/biome/configuration_schema.json')"
 tsc --all
 
 # MCMR against each corpus, run through the chefe environment as `python -m mcmr.cli`
-mcmr check kernel/src --suffixes .rs --format concise --limit 400
+mcmr check src/core/src --suffixes .rs --format concise --limit 400
 mcmr check /path/to/rust-corpus --suffixes .rs --format concise
 mcmr check /path/to/project/src --suffixes .ts --format concise --limit 500
-mcmr check kernel/src --suffixes .rs --select rust.deterministic.lifetimes
+mcmr check src/core/src --suffixes .rs --select rust.deterministic.lifetimes
 mcmr coverage --tool clippy
 
 # the fact families and fields each frontend actually fills, over one corpus

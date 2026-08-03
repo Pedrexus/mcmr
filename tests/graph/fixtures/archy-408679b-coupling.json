@@ -1,0 +1,30 @@
+[
+  [
+    "src/archy/cli.py",
+    "src/archy/complexity.py",
+    5,
+    50,
+    5
+  ],
+  [
+    "src/archy/install/base.py",
+    "src/archy/mcp.py",
+    7,
+    9,
+    44
+  ],
+  [
+    "src/archy/cli.py",
+    "src/archy/parser.py",
+    5,
+    50,
+    7
+  ],
+  [
+    "src/archy/__init__.py",
+    "src/archy/score.py",
+    7,
+    48,
+    12
+  ]
+]

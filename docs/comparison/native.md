@@ -11,9 +11,9 @@ length, and spacing are noted only where they inflate a count.
 ## What MCMR is for
 
 MCMR judges a repository against the engineering policy a project chose. A rule reads one typed
-fact, returns an occurrence, a count, a percentage, or a category, and a profile decides what that
-observation is worth. It reads six languages through one fact contract, keeps recorded runs so two
-commits are comparable, and reads git history and the whole module graph rather than one file.
+fact, returns an occurrence, a count, a percentage, or a category, and its own acceptance contract
+decides what that observation is worth. It reads six languages through one fact contract, and reads git history and
+the whole module graph rather than one file.
 
 It does not compete on local correctness, memory safety, or undefined behavior in C, C++, or CUDA,
 and this document argues that it should not start.
@@ -63,12 +63,12 @@ The last row is the one place the sign flips, and it is the whole of MCMR's hone
 
 ## What MCMR's catalog actually holds for these languages
 
-The catalog is 277 rules. By scope, read out of the catalog rather than from memory.
+The catalog is 275 rules. By scope, read out of the catalog rather than from memory.
 
 | Scope | Rules |
 |---|---|
-| general | 176 |
-| python | 89 |
+| general | 151 |
+| python | 111 |
 | rust | 5 |
 | typescript | 4 |
 | cuda | 3 |
@@ -119,9 +119,9 @@ How much of the catalog runs.
 
 | Corpus | Rules selected | Made any observation | A policy could judge | Reported anything |
 |---|---|---|---|---|
-| tokenization | 277 | 72 | 69 | 25 |
-| llm-head | 277 | 83 | 80 | 24 |
-| cuCollections | 277 | 72 | 69 | 35 |
+| tokenization | 279 | 72 | 69 | 25 |
+| llm-head | 279 | 83 | 80 | 24 |
+| cuCollections | 279 | 72 | 69 | 35 |
 
 So roughly a quarter of the catalog sees evidence on a native repository and a tenth of it says
 anything. Of the 25 rules that reported on tokenization, three are the CUDA rules, one is
@@ -144,9 +144,9 @@ line each, and the two units are kept apart wherever both appear below.
 |---|---|---|---|
 | `ALL-PARA0001` swappable parameter pair | 95 | 126 | 111 |
 | `ALL-DUPL0003` pasted block copy | 57 | 140 | 504 |
-| `ALL-FUNC0014` required parameter count | 40 | 57 | 52 |
-| `ALL-FUNC0010` shallow callable | 12 | 33 | 193 |
-| `ALL-COMM0002` comment length | 1 | 7 | 206 |
+| `ALL-FUNC0010` required parameter count | 40 | 57 | 52 |
+| `ALL-FUNC0006` shallow callable | 12 | 33 | 193 |
+| `ALL-COMM0001` comment length | 1 | 7 | 206 |
 | `ALL-REAC0001` and `ALL-REAC0002` reach | 30 | 39 | 130 |
 | `CU-LAUN0002` default stream launch | 12 | 0 | 51 |
 | `CU-LAUN0001` raw barrier | 5 | 12 | 4 |
@@ -156,11 +156,11 @@ line each, and the two units are kept apart wherever both appear below.
 
 Two of those numbers are worth stopping on.
 
-`ALL-COMM0002` fires on 206 of cuCollections' 206 files. Every NVIDIA source opens with the
+`ALL-COMM0001` fires on 206 of cuCollections' 206 files. Every NVIDIA source opens with the
 fifteen-line Apache-2.0 notice, the rule measures the longest contiguous comment group normalized
-against 200 tokens, and the standard profile fails anything past 40 percent. A rule with a 100
+against 200 tokens, and the then-current default policy failed anything past 40 percent. A rule with a 100
 percent fire rate has told the reader nothing. The rule's own documentation anticipates this and
-says a legal notice measures exactly as long as it is, and the profile fails it anyway.
+says a legal notice measures exactly as long as it is, and the configured policy failed it anyway.
 
 `ALL-PARA0001` prints 282 of the 613 lines the tokenization run produced, which is 46 percent of
 everything a reader sees, and it is measurably wrong a fifth of the time. The native frontend reads
@@ -202,7 +202,7 @@ brief asks about.
 | `hicpp` | 31 |
 | everything else, including Abseil, Android, Fuchsia, Google, LLVM, Objective-C, Altera, MPI, OpenMP | 103 |
 
-A check-count comparison against MCMR's 277 would be close to meaningless, so here is the
+A check-count comparison against MCMR's 279 would be close to meaningless, so here is the
 comparison that is not. Over the tokenization block module, 14 translation units through a
 compilation database, `bugprone-*` through `readability-*` plus `clang-analyzer-*`, restricted to
 first-party files and deduplicated by file, line, column, and check, clang-tidy reports **489
@@ -325,7 +325,7 @@ the compiler's bar rather than duplicating it.
 module, `module.cpp`, because its directory walk does not treat `.cu` and `.cuh` as C++. Named
 explicitly, `lizard kernel.cuh` works and reports NLOC 74, CCN 9. So lizard on a CUDA project
 silently measures almost nothing unless every file is listed by hand. MCMR's `ALL-FUNC0001`,
-`ALL-FUNC0012`, and `ALL-CONT0004` answer the same family of questions and do read `.cu` and
+`ALL-FUNC0008`, and `ALL-CONT0004` answer the same family of questions and do read `.cu` and
 `.cuh`.
 
 ### cpplint
@@ -519,7 +519,7 @@ Two problems, both measured.
 from the tokenization run.
 
 ```
-buckets.cuh:153:5: ALL-FUNC0010 Detect a one-line public callable without enough behavior or reuse. (True, allowed False)
+buckets.cuh:153:5: ALL-FUNC0006 Detect a one-line public callable without enough behavior or reuse. (True, allowed False)
 runtime.cu:1:1: ALL-MODU0002 Measure top-level classes and functions as a deterministic focus proxy. (28, allowed <= 20)
 impl.cuh:1:1: CU-MEMO0001 Count blocking transfers issued where stream work is already in flight. (1, allowed <= 0)
 ```
@@ -528,7 +528,7 @@ A reader is told a rule's purpose and a number, not what to look at. Compare a r
 its finding.
 
 ```
-api.cuh:13:1: ALL-CLAS0002 `BlockRuntime` declares 10 members of its 11 out of order, and
+api.cuh:13:1: ALL-CLAS0001 `BlockRuntime` declares 10 members of its 11 out of order, and
   `built_with_static_map` belongs where `~BlockRuntime` sits (1, allowed <= 0)
 ```
 
@@ -637,7 +637,7 @@ pattern rather than a curiosity.
 
 **True for the whole-repository measures.** These are real and no C++ linter has them.
 
-* Module coupling and the main sequence. `ALL-ARCH0012` on cuCollections reads the `#include`
+* Module coupling and the main sequence. `ALL-ARCH0003` on cuCollections reads the `#include`
   graph and reports that `benchmarks::benchmark_defaults` sits at 3.12 percent instability and
   imports `include::cuco::hash_functions` at 9.68, so every change to the second reaches the 31
   modules that depend on the first. That is Martin's Stable Dependencies Principle computed over a
@@ -646,11 +646,8 @@ pattern rather than a curiosity.
   No static C++ tool reads a repository's history.
 * Cross-file clone detection over normalized tokens. `ALL-DUPL0003` found 504 pasted blocks in
   cuCollections, most of them in the benchmark suite where they are real.
-* Recorded runs and a refused comparison. `mcmr snapshot`, `mcmr diff`, and `mcmr trend` say which
-  way a repository moved and refuse to compare two runs judged differently. CodeChecker offers
-  baselining and nothing else here does.
 
-One caveat on the architecture rules. `ALL-ARCH0013` measures abstractness by counting pure
+One caveat on the architecture rules. `ALL-ARCH0004` measures abstractness by counting pure
 virtuals, and a C++ template library expresses abstraction through templates and concepts, so it
 reports the zone of pain on essentially any header that several others include. The kernel's own
 documentation already admits that a contract expressed as a template parameter has no declaration
@@ -669,8 +666,8 @@ Every one of these is in MCMR rather than in another tool.
    ```
 
    The C++ source is `state.exec(...)`, `map.insert(...)`, `timer.start(...)`. Because the receiver
-   is gone, `ALL-FUNC0015` reads nvbench's `state.exec` as Python's `exec` builtin and reported 35
-   reflective scope reads on cuCollections, every one false. `ALL-SECU0010` compounds it. The first
+   is gone, `ALL-FUNC0011` reads nvbench's `state.exec` as Python's `exec` builtin and reported 35
+   reflective scope reads on cuCollections, every one false. `ALL-SECU0005` compounds it. The first
    argument of `state.exec(nvbench::exec_tag::sync | nvbench::exec_tag::timer, ...)` is an
    `operation` node, which the rule reads as a command line built from parts, so a CUDA benchmark is
    reported as a shell injection. Four such findings on cuCollections. Every general rule that
@@ -678,7 +675,7 @@ Every one of these is in MCMR rather than in another tool.
    `tests/test_language_coverage.py` cannot catch it because its fixture compares binding names and
    never call names.
 
-2. **The interop extractor returns C++ keywords instead of kernel names.** `kernel/src/interop.rs`
+2. **The interop extractor returns C++ keywords instead of kernel names.** `src/core/src/interop.rs`
    reads a CUDA artifact as the identifier following `__global__` and the first space. On the
    tokenization corpus the complete list of CUDA artifacts it found is `__launch_bounds__`,
    `inline`, `void`, `kernels`, and `cuco`. Not one is a kernel. The extractor's own unit test,
@@ -747,7 +744,7 @@ items 17 through 22 where they hold up.
 5. **Backlog 19, block size that is not a multiple of the warp.** Cheap, `KernelLaunchFact` already
    carries the block dimension as source text, and it is only answerable where the dimension is a
    literal. Worth having, small.
-6. **`ALL-COMM0002` needs to stop counting license headers.** A 100 percent fire rate is not a
+6. **`ALL-COMM0001` needs to stop counting license headers.** A 100 percent fire rate is not a
    measurement. Either the family excludes a leading notice or the profile does.
 7. **Backlog 21 and 22, the rule of five and const correctness.** These are the two items I would
    drop. clang-tidy's `cppcoreguidelines-special-member-functions` and `misc-const-correctness`
@@ -788,7 +785,6 @@ time.
 * Whole-repository shape, meaning module coupling over the include graph, cross-file clones, git
   history, and the reach graph. These read C++ well enough to be useful and nothing else in the C++
   world offers them.
-* Recorded runs and refused comparisons, which is a policy capability rather than a linting one.
 
 **Spend the next unit of effort on correctness of what already runs, not on new rules.** Twenty
 rules judge native source today and the most productive of them is 22 percent wrong, two rules fire

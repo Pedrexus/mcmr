@@ -1,0 +1,73 @@
+[
+ {
+  "name": "Pylint",
+  "codes": "[CEFIRW]\\d{4}",
+  "documentation": "https://pylint.readthedocs.io/en/stable/user_guide/messages/{category}/{symbol}.html",
+  "categories": {
+   "C": "convention",
+   "E": "error",
+   "F": "fatal",
+   "I": "informational",
+   "R": "refactor",
+   "W": "warning"
+  },
+  "inventoried": true,
+  "languages": ["python"]
+ },
+ {
+  "name": "Ruff",
+  "codes": "[A-Z]{1,5}\\d{3,4}",
+  "documentation": "https://docs.astral.sh/ruff/rules/{symbol}/",
+  "inventoried": true,
+  "languages": ["python"]
+ },
+ {
+  "name": "Clippy",
+  "documentation": "https://rust-lang.github.io/rust-clippy/master/index.html#{symbol}",
+  "inventoried": true,
+  "languages": ["rust"]
+ },
+ {
+  "name": "clang-tidy",
+  "documentation": "https://clang.llvm.org/extra/clang-tidy/checks/{path}.html",
+  "inventoried": true,
+  "languages": ["c", "cpp", "cuda"]
+ },
+ {
+  "name": "ESLint",
+  "documentation": "https://eslint.org/docs/latest/rules/{symbol}",
+  "inventoried": true,
+  "languages": ["typescript"]
+ },
+ {
+  "name": "typescript-eslint",
+  "documentation": "https://typescript-eslint.io/rules/{symbol}/",
+  "inventoried": true,
+  "languages": ["typescript"]
+ },
+ {
+  "name": "cppcheck",
+  "documentation": "https://cppcheck.sourceforge.io/manual.html",
+  "inventoried": true,
+  "languages": ["c", "cpp"]
+ },
+ {
+  "name": "SonarSource",
+  "codes": "S\\d+",
+  "documentation": "https://rules.sonarsource.com/python/RSPEC-{code}/"
+ },
+ {
+  "name": "wemake-python-styleguide",
+  "codes": "WPS\\d{3}",
+  "documentation": "https://wemake-python-styleguide.readthedocs.io/en/latest/pages/usage/violations/"
+ },
+ {
+  "name": "flake8-class-attributes-order",
+  "codes": "CCE\\d{3}",
+  "documentation": "https://github.com/best-doctor/flake8-class-attributes-order"
+ },
+ {
+  "name": "Vulture",
+  "documentation": "https://github.com/jendrikseipp/vulture"
+ }
+]

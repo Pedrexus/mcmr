@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from patos import FrozenModel
 
-from ....domain.contracts import RuleDefinition
+from ....rulebook.catalog import RuleDefinition
 from .parser import ReferenceParser
 
 if TYPE_CHECKING:
@@ -34,14 +34,7 @@ class ClaimIndex(FrozenModel):
     def claims(self) -> list[Reference]:
         """Return every reference that claims coverage, in rule order."""
         return [
-            reference.model_copy(
-                update={
-                    "rule": definition.id,
-                    "summary": definition.documentation.summary,
-                    "scope": definition.scope,
-                    "fact": definition.fact,
-                }
-            )
+            reference.model_copy(update={"definition": definition})
             for definition, reference in self.references
             if reference.upstream is not None and reference.relation.coverage is not None
         ]

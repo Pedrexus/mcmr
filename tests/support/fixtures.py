@@ -5,16 +5,14 @@ from typing import TYPE_CHECKING, cast
 
 import pytest
 from hypothesis import settings
-from patos import FrozenModel
 from pydantic import BaseModel
 
 from mcmr.domain.contracts import fact_type
-from mcmr.facts import Fact, SourceSpan, SyntaxFact, SyntaxNode
-from mcmr.kernel import locate
+from mcmr.plugins import Fact, fact_table
+from mcmr.project import locate
 from mcmr.query import RuleQuery
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
-from mcmr.table import fact_table
 
 if TYPE_CHECKING:
     from mcmr.domain.contracts import Finding, RuleContract, RuleSetting, RuleValue
@@ -91,45 +89,6 @@ def query_value(query: RuleQuery) -> RuleValue:
         if scalar.len() == 1:
             return cast("RuleValue", scalar.item())
     raise TypeError("the rule emitted no single scalar value")
-
-
-class Declaration(FrozenModel):
-    """Build a syntax fact from the file, declaration name, and body a test varies."""
-
-    path: str
-    qualname: str = "run"
-    kind: str = "callable"
-    language: str = "python"
-    source: str = ""
-
-    @property
-    def span(self) -> SourceSpan:
-        """Return the span every node of this declaration is located against."""
-        return SourceSpan(path=self.path)
-
-    def around(self, tree: SyntaxNode | None) -> SyntaxFact:
-        """Return the fact carrying exactly this tree, which may be no tree at all."""
-        return SyntaxFact(
-            key=f"syntax:{self.path}:{self.qualname}",
-            span=self.span,
-            language=self.language,
-            qualname=self.qualname,
-            kind=self.kind,
-            source=self.source,
-            tree=tree,
-        )
-
-    def of(self, *body: SyntaxNode, span: SourceSpan | None = None) -> SyntaxFact:
-        """Return the fact whose declaration node holds the given statements."""
-        return self.around(
-            SyntaxNode(
-                kind=self.kind,
-                name=self.qualname,
-                text=self.source,
-                span=span,
-                children=list(body),
-            )
-        )
 
 
 type FactValue = (

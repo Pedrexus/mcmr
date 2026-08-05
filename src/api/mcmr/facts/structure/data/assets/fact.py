@@ -9,4 +9,5 @@ if TYPE_CHECKING:
 class DataAssetFact(Fact):
     """Describe one governed data asset."""
 
+    external_evidence = True
     assets: list[DataAsset] = []

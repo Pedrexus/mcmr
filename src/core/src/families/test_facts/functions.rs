@@ -1,11 +1,17 @@
 use super::super::collections::stated;
 use super::super::waivers::days_since;
-use super::structure::{conditional_count, declared_tests, owned_statements};
+use super::structure::{conditional_count, declared_tests, literal_shape, owned_statements};
 use crate::source::Source;
-use crate::walk::{children, docstring, qualified_name, walk};
+use crate::walk::{children, docstring, qualified_name};
 use ruff_python_ast::{Expr, ModModule, Number, Stmt};
 use serde_json::{Value, json};
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeSet;
+
+use fixtures::{fixture_parameters, reached_fixtures};
+use generated::{generated_case_sources, generated_parametrization_count};
+
+mod fixtures;
+mod generated;
 
 /// Every test one file declares, with the fixtures, marks, and module state each reaches.
 ///
@@ -15,8 +21,10 @@ use std::collections::{BTreeMap, BTreeSet};
 pub fn test_functions(source: &Source, module: &ModModule) -> Value {
     let fixtures = fixture_parameters(module);
     let state = module_state(module);
+    let generated = generated_case_sources(module);
     let mut tests = Vec::new();
     for (item, collected) in declared_tests(&module.body) {
+        let (body_shape, literal_values) = literal_shape(source, &item.body);
         let requested: Vec<String> = item
             .parameters
             .iter()
@@ -35,11 +43,15 @@ pub fn test_functions(source: &Source, module: &ModModule) -> Value {
                 .map(|decorator| qualified_name(&decorator.expression))
                 .collect::<Vec<_>>(),
             "calls": test_calls(source, &item.body),
+            "body_shape": body_shape,
+            "literal_values": literal_values,
+            "assertion_shapes": assertion_shapes(source, &item.body),
             "owned_conditional_count": conditional_count(&item.body),
             "owned_statement_count": owned_statements(&item.body).len()
                 - usize::from(docstring(&item.body).is_some()),
             "module_state_mutation_count": module_state_mutations(&item.body, &state),
             "parametrized_range_sizes": parametrized_sizes(item),
+            "generated_parametrization_count": generated_parametrization_count(item, &generated),
             "fixture_names": reached_fixtures(&requested, &fixtures),
         }));
     }
@@ -49,6 +61,14 @@ pub fn test_functions(source: &Source, module: &ModModule) -> Value {
         .flat_map(quarantines)
         .collect::<Vec<_>>();
     json!({"tests": tests, "quarantined_tests": quarantined_tests})
+}
+
+fn assertion_shapes(source: &Source, body: &[Stmt]) -> Vec<String> {
+    owned_statements(body)
+        .into_iter()
+        .filter(|statement| matches!(statement, Stmt::Assert(_)))
+        .map(|statement| literal_shape(source, std::slice::from_ref(statement)).0)
+        .collect()
 }
 
 /// Return explicit flaky-test quarantines and the lifecycle metadata their marker states.
@@ -109,49 +129,6 @@ fn quarantines(item: &ruff_python_ast::StmtFunctionDef) -> Vec<Value> {
             })
         })
         .collect()
-}
-
-/// Return what each fixture one module declares asks for in turn.
-fn fixture_parameters(module: &ModModule) -> BTreeMap<String, Vec<String>> {
-    walk(module)
-        .into_iter()
-        .filter_map(|statement| match statement {
-            Stmt::FunctionDef(item)
-                if item.decorator_list.iter().any(|decorator| {
-                    qualified_name(&decorator.expression).ends_with("fixture")
-                }) =>
-            {
-                Some((
-                    item.name.to_string(),
-                    item.parameters
-                        .iter()
-                        .map(|parameter| parameter.name().to_string())
-                        .collect(),
-                ))
-            }
-            _ => None,
-        })
-        .collect()
-}
-
-/// Return every fixture one test reaches, following the ones this module declares.
-///
-/// A test asks for a fixture by name and that fixture asks for others, so the set in play is the
-/// closure rather than the signature. Only fixtures this file declares can be followed, since a
-/// name a conftest supplies is not stated here.
-fn reached_fixtures(
-    requested: &[String],
-    fixtures: &BTreeMap<String, Vec<String>>,
-) -> Vec<String> {
-    let mut found: BTreeSet<String> = BTreeSet::new();
-    let mut pending: Vec<String> = requested.to_vec();
-    while let Some(name) = pending.pop() {
-        if !found.insert(name.clone()) {
-            continue;
-        }
-        pending.extend(fixtures.get(&name).into_iter().flatten().cloned());
-    }
-    found.into_iter().collect()
 }
 
 /// Return every module-scope name one file binds, which is the state its tests can share.

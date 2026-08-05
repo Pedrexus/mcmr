@@ -31,7 +31,7 @@ class CheckReport(CheckReportFields.Outcome):
         return cls(
             root=str(root),
             file_count=judged.kernel.file_count,
-            fact_count=judged.kernel.fact_count,
+            fact_count=judged.engine.fact_count,
             rule_count=judged.engine.rule_count,
             rule_execution_count=judged.engine.rule_execution_count,
             skipped_rule_count=judged.engine.skipped_rule_count,

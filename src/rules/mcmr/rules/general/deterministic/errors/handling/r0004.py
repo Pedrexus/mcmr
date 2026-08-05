@@ -11,7 +11,7 @@ from ......table.relations import SyntaxTable
 
 
 def _guards_and_clauses(
-    relations: SyntaxTable, nodes: pl.LazyFrame, handlers: tuple[str, ...]
+    relations: SyntaxTable[SyntaxFact], nodes: pl.LazyFrame, handlers: tuple[str, ...]
 ) -> tuple[pl.LazyFrame, pl.LazyFrame]:
     """Return located guards and the error names each handler states."""
     guards = relations.with_text(nodes.filter(pl.col("kind") == "guard")).select(
@@ -65,7 +65,7 @@ def _guards_and_clauses(
 
 
 def _thrown_inside_guards(
-    relations: SyntaxTable,
+    relations: SyntaxTable[SyntaxFact],
     *,
     nodes: pl.LazyFrame,
     guards: pl.LazyFrame,

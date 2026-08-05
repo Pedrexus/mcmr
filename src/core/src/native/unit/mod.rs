@@ -3,7 +3,7 @@ use super::support::{
 };
 use crate::graph::Language;
 use crate::protocol::JsonObject;
-use crate::source::Source;
+use crate::source::{Source, is_test_path};
 use serde_json::{Value, json};
 use tree_sitter::Node as Syntax;
 
@@ -65,6 +65,7 @@ impl Unit {
                     .filter(|node| node.kind() == "function_definition")
                     .count(),
                 "is_package_initializer": false,
+                "is_test": is_test_path(&self.source.relative),
                 "members": declared
                     .iter()
                     .filter_map(|node| {

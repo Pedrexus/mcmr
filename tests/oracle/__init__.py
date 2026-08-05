@@ -53,22 +53,7 @@ from .contracts import (
     Site as Site,
 )
 from .contracts import (
-    catalog as catalog,
-)
-from .contracts import (
-    contract as contract,
-)
-from .contracts import (
     differ as differ,
-)
-from .contracts import (
-    extracted as extracted,
-)
-from .contracts import (
-    retained_fact as retained_fact,
-)
-from .contracts import (
-    tabled as tabled,
 )
 from .readers import (
     DeclarationReader as DeclarationReader,
@@ -98,13 +83,28 @@ from .readers import (
     assembled as assembled,
 )
 from .readers import (
+    catalog as catalog,
+)
+from .readers import (
+    contract as contract,
+)
+from .readers import (
+    extracted as extracted,
+)
+from .readers import (
     needs as needs,
 )
 from .readers import (
     needs_kernel as needs_kernel,
 )
 from .readers import (
+    retained_fact as retained_fact,
+)
+from .readers import (
     scalar as scalar,
+)
+from .readers import (
+    tabled as tabled,
 )
 from .readers import (
     written as written,

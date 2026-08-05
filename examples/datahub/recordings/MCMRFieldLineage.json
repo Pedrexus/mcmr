@@ -1,0 +1,87 @@
+[
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.raw.orders,PROD)"
+    },
+    "response": {
+      "data": {
+        "dataset": {
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.raw.orders,PROD)",
+          "fineGrainedLineages": []
+        }
+      },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD)"
+    },
+    "response": {
+      "data": {
+        "dataset": {
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD)",
+          "fineGrainedLineages": [
+            {
+              "upstreams": [
+                {
+                  "urn": "urn:li:schemaField:(urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD),legacy_total)",
+                  "path": "legacy_total"
+                }
+              ],
+              "downstreams": [
+                {
+                  "urn": "urn:li:schemaField:(urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD),total)",
+                  "path": "total"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.revenue,PROD)"
+    },
+    "response": {
+      "data": {
+        "dataset": {
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.revenue,PROD)",
+          "fineGrainedLineages": []
+        }
+      },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)"
+    },
+    "response": {
+      "data": {
+        "dataset": {
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)",
+          "fineGrainedLineages": []
+        }
+      },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.retention,PROD)"
+    },
+    "response": {
+      "data": {
+        "dataset": {
+          "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.retention,PROD)",
+          "fineGrainedLineages": []
+        }
+      },
+      "extensions": {}
+    }
+  }
+]

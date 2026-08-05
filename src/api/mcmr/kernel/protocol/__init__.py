@@ -11,9 +11,12 @@ from .graph import (
 )
 from .messages import KernelArgument, KernelStats, KernelStreamBatch
 
+GraphReader = KernelClient
+
 __all__ = [
     "EdgeKind",
     "GraphNode",
+    "GraphReader",
     "KernelArgument",
     "KernelClient",
     "KernelExchange",

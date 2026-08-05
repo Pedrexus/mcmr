@@ -8,7 +8,7 @@ from mcmr.rules.general import (
     subclass_initializer_skips_its_base,
 )
 
-from ..support import link, member, table_value
+from ...support import link, member, table_value
 
 
 def test_an_override_that_changes_how_a_caller_reaches_it_is_reported() -> None:

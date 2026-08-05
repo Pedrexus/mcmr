@@ -190,6 +190,31 @@ def test_renderer_moves_an_exact_rust_member_for_verified_review(tmp_path: Path)
     assert revised == "impl Service {\n    fn alpha() {}\n\n    fn zebra() {}\n}\n"
 
 
+def test_move_keeps_the_blank_lines_inside_a_moved_docstring_empty(tmp_path: Path) -> None:
+    """Reindenting a moved member never writes indentation onto a line holding no text."""
+    source = '''class Service:
+    def zeta(self):
+        pass
+
+    def alpha(self):
+        """Do the thing.
+
+        Explain the thing.
+        """
+        pass
+'''
+    (tmp_path / "sample.py").write_text(source)
+    moved = source[source.index("def alpha") :].rstrip("\n")
+    place = partial(node, "sample.py", start_column=4, end_column=12, kind="method")
+    target = place(text=moved, start_line=5, end_line=10)
+    anchor = place(text="def zeta(self):\n        pass", start_line=2, end_line=3)
+
+    revised = render(tmp_path, Move(target=target, anchor=anchor, placement=Placement.BEFORE))
+
+    assert [line for line in revised.splitlines() if line != line.rstrip()] == []
+    assert revised == f"class Service:\n    {moved}\n\n    def zeta(self):\n        pass\n"
+
+
 def test_move_after_and_equal_insertions_keep_the_requested_order(tmp_path: Path) -> None:
     """Move placement and same-offset insertions stay deterministic."""
     (tmp_path / "sample.py").write_text("first = 1\nsecond = 2\n")

@@ -153,8 +153,54 @@ fn a_defining_package_imports_its_own_symbol_without_crossing_a_facade() {
     )
     .expect("the graph builds");
 
-    assert_eq!(graph.exports[0].bypasses.len(), 1);
-    assert_eq!(graph.exports[0].bypasses[0].path, "consumer.py");
+    assert_eq!(
+        graph.exports[0]
+            .bypasses
+            .iter()
+            .map(|bypass| bypass.path.as_str())
+            .collect::<Vec<_>>(),
+        ["consumer.py"]
+    );
+}
+
+#[test]
+fn a_nested_facade_does_not_redirect_its_own_distribution() {
+    let graph = build(
+        "repo",
+        &[
+            Document {
+                relative: "pkg/__init__.py".to_string(),
+                source: String::new(),
+            },
+            Document {
+                relative: "pkg/plugins/__init__.py".to_string(),
+                source: "from pkg.internal.engine import Engine\n\n__all__ = [\"Engine\"]\n"
+                    .to_string(),
+            },
+            Document {
+                relative: "pkg/internal/engine.py".to_string(),
+                source: "class Engine:\n    pass\n".to_string(),
+            },
+            Document {
+                relative: "pkg/service.py".to_string(),
+                source: "from pkg.internal.engine import Engine\n".to_string(),
+            },
+            Document {
+                relative: "consumer.py".to_string(),
+                source: "from pkg.internal.engine import Engine\n".to_string(),
+            },
+        ],
+    )
+    .expect("the graph builds");
+
+    assert_eq!(
+        graph.exports[0]
+            .bypasses
+            .iter()
+            .map(|bypass| bypass.path.as_str())
+            .collect::<Vec<_>>(),
+        ["consumer.py"]
+    );
 }
 
 #[test]

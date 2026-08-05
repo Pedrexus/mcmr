@@ -1,6 +1,5 @@
 from .contextual.models.r1001 import model_foundation
 from .contextual.models.r1002 import shared_model_placement
-from .contextual.naming.r1001 import attribute_visibility
 from .contextual.type_checking.r1001 import shared_typing_placement
 from .deterministic.asyncio.compatibility import (
     deprecated_asyncio_coroutine_function_check,
@@ -96,6 +95,7 @@ from .deterministic.modules import (
     unused_explicit_export,
 )
 from .deterministic.naming.r0002 import boolean_predicate_name
+from .deterministic.naming.r0003 import attribute_visibility
 from .deterministic.numba_cuda import (
     conditional_block_barrier,
     default_stream_numba_kernel_launch,
@@ -146,6 +146,15 @@ from .deterministic.testing.discovery import (
     legacy_tmpdir_fixture_count,
     pytest_import_isolation,
 )
+from .deterministic.testing.property_testing import (
+    broad_example_property_candidate_count,
+    module_generated_parametrization_count,
+)
+from .deterministic.testing.redundancy import (
+    concentrated_test_reach_cluster_count,
+    duplicate_test_intent_cluster_count,
+    production_reach_hotspot_count,
+)
 from .deterministic.testing.state import (
     conditional_test_branch_count,
     direct_shared_test_state_mutation_count,
@@ -178,6 +187,7 @@ __all__ = [
     "boolean_predicate_name",
     "blocking_raw_memory_operation_in_stream_scope",
     "bounded_exception_region",
+    "broad_example_property_candidate_count",
     "broad_try_literal_setup",
     "bypassed_public_import",
     "cached_instance_method",
@@ -187,6 +197,7 @@ __all__ = [
     "concrete_isinstance_capability",
     "conditional_block_barrier",
     "conditional_test_branch_count",
+    "concentrated_test_reach_cluster_count",
     "conftest_import",
     "constructor_model_candidate",
     "coupled_nested_type_candidate",
@@ -203,6 +214,7 @@ __all__ = [
     "direct_cuda_core_lifecycle_construction",
     "direct_method_descriptor_call_count",
     "direct_shared_test_state_mutation_count",
+    "duplicate_test_intent_cluster_count",
     "duplicate_component_attribute_alias_count",
     "dynamic_kernel_array_shape",
     "dynamic_super_receiver",
@@ -232,6 +244,7 @@ __all__ = [
     "manual_set_comprehension",
     "minimum_python_declaration",
     "model_foundation",
+    "module_generated_parametrization_count",
     "non_init_reexport_module",
     "nullable_boolean_annotation",
     "nullable_exception_return_suppression",
@@ -244,6 +257,7 @@ __all__ = [
     "prohibited_annotation",
     "project_private_import",
     "public_module_constant",
+    "production_reach_hotspot_count",
     "pytest_configuration_strictness",
     "pytest_import_isolation",
     "redundant_boolean_conversion",

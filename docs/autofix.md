@@ -115,7 +115,7 @@ terminal. The plain `full` and `concise` formats remain available for logs and p
 
 ## Which rules can carry a fix
 
-Thirty-one rules carry one fix each across five levels of rewrite capability.
+Thirty-two rules carry one fix each across five levels of rewrite capability.
 
 * **L1 span deletion or local replacement.** Mechanical when marked safe. Unused import, empty
   directory, redundant `bool`, redundant `scalars`, enum `auto()`, and deprecated `asyncio` check.
@@ -127,6 +127,19 @@ Thirty-one rules carry one fix each across five levels of rewrite capability.
   out of a `try`, SQLModel `exec`, model constructor, fluent tensor chain, relative import, logger
   boundary, deep import routed through an existing cycle-safe public facade, and one guarded return
   expressed through `contextlib.suppress`.
+* **L2.5 rewrite proven by evidence outside the repository.** Safe, and the proof is what makes it
+  safe. A renamed data column, where the literal that named the retired column is replaced with the
+  one the catalog's own column-level lineage says derives from it. The rule computes no name and
+  guesses no similarity. The provider retains a successor only when exactly one surviving column
+  claims the retired one, and the extractor offers the rewrite only when the literal spells the old
+  name once, so a query naming it twice reports without a patch rather than editing the wrong site.
+  One literal takes at most one rewrite per run, since two edits to the same string would overlap.
+
+  This is the level where MCMR stops being a linter. A local analyzer cannot know that
+  `legacy_total` became `total`, because the evidence lives in the warehouse rather than in the
+  file, and a similarity heuristic that guessed it would be wrong exactly when the stakes were
+  highest. The verified fixpoint still applies, so the edit survives only after the file is
+  reparsed and `ALL-DATA0002` reruns clean over the new source.
 * **L3 project-wide symbol edits.** Needs a complete reference index, and the fix relation must
   filter `references_complete` before planning. Boolean predicate rename.
 

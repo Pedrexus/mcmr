@@ -1,0 +1,9 @@
+[tool.mcmr.execution]
+external = true
+
+[tool.mcmr.providers.datahub]
+recorded = "recordings"
+report_url = "https://github.com/phvv-me/mcmr"
+page_size = 10
+max_assets = 10
+since = "2026-08-01"

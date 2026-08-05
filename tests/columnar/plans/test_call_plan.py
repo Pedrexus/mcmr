@@ -4,9 +4,11 @@ import pytest
 
 from mcmr import MCMRConfiguration, Numeric, RulePolicies
 from mcmr.checking.engine import RuleEngine
-from mcmr.checking.session import Judgment
+from mcmr.commands.quality import Judgment
+from mcmr.facts import CallFact, FunctionFact
+from mcmr.plugins import RepositoryTables
 from mcmr.query.runtime import TableRunner
-from mcmr.table import AnalysisSession, RepositoryTables
+from mcmr.table import AnalysisSession
 
 from ...support import built_catalog, kernel_binary, needs_kernel
 
@@ -101,7 +103,7 @@ async def test_complete_call_plan_runs_every_rule_once_with_findings_and_repairs
     session = AnalysisSession(
         repository(tmp_path),
         suffixes=[".py", ".cu"],
-        typed_families=("CallFact", "FunctionFact"),
+        typed_families=(CallFact, FunctionFact),
     )
     selected = all_call_rules()
     by_name = {rule.qualname: rule.callable_path for rule in selected}
@@ -151,7 +153,7 @@ async def test_call_plan_preserves_exclusions_and_language_scope(tmp_path: Path)
     session = AnalysisSession(
         repository(tmp_path),
         suffixes=[".py", ".cu"],
-        typed_families=("CallFact", "FunctionFact"),
+        typed_families=(CallFact, FunctionFact),
     )
     selected = all_call_rules()
     exclusions = {rule.callable_path: ["subject.py"] for rule in selected}
@@ -172,6 +174,7 @@ async def test_call_plan_preserves_exclusions_and_language_scope(tmp_path: Path)
 
 @needs_kernel
 def test_complete_call_judgment_executes_one_query_per_selected_rule(tmp_path: Path) -> None:
+    """Every call fact reaches a rule, beside the one per-file fact the language probe reads."""
     root = repository(tmp_path)
     selection = [
         definition.id
@@ -189,7 +192,7 @@ def test_complete_call_judgment_executes_one_query_per_selected_rule(tmp_path: P
     assert judged.engine.rule_execution_count == len(selection)
     assert judged.engine.table_query_count == len(selection)
     assert judged.engine.table_queries_by_family == {"CallFact": len(selection)}
-    assert judged.engine.fact_count == judged.kernel.fact_count
+    assert judged.engine.fact_count + judged.kernel.file_count == judged.kernel.fact_count
     assert judged.kernel.file_count == 2
 
 

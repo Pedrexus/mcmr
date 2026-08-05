@@ -68,7 +68,7 @@ def test_the_work_marker_rule_reads_every_language_the_comment_family_covers(
     subject = AnalysisSession(
         repositories[language],
         suffixes=language_suffixes()[language],
-        typed_families=[CommentFact.__name__],
+        typed_families=[CommentFact],
     ).table(CommentFact)
 
     assert query_count(unresolved_work_marker, subject) == 1
@@ -106,7 +106,7 @@ def test_the_naming_rule_reads_a_body_in_every_language_the_syntax_family_covers
     subject = AnalysisSession(
         repositories[language],
         suffixes=language_suffixes()[language],
-        typed_families=[SyntaxFact.__name__],
+        typed_families=[SyntaxFact],
     ).syntax_tables()
 
     assert query_count(uninformative_local_name, subject) == 1

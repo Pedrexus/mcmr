@@ -4,6 +4,7 @@ use std::collections::{BTreeMap, BTreeSet};
 /// One graph answer joined back onto the syntax record for the same call site.
 #[derive(Clone)]
 pub(crate) struct ResolvedCall {
+    pub(crate) target_id: String,
     pub(crate) qualified_name: String,
     pub(crate) resolution: graph::Resolution,
     pub(crate) is_external: bool,
@@ -46,6 +47,7 @@ pub(crate) fn resolutions(
             .entry((edge.path.clone(), edge.line))
             .or_default()
             .push(ResolvedCall {
+                target_id: target.id.clone(),
                 qualified_name: target.qualname.clone(),
                 resolution: edge.resolution,
                 is_external: external,

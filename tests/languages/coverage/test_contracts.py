@@ -1,10 +1,26 @@
+import pytest
+
 from mcmr.accounting.upstream import ClaimIndex, ToolRegistry
 from mcmr.domain.contracts import RuleLane, RuleScope
-from mcmr.kernel import buildable
+from mcmr.facts import buildable
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
 from .support import gap_reasons, general_families, language_fixtures, provider_gap_reasons
+
+
+def test_the_native_registry_cannot_name_a_declaration_that_is_not_loaded(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A stale registry name fails rather than silently making its rules unavailable."""
+    monkeypatch.setitem(
+        buildable.__globals__,
+        "_native_names",
+        set(buildable()) | {"MissingFact"},
+    )
+
+    with pytest.raises(RuntimeError, match="native fact declarations are missing MissingFact"):
+        buildable()
 
 
 def test_every_declared_gap_names_a_family_a_general_rule_reads() -> None:

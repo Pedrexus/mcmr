@@ -6,9 +6,6 @@ from mcmr.domain.contracts import (
     FixPlan,
     FixSafety,
     Remove,
-    RuleDefinition,
-    RuleDocumentation,
-    RuleIdentity,
     RuleValue,
 )
 from mcmr.facts import NodeRef, SourceSpan
@@ -16,6 +13,7 @@ from mcmr.presentation.reports import (
     CheckReport,
     RuleFailure,
 )
+from mcmr.rulebook.catalog import RuleDefinition, RuleDocumentation, RuleIdentity
 
 if TYPE_CHECKING:
     from pathlib import Path

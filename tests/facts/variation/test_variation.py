@@ -2,7 +2,8 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from mcmr.kernel import Kernel, buildable
+from mcmr.facts import buildable
+from mcmr.kernel import Kernel
 
 from ...support import kernel_binary, needs_kernel, project_root, written
 from .corpus import fixture_files, manifestless_files

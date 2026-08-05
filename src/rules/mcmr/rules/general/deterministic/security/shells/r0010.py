@@ -31,8 +31,10 @@ def command_built_from_a_shell_string(
     Evidence
     --------
     Each finding names the declaration, the launcher, and the line. The value is how many launches
-    reach a shell. The launcher is read from the last segment of the callee, so `System.out` and
-    `os.system` stay apart.
+    reach a shell. A launcher the source writes with a receiver has to match the whole callee, so
+    `os.system` counts while `platform.system` only reads a machine name and stays out, and
+    `System.out` never arrives at all. A launcher written on its own matches on its bare name,
+    which is how C and PHP spell `system`.
 
     Exceptions
     ----------
@@ -42,7 +44,8 @@ def command_built_from_a_shell_string(
     asked for by name and a command line built from parts are reported. An argument combining two
     values that names no part of a command, the way `exec_tag::sync | exec_tag::timer` does, is
     not a command line and is left alone. A project that wraps its own name around a shell names
-    that wrapper through `also_through_a_shell`.
+    that wrapper through `also_through_a_shell`, which is read from the last segment of the callee
+    so that a method on a house object is found wherever it hangs.
 
     Examples
     --------
@@ -58,6 +61,7 @@ def command_built_from_a_shell_string(
     .. code-block:: python
 
        subprocess.run(["git", "checkout", ref])
+       platform.system()
 
     .. code-block:: cpp
 
@@ -123,13 +127,14 @@ def command_built_from_a_shell_string(
         .with_columns(pl.lit(True).alias("built_from_parts"))
     )
     shell_only = [
-        "system",
-        "shell_exec",
-        "passthru",
-        "getoutput",
-        "getstatusoutput",
-        *also_through_a_shell,
+        "commands.getoutput",
+        "commands.getstatusoutput",
+        "os.system",
+        "std.system",
+        "subprocess.getoutput",
+        "subprocess.getstatusoutput",
     ]
+    without_a_receiver = ["passthru", "shell_exec", "system"]
     launchers = [
         "child_process.exec",
         "child_process.execsync",
@@ -146,7 +151,12 @@ def command_built_from_a_shell_string(
         calls.join(built, on=["fact_id", "call_ordinal"], how="left")
         .with_columns(pl.col("callee").str.split(".").list.last().alias("launched"))
         .filter(
-            pl.col("launched").is_in(shell_only)
+            pl.col("callee").is_in(shell_only)
+            | pl.col("launched").is_in(list(also_through_a_shell))
+            | (
+                ~pl.col("callee").str.contains(".", literal=True)
+                & pl.col("launched").is_in(without_a_receiver)
+            )
             | (
                 pl.col("callee").is_in(launchers)
                 & (

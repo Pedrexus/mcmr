@@ -35,7 +35,8 @@ def effect_visibility(
     Compare names, return values, mutations, I/O, global access, transactions, and caller
     expectations. The rule judges surprise rather than forbidding side effects. The criteria
     independently establish a material effect, explicit disclosure, a query-like interface,
-    and a protocol convention.
+    and a protocol convention. Only query-like names need model judgment because command names
+    already disclose that work may change external state.
 
     Evidence
     --------
@@ -61,7 +62,11 @@ def effect_visibility(
         category=_EffectVisibility,
         instructions=effect_visibility.instructions,
     ).where(
-        (pl.col("behavior_operation_count") >= 2)
+        pl.col("name").str.contains(
+            r"^(can|calculate|check|compute|describe|fetch|find|format|get|has|inspect|is|iter|"
+            r"list|load|lookup|parse|read|render|should|validate)"
+        )
+        & (pl.col("behavior_operation_count") >= 2)
         & (pl.col("direct_statement_count") >= 2)
         & ~pl.col("is_test")
         & ~pl.col("is_abstract")
@@ -74,5 +79,6 @@ def effect_visibility(
             "is_abstract",
             "is_protocol_member",
             "is_pass_body",
+            "name",
         ),
     )

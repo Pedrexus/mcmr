@@ -12,10 +12,11 @@ from mcmr.facts import (
     ArchitectureCharacteristicFact,
     DependencyComponentFact,
     DependencyEdge,
-    Fact,
     ModuleFact,
     SourceSpan,
 )
+from mcmr.plugins import Fact, Table
+from mcmr.plugins import fact_table as in_memory_table
 from mcmr.query import RuleQuery
 from mcmr.rules.general import (
     ModuleCohesion,
@@ -23,8 +24,6 @@ from mcmr.rules.general import (
     import_cycles,
     module_cohesion,
 )
-from mcmr.table import Table
-from mcmr.table import fact_table as in_memory_table
 
 if TYPE_CHECKING:
     from pathlib import Path

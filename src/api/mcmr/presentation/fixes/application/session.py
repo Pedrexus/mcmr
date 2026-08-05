@@ -7,6 +7,7 @@ from ...reports.data.report import CheckReport
 from ..contracts import (
     FixRefusal,
     FixSignature,
+    JudgmentRunner,
     RenderedFix,
 )
 from ..rendering.python import PythonFixRenderer
@@ -17,8 +18,6 @@ if TYPE_CHECKING:
     from collections.abc import Sequence
     from pathlib import Path
 
-    from ....checking.session import Judgment
-
 
 class FixSession:
     """Apply eligible plans and retain only fixes their own rule verifies."""
@@ -26,7 +25,7 @@ class FixSession:
     def __init__(
         self,
         root: Path,
-        judgment: Judgment,
+        judgment: JudgmentRunner,
         *,
         safety: FixSafety = FixSafety.SAFE,
         maximum_fixes: int = 100,

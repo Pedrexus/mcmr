@@ -1,5 +1,6 @@
 from mcmr.domain.contracts import RuleContract, RuleValue
 from mcmr.facts import NodeRef, QueryFact, QueryOperation, SourceSpan
+from mcmr.plugins import fact_table
 from mcmr.query import RuleQuery, scalar_frame_value
 from mcmr.rules.python import (
     async_session_expiration_policy,
@@ -8,7 +9,6 @@ from mcmr.rules.python import (
     sqlmodel_primary_key_get,
     sqlmodel_redundant_scalars,
 )
-from mcmr.table import fact_table
 
 _SPAN = SourceSpan(path="src/database.py")
 _NODE = NodeRef(id="query", span=_SPAN)

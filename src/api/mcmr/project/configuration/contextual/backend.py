@@ -6,3 +6,5 @@ class ContextBackend(StrEnum):
 
     GLINER2 = auto()
     CODEX = auto()
+    CLAUDE = auto()
+    OPENROUTER = auto()

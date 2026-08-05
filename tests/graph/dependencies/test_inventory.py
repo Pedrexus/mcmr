@@ -10,8 +10,9 @@ import pytest
 from pydantic import ValidationError
 
 from mcmr.execution.providers import DependencyProvider, ExternalEvidence
-from mcmr.facts import AlertFact, DependencyFact, Fact, SourceSpan
-from mcmr.project.dependencies import DependencyInventory, DependencyRefresher, UrlJsonTransport
+from mcmr.facts import AlertFact, DependencyFact, SourceSpan
+from mcmr.plugins import Fact, ProviderContext, RepositoryTables
+from mcmr.project.dependencies import DependencyInventory, UrlJsonTransport
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -23,15 +24,15 @@ def test_external_evidence_resolves_only_registered_fact_families_in_memory(
 ) -> None:
     fact = DependencyFact(key="dependencies", span=SourceSpan(path="pyproject.toml"))
 
-    async def collect(provider: DependencyProvider) -> list[DependencyFact]:
-        assert provider.repository == tmp_path
-        return [fact]
+    async def refresh(provider: DependencyProvider) -> DependencyFact:
+        assert provider.root == tmp_path
+        return fact
 
-    monkeypatch.setattr(DependencyProvider, "collect", collect)
+    monkeypatch.setattr(DependencyProvider, "refresh", refresh)
     evidence = ExternalEvidence.for_repository(tmp_path)
 
     families: set[type[Fact]] = {DependencyFact, AlertFact}
-    tables = anyio.run(evidence.tables, families)
+    tables = anyio.run(partial(evidence.tables, families))
 
     assert list(tables) == [DependencyFact]
     table = tables[DependencyFact]
@@ -46,13 +47,25 @@ def test_dependency_provider_collects_without_writing_repository_state(
 ) -> None:
     fact = DependencyFact(key="dependencies", span=SourceSpan(path="pyproject.toml"))
 
-    async def refresh(refresher: DependencyRefresher) -> DependencyFact:
+    async def refresh(refresher: DependencyProvider) -> DependencyFact:
         assert refresher.root == tmp_path
         return fact
 
-    monkeypatch.setattr(DependencyRefresher, "refresh", refresh)
+    monkeypatch.setattr(DependencyProvider, "refresh", refresh)
 
-    assert anyio.run(DependencyProvider(repository=tmp_path).collect) == [fact]
+    context = ProviderContext(
+        repository=tmp_path,
+        requested={DependencyFact},
+        dependencies=RepositoryTables(),
+    )
+    tables = anyio.run(DependencyProvider().tables, context)
+    assert list(tables) == [DependencyFact]
+    assert not anyio.run(
+        DependencyProvider().tables,
+        context.model_copy(update={"requested": set()}),
+    )
+    with pytest.raises(KeyError, match="did not declare AlertFact"):
+        context.table(AlertFact)
     assert list(tmp_path.iterdir()) == []
 
 

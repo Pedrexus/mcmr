@@ -1,0 +1,111 @@
+[
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.raw.orders,PROD)",
+      "count": 10,
+      "start": 0
+    },
+    "response": {
+      "data": {
+        "searchAcrossLineage": {
+          "total": 4,
+          "searchResults": [
+            {
+              "degree": 1,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD)"
+              }
+            },
+            {
+              "degree": 2,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.revenue,PROD)"
+              }
+            },
+            {
+              "degree": 2,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)"
+              }
+            },
+            {
+              "degree": 2,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.retention,PROD)"
+              }
+            }
+          ]
+        }
+      },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD)",
+      "count": 10,
+      "start": 0
+    },
+    "response": {
+      "data": {
+        "searchAcrossLineage": {
+          "total": 3,
+          "searchResults": [
+            {
+              "degree": 1,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.revenue,PROD)"
+              }
+            },
+            {
+              "degree": 1,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)"
+              }
+            },
+            {
+              "degree": 1,
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.retention,PROD)"
+              }
+            }
+          ]
+        }
+      },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.revenue,PROD)",
+      "count": 10,
+      "start": 0
+    },
+    "response": {
+      "data": { "searchAcrossLineage": { "total": 0, "searchResults": [] } },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)",
+      "count": 10,
+      "start": 0
+    },
+    "response": {
+      "data": { "searchAcrossLineage": { "total": 0, "searchResults": [] } },
+      "extensions": {}
+    }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.retention,PROD)",
+      "count": 10,
+      "start": 0
+    },
+    "response": {
+      "data": { "searchAcrossLineage": { "total": 0, "searchResults": [] } },
+      "extensions": {}
+    }
+  }
+]

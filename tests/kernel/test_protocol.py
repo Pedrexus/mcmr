@@ -15,8 +15,8 @@ from mcmr.kernel import (
     KernelStats,
     KernelStreamBatch,
     Workspace,
-    locate,
 )
+from mcmr.project import locate
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 

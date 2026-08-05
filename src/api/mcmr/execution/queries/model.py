@@ -1,26 +1,21 @@
 from enum import StrEnum
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, TypeIs, cast
 
 import polars as pl
+from pydantic import JsonValue, TypeAdapter
 
 from ...domain.contracts import Unit
 from ...query import FindingQuery, RuleQuery
-from ...table import CallRelation, ClassRelation, FunctionRelation, GenericRelation
-from .calls.relations import CallCandidateRelations
-from .classes.relations import ClassCandidateRelations
-from .comments.relations import CommentCandidateRelations
-from .definitions import ModelMode
-from .functions.relations import FunctionCandidateRelations
-from .generic.relations import CandidateRelations
+from .contracts import Assessment, Classification, ModelMode
 from .groups import ModelQueryFields
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Mapping, Sequence
 
-    from ...domain.contracts import RuleValue
+    from ...domain.contracts import ModelProvenance, RuleValue
     from ...facts.foundation import Fact
     from ...table import Table
-    from .assessment.contract import AssessmentContract
+    from .contracts import AssessmentContract
 
 
 class ModelQuery[Category: StrEnum = StrEnum](ModelQueryFields[Category]):
@@ -29,6 +24,26 @@ class ModelQuery[Category: StrEnum = StrEnum](ModelQueryFields[Category]):
     uncertain: Category | None = None
     choice_question: str = ""
     choice_options: list[str] = []
+    reported: dict[str, str] = {}
+
+    @property
+    def stated_instructions(self) -> str:
+        """Return the rule instructions beside what selecting each category reports.
+
+        A category name says what the model observed and never what the engine will do with it,
+        so `use_plain_class` reads as a recommendation while the policy scores it as a defect. A
+        model choosing between names it cannot see the consequences of will pick the one that
+        describes its conclusion, which is how a passing subject arrives with a failing label.
+        """
+        if not self.reported:
+            return self.instructions
+        stated = "\n".join(
+            f"- `{name}` {effect}" for name, effect in sorted(self.reported.items())
+        )
+        return (
+            f"{self.instructions}\n\nWhat selecting each category reports. Choose the category "
+            f"the evidence states rather than the one whose report you would prefer.\n{stated}"
+        )
 
     @staticmethod
     def assess[Family: Fact, QueryCategory: StrEnum](
@@ -51,27 +66,7 @@ class ModelQuery[Category: StrEnum = StrEnum](ModelQueryFields[Category]):
     @staticmethod
     def candidate_relation[Family: Fact](table: Table[Family]) -> pl.LazyFrame:
         """Build one normalized model payload per fact entirely in Polars."""
-        if table.relation_type is FunctionRelation:
-            relations = FunctionCandidateRelations.function(table)
-        elif table.relation_type is CallRelation:
-            relations = CallCandidateRelations.calls(table)
-        elif table.relation_type is ClassRelation:
-            relations = ClassCandidateRelations.classes(table)
-        elif (
-            table.relation_type is GenericRelation
-            and table.family.__name__ == "CommentFact"
-            and "node.text" in table.frame(GenericRelation.RECORDS).columns
-        ):
-            relations = CommentCandidateRelations.comments(table)
-        elif table.relation_type is GenericRelation:
-            relations = CandidateRelations(
-                facts=table.lazy(GenericRelation.FACTS),
-                records=table.lazy(GenericRelation.RECORDS),
-                values=table.lazy(GenericRelation.VALUES),
-            )
-        else:
-            raise TypeError(f"{table.family.__name__} has no contextual candidate projection")
-        return relations.candidates()
+        return table.contextual_candidates()
 
     @staticmethod
     def classify[Family: Fact, QueryCategory: StrEnum](
@@ -93,6 +88,15 @@ class ModelQuery[Category: StrEnum = StrEnum](ModelQueryFields[Category]):
         return self.model_copy(
             update={"choice_question": question, "choice_options": list(options)}
         )
+
+    def judged(self, reported: Mapping[str, str]) -> ModelQuery[Category]:
+        """Record what this project reports for each category the model may select.
+
+        reported: one sentence per category naming what selecting it makes the engine report.
+        """
+        if self.mode is not ModelMode.CLASSIFY or not reported:
+            return self
+        return self.model_copy(update={"reported": dict(reported)})
 
     def matching(
         self,
@@ -332,3 +336,85 @@ class ModelQuery[Category: StrEnum = StrEnum](ModelQueryFields[Category]):
         if not marker:
             return self.choice_question
         return pl.concat_str(pl.lit(before), pl.col("answer_value"), pl.lit(after))
+
+
+def is_model_query(query: RuleQuery | ModelQuery) -> TypeIs[ModelQuery]:
+    """Narrow one planned rule result to the contextual query contract."""
+    return isinstance(query, ModelQuery)
+
+
+def answer_frame[Category: StrEnum](
+    query: ModelQuery[Category],
+    *,
+    rows: Sequence[Mapping[str, JsonValue]],
+    outcomes: Sequence[Classification[StrEnum] | Assessment],
+) -> pl.DataFrame:
+    """Normalize typed model results into classification or criterion rows."""
+    normalized: list[dict[str, JsonValue]] = []
+    for row, outcome in zip(rows, outcomes, strict=True):
+        fact_id = TypeAdapter(str).validate_python(row["fact_id"])
+        if isinstance(outcome, Classification):
+            classification = _provenance_columns(outcome.provenance)
+            classification["fact_id"] = fact_id
+            classification["answer_value"] = str(outcome.value)
+            classification["reasoning"] = outcome.reasoning
+            classification["evidence_ids"] = [str(identifier) for identifier in outcome.evidence]
+            classification["confidence"] = outcome.confidence
+            normalized.append(classification)
+            continue
+        for order, answer in enumerate(outcome.answers):
+            criterion = _provenance_columns(answer.provenance)
+            criterion["fact_id"] = fact_id
+            criterion["criterion_order"] = order
+            criterion["criterion"] = answer.criterion
+            criterion["answer_value"] = str(answer.value)
+            criterion["criterion_value"] = str(answer.value)
+            criterion["reasoning"] = answer.reasoning
+            criterion["evidence_ids"] = [str(identifier) for identifier in answer.evidence]
+            criterion["confidence"] = answer.confidence
+            normalized.append(criterion)
+    return pl.DataFrame(normalized, schema=_answer_schema(query.mode))
+
+
+def _answer_schema(mode: ModelMode) -> dict[str, pl.DataType | type[pl.DataType]]:
+    """Return the stable answer relation schema for either contextual operation."""
+    shared: dict[str, pl.DataType | type[pl.DataType]] = {
+        "fact_id": pl.String,
+        "answer_value": pl.String,
+        "reasoning": pl.String,
+        "evidence_ids": pl.List(pl.String),
+        "confidence": pl.Float64,
+        "provenance_backend": pl.String,
+        "provenance_model": pl.String,
+        "provenance_reasoning_effort": pl.String,
+        "provenance_input_tokens": pl.UInt64,
+        "provenance_cached_input_tokens": pl.UInt64,
+        "provenance_output_tokens": pl.UInt64,
+        "provenance_reasoning_tokens": pl.UInt64,
+    }
+    if mode is ModelMode.CLASSIFY:
+        return shared
+    return {
+        "fact_id": pl.String,
+        "criterion_order": pl.UInt64,
+        "criterion": pl.String,
+        "answer_value": pl.String,
+        "criterion_value": pl.String,
+        "reasoning": pl.String,
+        "evidence_ids": pl.List(pl.String),
+        "confidence": pl.Float64,
+        **{name: dtype for name, dtype in shared.items() if name.startswith("provenance_")},
+    }
+
+
+def _provenance_columns(provenance: ModelProvenance) -> dict[str, JsonValue]:
+    """Flatten model provenance into columns shared by every finding row."""
+    return {
+        "provenance_backend": provenance.backend,
+        "provenance_model": provenance.model,
+        "provenance_reasoning_effort": provenance.reasoning_effort,
+        "provenance_input_tokens": provenance.input_tokens,
+        "provenance_cached_input_tokens": provenance.cached_input_tokens,
+        "provenance_output_tokens": provenance.output_tokens,
+        "provenance_reasoning_tokens": provenance.reasoning_tokens,
+    }

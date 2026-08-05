@@ -18,14 +18,15 @@ from mcmr.rules.general import (
     overriding_method_demands_an_argument_the_base_defaulted,
     overriding_method_renames_a_parameter,
 )
-from mcmr.table import AnalysisSession, Table
+from mcmr.table import AnalysisSession
 
 from ...support import facts_of
 
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from mcmr.facts import Fact
+    from mcmr.plugins import Fact, Table
+
 
 from .support import (
     assert_table_findings,
@@ -235,7 +236,7 @@ def test_the_ledgers_name_exactly_the_rules_table_order_can_still_catch_out(
             class_method_order,
             cast(
                 "Table[Fact]",
-                AnalysisSession(tmp_path, typed_families=(ClassFact.__name__,)).class_tables(),
+                AnalysisSession(tmp_path, typed_families=(ClassFact,)).class_tables(),
             ),
         )
         .values.collect()

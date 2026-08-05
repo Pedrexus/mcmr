@@ -1,5 +1,5 @@
 import polars as pl
-from pydantic import NonNegativeInt
+from pydantic import NonNegativeInt, PositiveInt
 
 from ...... import rule
 from ......facts import TestCaseGroupFact
@@ -13,6 +13,7 @@ def parametrization_candidate_group_count(
     subject: Table[TestCaseGroupFact],
     *,
     minimum_cases: NonNegativeInt = 3,
+    maximum_cases: PositiveInt = 9,
 ) -> CountQuery:
     """Count safe sibling-test groups that differ only in literal values.
 
@@ -22,7 +23,7 @@ def parametrization_candidate_group_count(
     kind, fixture parameter names, argument defaults, annotations, decorators, marks, control-flow
     nodes, operators, and call targets. Replace body literals with typed slots, then report a group
     only when at least `minimum_cases` tests have the same remaining syntax and every case has a
-    distinct literal vector. The default requires three cases.
+    distinct literal vector. The defaults set `minimum_cases` to three and `maximum_cases` to nine.
 
     Evidence
     --------
@@ -37,7 +38,8 @@ def parametrization_candidate_group_count(
     or `raise` statements, external assignment, and common filesystem or monkeypatch side effects
     abstain. Different fixtures, marks, control flow, call targets, or literal types form different
     shapes. Exact duplicate bodies are not parametrization candidates. Ruff PT006, PT007, and PT014
-    remain responsible for parametrization syntax and duplicate existing cases.
+    remain responsible for parametrization syntax and duplicate existing cases. Ten or more
+    homogeneous examples belong to `PY-TEST0017`, which asks for one generated property instead.
 
     Examples
     --------
@@ -81,6 +83,7 @@ def parametrization_candidate_group_count(
         .with_columns(pl.col("vector_count", "distinct_vector_count").fill_null(0))
         .filter(
             (pl.col("vector_count") >= minimum_cases)
+            & (pl.col("vector_count") <= maximum_cases)
             & (pl.col("vector_count") == pl.col("distinct_vector_count"))
         )
     )

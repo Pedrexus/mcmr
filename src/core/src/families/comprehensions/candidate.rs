@@ -6,9 +6,12 @@ use ruff_text_size::{Ranged, TextRange, TextSize};
 use serde_json::{Value, json};
 use std::collections::BTreeSet;
 
-mod model;
-
-use model::SetCandidate;
+struct SetCandidate {
+    name: String,
+    is_annotated: bool,
+    element: TextRange,
+    conditions: Vec<TextRange>,
+}
 
 pub(super) fn set_loop_candidate(
     source: &Source,
@@ -30,20 +33,20 @@ pub(super) fn set_loop_candidate(
         "has_else": false,
         "initialization": source.node_of("statement", initialization_statement),
         "loop": source.node_of("statement", &pair[1]),
-        "element": edit_is_safe.then(|| source.node_of("expression", candidate.element)),
+        "element": edit_is_safe.then(|| source.node("expression", candidate.element)),
         "target": source.node_of("expression", loop_statement.target.as_ref()),
         "iterable": source.node_of("expression", loop_statement.iter.as_ref()),
         "conditions": candidate.conditions.iter()
-            .map(|condition| source.node_of("expression", *condition))
+            .map(|condition| source.node("expression", *condition))
             .collect::<Vec<_>>(),
     }))
 }
 
-fn safe_candidate<'expression>(
-    initialization: &'expression Stmt,
-    loop_statement: &'expression ruff_python_ast::StmtFor,
+fn safe_candidate(
+    initialization: &Stmt,
+    loop_statement: &ruff_python_ast::StmtFor,
     context: &SetLoopContext<'_>,
-) -> Option<SetCandidate<'expression>> {
+) -> Option<SetCandidate> {
     let (name, is_annotated) = set_initialization(initialization)?;
     if context.external.contains(name)
         || loop_statement.is_async
@@ -51,7 +54,25 @@ fn safe_candidate<'expression>(
     {
         return None;
     }
-    let (element, conditions) = single_addition(&loop_statement.body, name)?;
+    let (body, conditions) = match loop_statement.body.as_slice() {
+        [Stmt::If(branch)] if branch.elif_else_clauses.is_empty() => {
+            (branch.body.as_slice(), vec![branch.test.as_ref()])
+        }
+        held => (held, Vec::new()),
+    };
+    let [Stmt::Expr(statement)] = body else {
+        return None;
+    };
+    let Expr::Call(call) = statement.value.as_ref() else {
+        return None;
+    };
+    if qualified_name(&call.func) != format!("{name}.add")
+        || call.arguments.args.len() != 1
+        || !call.arguments.keywords.is_empty()
+    {
+        return None;
+    }
+    let element = call.arguments.args.first()?;
     let target_names = bound_target_names(&loop_statement.target);
     (!target_names.is_empty()
         && !target_names.contains(name)
@@ -67,10 +88,10 @@ fn safe_candidate<'expression>(
             .iter()
             .all(|condition| !expression_has_comprehension_hazard(condition)))
     .then_some(SetCandidate {
-        name,
+        name: name.to_string(),
         is_annotated,
-        element,
-        conditions,
+        element: element.range(),
+        conditions: conditions.into_iter().map(Ranged::range).collect(),
     })
 }
 
@@ -115,35 +136,6 @@ fn is_empty_set(value: &Expr) -> bool {
         if qualified_name(&call.func) == "set"
             && call.arguments.args.is_empty()
             && call.arguments.keywords.is_empty())
-}
-
-/// Return one direct add, optionally guarded by exactly one `if` without an `else`.
-fn single_addition<'expression>(
-    body: &'expression [Stmt],
-    name: &str,
-) -> Option<(&'expression Expr, Vec<&'expression Expr>)> {
-    let (body, conditions) = match body {
-        [Stmt::If(branch)] if branch.elif_else_clauses.is_empty() => {
-            (branch.body.as_slice(), vec![branch.test.as_ref()])
-        }
-        held => (held, Vec::new()),
-    };
-    let [Stmt::Expr(statement)] = body else {
-        return None;
-    };
-    let Expr::Call(call) = statement.value.as_ref() else {
-        return None;
-    };
-    if qualified_name(&call.func) != format!("{name}.add")
-        || call.arguments.args.len() != 1
-        || !call.arguments.keywords.is_empty()
-    {
-        return None;
-    }
-    call.arguments
-        .args
-        .first()
-        .map(|element| (element, conditions))
 }
 
 fn expression_has_comprehension_hazard(expression: &Expr) -> bool {

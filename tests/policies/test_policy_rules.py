@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 import pytest
 from pydantic import ValidationError
 
@@ -17,7 +19,6 @@ from mcmr.facts import (
     CIWorkflow,
     CommentFact,
     CommentGroup,
-    Fact,
     NodeRef,
     PerformanceBudget,
     PerformanceDecisionFact,
@@ -41,6 +42,9 @@ from mcmr.rules.general import (
 )
 
 from ..support import query_value, retained_query
+
+if TYPE_CHECKING:
+    from mcmr.plugins import Fact
 
 _SPAN = SourceSpan(path="project")
 

@@ -15,11 +15,14 @@ def approved_model_foundation(
 
     Definition
     ----------
-    First establish project policy by finding at least one module anywhere in the repository that
-    imports a foundation from `patos` or from a `common.bases` module. Then inspect project-owned
-    top-level classes and report direct subclasses of an imported `pydantic.BaseModel` that do not
-    also inherit an approved base. Resolve direct imports, module imports, and aliases through the
-    bindings each file states. Each bypassing class contributes one to the result.
+    First establish project policy, either by finding a module anywhere in the repository that
+    imports a foundation from `patos` or from a `common.bases` module, or by finding a base the
+    project itself owns, one declaring no fields that other classes already derive. A module named
+    after a folder establishes nothing on its own, since a name says nothing about what a module
+    declares. Then inspect project-owned top-level classes and report direct subclasses of an
+    imported `pydantic.BaseModel` that do not also inherit an approved base. Resolve direct
+    imports, module imports, and aliases through the bindings each file states. Each bypassing
+    class contributes one to the result.
 
     Evidence
     --------
@@ -30,11 +33,13 @@ def approved_model_foundation(
 
     Exceptions
     ----------
-    Abstain when the project has not established a house foundation. Ignore Pydantic dataclasses,
-    `RootModel`, dynamic `create_model` calls, unresolved bases, nested classes, and subclasses of
-    a project foundation because their Pydantic ancestry is not locally proven. The repository's
-    Git ignore files decide whether generated and vendored sources are in the scan, and per-rule
-    globs can narrow it further.
+    Abstain when the project has not established a house foundation. The foundation itself derives
+    Pydantic directly by design, so a base owning no fields that states the `model_config` its
+    subclasses inherit is never reported, whatever file or folder holds it. Ignore Pydantic
+    dataclasses, `RootModel`, dynamic `create_model` calls, unresolved bases, nested classes, and
+    subclasses of a project foundation because their Pydantic ancestry is not locally proven. The
+    repository's Git ignore files decide whether generated and vendored sources are in the scan,
+    and per-rule globs can narrow it further.
 
     Examples
     --------

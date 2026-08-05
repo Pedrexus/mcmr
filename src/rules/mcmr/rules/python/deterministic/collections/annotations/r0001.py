@@ -15,7 +15,9 @@ def concrete_collection_parameter(subject: Table[ParameterFact]) -> OccurrenceQu
     ----------
     Inspect operations performed directly on parameters annotated as `list`, variadic
     `tuple`, `dict`, or `set`. Report a broader `collections.abc` input contract only when
-    all observed uses are known and non-mutating. This applies the Python convention of
+    all observed uses are known and non-mutating. A write through a subscript, which is
+    `values[key] = held` or `del values[key]`, reaches the same mutating method a named call
+    reaches and keeps the concrete contract. This applies the Python convention of
     accepting the narrowest required capability while leaving concrete return types alone.
 
     Evidence
@@ -37,8 +39,9 @@ def concrete_collection_parameter(subject: Table[ParameterFact]) -> OccurrenceQu
     `def first(values: list[int]): return values[0]` returns `true` and can accept `Sequence[int]`,
     and so does `def save(row: dict[str, str]): return row.get("id")`, which can accept
     `Mapping[str, str]`. `def add(values: list[int]): values.append(1)` returns `false`, because
-    appending needs a mutable contract. A parameter whose uses the provider could not all resolve
-    also returns `false`.
+    appending needs a mutable contract, and so does
+    `def store(row: dict[str, str]): row["id"] = "1"`, because writing one entry needs the same
+    contract. A parameter whose uses the provider could not all resolve also returns `false`.
 
     References
     ----------
@@ -47,7 +50,18 @@ def concrete_collection_parameter(subject: Table[ParameterFact]) -> OccurrenceQu
     Cites "The Python Standard Library", `collections.abc` abstract methods and mixins
     """
     concrete = ["list", "tuple", "dict", "set"]
-    mutating = ["append", "extend", "insert", "pop", "remove", "clear", "update", "add"]
+    mutating = [
+        "add",
+        "append",
+        "clear",
+        "delitem",
+        "extend",
+        "insert",
+        "pop",
+        "remove",
+        "setitem",
+        "update",
+    ]
     relations = subject
     facts = relations.facts()
     mutation_counts = (

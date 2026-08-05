@@ -71,18 +71,22 @@ pub(super) fn imports(module: &ModModule, importer: ImportingModule<'_>) -> Vec<
         .collect()
 }
 
-/// Whether this project has established which model foundation its own classes derive.
+/// Whether one module is the home this project keeps the model foundation it approved in.
+///
+/// The two house homes are the only project-specific input this judgment takes. A module merely
+/// named `bases` is not one of them, since a name says nothing about what the module declares.
+pub(crate) fn is_approved_foundation_module(module: &str) -> bool {
+    let root = module.split('.').next().unwrap_or(module);
+    root == "patos" || module == "common.bases" || module.ends_with(".common.bases")
+}
+
+/// Whether this module reaches a model foundation the project approved.
 pub(super) fn states_policy(module: &ModModule) -> bool {
     module.body.iter().any(|statement| match statement {
-        Stmt::ImportFrom(item) => {
-            item.module
-                .as_ref()
-                .map(ToString::to_string)
-                .is_some_and(|origin| {
-                    origin.split('.').next().unwrap_or(&origin) == "patos"
-                        || origin.ends_with("bases")
-                })
-        }
+        Stmt::ImportFrom(item) => item
+            .module
+            .as_ref()
+            .is_some_and(|origin| is_approved_foundation_module(origin.as_str())),
         _ => false,
     })
 }

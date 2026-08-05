@@ -1,14 +1,15 @@
 from ..kernel.protocol import (
     EdgeKind,
     GraphNode,
+    GraphReader,
     GraphRelation,
     Language,
     NodeKind,
     RepositoryGraph,
     Resolution,
 )
-from .directed import DirectedGraph, GraphEdge
-from .reader import GraphReader
+from .edge import GraphEdge
+from .graph import DirectedGraph
 
 __all__ = [
     "DirectedGraph",

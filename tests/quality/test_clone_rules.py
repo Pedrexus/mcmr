@@ -6,11 +6,12 @@ from typing import cast
 import pytest
 
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
-from mcmr.facts import CloneFragment, CloneGroupFact, Fact, SourceSpan
-from mcmr.kernel import locate
+from mcmr.facts import CloneFragment, CloneGroupFact, SourceSpan
+from mcmr.plugins import Fact, Table, fact_table
+from mcmr.project import locate
 from mcmr.query import RuleQuery, scalar_frame_value
 from mcmr.rules.general import duplicated_repository_share, pasted_block_copy_count
-from mcmr.table import AnalysisSession, GenericRelation, Table, fact_table
+from mcmr.table import AnalysisSession, GenericRelation
 
 _ROOT = Path(__file__).parents[2]
 
@@ -123,7 +124,7 @@ def mcmr_blocks(root: Path) -> tuple[list[set[tuple[str, int, int]]], Table[Fact
         AnalysisSession(
             root,
             suffixes=[".py"],
-            typed_families=[CloneGroupFact.__name__],
+            typed_families=[CloneGroupFact],
         ).table(CloneGroupFact),
     )
     fragments = table.frame(GenericRelation.RECORDS).filter(

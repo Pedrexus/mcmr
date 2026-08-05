@@ -5,7 +5,7 @@ import pydantic
 from patos import FrozenModel
 
 from ..domain.primitives import NonEmptyStr
-from ..versioning import CoChangedPair, FileHistory, HistoryChange
+from .catalog import buildable
 from .foundation import (
     DetectableCloneTokenCount,
     Evidence,
@@ -68,7 +68,7 @@ from .program.modules import (
 from .project.configuration.assignment import ConfigurationAssignment
 from .project.configuration.fact import ProjectConfigurationFact
 from .project.configuration.python import PythonTargetConfiguration
-from .project.history.fact import RepositoryHistoryFact
+from .project.history import FileHistory, HistoryChange, RepositoryHistoryFact
 from .project.parameters.fact import ParameterFact
 from .project.parameters.use import ParameterUse
 from .project.performance.budget import PerformanceBudget
@@ -119,6 +119,7 @@ from .structure.data import (
     DataField,
     DataFieldReference,
     DataFieldReferenceFact,
+    DataFieldRepair,
 )
 from .structure.dependencies import (
     DependencyComponentFact,
@@ -155,8 +156,7 @@ from .testing.cases.fact import TestCaseGroupFact
 from .testing.cases.group import TestCaseGroup
 from .testing.cases.loop import LiteralTestLoop
 from .testing.exceptions.fact import TryBlockFact
-from .testing.exceptions.handler import ExceptionHandler
-from .testing.exceptions.region import ExceptionRegion
+from .testing.exceptions.regions import ExceptionHandler, ExceptionRegion
 from .testing.functions.call import TestCallSite
 from .testing.functions.fact import TestFunctionFact
 from .testing.functions.function import TestFunction
@@ -218,7 +218,6 @@ __all__ = [
     "ConfigurationAssignment",
     "ConstantPlacement",
     "ControlKind",
-    "CoChangedPair",
     "DataAsset",
     "DataAssetFact",
     "DataAssetReference",
@@ -227,6 +226,7 @@ __all__ = [
     "DataChangeFact",
     "DataField",
     "DataFieldReference",
+    "DataFieldRepair",
     "DataFieldReferenceFact",
     "DependencyComponentFact",
     "DependencyEdge",
@@ -348,4 +348,5 @@ __all__ = [
     "Visibility",
     "Waiver",
     "WaiverFact",
+    "buildable",
 ]

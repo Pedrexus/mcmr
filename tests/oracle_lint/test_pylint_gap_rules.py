@@ -6,7 +6,6 @@ from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
 from mcmr.facts import (
     CommentFact,
     CommentGroup,
-    Fact,
     ImportBindingFact,
     ModuleFact,
     NodeRef,
@@ -16,18 +15,15 @@ from mcmr.facts import (
 from mcmr.query import RuleQuery, scalar_frame_value
 from mcmr.rules.general import non_ascii_source_path, reflective_scope_read, unresolved_work_marker
 from mcmr.rules.python import dynamic_super_receiver, relative_import_beyond_package
-from mcmr.table import (
-    AnalysisSession,
-    ImportBindingRelation,
-    SyntaxRelation,
-    Table,
-)
+from mcmr.table import AnalysisSession, ImportBindingRelation, SyntaxRelation
 
 from ..support import retained_query
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
     from pathlib import Path
+
+    from mcmr.plugins import Fact, Table
 
 _SPAN = SourceSpan(path="src/engine.py")
 
@@ -60,7 +56,7 @@ def syntax_table(root: Path, source: str) -> Table[Fact]:
         AnalysisSession(
             root,
             suffixes=(".py",),
-            typed_families=(SyntaxFact.__name__,),
+            typed_families=(SyntaxFact,),
         ).syntax_tables(),
     )
 
@@ -85,7 +81,7 @@ def import_table(root: Path, sources: Mapping[str, str]) -> Table[Fact]:
         AnalysisSession(
             root,
             suffixes=(".py",),
-            typed_families=(ImportBindingFact.__name__,),
+            typed_families=(ImportBindingFact,),
         ).import_binding_tables(),
     )
 

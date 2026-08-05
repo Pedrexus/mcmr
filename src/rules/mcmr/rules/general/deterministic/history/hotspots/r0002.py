@@ -4,8 +4,7 @@ from pydantic import NonNegativeInt
 from ...... import rule
 from ......facts import RepositoryHistoryFact
 from ......query import CountQuery, FindingQuery, RuleQuery
-from ......table import Table
-from ..relations import HistoryRelations
+from ......table import HistoryRelations, Table
 
 
 @rule("ALL-HIST0002")

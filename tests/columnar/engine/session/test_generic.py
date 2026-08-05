@@ -12,9 +12,10 @@ from mcmr.facts import (
     StringExpressionFact,
 )
 from mcmr.kernel_tables import AnalysisSession as NativeAnalysisSession
+from mcmr.plugins import Table
 from mcmr.query import RuleQuery, scalar_row_value, table_schema
 from mcmr.rules.python import redundant_enum_value
-from mcmr.table import AnalysisSession, CallRelation, FunctionRelation, GenericRelation, Table
+from mcmr.table import AnalysisSession, CallRelation, FunctionRelation, GenericRelation
 
 from .support import direct_generic_repository, repository
 
@@ -127,9 +128,7 @@ def test_table_markers_are_moved_out_of_the_native_session_once(tmp_path: Path) 
 
 
 def test_generic_table_keeps_native_relations_and_one_marker(tmp_path: Path) -> None:
-    session = AnalysisSession(
-        repository(tmp_path), suffixes=[".py"], typed_families=["ModuleFact"]
-    )
+    session = AnalysisSession(repository(tmp_path), suffixes=[".py"], typed_families=[ModuleFact])
     table = session.table(ModuleFact)
 
     assert (
@@ -151,9 +150,7 @@ class Status(StrEnum):
 """,
         encoding="utf-8",
     )
-    subject = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=[Enum.__name__]).table(
-        Enum
-    )
+    subject = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=[Enum]).table(Enum)
     enums, members = (
         subject.records("enums").collect(),
         subject.records("enums.members").sort("ordinal").collect(),
@@ -204,7 +201,7 @@ def test_direct_generic_family_equals_the_schema_normalizer(
     family: type[AttributeAccessFact | StringExpressionFact],
 ) -> None:
     root = direct_generic_repository(tmp_path)
-    direct_session = AnalysisSession(root, suffixes=[".py"], typed_families=[family.__name__])
+    direct_session = AnalysisSession(root, suffixes=[".py"], typed_families=[family])
     direct = direct_session.table(family)
     generic_session = NativeAnalysisSession(
         root,

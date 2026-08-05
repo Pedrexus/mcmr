@@ -1,21 +1,25 @@
 from enum import StrEnum
+from typing import TYPE_CHECKING
 
 import pytest
 
 from mcmr import Boolean, Category, MCMRConfiguration, Numeric, RulePolicies
-from mcmr.checking.session import Judgment, Verdicts
+from mcmr.commands.quality import Judgment
 from mcmr.domain.contracts import ModelProvenance
 from mcmr.execution import Classification, ClassificationBackend, ModelCandidate
 from mcmr.facts import Evidence, FileHistory, FunctionFact, RepositoryHistoryFact, SourceSpan
+from mcmr.plugins import fact_table
 from mcmr.query import RuleQuery
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 from mcmr.rules.general import large_file_the_team_keeps_reopening, primitive_obsession
-from mcmr.table import fact_table
 
 from ...support import kernel_binary, needs_kernel, written
 from .claims import assert_claim, claims
 from .data import exemplars, fixture, wide_families
+
+if TYPE_CHECKING:
+    from mcmr.checking.session import Verdicts
 
 
 @pytest.fixture(scope="module")

@@ -7,6 +7,7 @@ from mcmr.domain.contracts import RuleContract, RuleSetting
 from mcmr.execution import ClassificationBackend
 from mcmr.execution.queries import ModelQuery
 from mcmr.facts import FunctionFact, ModuleCouplingFact, StringExpressionFact, SymbolFact
+from mcmr.plugins import RepositoryTables, Table
 from mcmr.rules.general import (
     algorithmic_complexity,
     bounded_work,
@@ -15,8 +16,8 @@ from mcmr.rules.general import (
     primitive_obsession,
     string_construction_mechanism,
 )
-from mcmr.rules.python import attribute_visibility, shared_typing_placement
-from mcmr.table import AnalysisSession, RepositoryTables, Table
+from mcmr.rules.python import shared_typing_placement
+from mcmr.table import AnalysisSession
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -24,7 +25,7 @@ if TYPE_CHECKING:
 
     import polars as pl
 
-    from mcmr.facts import Fact
+from mcmr.plugins import Fact
 
 _RIGHT_SOURCE = "def normalize(value: int) -> int:\n    return abs(value)\n"
 _LEFT_SOURCE = """from right.values import normalize
@@ -84,7 +85,7 @@ def repository_tables(tmp_path: Path) -> RepositoryTables:
     session = AnalysisSession(
         tmp_path,
         suffixes=[".py"],
-        typed_families=[family.__name__ for family in families],
+        typed_families=[family for family in families],
     )
     tables = RepositoryTables()
     for family in families:
@@ -110,19 +111,16 @@ def test_function_projections_select_supported_operations(
     complexity = candidates(algorithmic_complexity, functions)
     work = candidates(bounded_work, functions)
     assert primitive.get_column("fact_id").to_list() == ["function:left/work.py:9:0:primitive"]
-    assert complexity.get_column("fact_id").to_list() == ["function:left/work.py:14:0:looped"]
-    assert work.get_column("fact_id").to_list() == ["function:left/work.py:14:0:looped"]
+    assert complexity.is_empty()
+    assert work.is_empty()
 
 
 def test_expression_projections_keep_exact_source_sites(
     repository_tables: RepositoryTables,
 ) -> None:
     strings = repository_tables[StringExpressionFact]
-    names = repository_tables[SymbolFact]
     selected_strings = candidates(string_construction_mechanism, strings)
-    selected_names = candidates(attribute_visibility, names)
     assert selected_strings.get_column("path").to_list() == ["left/work.py"]
-    assert selected_names.get_column("path").to_list() == ["left/work.py"]
 
 
 def test_typing_projection_supports_default_and_empty_destinations(

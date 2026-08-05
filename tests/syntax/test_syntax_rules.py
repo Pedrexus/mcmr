@@ -1,15 +1,18 @@
 from pathlib import Path
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 import pytest
 
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
-from mcmr.facts import Fact, SourceSpan, SyntaxFact, SyntaxNode
+from mcmr.facts import SourceSpan, SyntaxFact, SyntaxNode
 from mcmr.query import RuleQuery, scalar_row_value
 from mcmr.rules.general import uninformative_local_name
-from mcmr.table import AnalysisSession, SyntaxRelation, Table
+from mcmr.table import AnalysisSession, SyntaxRelation
 
 from ..support import written
+
+if TYPE_CHECKING:
+    from mcmr.plugins import Fact, Table
 
 _SPAN = SourceSpan(path="src/loader.py")
 
@@ -19,13 +22,13 @@ def syntax_table(root: Path, sources: dict[str, str]) -> Table[SyntaxFact]:
     return AnalysisSession(
         written(root, sources),
         suffixes=sorted({Path(name).suffix for name in sources}),
-        typed_families=(SyntaxFact.__name__,),
+        typed_families=(SyntaxFact,),
     ).syntax_tables()
 
 
-def query(
+def query[Family: Fact](
     rule: RuleContract,
-    subject: Table[Fact],
+    subject: Table[Family],
     **settings: RuleSetting,
 ) -> RuleQuery:
     """Invoke one rule once over the complete specialized table."""

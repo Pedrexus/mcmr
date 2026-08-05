@@ -7,11 +7,11 @@ if TYPE_CHECKING:
     from .....execution.queries.model import ModelQuery
     from .....facts import Fact
     from .....query import RuleQuery
-    from .....table import Table
+    from .....table import RepositoryTables, Table
     from ....policy import RulePolicy
     from ....primitives import NonEmptyStr, RuleSetting
-    from ...annotations import RuleId
     from ...primitives import FixSafety
+    from ..annotations import RuleId
     from ..interfaces.dependency import RuleDependency
 
 
@@ -71,7 +71,7 @@ class RuleContract(Protocol):
 
     def invoke(
         self,
-        tables: Mapping[type[Fact], Table[Fact]],
+        tables: RepositoryTables,
         *,
         settings: Mapping[str, RuleSetting],
         dependencies: Mapping[type, RuleDependency],

@@ -2,7 +2,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from ...facts import Fact, SymbolReach, SymbolReachFact, Visibility
-from ...kernel import Kernel, locate
+from ...kernel import Kernel
+from ...project import locate
 from ...repository import GraphReader
 from ...structure.diagrams import DiagramBuilder, DiagramFormat, DiagramKind, DiagramRenderer
 from ..interface import app, console, readable_table

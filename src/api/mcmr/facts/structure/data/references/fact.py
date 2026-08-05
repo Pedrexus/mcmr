@@ -9,4 +9,5 @@ if TYPE_CHECKING:
 class DataAssetReferenceFact(Fact):
     """Describe one resolved reference to a governed data asset."""
 
+    external_evidence = True
     references: list[DataAssetReference] = []

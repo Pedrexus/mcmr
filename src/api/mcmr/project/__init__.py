@@ -9,6 +9,7 @@ from .configuration import (
     is_match,
     validated_setting,
 )
+from .kernel import locate
 
 __all__ = [
     "ContextBackend",
@@ -19,5 +20,6 @@ __all__ = [
     "RuleConfiguration",
     "ScanConfiguration",
     "is_match",
+    "locate",
     "validated_setting",
 ]

@@ -4,7 +4,7 @@ from ...... import rule
 from ......facts import DataFieldReferenceFact
 from ......query import CountQuery
 from ......table import Table
-from ..relations import count_query
+from ..relations import detailed_count_query
 
 
 @rule("ALL-DATA0003")
@@ -56,7 +56,19 @@ def incompatible_data_field_type(subject: Table[DataFieldReferenceFact]) -> Coun
         & (pl.col("expected_type").str.strip_chars() != "")
         & (expected != catalog)
     )
-    return count_query(
-        subject.counted(selected),
+    return detailed_count_query(
+        subject,
+        selected,
+        pl.concat_str(
+            pl.lit("field `"),
+            pl.col("asset_identifier"),
+            pl.lit("."),
+            pl.col("field_name"),
+            pl.lit("` expects `"),
+            pl.col("expected_type"),
+            pl.lit("` but the catalog declares `"),
+            pl.col("catalog_type"),
+            pl.lit("`"),
+        ),
         "incompatible data field type",
     )

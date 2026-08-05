@@ -26,15 +26,25 @@ class TestFunctionFact(Fact):
         fixture_names: list[str] = []
         requested_fixture_names: list[str] = []
 
-    class FunctionExecution(FunctionIdentity):
-        """Retain marks, calls, owned structure, mutation, and parameterization."""
+    class FunctionBehavior(FunctionIdentity):
+        """Retain marks, calls, body shape, literals, assertions, and targets."""
 
         marks: list[str] = []
         calls: list[TestCallSite] = []
+        body_shape: str = ""
+        literal_values: list[str] = []
+        assertion_shapes: list[str] = []
+        direct_targets: list[str] = []
+        reachable_targets: list[str] = []
+
+    class FunctionExecution(FunctionBehavior):
+        """Retain owned structure, mutation, and parameterization metrics."""
+
         module_state_mutation_count: NonNegativeInt = 0
         owned_conditional_count: NonNegativeInt = 0
         owned_statement_count: NonNegativeInt = 0
         parametrized_range_sizes: list[NonNegativeInt] = []
+        generated_parametrization_count: NonNegativeInt = 0
 
     tests: list[TestFunction] = []
     quarantined_tests: list[QuarantinedTest] = []

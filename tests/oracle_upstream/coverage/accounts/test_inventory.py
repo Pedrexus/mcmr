@@ -11,12 +11,14 @@ from mcmr.accounting.upstream import (
     ToolRegistry,
     ToolRule,
 )
-from mcmr.domain.contracts import RuleDefinition, RuleScope
+from mcmr.domain.contracts import RuleScope
 
 from ..support import inventoried, inventory_sizes
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from mcmr.rulebook.catalog import RuleDefinition
 
 
 def test_every_rule_the_inventory_holds_is_accounted_for(report: ToolCoverage) -> None:

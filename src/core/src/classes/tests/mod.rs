@@ -294,6 +294,73 @@ fn a_model_foundation_and_a_property_service_are_not_records_to_move() {
 }
 
 #[test]
+fn a_configuration_base_is_the_foundation_wherever_a_project_keeps_it() {
+    // A foundation used to be recognized by the file name `bases.py`, so the same class held in
+    // `core/base/strict.py` was reported as a model deriving Pydantic directly.
+    let classes = enriched(&[
+        ("shop/__init__.py", ""),
+        ("shop/core/__init__.py", ""),
+        (
+            "shop/core/strict.py",
+            "from pydantic import BaseModel, ConfigDict\n\n\nclass Model(BaseModel):\n    model_config = ConfigDict(frozen=True)\n",
+        ),
+        (
+            "shop/orders.py",
+            "from .core.strict import Model\n\n\nclass Order(Model):\n    total: int\n",
+        ),
+        (
+            "shop/settings.py",
+            "from pydantic import BaseModel\n\n\nclass Settings(BaseModel):\n    retries: int\n",
+        ),
+    ]);
+    let foundation = class(&classes, "Model");
+
+    assert_eq!(foundation["states_model_configuration"], true);
+    assert_eq!(foundation["is_declarative_model"], false);
+    assert_eq!(foundation["directly_inherits_pydantic_base_model"], false);
+    assert_eq!(class(&classes, "Order")["is_declarative_model"], true);
+    assert_eq!(
+        class(&classes, "Settings")["directly_inherits_pydantic_base_model"],
+        true
+    );
+}
+
+#[test]
+fn model_policy_is_established_by_owning_a_foundation_rather_than_by_a_folder_name() {
+    let owned = extracted(&[
+        ("shop/__init__.py", ""),
+        (
+            "shop/core.py",
+            "from pydantic import BaseModel, ConfigDict\n\n\nclass Model(BaseModel):\n    model_config = ConfigDict(frozen=True)\n",
+        ),
+        (
+            "shop/orders.py",
+            "from .core import Model\n\n\nclass Order(Model):\n    total: int\n",
+        ),
+    ]);
+    let named = extracted(&[
+        ("shop/__init__.py", ""),
+        ("shop/bases/__init__.py", ""),
+        (
+            "shop/bases/text.py",
+            "def clean(value):\n    return value.strip()\n",
+        ),
+        (
+            "shop/orders.py",
+            "from pydantic import BaseModel\nfrom .bases.text import clean\n\n\nclass Order(BaseModel):\n    total: int\n",
+        ),
+    ]);
+    let established = |facts: &BTreeMap<String, Vec<Value>>| {
+        facts["ClassFact"]
+            .iter()
+            .any(|fact| fact["has_approved_model_foundation_policy"] == json!(true))
+    };
+
+    assert!(established(&owned));
+    assert!(!established(&named));
+}
+
+#[test]
 fn a_model_remains_declarative_below_a_project_owned_intermediate_base() {
     let classes = enriched(&[
         ("shop/__init__.py", ""),

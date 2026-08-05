@@ -1,11 +1,17 @@
+from typing import TYPE_CHECKING
+
 import polars as pl
 
 from .....domain.contracts import Unit
 from .....facts import (
     DataChangeFact,
+    Fact,
 )
 from .....query import CountQuery, FindingQuery, PercentageQuery, RuleQuery
 from .....table.relations import FactRelations
+
+if TYPE_CHECKING:
+    from .....table import Table
 
 
 class DataChangeTables(FactRelations[DataChangeFact]):
@@ -69,22 +75,25 @@ class DataChangeTables(FactRelations[DataChangeFact]):
         )
 
 
-def count_query(frame: pl.LazyFrame, measurement: str) -> CountQuery:
-    """Return one precise fact-level count and its retained evidence."""
-    value = pl.col("value")
+def detailed_count_query[Family: Fact](
+    subject: Table[Family],
+    selected: pl.LazyFrame,
+    message: pl.Expr,
+    measurement: str,
+) -> CountQuery:
+    """Count selected records while retaining one exact diagnostic for each row."""
+    facts = subject.counted(selected)
+    details = selected.with_row_index("finding_order").join(
+        subject.facts(), on="fact_id", how="left"
+    )
     return RuleQuery.integer(
-        frame,
-        value,
+        facts,
+        pl.col("value"),
         findings=FindingQuery.build(
-            frame,
-            pl.concat_str(
-                pl.lit(f"{measurement} is "),
-                _four_significant_digits(value),
-                pl.lit(" for `"),
-                pl.col("fact_id"),
-                pl.lit("`"),
-            ),
-            ((measurement, value, Unit.COUNT),),
+            details,
+            message,
+            ((measurement, pl.lit(1), Unit.COUNT),),
+            finding_order=pl.col("finding_order"),
             evidence=pl.col("evidence"),
         ),
     )

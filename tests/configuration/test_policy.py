@@ -3,8 +3,9 @@ from hypothesis import given
 from hypothesis import strategies as st
 
 from mcmr import Boolean, Category, Numeric, RulePolicies
-from mcmr.domain.contracts import RuleDefinition, RuleDocumentation, RuleIdentity, RuleScope
+from mcmr.domain.contracts import RuleScope
 from mcmr.domain.policy import Verdict
+from mcmr.rulebook.catalog import RuleDefinition, RuleDocumentation, RuleIdentity
 from mcmr.rules.general import ModuleCohesion
 
 _DOCUMENTATION = RuleDocumentation(summary="s", definition="d", examples="e", references=["r"])

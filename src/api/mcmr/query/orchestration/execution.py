@@ -9,14 +9,13 @@ from anyio.to_thread import run_sync
 from patos import FrozenModel, Runtime
 from pydantic import JsonValue
 
-from ...domain.contracts import RuleDependency
+from ...domain.contracts import RuleDependency, RuleScope
 from ...execution.providers import ExternalEvidence
-from ...kernel import buildable
+from ...facts import ModuleFact, buildable
 from ...table import AnalysisSession, RepositoryTables
-from ..runtime import TableRunner
-from .contracts import JudgmentSink
-from .environment import BatchEnvironment
-from .partition import FamilyPartition
+from .contracts.coverage import TableCoverage
+from .contracts.judgment import JudgmentSink
+from .runner import TableRunner
 
 if TYPE_CHECKING:
     from collections.abc import Collection, Sequence, Set
@@ -25,7 +24,6 @@ if TYPE_CHECKING:
     from ...checking.evaluations import PreparedRule
     from ...domain.policy import Policy
     from ...facts import Fact
-    from ...kernel import KernelStats
 
 
 class TableExecution(FrozenModel):
@@ -43,18 +41,50 @@ class TableExecution(FrozenModel):
         *,
         batches: Sequence[RuleBatch],
         fix_counts: Mapping[str, int],
-    ) -> tuple[KernelStats, set[str], int]:
-        """Run each table batch once and return native and rule coverage totals."""
-        partition = self._families(typed_families)
-        environment, elapsed = await self._setup(partition, fix_counts)
-        runnable_paths: set[str] = set()
-        read_families: set[type[Fact]] = set()
+    ) -> TableCoverage:
+        """Run each table batch once and report what the repository let the rules reach."""
+        evidence = ExternalEvidence.for_repository(self.root, self.provider_settings)
+        native_families, external_families, eager = self._families(
+            typed_families, evidence, batches
+        )
+        session, ordered, elapsed = await self._session(native_families)
+        native, elapsed = await self._native_tables(session, ordered, eager, elapsed=elapsed)
+        external = await self._external_tables(external_families, evidence, native)
+        available = native_families | set(external)
+        coverage = TableCoverage(languages=self._observed_languages(native))
         for batch in batches:
-            read, runnable, added = await self._run_batch(batch, environment)
-            read_families.update(read)
-            runnable_paths.update(runnable)
+            runnable = [rule for rule in batch.rules if rule.families <= available]
+            if not runnable:
+                continue
+            required = {family for rule in runnable for family in rule.families}
+            tables, added = await self._tables_for(
+                session,
+                ordered=ordered,
+                native=native,
+                external=external,
+                required=required,
+            )
+            coverage.read_families.update(family.__name__ for family in required)
             elapsed += added
-        return environment.session.kernel_stats(elapsed), runnable_paths, len(read_families)
+            applicable = [rule for rule in runnable if rule.applies_to(tables)]
+            if applicable:
+                await self._run_rules(tables, applicable, fix_counts)
+                coverage.runnable.update(rule.path for rule in applicable)
+        coverage.kernel = session.kernel_stats(elapsed)
+        return coverage
+
+    @staticmethod
+    def _language_probe(batches: Sequence[RuleBatch]) -> set[type[Fact]]:
+        """Return the per-module family a language-scoped selection reads its own scope from."""
+        narrowable = any(
+            rule.scope is not RuleScope.GENERAL for batch in batches for rule in batch.rules
+        )
+        return {ModuleFact} if narrowable else set()
+
+    @staticmethod
+    def _observed_languages(native: RepositoryTables) -> set[str]:
+        """Return the languages the per-module probe found, when this run needed it."""
+        return native[ModuleFact].observed_languages if ModuleFact in native else set()
 
     @staticmethod
     def _raise_marker_error(name: str, seen: Collection[str]) -> None:
@@ -63,21 +93,48 @@ class TableExecution(FrozenModel):
             raise RuntimeError(f"the native session repeated table {name}")
         raise RuntimeError(f"the native session returned unexpected table {name}")
 
-    async def _external_tables(self, partition: FamilyPartition) -> RepositoryTables:
+    async def _external_tables(
+        self,
+        external: Collection[type[Fact]],
+        evidence: ExternalEvidence,
+        dependencies: RepositoryTables,
+    ) -> RepositoryTables:
         """Collect requested external families into one request-local relation set."""
-        return (
-            await ExternalEvidence.for_repository(self.root, self.provider_settings).tables(
-                partition.external
-            )
-            if partition.external
-            else RepositoryTables()
-        )
+        return await evidence.tables(external, dependencies) if external else RepositoryTables()
 
-    def _families(self, typed: Collection[type[Fact]]) -> FamilyPartition:
-        """Partition requested families between native and external providers."""
-        native_names = buildable().keys()
-        native = {family for family in typed if family.__name__ in native_names}
-        return FamilyPartition(native=native, external=set(typed) - native)
+    def _families(
+        self,
+        typed: Collection[type[Fact]],
+        evidence: ExternalEvidence,
+        batches: Sequence[RuleBatch],
+    ) -> tuple[set[type[Fact]], set[type[Fact]], set[type[Fact]]]:
+        """Partition rule inputs from the families this run materializes before any rule reads."""
+        native = {family for family in typed if not family.external_evidence}
+        external = set(typed) - native
+        required = evidence.requirements(external)
+        provider_native = required & set(buildable().values())
+        unavailable = required - provider_native - evidence.provided
+        if unavailable:
+            names = ", ".join(sorted(family.__name__ for family in unavailable))
+            raise RuntimeError(f"MCMR fact providers require unavailable families {names}")
+        eager = provider_native | self._language_probe(batches)
+        return native | eager, external, eager
+
+    async def _native_tables(
+        self,
+        session: AnalysisSession,
+        ordered: Sequence[type[Fact]],
+        required: Collection[type[Fact]],
+        *,
+        elapsed: int,
+    ) -> tuple[RepositoryTables, int]:
+        """Materialize provider inputs and carry forward native execution time."""
+        tables = RepositoryTables()
+        for family in [item for item in ordered if item in required]:
+            started = perf_counter_ns()
+            tables.add(await run_sync(session.table, family))
+            elapsed += perf_counter_ns() - started
+        return tables, elapsed
 
     async def _ordered_families(
         self,
@@ -110,23 +167,6 @@ class TableExecution(FrozenModel):
             for rule in rules
         }
 
-    async def _run_batch(
-        self,
-        batch: RuleBatch,
-        environment: BatchEnvironment,
-    ) -> tuple[set[type[Fact]], set[str], int]:
-        """Run one connected batch when all of its table families are available."""
-        runnable = [rule for rule in batch.rules if rule.families <= environment.available]
-        if not runnable:
-            return set(), set(), 0
-        required = {family for rule in runnable for family in rule.families}
-        tables, elapsed = await self._tables_for(environment, required)
-        applicable = [rule for rule in runnable if rule.applies_to(tables)]
-        if not applicable:
-            return required, set(), elapsed
-        await self._run_rules(tables, applicable, environment.fix_counts)
-        return required, {rule.path for rule in applicable}, elapsed
-
     async def _run_rules(
         self,
         tables: RepositoryTables,
@@ -149,7 +189,7 @@ class TableExecution(FrozenModel):
 
     async def _session(
         self,
-        partition: FamilyPartition,
+        native: Collection[type[Fact]],
     ) -> tuple[AnalysisSession, list[type[Fact]], int]:
         """Open native delivery and retain its validated family order."""
         started = perf_counter_ns()
@@ -158,43 +198,32 @@ class TableExecution(FrozenModel):
                 AnalysisSession,
                 self.root,
                 suffixes=self.suffixes,
-                typed_families=sorted(family.__name__ for family in partition.native),
+                typed_families=sorted(native, key=lambda family: family.__name__),
             )
         )
         elapsed = perf_counter_ns() - started
-        return session, await self._ordered_families(session, partition.native), elapsed
-
-    async def _setup(
-        self,
-        partition: FamilyPartition,
-        fix_counts: Mapping[str, int],
-    ) -> tuple[BatchEnvironment, int]:
-        """Open native delivery and collect the requested external tables."""
-        session, ordered, elapsed = await self._session(partition)
-        external = await self._external_tables(partition)
-        return (
-            BatchEnvironment(
-                session=session,
-                ordered=ordered,
-                external=external,
-                available=partition.native | set(external),
-                fix_counts=fix_counts,
-            ),
-            elapsed,
-        )
+        return session, await self._ordered_families(session, native), elapsed
 
     async def _tables_for(
         self,
-        environment: BatchEnvironment,
+        session: AnalysisSession,
+        *,
+        ordered: Sequence[type[Fact]],
+        native: RepositoryTables,
+        external: RepositoryTables,
         required: Set[type[Fact]],
     ) -> tuple[RepositoryTables, int]:
         """Materialize one connected family set and measure native delivery."""
         tables = RepositoryTables()
         elapsed = 0
-        for family in [item for item in environment.ordered if item in required]:
+        for family in [item for item in ordered if item in required]:
+            if family in native:
+                tables.add(native[family])
+                continue
             started = perf_counter_ns()
-            tables.add(await run_sync(environment.session.table, family))
+            table = await run_sync(session.table, family)
+            tables.add(table)
             elapsed += perf_counter_ns() - started
-        for family in sorted(required & set(environment.external), key=lambda item: item.__name__):
-            tables.add(environment.external[family])
+        for family in sorted(required & set(external), key=lambda item: item.__name__):
+            tables.add(external[family])
         return tables, elapsed

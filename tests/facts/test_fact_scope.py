@@ -2,13 +2,15 @@ from typing import TYPE_CHECKING, get_args, get_origin
 
 from patos import FrozenModel
 
-from mcmr.facts import Fact, NodeRef, Relation, SourceSpan, SymbolRef
-from mcmr.kernel import Kernel, buildable
+from mcmr.facts import NodeRef, Relation, SourceSpan, SymbolRef, buildable
+from mcmr.kernel import Kernel
 
 from ..support import kernel_binary, needs_kernel, project_root
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from mcmr.plugins import Fact
 
 # Where a fact is rather than what it says, which is never the evidence a rule reasons over.
 _ADDRESS = (NodeRef, SourceSpan, SymbolRef)

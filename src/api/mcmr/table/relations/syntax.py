@@ -1,15 +1,14 @@
 import polars as pl
 from patos import FrozenModel, Runtime
 
-from ...facts import SyntaxFact
-from ..models import Table
 from ..names import SyntaxRelation
+from ..runtime.table import Table, TableFamily
 
 
-class SyntaxTable(FrozenModel):
+class SyntaxTable[Family: TableFamily](FrozenModel):
     """Expose raw syntax relations and derive node text only inside lazy queries."""
 
-    table: Runtime[Table[SyntaxFact]]
+    table: Runtime[Table[Family]]
 
     @property
     def children(self) -> pl.LazyFrame:

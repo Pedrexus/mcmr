@@ -9,16 +9,18 @@ from pydantic import InstanceOf, TypeAdapter
 from ...domain.contracts import (
     Rule,
     RuleContract,
-    RuleDefinition,
     RuleId,
     RuleLane,
     RuleScope,
 )
 from .builder import RuleDefinitionBuilder, resolve_languages
-from .parsing import parse_identity
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
+
+    from .contracts import RuleDefinition
+
+from .contracts import parse_identity
 
 _retired_rules: dict[str, str] = {
     "ALL-ARCH0004": "dependency hub quality requires contextual evidence rather than degree alone",

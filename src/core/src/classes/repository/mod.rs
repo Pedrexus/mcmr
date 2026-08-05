@@ -119,6 +119,7 @@ impl<'repository> Repository<'repository> {
         };
         repository.relations.dispatched = repository.dispatched_members();
         repository.relations.model_packages = repository.model_packages();
+        repository.states_policy |= repository.owns_model_foundation();
         repository
     }
 
@@ -159,5 +160,17 @@ impl<'repository> Repository<'repository> {
             .filter(|(directory, _)| directory.rsplit('/').next() == Some("models"))
             .map(|(directory, _)| directory.to_string())
             .collect()
+    }
+
+    /// Whether this project owns a model foundation its own classes are expected to derive.
+    ///
+    /// A foundation declares no data of its own and is derived by classes that do, which is what
+    /// separates a base a project settled on from a module somebody happened to name `bases`.
+    fn owns_model_foundation(&self) -> bool {
+        self.index.definitions.iter().any(|(held, class)| {
+            class.shape.is_declarative
+                && class.field_count == 0
+                && self.index.subclasses.contains_key(held)
+        })
     }
 }

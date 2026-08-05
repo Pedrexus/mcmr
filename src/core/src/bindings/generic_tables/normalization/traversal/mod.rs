@@ -1,6 +1,5 @@
 use self::entries::{EntryContext, container_entries};
-use self::location::ValueLocation;
-use self::nested::{NestedContainer, NestedEntry, NestedLocation};
+use self::nested::{NestedContainer, NestedEntry, NestedLocation, ValueLocation};
 use self::values::{
     append_container_metadata, append_scalar_field, array_entries, concise_root, container_length,
     is_root_metadata, map_entries, object_schema, scalar_value, stated_field,
@@ -14,7 +13,6 @@ use serde_json::{Map, Value};
 use std::collections::HashMap;
 
 mod entries;
-mod location;
 mod nested;
 mod values;
 

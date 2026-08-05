@@ -9,6 +9,7 @@ from mcmr.checking.evaluations import PreparedRule
 from mcmr.domain.contracts import ModelProvenance
 from mcmr.execution import Classification, ClassificationBackend, ModelCandidate
 from mcmr.facts import FunctionFact
+from mcmr.plugins import RepositoryTables
 from mcmr.query import FixQuery, RuleQuery
 from mcmr.query.runtime import (
     CollectedRules,
@@ -16,7 +17,7 @@ from mcmr.query.runtime import (
     TableRunner,
 )
 from mcmr.rules.general import AbstractionLevel, abstraction_level
-from mcmr.table import AnalysisSession, RepositoryTables
+from mcmr.table import AnalysisSession
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -141,15 +142,18 @@ async def test_table_runner_selects_and_resolves_one_model_query(tmp_path: Path)
     (tmp_path / "subject.py").write_text(
         """def answer(value: int) -> int:
     normalized = abs(value)
-    doubled = normalized * 2
-    return doubled
+    doubled = max(normalized * 2, 1)
+    rendered = str(doubled)
+    cleaned = rendered.strip()
+    parsed = int(cleaned)
+    return parsed
 """,
         encoding="utf-8",
     )
     table = AnalysisSession(
         tmp_path,
         suffixes=[".py"],
-        typed_families=[FunctionFact.__name__],
+        typed_families=[FunctionFact],
     ).function_tables()
     rule = prepared(("str", "", [str(item) for item in AbstractionLevel]))
     tables = RepositoryTables()

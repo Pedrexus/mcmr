@@ -4,8 +4,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from mcmr.domain.contracts import RuleDefinition
-from mcmr.rulebook.catalog import Catalog
+from mcmr.rulebook.catalog import Catalog, RuleDefinition
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
 if TYPE_CHECKING:
@@ -63,6 +62,7 @@ _FOREIGN_NAMES: dict[str, str] = {
     "json_backend": "the registry key the example class derives from its own name",
     "load_profile": "an example function name in the effect visibility docstring",
     "loop_factory": "the `asyncio.Runner` argument that replaced the policy API",
+    "model_config": "the Pydantic attribute a model foundation states its policy in",
     "model_dump": "the Pydantic serializer the projection rules point at",
     "model_post_init": "the Pydantic lifecycle hook several rules exempt",
     "model_validate": "the Pydantic entry point the redundant validate rule reports",

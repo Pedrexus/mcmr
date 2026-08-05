@@ -28,6 +28,7 @@ dependencies = [
   "annotated-types>=0.8,<1",
   "anyio>=4.14,<5",
   "cyclopts>=4",
+  "httpx>=0.28,<1",
   "packaging>=26,<27",
   "patos>=0.0.9,<0.1",
   "pathspec>=1.1,<2",
@@ -54,6 +55,9 @@ dev = [
 [project.scripts]
 mcmr = "mcmr.commands.cli:app"
 
+[project.entry-points."mcmr.providers"]
+dependencies = "mcmr.project.dependencies:DependencyRefresher"
+
 [project.urls]
 Homepage = "https://phvv.me/mcmr"
 Documentation = "https://phvv.me/mcmr"
@@ -78,7 +82,8 @@ select = ["ASYNC", "B", "E", "F", "I", "PERF", "SIM", "TC", "UP"]
 [tool.ruff.lint.flake8-type-checking]
 exempt-modules = ["mcmr.domain.contracts", "pathlib"]
 runtime-evaluated-base-classes = [
-  "mcmr.execution.backends.base.ClassificationBackend",
+  "mcmr.execution.backends.batched.BatchedBackend",
+  "mcmr.execution.queries.runtime.ClassificationBackend",
   "patos.Component",
   "patos.FrozenFlexModel",
   "patos.FrozenModel",
@@ -120,11 +125,11 @@ root = ["src/api", "src/rules"]
 include = ["src/api", "src/rules"]
 
 [tool.pytest.ini_options]
-addopts = "-q -ra --strict --import-mode=importlib --cov=mcmr --cov-report=term-missing"
+addopts = "-q -ra --strict --import-mode=importlib --cov=mcmr --cov=mcmr_datahub --cov-report=term-missing"
 testpaths = ["tests"]
 
 [tool.coverage.run]
-source = ["mcmr"]
+source = ["mcmr", "mcmr_datahub"]
 branch = true
 
 [tool.coverage.report]

@@ -60,6 +60,7 @@ class ClassFact(Fact):
         """Retain behavior, imports, destinations, and Pydantic foundation evidence."""
 
         has_ordinary_behavior: bool = False
+        states_model_configuration: bool = False
         importing_modules: list[str] = []
         proposed_model_destination: str = ""
         directly_inherits_pydantic_base_model: bool = False

@@ -1,13 +1,14 @@
 from functools import cached_property
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 import anyio
 from patos import FrozenModel
-from pydantic import Field, InstanceOf, PositiveInt
+from pydantic import Field, InstanceOf, NonNegativeInt, PositiveInt, TypeAdapter
 
 from .....domain.primitives import JsonTransport
-from .....facts import DependencyFact, SourceSpan
+from .....facts import DependencyFact, Fact, SourceSpan
+from .....table import RepositoryTables, fact_table
 from ...inventory import DependencyDeclaration, DependencyInventory
 from ..simple import SimpleProject
 from ..transport import UrlJsonTransport
@@ -15,6 +16,7 @@ from .client import DependencyClient
 from .state import DependencyProgress, failure, latest_version
 
 if TYPE_CHECKING:
+    from .....execution.providers.contracts import ProviderContext
     from .....facts import DependencyRecord, Evidence
     from ..release import ReleaseProject
 
@@ -22,9 +24,12 @@ if TYPE_CHECKING:
 class DependencyRefresher(FrozenModel):
     """Collect bounded objective upstream facts into MCMR's offline evidence contract."""
 
-    root: Path
+    families: ClassVar[dict[type[Fact], set[type[Fact]]]] = {DependencyFact: set()}
+
+    root: Path = Path()
     transport: InstanceOf[JsonTransport] = Field(default_factory=UrlJsonTransport)
     workers: PositiveInt = 8
+    timeout_seconds: NonNegativeInt = 30
 
     async def collect(
         self,
@@ -60,6 +65,27 @@ class DependencyRefresher(FrozenModel):
             dependencies=[records[name] for name in sorted(records)],
             evidence=[evidence[name] for name in sorted(evidence)],
         )
+
+    async def tables(self, context: ProviderContext) -> RepositoryTables:
+        """Build the dependency table under one provider request."""
+        workers = TypeAdapter(PositiveInt).validate_python(
+            context.settings.get("workers", self.workers)
+        )
+        timeout = TypeAdapter(NonNegativeInt).validate_python(
+            context.settings.get("timeout_seconds", self.timeout_seconds)
+        )
+        refresher = self.model_copy(
+            update={
+                "root": context.repository,
+                "workers": workers,
+                "timeout_seconds": timeout,
+                "transport": UrlJsonTransport(timeout_seconds=timeout),
+            }
+        )
+        tables = RepositoryTables()
+        if DependencyFact in context.requested:
+            tables.add(fact_table(DependencyFact, [await refresher.refresh()]))
+        return tables
 
     @cached_property
     def _client(self) -> DependencyClient:

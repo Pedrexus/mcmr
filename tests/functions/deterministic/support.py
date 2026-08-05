@@ -3,13 +3,14 @@ from typing import TYPE_CHECKING
 from patos import FrozenModel
 
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
-from mcmr.facts import Fact, SourceSpan
+from mcmr.facts import SourceSpan
+from mcmr.plugins import Fact
 from mcmr.query import RuleQuery, scalar_frame_value
 
 from ...support import retained_query
 
 if TYPE_CHECKING:
-    from mcmr.table import Table
+    from mcmr.plugins import Table
 
     from ...support import Declared
 

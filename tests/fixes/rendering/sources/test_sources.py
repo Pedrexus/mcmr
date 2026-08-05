@@ -106,11 +106,15 @@ def test_type_only_imports_create_one_guard_with_relative_semantics(tmp_path: Pa
         ),
     )
 
-    assert revised == (
-        "from typing import TYPE_CHECKING\n\n"
-        "if TYPE_CHECKING:\n"
-        "    from .models import Factory\n\n"
-        "value: Factory\n"
+    assert (
+        revised
+        == """from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .models import Factory
+
+value: Factory
+"""
     )
 
 

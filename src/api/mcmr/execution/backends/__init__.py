@@ -1,25 +1,32 @@
-from ..contracts import (
+from ..contracts import SubprocessRunner
+from ..queries.contracts import (
     Assessment,
     Classification,
     CriterionAnswer,
     CriterionValue,
     ModelCandidate,
-    SubprocessRunner,
 )
 from ..queries.runtime import ClassificationBackend
-from .providers.codex import CodexBackend, CodexHarness, CodexProtocol
+from .batched import BatchedBackend
+from .candidate import CandidateProtocol
+from .claude import ClaudeBackend
+from .codex import CodexBackend, CodexHarness
+from .openrouter import OpenRouterBackend
 from .providers.gliner import Gliner2Backend
 
 __all__ = [
     "Assessment",
+    "BatchedBackend",
+    "CandidateProtocol",
     "Classification",
     "ClassificationBackend",
+    "ClaudeBackend",
     "CodexBackend",
     "CodexHarness",
-    "CodexProtocol",
     "CriterionAnswer",
     "CriterionValue",
     "Gliner2Backend",
     "ModelCandidate",
+    "OpenRouterBackend",
     "SubprocessRunner",
 ]

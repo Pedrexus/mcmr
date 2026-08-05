@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from mcmr.commands.insight import diagram
-from mcmr.kernel import locate
+from mcmr.project import locate
 from mcmr.repository import (
     GraphNode,
     GraphReader,

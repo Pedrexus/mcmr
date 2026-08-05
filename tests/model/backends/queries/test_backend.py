@@ -1,15 +1,15 @@
+import asyncio
 import json
 from typing import TYPE_CHECKING
 
 import pytest
-from pydantic import ValidationError
+from pydantic import JsonValue, ValidationError
 
 from mcmr.domain.contracts import Criterion
 from mcmr.execution import Classification, CodexBackend, CommandResult, CriterionValue
-from mcmr.execution.backends import CodexHarness, CodexProtocol
+from mcmr.execution.backends import CandidateProtocol, CodexHarness
 from mcmr.facts import Evidence
 
-from ...backend_fakes import Category, StubRunner
 from ...backend_values import (
     assessment_payload,
     candidate,
@@ -18,6 +18,7 @@ from ...backend_values import (
     payload,
     provenance,
 )
+from ...fakes import Category, StubRunner
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -45,11 +46,150 @@ async def test_a_valid_answer_retains_reasoning_citations_usage_and_provenance()
         answer.provenance.output_tokens,
         answer.provenance.reasoning_tokens,
     ) == (Category.SUPPORTED, ["structure"], 0.75, "gpt-tested", 12, 3, 4, 2)
-    assert runner.schema == CodexProtocol(
+    assert runner.schema == CandidateProtocol(
         candidate=stated,
         instructions="Judge only the retained structure.",
     ).classification_schema(Category)
     assert runner.calls[0][3] == 17
+
+
+@pytest.mark.anyio
+async def test_codex_batches_candidates_and_preserves_exact_aggregate_usage() -> None:
+    """Both model modes use one process for a bounded batch and account for its tokens once."""
+    first = candidate(Evidence(signal="first", detail="one", source="first.py"))
+    second = candidate(Evidence(signal="second", detail="two", source="second.py"))
+    cases = [first, second]
+    runner = StubRunner(
+        {
+            "answers": {
+                "0": payload(evidence=("first",)),
+                "1": payload(evidence=("second",)),
+            }
+        },
+        CommandResult(returncode=0, stdout=completed()),
+    )
+    answers = await CodexBackend(runner=runner, batch_size=2).classify_many(
+        cases, category=Category, instructions="Judge each structure."
+    )
+    assessment_runner = StubRunner(
+        {
+            "answers": {
+                "0": assessment_payload(evidence="first"),
+                "1": assessment_payload(evidence="second"),
+            }
+        },
+        CommandResult(returncode=0, stdout=completed()),
+    )
+    assessed = await CodexBackend(runner=assessment_runner, batch_size=2).assess_many(
+        cases, criteria=criteria(), instructions="Assess each structure."
+    )
+
+    assert ([answer.evidence for answer in answers], len(runner.calls)) == (
+        [["first"], ["second"]],
+        1,
+    )
+    assert [answer.value("structure supported") for answer in assessed] == [
+        CriterionValue.YES,
+        CriterionValue.YES,
+    ]
+    assert sum(answer.provenance.input_tokens for answer in answers) == 12
+
+
+@pytest.mark.anyio
+async def test_a_batch_answer_reaches_the_candidate_its_key_names() -> None:
+    """Keys bind answers to candidates, and an answer on the wrong one cannot pass as evidence."""
+    cases = [
+        candidate(Evidence(signal=f"signal{index}", detail="one", source="one.py"))
+        for index in range(12)
+    ]
+    keyed: dict[str, JsonValue] = {
+        str(index): payload(evidence=(f"signal{index}",)) for index in range(12)
+    }
+    # A batch object arrives in whatever order the model wrote it, which for numeric keys is
+    # never the numeric order, so an answer that travelled by position would land elsewhere.
+    scrambled = {key: keyed[key] for key in sorted(keyed, reverse=True)}
+    answers = await CodexBackend(
+        runner=StubRunner(
+            {"answers": scrambled},
+            CommandResult(returncode=0, stdout=completed()),
+        ),
+        batch_size=12,
+    ).classify_many(cases, category=Category, instructions="Judge each structure.")
+    swapped = await CodexBackend(
+        runner=StubRunner(
+            {"answers": {"0": keyed["1"], "1": keyed["0"]}},
+            CommandResult(returncode=0, stdout=completed()),
+        ),
+        batch_size=2,
+    ).classify_many(cases[:2], category=Category, instructions="Judge each structure.")
+
+    assert [answer.evidence for answer in answers] == [[f"signal{index}"] for index in range(12)]
+    assert [answer.value for answer in swapped] == [Category.UNCERTAIN, Category.UNCERTAIN]
+    assert "cited unknown evidence" in swapped[0].reasoning
+
+
+@pytest.mark.anyio
+async def test_codex_empty_batches_start_no_process() -> None:
+    """An empty contextual relation remains an empty result in both model modes."""
+    runner = StubRunner({}, CommandResult(returncode=0))
+    backend = CodexBackend(runner=runner)
+
+    classified = await backend.classify_many(
+        [], category=Category, instructions="Judge each structure."
+    )
+    assessed = await backend.assess_many(
+        [], criteria=criteria(), instructions="Assess each structure."
+    )
+
+    assert classified == []
+    assert assessed == []
+    assert runner.calls == []
+
+
+@pytest.mark.anyio
+async def test_codex_malformed_batch_keys_fail_only_their_batch() -> None:
+    """A response that changes candidate identities becomes local uncertainty."""
+    stated = candidate()
+    malformed: dict[str, JsonValue] = {"answers": {"unexpected": payload()}}
+    classified = await CodexBackend(
+        runner=StubRunner(malformed, CommandResult(returncode=0))
+    ).classify_many([stated], category=Category, instructions="Judge each structure.")
+    assessed = await CodexBackend(
+        runner=StubRunner(malformed, CommandResult(returncode=0))
+    ).assess_many([stated], criteria=criteria(), instructions="Assess each structure.")
+
+    assert classified[0].value is Category.UNCERTAIN
+    assert "different batch candidate keys" in classified[0].reasoning
+    assert all(answer.value is CriterionValue.UNKNOWN for answer in assessed[0].answers)
+
+
+@pytest.mark.anyio
+async def test_codex_shares_one_worker_bound_across_concurrent_rules() -> None:
+    """Parallel rule queries cannot multiply the configured process pool."""
+    first = candidate(Evidence(signal="first", detail="one", source="first.py"))
+    second = candidate(Evidence(signal="second", detail="two", source="second.py"))
+    runner = StubRunner(
+        {
+            "answers": {
+                "0": payload(evidence=("first",)),
+                "1": payload(evidence=("second",)),
+            }
+        },
+        CommandResult(returncode=0, stdout=completed()),
+        delay_seconds=0.01,
+    )
+    backend = CodexBackend(runner=runner, workers=1, batch_size=2)
+
+    await asyncio.gather(
+        backend.classify_many(
+            [first, second], category=Category, instructions="Judge each structure."
+        ),
+        backend.classify_many(
+            [first, second], category=Category, instructions="Judge each structure."
+        ),
+    )
+
+    assert (len(runner.calls), runner.maximum_active) == (2, 1)
 
 
 @pytest.mark.anyio
@@ -67,7 +207,7 @@ async def test_one_codex_turn_assesses_every_criterion_before_local_reduction() 
     assert answer.value("structure supported") is CriterionValue.YES
     assert answer.value("structure contradicted") is CriterionValue.NO
     assert len(runner.calls) == 1
-    assert runner.schema == CodexProtocol(
+    assert runner.schema == CandidateProtocol(
         candidate=stated,
         instructions="Assess the retained structure without selecting policy.",
     ).assessment_schema(criteria())

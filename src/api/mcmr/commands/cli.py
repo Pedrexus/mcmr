@@ -5,6 +5,7 @@ from .projection import benchmark as benchmark
 from .projection import changes as changes
 from .quality import checking as checking
 from .quality import contextual as contextual
+from .quality import showcase as showcase
 
 if __name__ == "__main__":
     app()

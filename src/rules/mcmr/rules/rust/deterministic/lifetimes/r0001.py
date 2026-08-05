@@ -140,7 +140,7 @@ class _LifetimeElision:
         annotations = self.relations.annotations().filter(
             pl.col("kind").is_in(list(_ELIDING_KINDS)) & (pl.col("names.length") > 0)
         )
-        inferred = self.inferred_names(annotations)
+        inferred = self._inferred_names(annotations)
         eligible = inferred.group_by("parent_id").agg(
             pl.col("inferred").all().alias("all_inferred")
         )
@@ -151,7 +151,15 @@ class _LifetimeElision:
             how="inner",
         ).filter(pl.col("all_inferred"))
 
-    def inferred_names(self, annotations: pl.LazyFrame) -> pl.LazyFrame:
+    def marker(self, relation: str, *, name: str) -> pl.LazyFrame:
+        """Return a keyed Boolean marker for one named lifetime relation."""
+        return self.relations.values(relation).select(
+            "parent_id",
+            pl.col("string_value").alias("name"),
+            pl.lit(True).alias(name),
+        )
+
+    def _inferred_names(self, annotations: pl.LazyFrame) -> pl.LazyFrame:
         """State whether elision places each declared name exactly as written."""
         names = self.relations.values("annotations.names").select(
             "parent_id",
@@ -213,12 +221,4 @@ class _LifetimeElision:
                     & (pl.col("matching_return_count") == pl.col("returned_count"))
                 )
             ).alias("inferred")
-        )
-
-    def marker(self, relation: str, *, name: str) -> pl.LazyFrame:
-        """Return a keyed Boolean marker for one named lifetime relation."""
-        return self.relations.values(relation).select(
-            "parent_id",
-            pl.col("string_value").alias("name"),
-            pl.lit(True).alias(name),
         )

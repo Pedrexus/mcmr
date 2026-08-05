@@ -5,7 +5,6 @@ from mcmr.facts import (
     AttributeAccess,
     AttributeAccessFact,
     CallFact,
-    Fact,
     NodeRef,
     ReceiverKind,
     SourceSpan,
@@ -25,12 +24,14 @@ from mcmr.rules.python import (
     redundant_model_validate,
     tensor_interoperability_round_trip_count,
 )
-from mcmr.table import AnalysisSession, Table
+from mcmr.table import AnalysisSession
 
 from ..support import retained_query
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from mcmr.plugins import Fact, Table
 
 
 def repository(root: Path) -> Path:
@@ -80,7 +81,7 @@ def call_table(root: Path) -> Table[CallFact]:
     return AnalysisSession(
         repository(root),
         suffixes=[".py"],
-        typed_families=[CallFact.__name__],
+        typed_families=[CallFact],
     ).call_tables()
 
 

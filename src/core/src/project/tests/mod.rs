@@ -163,8 +163,15 @@ strict_xfail = false
     assert_eq!(suite["import_mode"], "importlib");
 }
 
-fn task(tooling: &str, capability: &str) -> Value {
-    automation(&tooling.parse::<Table>().expect("the manifest parses"), &[])["tasks"]
+fn task<T: AsRef<str>, C: AsRef<str>>(tooling: T, capability: C) -> Value {
+    let capability = capability.as_ref();
+    automation(
+        &tooling
+            .as_ref()
+            .parse::<Table>()
+            .expect("the manifest parses"),
+        &[],
+    )["tasks"]
         .as_array()
         .expect("a task list")
         .iter()

@@ -35,7 +35,8 @@ def abstraction_level(
     Compare the function name, orchestration, domain operations, low-level mechanics, and
     extracted helpers. Mixed means a reader must repeatedly switch between policy and mechanism.
     The criteria independently establish a shared intent level, interleaving, repeated switching,
-    and a deliberate boundary purpose.
+    and a deliberate boundary purpose. Small functions are structurally cohesive enough to skip
+    model judgment, so candidates need six statements and four behavior operations.
 
     Evidence
     --------
@@ -62,8 +63,8 @@ def abstraction_level(
         category=AbstractionLevel,
         instructions=abstraction_level.instructions,
     ).where(
-        (pl.col("direct_statement_count") >= 3)
-        & (pl.col("behavior_operation_count") >= 2)
+        (pl.col("direct_statement_count") >= 6)
+        & (pl.col("behavior_operation_count") >= 4)
         & ~pl.col("is_test"),
         requires=("direct_statement_count", "behavior_operation_count", "is_test"),
     )

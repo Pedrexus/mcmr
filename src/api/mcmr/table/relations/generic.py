@@ -4,7 +4,7 @@ if TYPE_CHECKING:
     import polars as pl
 
     from ...facts.foundation import Fact
-    from ..models import Table
+    from ..runtime.table import Table
 
 
 class FactRelations[Family: Fact]:

@@ -1,8 +1,10 @@
 from typing import TYPE_CHECKING
 
 from patos import FrozenModel
+from pydantic import Field
 
 from ....domain.contracts import RuleScope
+from ....rulebook.catalog import RuleDefinition
 from ..profiles.relation import Relation
 from ..profiles.tools.rule import UpstreamRule
 
@@ -28,10 +30,14 @@ class Reference(FrozenModel):
     upstream: UpstreamRule | None = None
     work: str = ""
     locator: str = ""
-    rule: str = ""
-    summary: str = ""
-    scope: RuleScope = RuleScope.GENERAL
-    fact: str = ""
+    definition: RuleDefinition | None = Field(default=None, exclude=True, repr=False)
+
+    @property
+    def claimed_definition(self) -> RuleDefinition:
+        """Return the definition after proving this reference is an indexed claim."""
+        if self.definition is None:
+            raise ValueError("an unindexed reference has no claiming rule definition")
+        return self.definition
 
     @property
     def claimed_upstream(self) -> UpstreamRule:
@@ -49,9 +55,24 @@ class Reference(FrozenModel):
         return coverage
 
     @property
+    def fact(self) -> str:
+        """Return the fact family of the rule making this claim."""
+        return self.claimed_definition.fact
+
+    @property
     def lines(self) -> list[str]:
         """Return the docstring lines this entry was written as."""
         return [line for line in (self.text, self.url) if line]
+
+    @property
+    def rule(self) -> str:
+        """Return the identity of the rule making this claim."""
+        return self.claimed_definition.id
+
+    @property
+    def scope(self) -> RuleScope:
+        """Return the language scope of the rule making this claim."""
+        return self.claimed_definition.scope
 
     @property
     def source(self) -> str:
@@ -68,6 +89,11 @@ class Reference(FrozenModel):
             return ""
         words = (self.relation.word, self.upstream.tool, self.upstream.code, self.upstream.symbol)
         return " ".join(word for word in words if word)
+
+    @property
+    def summary(self) -> str:
+        """Return the summary of the rule making this claim."""
+        return self.claimed_definition.documentation.summary
 
     def covers(self, profile: ToolProfile) -> bool:
         """Return whether this reference covers the tool's languages."""

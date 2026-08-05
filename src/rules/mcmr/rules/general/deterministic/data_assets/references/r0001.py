@@ -4,7 +4,7 @@ from ...... import rule
 from ......facts import DataAssetReferenceFact
 from ......query import CountQuery
 from ......table import Table
-from ..relations import count_query
+from ..relations import detailed_count_query
 
 
 @rule("ALL-DATA0001")
@@ -48,7 +48,14 @@ def missing_data_asset_reference(subject: Table[DataAssetReferenceFact]) -> Coun
     Cites "OpenLineage specification", object model and dataset naming specification
     Cites "dbt documentation", manifest and catalog artifacts
     """
-    return count_query(
-        subject.counted(subject.records("references").filter(~pl.col("asset_exists"))),
+    selected = subject.records("references").filter(~pl.col("asset_exists"))
+    return detailed_count_query(
+        subject,
+        selected,
+        pl.concat_str(
+            pl.lit("data asset `"),
+            pl.col("asset_identifier"),
+            pl.lit("` is absent from the catalog"),
+        ),
         "missing data asset reference",
     )

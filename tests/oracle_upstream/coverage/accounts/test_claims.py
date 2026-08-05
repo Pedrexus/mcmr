@@ -9,12 +9,13 @@ from mcmr.accounting.upstream import (
     ToolProfile,
     ToolRegistry,
 )
-from mcmr.domain.contracts import RuleDefinition
 
 from ..support import inventoried
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from mcmr.rulebook.catalog import RuleDefinition
 
 
 @pytest.mark.parametrize("tool", inventoried())

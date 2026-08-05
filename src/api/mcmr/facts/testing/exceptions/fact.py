@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from ...foundation import Fact
 
 if TYPE_CHECKING:
-    from .region import ExceptionRegion
+    from .regions import ExceptionRegion
 
 
 class TryBlockFact(Fact):

@@ -20,8 +20,8 @@ pub fn prose(source: &Source, module: &ModModule) -> Value {
     let sections = documented
         .iter()
         .map(|(statement, text)| {
-            let sentences = text
-                .split(['.', '!', '?'])
+            let sentences = sentences(text)
+                .into_iter()
                 .filter_map(|sentence| {
                     let words = sentence.split_whitespace().collect::<Vec<_>>();
                     (!words.is_empty()).then(|| (words.len(), words[0].to_lowercase()))
@@ -50,4 +50,29 @@ pub fn prose(source: &Source, module: &ModModule) -> Value {
         })
         .collect::<Vec<_>>();
     json!({"sections": sections})
+}
+
+/// Split one section into the sentences a reader hears, keeping every code span whole.
+///
+/// A backtick span is one token however it is spelled, so the dot inside `index.md` ends a file
+/// name rather than a sentence. A run of backticks opens the span and the next run closes it,
+/// which is what keeps a doubled or fenced spelling from reading as two spans.
+fn sentences(text: &str) -> Vec<&str> {
+    let mut found = Vec::new();
+    let mut start = 0;
+    let mut inside = false;
+    let mut previous = ' ';
+    for (offset, character) in text.char_indices() {
+        match character {
+            '`' if previous != '`' => inside = !inside,
+            '.' | '!' | '?' if !inside => {
+                found.push(&text[start..offset]);
+                start = offset + character.len_utf8();
+            }
+            _ => {}
+        }
+        previous = character;
+    }
+    found.push(&text[start..]);
+    found
 }

@@ -24,13 +24,18 @@ def empty_declarative_model(subject: Table[ClassFact]) -> CountQuery:
 
     Exceptions
     ----------
-    Framework-required sentinel models can remain through an exact path exclusion. Protocols and
-    abstract behavioral contracts are not concrete data models and are excluded.
+    A foundation is not a model. A base that owns no fields and either states the `model_config`
+    every class below it inherits or is already derived by classes that do own fields exists to fix
+    validation policy, so it is read as the foundation rather than as an empty model, wherever the
+    project keeps it. Framework-required sentinel models can remain through an exact path
+    exclusion. Protocols and abstract behavioral contracts are not concrete data models and are
+    excluded.
 
     Examples
     --------
     `class Ready(FrozenModel): pass` is reported. `class Ready(FrozenModel): value: bool` and an
-    explicit `Protocol` are accepted.
+    explicit `Protocol` are accepted. A base whose whole body is `model_config` is also accepted,
+    since it states what everything below it derives.
 
     References
     ----------

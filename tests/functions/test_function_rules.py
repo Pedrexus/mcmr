@@ -23,10 +23,12 @@ from mcmr.rules.python import (
     unjustified_positional_only_parameter_count,
     unreferenced_private_function,
 )
-from mcmr.table import AnalysisSession, FunctionRelation, Table
+from mcmr.table import AnalysisSession, FunctionRelation
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from mcmr.plugins import Table
 
 
 def repository(root: Path) -> Path:
@@ -34,6 +36,7 @@ def repository(root: Path) -> Path:
     (root / "service.py").write_text(
         '''import asyncio
 from functools import cache, cached_property
+from typing import Protocol
 
 import torch
 
@@ -137,6 +140,10 @@ class Cache:
     @cache
     def compute(self, value: int) -> int:
         return value
+
+
+class Reader(Protocol):
+    def read1(self, size=-1, /) -> bytes: ...
 ''',
         encoding="utf-8",
     )
@@ -148,7 +155,7 @@ def function_table(root: Path) -> Table[FunctionFact]:
     return AnalysisSession(
         repository(root),
         suffixes=[".py"],
-        typed_families=[FunctionFact.__name__],
+        typed_families=[FunctionFact],
     ).function_tables()
 
 
@@ -264,6 +271,7 @@ def test_class_owned_helper_query_keeps_its_move_and_call_replacement(tmp_path: 
 def test_python_function_contracts_use_the_same_native_table(tmp_path: Path) -> None:
     table = function_table(tmp_path)
     assert value(table, unjustified_positional_only_parameter_count, "positional") == 1
+    assert value(table, unjustified_positional_only_parameter_count, "read1") == 0
     assert value(table, task_group_candidate, "concurrent") == 1
     assert value(table, instance_independent_cached_property, "version") == 1
     assert value(table, cached_instance_method, "compute") == 1

@@ -213,3 +213,22 @@ Most of the backlog needs no new fact family. The ones that do:
   mixed operators the way the published model does
 * `MethodAnalysis` extended to carry data members beside callables, which member ordering needs
   before it can sort fields and which `struct_excessive_bools` needs for the declared type of each
+
+## Kernel defect found while building the DataHub integration
+
+A subpackage nested two levels inside an installed plugin package silently breaks reference
+resolution for every sibling module beside it. Splitting `mcmr_datahub/transport/settings.py` into
+`mcmr_datahub/transport/settings/` made `ALL-REAC0001` report `DataHubGraphQL`, `GraphQLResponse`,
+and `DataHubSettings` as classes nothing reaches, and `ALL-REAC0002` report `RecordedTransport` as
+read only inside its own file, while `PY-MODU0005` reported three public routes as unused. Every
+one of those imports exists and executes. Collapsing the package back to a module cleared all six
+findings with no other change, which is the whole proof.
+
+The cost of the bug is exactly the cost of the fact it corrupts. Reach findings read as a clean
+result rather than as a failure, so a package laid out this way loses its dead-code and public
+surface rules without saying so. The DataHub package is laid out one level deep everywhere as a
+result, which is a workaround rather than a preference.
+
+What this needs is a failing case in the kernel reference index over a plugin package with a
+two-level subpackage, then resolution of the deeper relative import. Until then any repository
+nesting a plugin package that far is quietly unscanned for reach.

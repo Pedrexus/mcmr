@@ -5,6 +5,7 @@ from .changes.change import DataChange
 from .changes.fact import DataChangeFact
 from .fields.fact import DataFieldReferenceFact
 from .fields.reference import DataFieldReference
+from .fields.repair import DataFieldRepair
 from .references.fact import DataAssetReferenceFact
 from .references.reference import DataAssetReference
 
@@ -18,4 +19,5 @@ __all__ = [
     "DataField",
     "DataFieldReference",
     "DataFieldReferenceFact",
+    "DataFieldRepair",
 ]

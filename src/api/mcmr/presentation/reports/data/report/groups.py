@@ -8,9 +8,10 @@ from .....facts import SourceSpan
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-    from .....domain.contracts import EngineStats, Observation, RuleDefinition
+    from .....domain.contracts import EngineStats, Observation
     from .....domain.policy import RulePolicies
     from .....kernel import KernelStats
+    from .....rulebook.catalog import RuleDefinition
     from .failure import RuleFailure
 
 

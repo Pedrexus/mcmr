@@ -13,7 +13,7 @@ use declaration::{DelimitedPattern, IdentifierPattern, after, between, kernels};
 use declaration::{native_declarations, shared_library_declarations};
 use manifest::manifest_declarations;
 #[cfg(test)]
-use manifest::{binaries, node_binaries};
+use manifest::{binaries, console_scripts, node_binaries};
 
 /// Find every cross-language artifact a repository declares and everything that reaches it.
 ///

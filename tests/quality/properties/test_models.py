@@ -1,12 +1,12 @@
+from typing import TYPE_CHECKING
+
 import pytest
 from pydantic import ValidationError
 
-from mcmr.domain.contracts import RuleDefinition
 from mcmr.domain.policy import LengthDistribution
 from mcmr.facts import (
     CloneFragment,
     CloneGroupFact,
-    CoChangedPair,
     ComprehensionFact,
     DependencyRecord,
     EscapeHatch,
@@ -32,6 +32,9 @@ from mcmr.facts import (
 
 from ...support import built_catalog, family_of
 from .support import readers, specialized_families
+
+if TYPE_CHECKING:
+    from mcmr.rulebook.catalog import RuleDefinition
 
 
 def test_clone_models_refuse_impossible_relationships() -> None:
@@ -190,22 +193,6 @@ def test_history_models_refuse_impossible_relationships() -> None:
             span=SourceSpan(path=""),
             unscoped_commit_count=1,
             files=[FileHistory(path="shop/service.py"), FileHistory(path="shop/service.py")],
-        )
-    with pytest.raises(ValidationError, match="co-changed with itself"):
-        CoChangedPair(
-            left="shop/service.py",
-            right="shop/service.py",
-            shared_commit_count=1,
-            left_commit_count=1,
-            right_commit_count=1,
-        )
-    with pytest.raises(ValidationError, match="shared commits cannot outnumber"):
-        CoChangedPair(
-            left="shop/service.py",
-            right="shop/api.py",
-            shared_commit_count=3,
-            left_commit_count=2,
-            right_commit_count=3,
         )
 
 

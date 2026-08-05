@@ -9,16 +9,16 @@ from pydantic import JsonValue, PositiveInt
 from ....domain.contracts import Criterion, ModelProvenance
 from ....domain.primitives import NonEmptyStr
 from ....facts import Fact
-from ...contracts import (
+from ..contracts import (
     Assessment,
+    AssessmentContract,
     Classification,
     CriterionAnswer,
     CriterionValue,
     ModelCandidate,
+    ModelMode,
 )
-from ..definitions import ModelMode
-from ..model import ModelQuery
-from .answers import answer_frame
+from ..model import ModelQuery, answer_frame
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -26,7 +26,6 @@ if TYPE_CHECKING:
     from ....domain.contracts import RuleValue
     from ....query import RuleQuery
     from ....table import Table
-    from ..assessment.contract import AssessmentContract
 
 
 class ClassificationBackend(Component, ABC):
@@ -146,7 +145,7 @@ class ClassificationBackend(Component, ABC):
         outcomes: Sequence[Classification[StrEnum] | Assessment]
         if query.mode is ModelMode.CLASSIFY:
             outcomes = await self.classify_many(
-                candidates, category=query.category, instructions=query.instructions
+                candidates, category=query.category, instructions=query.stated_instructions
             )
         else:
             outcomes = await self.assess_many(

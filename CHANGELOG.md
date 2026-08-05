@@ -18,6 +18,48 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Added
 
+- `mcmr writeback` publishes one completed run back to the systems that supplied its evidence.
+  Providers opt in through a `ResultPublisher` protocol, so no analysis path can publish and no
+  configuration turns it on. The DataHub publisher attaches one institutional memory link to each
+  governed asset a finding named, which is additive where `updateDescription` would overwrite a
+  sentence a person wrote.
+
+- Table-level lineage, recent-change marking, and stated cast types close three silent zeros.
+  `LineageEdgeFact` now has a provider through `searchAcrossLineage`, keeping only direct
+  neighbours so an impact measure is not computed over a graph where everything is adjacent. A
+  `since` setting marks assets DataHub modified after a given day, which is what makes the
+  `"changed"` scope of `ALL-DATA0007` and `ALL-DATA0013` honest. An explicit SQL cast becomes the
+  stated type expectation `ALL-DATA0003` reads, with both spellings normalized through one
+  engine-neutral parser so `NUMBER` and `DECIMAL` agree while `STRING` and `NUMBER` do not.
+
+- `mcmr demo` runs the complete DataHub workflow with no service, no network, and no edit to the
+  example it copies. It reports what the catalog says about a pipeline change, previews the one
+  repair the catalog proves, applies and verifies it, reruns the rule clean, and prints its own
+  timings. A `recorded` provider setting names a directory of captured GraphQL exchanges, each
+  pairing request variables with the exact response envelope, so a live capture is a drop-in
+  replacement rather than a format change.
+
+- The first repair proven by evidence from outside the repository. `ALL-DATA0002` now carries a
+  safe fix that rewrites the literal naming a retired column so it names the column DataHub's own
+  column-level lineage says derives from it. The provider retains a successor only where exactly
+  one surviving column claims the retired one, and the rewrite is offered only where the literal
+  spells the old name once. `DataFieldReference` retains the literal anchor and that rewrite under
+  `repair`, and drops the source location its span already carried.
+
+- Three DataHub-backed rules that join catalog context to exact source evidence. `ALL-DATA0011`
+  counts unowned assets whose bounded downstream lineage reach meets a threshold, `ALL-DATA0012`
+  counts fields the catalog tags sensitive while leaving their owner or glossary context empty,
+  and `ALL-DATA0013` reports the source line that reads an asset the catalog gives no owner or no
+  description. `DataField` now retains `tags` and `glossary_terms`, which is the governance
+  vocabulary the sensitive-field rule reads.
+
+- Two contextual classification backends beside `codex` and `gliner2`. `claude` runs one isolated
+  single-turn `claude --print` process per bounded batch, and `openrouter` posts the same closed
+  schema to an OpenAI-compatible server, reading its key from `OPENROUTER_API_KEY` at request time
+  and never from configuration. Prompt, schema, citation, and batching machinery is now shared, so
+  a new provider supplies transport alone. `mcmr model-sweep . --backend <name>` selects one for a
+  single stateless sweep.
+
 - Exact evidence-backed autofixes for empty directories, class-owned helpers, grouped unused import
   bindings, unused explicit exports, and explicit `__all__` declarations outside package
   initializers. File and directory changes share one guarded rollback transaction, and every
@@ -236,6 +278,78 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Fixed
 
+- A contextual classification prompt now states what selecting each category reports. A category
+  name says what the model observed and never what the engine will do with it, so a rule offering
+  `appropriate` beside `use_plain_class` read as two recommendations while the policy scored the
+  second one as a defect, and a class the model judged perfectly fine arrived as a failure whose
+  own message argued that it was fine. The resolved policy answers `Policy.reported`, the query
+  carries the outcome map into the shared instructions, and the model is asked for the category
+  the evidence states rather than the one whose report it would prefer. `PY-MODE1001` and
+  `ALL-STAT1001` also separate the categories their definitions used to overlap, so `use_plain_class`
+  names a class that has to come off a model and `shared` names state with no governing contract
+  to point at.
+
+- `PY-DOCU0002` reads a tensor name only where a tensor library owns it. `Array`, `Tensor`, and
+  `ndarray` are ordinary words that many libraries spell the same way, so `tomlkit.items.Array`
+  was reported for missing shape and dtype prose about a TOML array. The name is now resolved
+  through the file's own imports to the library it came from, and only `torch`, `numpy`, `jax`,
+  `cupy`, `jaxtyping`, and `torchtyping` make it a tensor, which is the exception the rule always
+  stated for unrecognized libraries.
+
+- The history family names only files the working tree still holds. Renames were already followed
+  forward, but a file deleted or taken apart since, whether in a commit or in the working tree,
+  kept its churn and its co-change pairs, so `ALL-HIST0003` could ask a reader to find what two
+  files assume while naming one that no longer exists. Every claim this family makes is one a
+  reader acts on by opening the file, so a path with no file behind it now votes on nothing.
+
+- `ALL-BIND0001` judges only the artifacts a language declares to reach another one. A packaging
+  entry point is now its own `console-script` mechanism rather than a binary, since the target of
+  `project.scripts` or a Node `bin` entry is a callable the declaring language already holds, so a
+  pure Python or pure TypeScript command was reported forever for having no caller in a second
+  language. The seam width rule still counts every language that crosses one.
+
+- `PY-MODE0003` establishes project model policy from what a repository owns rather than from a
+  folder name. A module whose dotted name merely ended in `bases` used to establish the policy, and
+  the foundation itself was recognized only in a file named `bases.py`, so a project keeping its
+  bases in `core/bases/strict.py` had its own foundation reported for deriving Pydantic directly
+  and renaming the folder was the only way to quiet it. Policy is now established by importing a
+  house home or by owning a base that declares no fields and that other classes derive, and a base
+  whose body states `model_config` is read as the foundation wherever it lives.
+
+- `PY-MODE0006` leaves a model foundation alone. A base that owns no fields and either states the
+  `model_config` its subclasses inherit or is already derived by classes that own fields states
+  policy rather than declaring empty data, so config-only bases and an extras-only flexible model
+  are no longer reported while a genuinely empty leaf model still is.
+
+- `ALL-CONF0001` reads every entry of a collection before calling it a path. A regular expression
+  is not a filesystem path however the name around it is spelled, so a coverage exclusion table
+  such as `("pragma: no cover", "if TYPE_CHECKING:", "\.\.\.")` and a rename or lint pattern list
+  now abstain where the backslash escapes in them used to read as Windows separators. The test is
+  the value rather than a table of known tool keys, because every tool spells its key differently
+  while every regular expression is written the same way, and a Windows path such as
+  `build\temp` still reads as the path it is.
+- `ALL-HIST0003` states one finding per unexplained pair, located at the first of the two files
+  and naming both. The count used to arrive as one aggregate row against the history fact at no
+  path at all, so a repository was told how many hidden pairs it had and never which ones.
+
+- Prose segmentation keeps a backtick code span whole, so the dot inside `index.md` ends a file
+  name instead of a sentence. `ALL-WRIT0005` no longer reads a suffix such as `md` or `toml` as
+  the word a sentence opens with. A run of backticks opens the span and the next run closes it,
+  which covers the doubled and fenced spellings too.
+- A parameter written through a subscript now reads as a mutation. `values[key] = held`,
+  `del values[key]`, and the augmented form reach `__setitem__` and `__delitem__` rather than the
+  lookup the same expression means on the right of an assignment, so `PY-COLL0001` stops asking a
+  mutated mapping parameter to narrow to `Mapping`.
+- `ALL-SECU0005` matches a launcher written with a receiver against the whole callee, so
+  `platform.system` reads a machine name and is no longer reported as a shell launch while
+  `os.system` still is. A launcher written on its own still matches on its bare name, which is how
+  C and PHP spell `system`, and `also_through_a_shell` still matches the last segment.
+- `PY-FUNC0001` exempts the members of a class inheriting `Protocol`. A structural declaration such
+  as `def read1(self, size=-1, /)` copies the positional-only marker of the object it describes, so
+  the marker is the contract rather than a hidden public name.
+- The `ALL-CLAS0001` member move keeps a blank line inside a moved docstring empty. Reindenting no
+  longer writes the destination indentation onto a line holding no text, so a repaired file gains
+  no trailing whitespace.
 - Python stub files now receive their real import module name without the `.pyi` suffix. Imports
   of native declarations therefore reach the public symbols stated by their PEP 561 stub instead
   of leaving those declarations falsely unreferenced.
@@ -404,6 +518,29 @@ The format follows Keep a Changelog, and releases are cut from the version in `p
 
 ### Changed
 
+- `ALL-FILE0003` exempts a definition catalog by default. The rule documented a catalog as
+  measuring zero under the default while the signature declared `allow_definition_catalogs=False`,
+  so the two disagreed. A catalog is recognized from what its modules declare rather than by path,
+  which is what makes the exemption safe to hold open, and a project that does not organize
+  anything that way sets the setting false for the raw count everywhere.
+
+- The class family states `states_model_configuration` for every class, which is what lets a
+  foundation be recognized from its body instead of from the file name around it.
+
+- `ALL-HIST0001` is a measurement rather than a defect and owns an unbounded `Numeric()` policy
+  beside `ALL-DUPL0003` and `RS-OWNE0001`. Every threshold it uses is relative, so the busiest
+  file always reaches its own share and a ceiling of zero would fail every repository with a long
+  current file however carefully it was written, which is the module size rules restated. A
+  project that wants a churn budget states a numeric policy for the rule under `tool.mcmr` and the
+  count is judged against that ceiling as before.
+
+- A rule whose language the analyzed repository does not hold now leaves the selected scope
+  instead of reading as skipped. A selection a language could narrow reads the per-module family
+  once, so every run knows which languages the repository is written in, and the report counts
+  only the rules that repository can answer for. The self-scan of this repository reads
+  `215/215 rules, 0 skipped` where it read `215/222 rules, 7 skipped`, and a rule skipped for any
+  other reason, such as a missing external provider or a configured disabled rule, still reads as
+  skipped.
 - Packaging now uses Maturin so the Rust table extension and Python package ship as one wheel.
   Polars comes from Conda in development because its free-threaded runtime wheel otherwise falls
   back to an unsupported source build. The unavailable Python 3.15 preview environment was

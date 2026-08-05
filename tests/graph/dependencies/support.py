@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, cast
 
 import anyio
 
-from mcmr.project.dependencies import DependencyRefresher
+from mcmr.execution.providers import DependencyProvider
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -61,5 +61,5 @@ def complete_refresh(root: Path) -> tuple[DependencyFact, StubTransport]:
         },
     )
     transport = StubTransport(responses)
-    fact = anyio.run(DependencyRefresher(root=root, transport=transport, workers=2).refresh)
+    fact = anyio.run(DependencyProvider(root=root, transport=transport, workers=2).refresh)
     return fact, transport

@@ -34,7 +34,8 @@ def algorithmic_complexity(
     Definition
     ----------
     Compare time and space growth, input bounds, constants, allocation, data distribution,
-    maintained library alternatives, measured workloads, and performance objectives.
+    maintained library alternatives, measured workloads, and performance objectives. A single
+    nonrecursive loop is structurally linear and does not need contextual judgment.
 
     Evidence
     --------
@@ -64,11 +65,13 @@ def algorithmic_complexity(
     )
     if subject.relation_type is not FunctionRelation:
         return query.where(
-            ((pl.col("control_increments.length") > 0) | pl.col("is_recursive"))
+            ((pl.col("control_increments.length") > 1) | pl.col("is_recursive"))
             & ~pl.col("is_test"),
             requires=("control_increments.length", "is_recursive", "is_test"),
         )
-    loops = subject.lazy(FunctionRelation.CONTROLS).filter(pl.col("kind") == "loop")
+    loops = subject.lazy(FunctionRelation.CONTROLS).filter(
+        (pl.col("kind") == "loop") & (pl.col("nesting_depth") > 0)
+    )
     functions = subject.lazy(FunctionRelation.FUNCTIONS).filter(~pl.col("is_test"))
     selected = pl.concat(
         (

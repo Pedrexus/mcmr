@@ -88,18 +88,67 @@ review data code, repair proven problems, and write useful results back to the D
 The target is one clear end-to-end workflow rather than a broad collection of shallow checks. See
 [ROADMAP.md](ROADMAP.md) for the submission plan.
 
+Run the whole workflow from a clean checkout with no DataHub service at all. The demo copies a
+recorded catalog into a fresh workspace, reports what the catalog says about a pipeline change,
+previews the one repair the catalog proves, applies and verifies it, reruns the rule clean, and
+writes the result back for the next agent.
+
+```sh
+mcmr demo
+```
+
+See [examples/datahub](examples/datahub) for the recordings and the story they tell.
+
+The provider reads DataHub assets directly through GraphQL and resolves literal SQL references
+with SQLGlot. It does not require a local MCP server. Put the service URL in project configuration.
+Set `DATAHUB_GMS_TOKEN` only when the service requires authentication.
+
+```toml
+[tool.mcmr.execution]
+external = true
+
+[tool.mcmr.providers.datahub]
+server = "http://localhost:8080"
+max_assets = 500
+```
+
+```sh
+mcmr check . --external
+```
+
+Point `recorded` at a directory of captured GraphQL exchanges instead, and the same rules run with
+no network at all.
+
+```toml
+[tool.mcmr.providers.datahub]
+recorded = "recordings"
+```
+
+A completed run reaches the catalog only when somebody asks for it. No check ever writes.
+
+```sh
+mcmr writeback . --select data_assets
+```
+
+An agent can use DataHub MCP separately to inspect lineage, choose a verified change, and write the
+result back as durable metadata. MCMR remains the deterministic validation boundary and keeps no
+catalog cache.
+
 ## Development
 
 Chefe owns the environment and every task.
 
 ```sh
 chefe install
+chefe run setup
 chefe run lint
 chefe run typecheck
 chefe run test
 chefe run core-lint
 chefe run core-test
-chefe run self-check
+chefe run architecture
+chefe run debug
+chefe run contribute
 ```
 
 The package is Apache 2.0 licensed. [SYSTEM.md](SYSTEM.md) describes the contracts and

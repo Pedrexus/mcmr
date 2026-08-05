@@ -16,7 +16,8 @@ if TYPE_CHECKING:
     from collections.abc import Sequence
     from pathlib import Path
 
-    from ...domain.contracts import RuleContract, RuleDefinition, RuleSetting
+    from ...domain.contracts import RuleContract, RuleSetting
+    from ...rulebook.catalog import RuleDefinition
 
 
 class MCMRConfiguration(FrozenModel):

@@ -15,7 +15,9 @@ fn a_cargo_manifest_declares_the_binaries_it_ships() {
 }
 
 #[test]
-fn a_project_manifest_declares_its_console_scripts() {
+fn a_project_manifest_declares_its_console_scripts_as_commands_rather_than_binaries() {
+    // A console script names a callable the declaring language already holds, so it is a command
+    // a person runs rather than an executable another language has to reach for.
     let manifest = "[project.scripts]\nmcmr = \"mcmr.cli:app\"\n\n[tool.ruff]\nline-length = 99\n";
     let file = CorpusFile {
         path: "pyproject.toml".to_string(),
@@ -23,8 +25,38 @@ fn a_project_manifest_declares_its_console_scripts() {
     };
 
     assert_eq!(
-        binaries(&file, manifest).expect("the manifest is valid"),
+        console_scripts(&file, manifest).expect("the manifest is valid"),
         vec!["mcmr"]
+    );
+    assert_eq!(
+        declarations(&file).expect("the manifest is valid"),
+        vec![("mcmr".to_string(), Mechanism::ConsoleScript, "python")]
+    );
+    assert!(
+        binaries(&file, manifest)
+            .expect("the manifest is valid")
+            .is_empty()
+    );
+}
+
+#[test]
+fn a_cargo_binary_and_a_node_command_keep_the_mechanism_each_one_is_reached_through() {
+    let cargo = CorpusFile {
+        path: "Cargo.toml".to_string(),
+        text: "[[bin]]\nname = \"mcmr-kernel\"\npath = \"src/main.rs\"\n".to_string(),
+    };
+    let package = CorpusFile {
+        path: "package.json".to_string(),
+        text: r#"{"name":"tools","bin":{"one":"one.js"}}"#.to_string(),
+    };
+
+    assert_eq!(
+        declarations(&cargo).expect("the manifest is valid"),
+        vec![("mcmr-kernel".to_string(), Mechanism::Binary, "rust")]
+    );
+    assert_eq!(
+        declarations(&package).expect("the manifest is valid"),
+        vec![("one".to_string(), Mechanism::ConsoleScript, "typescript")]
     );
 }
 
@@ -66,11 +98,8 @@ fn malformed_binary_manifests_fail_instead_of_yielding_partial_names() {
         r#"{"bin": {"tool": 3}}"#,
     ];
 
-    assert!(
-        invalid
-            .iter()
-            .all(|file| binaries(file, &file.text).is_err())
-    );
+    assert!(binaries(&invalid[0], &invalid[0].text).is_err());
+    assert!(console_scripts(&invalid[1], &invalid[1].text).is_err());
     let package = CorpusFile {
         path: "package.json".to_string(),
         text: String::new(),

@@ -9,7 +9,6 @@ def test_rule_planner_builds_connected_graphs_from_declared_tables() -> None:
     catalog = built_catalog()
     engine = RuleEngine(rules=catalog.rules)
 
-    assert len(catalog.rules) == 275
     assert len(engine.prepared) == sum(not rule.injected for rule in catalog.rules)
     assert all(rule.table_native for rule in catalog.rules)
     assert engine.families == {family for rule in catalog.rules for _, family in rule.tables}

@@ -1,4 +1,4 @@
-from mcmr.facts import Fact
+from mcmr.plugins import Fact
 
 
 class PluginFact(Fact):

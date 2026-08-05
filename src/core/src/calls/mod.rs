@@ -8,6 +8,7 @@ mod evidence;
 mod expression;
 mod json;
 mod mapping;
+mod reachability;
 mod resolution;
 mod resolved;
 mod site;
@@ -18,6 +19,7 @@ use json::{
     enrich_calls as enrich_json_calls, enrich_expression_names as enrich_json_expression_names,
 };
 pub use mapping::MappingEntry;
+pub(crate) use reachability::TestReachability;
 pub(crate) use resolution::ResolutionIndex;
 pub(crate) use resolved::ResolvedCall;
 pub(crate) use resolved::resolutions;
@@ -78,6 +80,34 @@ pub(crate) fn enrich_facts(
             }
         }
         _ => {}
+    }
+}
+
+pub(crate) fn enrich_test_reach(facts: &mut [serde_json::Value], reachability: &TestReachability) {
+    for fact in facts {
+        let tests = fact
+            .get_mut("tests")
+            .and_then(serde_json::Value::as_array_mut)
+            .expect("TestFunctionFact.tests must be an array");
+        for test in tests {
+            let path = test["path"]
+                .as_str()
+                .expect("TestFunction.path must be text")
+                .to_string();
+            let line = test["node"]["span"]["start_line"]
+                .as_u64()
+                .and_then(|value| usize::try_from(value).ok())
+                .unwrap_or(1);
+            let targets = test["calls"]
+                .as_array()
+                .expect("TestFunction.calls must be an array")
+                .iter()
+                .filter_map(|call| call.get("target_id")?.as_str().map(str::to_string))
+                .collect::<Vec<_>>();
+            test["direct_targets"] = serde_json::json!(reachability.direct(&path, line, &targets));
+            test["reachable_targets"] =
+                serde_json::json!(reachability.reachable(&path, line, &targets));
+        }
     }
 }
 
@@ -148,7 +178,7 @@ pub(crate) fn enrich_records(facts: &mut [CallRecord], resolutions: &mut Resolut
         let names = fact
             .calls
             .iter()
-            .map(|call| (call_span(call), call.qualified_name.clone()))
+            .map(|call| (call.span_key(), call.qualified_name.clone()))
             .collect::<BTreeMap<_, _>>();
         for call in &mut fact.calls {
             enrich_record_expressions(call, &names);
@@ -187,6 +217,7 @@ fn enrich_python_record_call(call: &mut CallSite, resolutions: &mut ResolutionIn
     let graph_shadowed = !call.qualified_name.contains('.')
         && graph::is_builtin(&call.qualified_name)
         && answer.is_first_party;
+    call.target_id.clone_from(&answer.target_id);
     call.qualified_name.clone_from(&answer.qualified_name);
     call.is_external = answer.is_external;
     call.is_first_party = answer.is_first_party;
@@ -199,18 +230,10 @@ fn enrich_resolved_record_call(call: &mut CallSite, resolutions: &mut Resolution
     let Some(answer) = resolutions.next(&call.path, call.node.span.start_line) else {
         return;
     };
+    call.target_id.clone_from(&answer.target_id);
     if answer.resolution != graph::Resolution::Unresolved {
         call.qualified_name.clone_from(&answer.qualified_name);
     }
-}
-
-fn call_span(call: &CallSite) -> (usize, usize, usize, usize) {
-    (
-        call.node.span.start_line,
-        call.node.span.start_column,
-        call.node.span.end_line,
-        call.node.span.end_column,
-    )
 }
 
 fn enrich_expression_names(

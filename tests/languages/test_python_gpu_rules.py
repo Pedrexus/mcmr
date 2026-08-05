@@ -4,6 +4,7 @@ import pytest
 
 from mcmr.domain.contracts import RuleContract
 from mcmr.facts import CallFact, FunctionFact, SyntaxFact
+from mcmr.plugins import RepositoryTables
 from mcmr.rules.python import (
     blocking_raw_memory_operation_in_stream_scope,
     conditional_block_barrier,
@@ -17,7 +18,7 @@ from mcmr.rules.python import (
     synchronous_transfer_in_numba_stream_scope,
     unguarded_grid_index,
 )
-from mcmr.table import AnalysisSession, RepositoryTables
+from mcmr.table import AnalysisSession
 
 if TYPE_CHECKING:
     from mcmr.query import RuleQuery
@@ -83,7 +84,7 @@ def cuda_python_host(values):
     session = AnalysisSession(
         root,
         suffixes=[".py"],
-        typed_families=[CallFact.__name__, FunctionFact.__name__, SyntaxFact.__name__],
+        typed_families=[CallFact, FunctionFact, SyntaxFact],
     )
     tables = RepositoryTables()
     tables.add(session.call_tables())

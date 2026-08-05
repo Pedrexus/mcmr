@@ -42,23 +42,24 @@ not another chat interface over metadata.
 
 ### August 3 and 4
 
-- [ ] Add a small `mcmr-datahub` package in this repository
-- [ ] Use the DataHub MCP Server or Agent Context Kit as the required integration
-- [ ] Keep DataHub credentials outside checked configuration
-- [ ] Define typed facts for assets, fields, lineage, ownership, governance, and writeback results
-- [ ] Load only the fact families selected rules request
-- [ ] Use the showcase ecommerce datapack for the reproducible demo
-- [ ] Record any DataHub SDK or documentation friction for the feedback prize
+- [x] Add a small `mcmr-datahub` package in this repository
+- [x] Use direct DataHub GraphQL as the runtime integration without a local MCP process
+- [x] Keep DataHub credentials outside checked configuration
+- [x] Exercise DataHub MCP as the agent integration for discovery and writeback
+- [x] Define typed facts for assets, fields, lineage, ownership, and governance
+- [x] Load only the fact families selected rules request
+- [x] Use the showcase ecommerce datapack for the first end-to-end experiment
+- [x] Record DataHub CLI, API, MCP, and documentation friction in the AIZK dev log
 
 ### August 5 and 6
 
-- [ ] Implement a schema compatibility rule tied to exact source references
+- [x] Implement schema existence rules tied to exact SQL source references
 - [ ] Implement an unowned high-impact asset rule using downstream lineage
 - [ ] Implement a sensitive-field governance rule using tags and glossary context
 - [ ] Implement a changed pipeline without matching DataHub documentation or ownership rule
 - [ ] Give each rule one positive case, one exception, and one end-to-end fixture
 - [ ] Add one conservative repair that a judge can preview and apply live
-- [ ] Write the verified result back to DataHub as durable context
+- [x] Prove verified writeback with a searchable DataHub Analysis document
 
 Four deep rules are enough. More rules only help when they strengthen the same story.
 
@@ -163,6 +164,7 @@ unreviewed proposal.
 - Typed package relocation for directory pathway collapse
 - Incremental source caching
 - GPU execution for Polars
+- Kernel-side prose language facts using a Rust-native detector
 - A web dashboard
 - Broad marketplace discovery
 - Additional contextual models
@@ -171,3 +173,8 @@ unreviewed proposal.
 Directory pathway collapse is deferred because moving files without merging initializers and
 rewriting every module reference can create a new error while closing the directory finding. It
 becomes an autofix only after one typed relocation transaction proves the entire change.
+
+Prose language detection is deferred until the kernel can emit the detected ISO language, script,
+confidence, and reliability for each comment and docstring. A Rust-native detector such as
+Whatlang avoids a Python 3.14 free-threaded wheel dependency. Contextual judgment should remain a
+fallback for ambiguous or mixed-language text instead of making every writing rule pay model cost.

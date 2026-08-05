@@ -4,7 +4,7 @@ from mcmr.accounting.upstream import ClaimIndex, Coverage, ToolCoverage
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
-from ..support import mcmr_findings, needs_kernel, pylint_findings, written
+from ...support import mcmr_findings, needs_kernel, pylint_findings, written
 from .fixtures import initializers, positions, promises, protocols, sealed, signatures
 
 

@@ -1,7 +1,8 @@
 from typing import TYPE_CHECKING, cast
 
 from mcmr.domain.contracts import RuleContract, RuleLane, RuleScope
-from mcmr.kernel import Kernel, buildable
+from mcmr.facts import buildable
+from mcmr.kernel import Kernel
 from mcmr.query import RuleQuery
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
@@ -12,11 +13,10 @@ if TYPE_CHECKING:
     from collections.abc import Collection
     from pathlib import Path
 
-    from mcmr.facts import Fact
-    from mcmr.table import Table
+    from mcmr.plugins import Fact, Table
 
 
-def query_count(rule: RuleContract, subject: Table[Fact]) -> int:
+def query_count[Family: Fact](rule: RuleContract, subject: Table[Family]) -> int:
     """Invoke one deterministic rule once and sum its table-wide integer values."""
     result = rule.invoke_table(subject, settings={}, dependencies={})
     if not isinstance(result, RuleQuery):
@@ -323,22 +323,11 @@ _PROVIDER_GAPS: dict[str, str] = {
         "workflow triggers, required gates, locks, permissions, cancellation, and "
         "branch protection"
     ),
-    "DataAssetFact": "catalog assets with fields, types, descriptions, owners, and domains",
-    "DataAssetReferenceFact": (
-        "source references resolved to catalog identity, lifecycle, and upstream health"
-    ),
-    "DataChangeFact": (
-        "schema changes resolved to downstream assets and the tests covering their impact"
-    ),
-    "DataFieldReferenceFact": (
-        "source field references resolved to catalog fields and their declared types"
-    ),
     "DeploymentFact": (
         "locked build inputs, artifact identity, migrations, configuration, secrets, rollback, "
         "and provenance"
     ),
     "FeatureFlagFact": "flag age, role, owner, tested states, and lifecycle decision date",
-    "LineageEdgeFact": "directed data lineage with both endpoints resolved in one catalog",
     "PerformanceDecisionFact": (
         "budgets, limits, workloads, environments, baselines, variance policies, and outcomes"
     ),

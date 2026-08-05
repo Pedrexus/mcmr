@@ -1,5 +1,5 @@
 use crate::protocol::JsonObject;
-use crate::source::Source;
+use crate::source::{Source, is_test_path};
 use proc_macro2::Span;
 use serde_json::{Value, json};
 use syn::spanned::Spanned;
@@ -29,6 +29,7 @@ pub(super) fn module_fact(source: &Source, file: &syn::File) -> Value {
             .count(),
         "is_package_initializer": source.relative.ends_with("/mod.rs")
             || source.relative.ends_with("/lib.rs"),
+        "is_test": is_test_path(&source.relative),
         "members": file
             .items
             .iter()

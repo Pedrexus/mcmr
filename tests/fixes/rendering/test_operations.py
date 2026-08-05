@@ -365,17 +365,23 @@ class Service:
 def test_move_crosses_python_files_with_relative_and_type_only_imports(tmp_path: Path) -> None:
     """A cross-file move preserves its destination imports and removes its source declaration."""
     (tmp_path / "source.py").write_text(
-        "from functools import cache\n\n"
-        "@cache\n"
-        "def build(value: Fact):\n"
-        "    return helper(value)\n"
+        """from functools import cache
+
+@cache
+def build(value: Fact):
+    return helper(value)
+"""
     )
     (tmp_path / "target.py").write_text(
-        "from typing import TYPE_CHECKING\n\n"
-        "if TYPE_CHECKING:\n"
-        "    from package import Existing\n\n\n"
-        "class Owner:\n"
-        "    pass\n"
+        """from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from package import Existing
+
+
+class Owner:
+    pass
+"""
     )
     target = node(
         "source.py",

@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling>=1.28,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcmr-datahub"
+version = "0.0.1"
+description = "DataHub evidence provider for MCMR rules."
+requires-python = ">=3.14"
+license = "Apache-2.0"
+dependencies = [
+  "httpx>=0.28,<0.29",
+  "mcmr-api==0.0.1",
+  "sqlglot>=27,<28",
+]
+
+[project.entry-points."mcmr.providers"]
+datahub = "mcmr_datahub.provider:DataHubProvider"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mcmr_datahub"]
+
+[tool.pytest.ini_options]
+addopts = "-q -ra --strict --import-mode=importlib"

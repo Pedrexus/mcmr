@@ -1,11 +1,5 @@
 from ..primitives import RuleSetting, RuleValue, Unit
 from ..primitives.scope import RuleScope
-from .annotations import (
-    OutputContract,
-    RuleId,
-    fact_type,
-    output_contract,
-)
 from .primitives import FixSafety
 from .repair import (
     Choice,
@@ -18,6 +12,7 @@ from .repair import (
     Measurement,
     ModelProvenance,
     Move,
+    Observation,
     Placement,
     Remove,
     RemoveDirectory,
@@ -28,12 +23,7 @@ from .repair import (
 )
 from .reporting import (
     EngineStats,
-    FixDefinition,
     FloorReport,
-    Observation,
-    RuleDefinition,
-    RuleDocumentation,
-    RuleIdentity,
 )
 from .runtime import (
     Rule,
@@ -42,6 +32,12 @@ from .runtime import (
     RuleLane,
     rule,
 )
+from .runtime.annotations import (
+    OutputContract,
+    RuleId,
+    fact_type,
+    output_contract,
+)
 
 __all__ = [
     "Choice",
@@ -49,7 +45,6 @@ __all__ = [
     "Edit",
     "EngineStats",
     "Finding",
-    "FixDefinition",
     "FixPlan",
     "FixSafety",
     "FloorReport",
@@ -67,10 +62,7 @@ __all__ = [
     "Replace",
     "Rule",
     "RuleContract",
-    "RuleDefinition",
     "RuleDependency",
-    "RuleDocumentation",
-    "RuleIdentity",
     "RuleId",
     "RuleLane",
     "RuleScope",

@@ -110,6 +110,54 @@ fn prose_keeps_each_docstring_as_its_own_section_and_reads_every_sentence() {
 }
 
 #[test]
+fn prose_reads_a_dotted_name_inside_a_code_span_as_one_word() {
+    let fact = fact(
+        crate::discovery::Document {
+            relative: "prose.py".to_string(),
+            source: concat!(
+                "def first():\n",
+                "    \"\"\"Read the `index.md` guide first. Keep `chefe.toml` small.\"\"\"\n",
+                "\n",
+                "class Reader:\n",
+                "    \"\"\"Read ``pyproject.toml`` once. Stop there.\"\"\"\n",
+            )
+            .to_string(),
+        },
+        prose,
+    );
+    let sections = fact["sections"].as_array().expect("prose sections");
+
+    assert_eq!(sections[0]["sentence_word_counts"], json!([5, 3]));
+    assert_eq!(sections[0]["sentence_openers"], json!(["read", "keep"]));
+    assert_eq!(sections[1]["sentence_word_counts"], json!([3, 2]));
+    assert_eq!(sections[1]["sentence_openers"], json!(["read", "stop"]));
+}
+
+#[test]
+fn a_parameter_written_through_a_subscript_reads_as_a_mutation() {
+    let fact = fact(
+        crate::discovery::Document {
+            relative: "writes.py".to_string(),
+            source: concat!(
+                "def store(values: dict, seen: dict, counts: dict, rows: dict):\n",
+                "    values[\"key\"] = 1\n",
+                "    del seen[\"key\"]\n",
+                "    counts[\"key\"] += 1\n",
+                "    return rows[\"key\"]\n",
+            )
+            .to_string(),
+        },
+        parameters,
+    );
+    let uses = fact["parameters"].as_array().expect("parameter uses");
+
+    assert_eq!(uses[0]["operations"], json!(["setitem"]));
+    assert_eq!(uses[1]["operations"], json!(["delitem"]));
+    assert_eq!(uses[2]["operations"], json!(["setitem"]));
+    assert_eq!(uses[3]["operations"], json!(["getitem"]));
+}
+
+#[test]
 fn query_facts_are_resolved_once_with_their_real_chain_evidence() {
     let text = concat!(
         "from sqlmodel import Field as Column, SQLModel, Session as DbSession, select as choose\n\n",

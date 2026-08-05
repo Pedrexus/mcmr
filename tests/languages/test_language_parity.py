@@ -3,20 +3,19 @@ from typing import TYPE_CHECKING, cast
 import pytest
 
 from mcmr.domain.contracts import RuleLane, RuleScope
-from mcmr.facts import CallFact, ClassFact, FunctionFact, ImportBindingFact, SyntaxFact
-from mcmr.kernel import buildable
+from mcmr.facts import CallFact, ClassFact, FunctionFact, ImportBindingFact, SyntaxFact, buildable
 from mcmr.query import RuleQuery
-from mcmr.table import AnalysisSession, Table
+from mcmr.table import AnalysisSession
 
 from ..support import needs_kernel
 from .coverage.support import language_fixtures, language_suffixes
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping
+    from collections.abc import Callable, Mapping
     from pathlib import Path
 
     from mcmr.domain.contracts import RuleContract
-    from mcmr.facts import Fact
+    from mcmr.plugins import Fact, Table
     from mcmr.rulebook.catalog import Catalog
 
 
@@ -82,16 +81,16 @@ def findings(catalog: Catalog, root: Path, language: str) -> set[str]:
     rather than compared as though zero meant silence.
     """
     families = buildable()
-    selected = {family for _, family, _ in general(catalog)}
+    selected = {families[name] for _, name, _ in general(catalog)}
     session = AnalysisSession(
         root,
         suffixes=language_suffixes()[language],
-        typed_families=sorted(selected),
+        typed_families=sorted(selected, key=lambda family: family.__name__),
     )
     tables: dict[str, Table[Fact]] = {
         name: family_table(session, family)
         for name, family in families.items()
-        if name in selected
+        if family in selected
     }
     return {
         rule_id for rule_id, family, rule in general(catalog) if has_findings(rule, tables[family])
@@ -100,17 +99,15 @@ def findings(catalog: Catalog, root: Path, language: str) -> set[str]:
 
 def family_table(session: AnalysisSession, family: type[Fact]) -> Table[Fact]:
     """Move one selected native table through its specialized or generic boundary."""
-    if family is FunctionFact:
-        return cast("Table[Fact]", session.function_tables())
-    if family is CallFact:
-        return cast("Table[Fact]", session.call_tables())
-    if family is ClassFact:
-        return cast("Table[Fact]", session.class_tables())
-    if family is ImportBindingFact:
-        return cast("Table[Fact]", session.import_binding_tables())
-    if family is SyntaxFact:
-        return cast("Table[Fact]", session.syntax_tables())
-    return session.table(family)
+    specialized: dict[type[Fact], Callable[[], Table[Fact]]] = {
+        FunctionFact: lambda: cast("Table[Fact]", session.function_tables()),
+        CallFact: lambda: cast("Table[Fact]", session.call_tables()),
+        ClassFact: lambda: cast("Table[Fact]", session.class_tables()),
+        ImportBindingFact: lambda: cast("Table[Fact]", session.import_binding_tables()),
+        SyntaxFact: lambda: cast("Table[Fact]", session.syntax_tables()),
+    }
+    factory = specialized.get(family)
+    return session.table(family) if factory is None else factory()
 
 
 def has_findings(rule: RuleContract, table: Table[Fact]) -> bool:

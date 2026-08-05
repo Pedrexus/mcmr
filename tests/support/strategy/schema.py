@@ -159,8 +159,6 @@ class SchemaStrategy(SchemaStrategyBase):
             return st.tuples(
                 *[self._field(item, metadata=(), trail=trail, name=name) for item in arguments]
             )
-        # Every mapping a fact declares is keyed by a name, so the key takes the same vocabulary
-        # the field does rather than a second reading of the annotation.
         return st.dictionaries(
             self._words(name),
             self._field(arguments[1], metadata=(), trail=trail, name=name),

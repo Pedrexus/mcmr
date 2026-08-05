@@ -7,6 +7,23 @@ from .....table.relations import FactRelations
 class TestFunctionTables(FactRelations[TestFunctionFact]):
     """Expose collected tests and their nested normalized relations."""
 
+    def behaviors(self) -> pl.LazyFrame:
+        """Return collected tests with their ordered fixtures, assertions, literals, and reach."""
+        frame = self.collected()
+        for relation in (
+            "fixture_names",
+            "assertion_shapes",
+            "literal_values",
+            "direct_targets",
+            "reachable_targets",
+        ):
+            frame = frame.join(
+                self.strings(relation),
+                on=["fact_id", "record_id"],
+                how="left",
+            ).with_columns(pl.col(relation).fill_null(pl.lit([], dtype=pl.List(pl.String))))
+        return frame
+
     def calls(self) -> pl.LazyFrame:
         """Return resolved calls nested directly under retained tests."""
         return self.records("tests.calls")
@@ -47,6 +64,16 @@ class TestFunctionTables(FactRelations[TestFunctionFact]):
                     "end_column"
                 ),
             )
+        )
+
+    def strings(self, relation: str) -> pl.LazyFrame:
+        """Return one ordered list of strings for every retained test record."""
+        return (
+            self.values(f"tests.{relation}")
+            .filter(pl.col("entry_kind") == "value")
+            .group_by("fact_id", "parent_id", maintain_order=True)
+            .agg(pl.col("string_value").sort_by("ordinal").alias(relation))
+            .rename({"parent_id": "record_id"})
         )
 
     def tests(self) -> pl.LazyFrame:

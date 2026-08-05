@@ -1,4 +1,4 @@
-from ..table.models import table_schema
+from ..table.builder import table_schema
 from .contracts import (
     CountQuery,
     FindingQuery,

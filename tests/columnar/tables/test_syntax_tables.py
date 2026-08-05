@@ -18,7 +18,7 @@ def test_existing_node_text_is_reused_without_a_source_join(tmp_path: Path) -> N
     table = AnalysisSession(
         tmp_path,
         suffixes=(".py",),
-        typed_families=(SyntaxFact.__name__,),
+        typed_families=(SyntaxFact,),
     ).syntax_tables()
     nodes = pl.DataFrame({"text": ["ready"]}).lazy()
 

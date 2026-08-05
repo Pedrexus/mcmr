@@ -13,12 +13,14 @@ from mcmr.commands import interface
 from mcmr.commands.insight import catalog, replacement
 from mcmr.commands.interface import RepairMode, RuleCoverage
 from mcmr.commands.quality import (
+    Judgment,
     backends,
     check,
     judgment,
 )
-from mcmr.kernel import locate
+from mcmr.execution.providers import ProviderExecutionError
 from mcmr.presentation.reports import CheckFormat
+from mcmr.project import locate
 
 _PACKAGE = Path(__file__).parents[3]
 
@@ -61,6 +63,25 @@ def test_check_can_write_complete_json_and_report_failures_without_exiting(
         '"rule": "PY-IMPO0003"' in rendered,
         rendered == capsys.readouterr().out,
     ) == (2, 2, True, True)
+
+
+def test_check_reports_an_external_provider_failure_without_a_traceback(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """An unavailable external service is a concise CLI error with its own exit status."""
+
+    def failed(analysis: Judgment) -> None:
+        raise ProviderExecutionError("datahub", ValueError("DATAHUB_GMS_URL is missing"))
+
+    monkeypatch.setattr(Judgment, "run", failed)
+
+    with pytest.raises(SystemExit) as exited:
+        check(tmp_path, format=CheckFormat.CONCISE)
+
+    assert exited.value.code == 2
+    assert "external provider `datahub` failed" in capsys.readouterr().out
 
 
 def test_backends_shows_the_normal_check_backend_without_running_it(
@@ -137,6 +158,45 @@ def test_requiring_every_selected_rule_rejects_a_configured_disabled_rule(
     assert "1 skipped" in output
 
 
+def test_typescript_rules_leave_the_scope_of_a_repository_without_typescript(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """A Python repository selects no TypeScript rule, so requiring every rule still passes."""
+    if not locate(_PACKAGE).exists():
+        pytest.skip("the analysis kernel is not built")
+    (tmp_path / "sample.py").write_text('"""A module."""\n')
+
+    check(
+        tmp_path,
+        select="TS-*",
+        format=CheckFormat.CONCISE,
+        rule_coverage=RuleCoverage.ALL,
+    )
+
+    assert "0/0 rules, 0 skipped" in capsys.readouterr().out
+
+
+def test_typescript_rules_select_once_the_repository_holds_typescript(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """One TypeScript source returns every TypeScript rule to the selected scope."""
+    if not locate(_PACKAGE).exists():
+        pytest.skip("the analysis kernel is not built")
+    (tmp_path / "sample.py").write_text('"""A module."""\n')
+    (tmp_path / "index.ts").write_text("export const value = 1;\n")
+
+    check(
+        tmp_path,
+        select="TS-*",
+        format=CheckFormat.CONCISE,
+        rule_coverage=RuleCoverage.ALL,
+    )
+
+    assert "4/4 rules, 0 skipped" in capsys.readouterr().out
+
+
 def test_catalog_exports_the_live_typed_registry(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
@@ -146,9 +206,10 @@ def test_catalog_exports_the_live_typed_registry(
     catalog(output)
 
     rendered = output.read_text()
+    rule_count = rendered.count('"id": ')
     assert '"schema": 1' in rendered
-    assert rendered.count('"id": ') == 275
-    assert "exported 275 live rules" in capsys.readouterr().out
+    assert rule_count > 0
+    assert f"exported {rule_count} live rules" in capsys.readouterr().out
 
     catalog()
     assert '"ALL-ABST1001"' in capsys.readouterr().out

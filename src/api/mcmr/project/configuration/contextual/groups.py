@@ -9,6 +9,6 @@ class ContextualFields(FrozenModel):
     """Retain contextual backend, binary, model, and local model path."""
 
     backend: ContextBackend = ContextBackend.CODEX
-    binary: NonEmptyStr = "codex"
+    binary: NonEmptyStr | None = None
     model: NonEmptyStr = "gpt-5.6-terra"
     model_path: DirectoryPath | None = None

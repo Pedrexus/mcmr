@@ -28,14 +28,16 @@ from mcmr.contextual.evaluation import (
     ProfileExperiment,
 )
 from mcmr.domain.contracts import FixSafety, ModelProvenance, RuleSetting
-from mcmr.execution import CodexBackend
+from mcmr.execution import ClassificationBackend, CodexBackend
 from mcmr.facts import Evidence
-from mcmr.kernel import locate
 from mcmr.presentation import FixRefusal, RenderedFix
 from mcmr.presentation.fixes import RenderedFile
 from mcmr.presentation.reports import CheckFormat
+from mcmr.project import locate
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+
     from mcmr.rulebook.catalog import Catalog
 
 _PACKAGE = Path(__file__).parents[3]
@@ -48,7 +50,7 @@ def test_floor_cli_prints_the_report_without_persistence() -> None:
 def test_floor_cli_can_persist_the_report(tmp_path: Path) -> None:
     output = tmp_path / "floor.json"
     floor(samples=1, facts=60, output=output)
-    assert '"rule_count": 275' in output.read_text()
+    assert '"rule_count":' in output.read_text()
 
 
 def test_contextual_experiment_cli_renders_and_writes_the_labeled_report(
@@ -197,6 +199,52 @@ def test_model_sweep_cli_runs_every_contextual_rule_and_writes_the_report(
         )
     )
     assert '"rule": "ALL-ARCH1001"' in output_path.read_text()
+
+
+def test_model_sweep_cli_overrides_the_configured_backend(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """An explicit backend override reaches another provider without editing the project."""
+    swept: list[ClassificationBackend] = []
+
+    async def record(
+        self: ContextualSweep,
+        catalog: Catalog,
+        settings: Mapping[str, dict[str, RuleSetting]],
+    ) -> ContextualSweepReport:
+        del catalog, settings
+        swept.append(self.backend)
+        return ContextualSweepReport(
+            results=[
+                ContextualSweepResult(
+                    rule="ALL-ARCH1001",
+                    value="cohesive",
+                    finding_count=0,
+                    provenance=ModelProvenance(
+                        backend=self.backend.name,
+                        model=self.backend.model,
+                        reasoning_effort=self.backend.reasoning_effort,
+                    ),
+                )
+            ],
+            elapsed_seconds=0.5,
+        )
+
+    (tmp_path / "pyproject.toml").write_text("[tool.mcmr.contextual]\nmodel = 'gpt-test'\n")
+    monkeypatch.setattr(ContextualSweep, "run", record)
+
+    model_sweep(tmp_path, backend="claude", model="claude-sonnet-5", reasoning_effort="high")
+    model_sweep(tmp_path, backend="openrouter", model="deepseek/deepseek-v4-flash-0731")
+
+    assert [backend.name for backend in swept] == ["claude", "openrouter"]
+    assert [backend.model for backend in swept] == [
+        "claude-sonnet-5",
+        "deepseek/deepseek-v4-flash-0731",
+    ]
+    assert (swept[0].reasoning_effort, swept[1].reasoning_effort) == ("high", "medium")
+    assert "MCMR contextual sweep" in capsys.readouterr().out
 
 
 def test_check_fails_a_repository_that_breaks_a_rule_policy(

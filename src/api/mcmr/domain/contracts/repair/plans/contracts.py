@@ -4,7 +4,7 @@ from patos import FrozenModel
 from pydantic import Field
 
 from .....facts import SourceSpan
-from ....primitives import NonEmptyStr
+from ....primitives import NonEmptyStr, RuleValue
 from ...primitives import FixSafety
 from ..evidence import Measurement, ModelProvenance
 from .rewrites import Inline, Move, Remove, RemoveDirectory, Rename, Replace, Unwrap
@@ -71,8 +71,18 @@ class _RepairContracts:
             | None
         ) = None
 
+    class Observation(FrozenModel):
+        """Retain one rule value beside the fact and evidence behind it."""
+
+        rule: str
+        fact: str
+        value: RuleValue
+        span: SourceSpan = SourceSpan(path="")
+        findings: list[_RepairContracts.Finding] = []
+
 
 Choice = _RepairContracts.Choice
 Edit = _RepairContracts.Edit
 Finding = _RepairContracts.Finding
 FixPlan = _RepairContracts.FixPlan
+Observation = _RepairContracts.Observation

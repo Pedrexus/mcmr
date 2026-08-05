@@ -1,13 +1,16 @@
 from pathlib import Path
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 from mcmr.domain.contracts import RuleValue
 from mcmr.facts import FunctionFact, SourceSpan
 from mcmr.query import RuleQuery, scalar_row_value
 from mcmr.rules.general import positional_boolean_parameter
-from mcmr.table import AnalysisSession, FunctionRelation, Table
+from mcmr.table import AnalysisSession, FunctionRelation
 
 from ..support import written
+
+if TYPE_CHECKING:
+    from mcmr.plugins import Table
 
 _SPAN = SourceSpan(path="src/loader.py")
 
@@ -17,7 +20,7 @@ def function_table(root: Path, sources: dict[str, str]) -> Table[FunctionFact]:
     return AnalysisSession(
         written(root, sources),
         suffixes=sorted({Path(name).suffix for name in sources}),
-        typed_families=(FunctionFact.__name__,),
+        typed_families=(FunctionFact,),
     ).function_tables()
 
 

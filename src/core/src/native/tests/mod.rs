@@ -5,20 +5,25 @@ use std::collections::BTreeSet;
 
 const SOURCE: &str = "#include <cuda_runtime.h>\n#include \"engine.h\"\n\nnamespace app {\n\nclass Engine : public Base {\n public:\n  Engine();\n  int run(float value);\n private:\n  int limit;\n};\n\nint Engine::run(float value) {\n  return helper(value);\n}\n\n}\n\nstatic int helper(int amount) { return amount; }\n\n__global__ void scale(float* data) {\n  __syncthreads();\n  cudaMemcpy(data, data, 4, cudaMemcpyHostToDevice);\n}\n";
 
-#[derive(Clone, Copy)]
-struct FactFamily<'a>(&'a str);
+use fact_family::FactFamily;
+use relative_path::RelativePath;
 
-#[derive(Clone, Copy)]
-struct RelativePath<'a>(&'a str);
+mod fact_family;
+mod relative_path;
 
-fn facts_for(source: &str, relative: RelativePath<'_>, family: FactFamily<'_>) -> Vec<Value> {
+fn facts_for<Path: AsRef<str>, Name: AsRef<str>>(
+    source: &str,
+    relative: RelativePath<Path>,
+    family: FactFamily<Name>,
+) -> Vec<Value> {
     let document = Document {
-        relative: relative.0.to_string(),
+        relative: relative.0.as_ref().to_string(),
         source: source.to_string(),
     };
-    let mut facts = BTreeMap::from([(family.0.to_string(), Vec::new())]);
+    let family_name = family.0.as_ref();
+    let mut facts = BTreeMap::from([(family_name.to_string(), Vec::new())]);
     extract(&document, &mut facts, &mut Stats::default());
-    facts.remove(family.0).unwrap_or_default()
+    facts.remove(family_name).unwrap_or_default()
 }
 
 /// Return each parameter of the one function a source states, as name and declared type.

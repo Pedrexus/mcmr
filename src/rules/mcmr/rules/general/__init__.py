@@ -9,12 +9,6 @@ from .contextual.classes.r1001 import inheritance_design
 from .contextual.classes.r1002 import substitutability
 from .contextual.comments.r1001 import comment_intent
 from .contextual.comments.r1002 import comment_accuracy
-from .contextual.deployment.exposure import exposure_control
-from .contextual.deployment.rollout import (
-    progressive_rollout,
-    rollback_readiness,
-    rollout_success_criteria,
-)
 from .contextual.design.r1001 import primitive_obsession
 from .contextual.duplication.r1001 import semantic_duplication
 from .contextual.functions.r1001 import AbstractionLevel, abstraction_level
@@ -52,16 +46,19 @@ from .deterministic.control.flow import (
 from .deterministic.coupling import PackageCoupling
 from .deterministic.data_assets.governance import (
     data_asset_governance_gap,
+    ungoverned_sensitive_field,
     unhealthy_data_dependency,
 )
 from .deterministic.data_assets.lineage import (
     data_change_test_gap_percentage,
+    unowned_high_impact_asset,
     unresolved_lineage_endpoint,
 )
 from .deterministic.data_assets.references import (
     missing_data_asset_reference,
     missing_data_field_reference,
     nonactive_data_asset_reference,
+    ungoverned_data_reference,
 )
 from .deterministic.data_assets.schema import (
     data_definition_gap_percentage,
@@ -182,6 +179,7 @@ from .deterministic.security.shells import (
 from .deterministic.strings.r0001 import fragmented_multiline_literal
 from .deterministic.strings.r0003 import decorative_repeated_separator_count
 from .deterministic.testing.r0008 import flaky_test_quarantine_debt
+from .deterministic.testing.r0009 import test_module_member_count
 from .deterministic.waivers.r0001 import waiver_debt
 from .deterministic.writing.patterns import (
     ai_associated_pattern_count,
@@ -238,7 +236,6 @@ __all__ = [
     "duplicated_repository_share",
     "empty_directories",
     "explicit_dependency_state_count",
-    "exposure_control",
     "external_nonpublic_attribute_access_count",
     "feature_flag_debt",
     "feedback_target_coverage",
@@ -247,6 +244,7 @@ __all__ = [
     "final_class_subclassed",
     "final_method_overridden",
     "flaky_test_quarantine_debt",
+    "test_module_member_count",
     "fragmented_multiline_literal",
     "function_conditional_count",
     "function_statement_count",
@@ -280,7 +278,6 @@ __all__ = [
     "pasted_block_copy_count",
     "positional_boolean_parameter",
     "primitive_obsession",
-    "progressive_rollout",
     "project_automation",
     "public_method_count",
     "raise_inside_guarded_region",
@@ -293,8 +290,6 @@ __all__ = [
     "repository_wide_declaration",
     "required_parameter_count",
     "review_coverage",
-    "rollback_readiness",
-    "rollout_success_criteria",
     "runbook_coverage",
     "semantic_duplication",
     "sentence_length_uniformity",
@@ -312,9 +307,12 @@ __all__ = [
     "transparent_unary_wrapper",
     "unbounded_blocking_call",
     "unchecked_result_call",
+    "ungoverned_data_reference",
+    "ungoverned_sensitive_field",
     "unhealthy_data_dependency",
     "uninformative_local_name",
     "unnecessary_one_line_concrete_function",
+    "unowned_high_impact_asset",
     "unreached_cross_language_artifact",
     "unreached_declared_route",
     "unreferenced_public_declaration",

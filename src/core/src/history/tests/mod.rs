@@ -2,6 +2,8 @@ use super::*;
 use std::process::Command;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
+mod continuation;
+
 /// One request asking about Python alone, which is what the fixtures below write.
 fn python_scope(root: &Path) -> crate::discovery::Scope {
     crate::discovery::Scope::of(root, &[".py".to_string()])
@@ -28,7 +30,8 @@ impl Repository {
     }
 
     /// Commit everything staged at a stated day, so a date assertion is reproducible.
-    fn commit(&self, message: &str, author: &str, day: &str) {
+    fn commit<M: AsRef<str>, A: AsRef<str>, D: AsRef<str>>(&self, message: M, author: A, day: D) {
+        let (message, author, day) = (message.as_ref(), author.as_ref(), day.as_ref());
         self.git(&["add", "-A"]);
         let stamp = format!("{day}T12:00:00+00:00");
         let finished = Command::new("git")
@@ -68,7 +71,7 @@ impl Repository {
         std::fs::remove_file(self.root.join(path)).expect("the file is removable");
     }
 
-    fn write(&self, path: &str, text: &str) {
+    fn write<P: AsRef<Path>, T: AsRef<[u8]>>(&self, path: P, text: T) {
         let full = self.root.join(path);
         std::fs::write(full, text).expect("the file is writable");
     }
@@ -205,12 +208,12 @@ fn a_day_count_is_read_against_the_newest_commit_rather_than_against_today() {
 fn every_commit_carries_its_requested_paths_once() {
     let repository = Repository::new("pairs");
     for day in 1..=3 {
-        repository.write("reader.py", &format!("value = {day}\n"));
-        repository.write("writer.py", &format!("value = {day}\n"));
-        repository.write("alone.py", &format!("value = {day}\n"));
-        repository.commit("edit", "First Author", &format!("2026-02-0{day}"));
-        repository.write("alone.py", &format!("extra = {day}\n"));
-        repository.commit("alone", "First Author", &format!("2026-02-1{day}"));
+        repository.write("reader.py", format!("value = {day}\n"));
+        repository.write("writer.py", format!("value = {day}\n"));
+        repository.write("alone.py", format!("value = {day}\n"));
+        repository.commit("edit", "First Author", format!("2026-02-0{day}"));
+        repository.write("alone.py", format!("extra = {day}\n"));
+        repository.commit("alone", "First Author", format!("2026-02-1{day}"));
     }
 
     let read = history(&repository);
@@ -234,10 +237,10 @@ fn a_file_carries_the_import_lines_that_explain_co_change() {
     for day in 1..=3 {
         repository.write(
             "reader.py",
-            &format!("from . import writer\nvalue = {day}\n"),
+            format!("from . import writer\nvalue = {day}\n"),
         );
-        repository.write("writer.py", &format!("value = {day}\n"));
-        repository.commit("edit", "First Author", &format!("2026-03-0{day}"));
+        repository.write("writer.py", format!("value = {day}\n"));
+        repository.commit("edit", "First Author", format!("2026-03-0{day}"));
     }
 
     let read = history(&repository);
@@ -249,11 +252,11 @@ fn a_file_carries_the_import_lines_that_explain_co_change() {
 fn a_wide_commit_states_its_width_without_deciding_whether_it_is_a_sweep() {
     let repository = Repository::new("sweep");
     for index in 0..4 {
-        repository.write(&format!("module{index}.py"), "value = 1\n");
+        repository.write(format!("module{index}.py"), "value = 1\n");
     }
     repository.commit("first", "First Author", "2026-04-01");
     for index in 0..4 {
-        repository.write(&format!("module{index}.py"), "value = 2\n");
+        repository.write(format!("module{index}.py"), "value = 2\n");
     }
     repository.commit("sweep", "First Author", "2026-04-02");
 
@@ -284,26 +287,48 @@ fn a_renamed_file_keeps_the_history_it_earned_under_its_old_name() {
     assert!(read.files.iter().all(|entry| entry.path != "old.py"));
 }
 
-#[test]
-fn a_deleted_file_keeps_its_churn_and_reads_as_no_lines_at_all() {
+/// One repository where a committed delete and a working tree delete both took a file away.
+fn emptied_repository() -> Repository {
     let repository = Repository::new("deleted");
-    repository.write("gone.py", "value = 1\n");
-    repository.commit("first", "First Author", "2026-06-01");
+    for (day, taken) in [("01", "gone.py"), ("02", "split.py")] {
+        repository.write(taken, "value = 1\n");
+        repository.write("stays.py", format!("value = {day}\n"));
+        repository.commit("edit", "First Author", format!("2026-06-{day}"));
+    }
+    // A file deleted in a commit and one taken apart in the working tree are both gone for a
+    // reader today, which is the shape a refactor leaves behind before and after it lands.
     repository.remove("gone.py");
-    repository.commit("second", "First Author", "2026-06-02");
+    repository.commit("delete", "First Author", "2026-06-03");
+    repository.remove("split.py");
+    repository
+}
 
-    let read = history(&repository);
+#[test]
+fn a_file_the_working_tree_no_longer_holds_is_never_named_as_evidence() {
+    let read = history(&emptied_repository());
 
-    assert_eq!(file_commits(file(&read, "gone.py")), 2);
-    assert_eq!(file(&read, "gone.py").line_count, 0);
+    assert_eq!(
+        read.files
+            .iter()
+            .map(|entry| &entry.path)
+            .collect::<Vec<_>>(),
+        ["stays.py"]
+    );
+    assert_eq!(file_commits(file(&read, "stays.py")), 2);
+    assert!(
+        read.changes
+            .iter()
+            .all(|change| change.paths == ["stays.py".to_string()])
+    );
+    assert_eq!((read.changes.len(), read.unscoped_commit_count), (2, 1));
 }
 
 #[test]
 fn the_complete_history_has_no_private_commit_ceiling() {
     let repository = Repository::new("ceiling");
     for day in 1..=4 {
-        repository.write("engine.py", &format!("value = {day}\n"));
-        repository.commit("edit", "First Author", &format!("2026-07-0{day}"));
+        repository.write("engine.py", format!("value = {day}\n"));
+        repository.commit("edit", "First Author", format!("2026-07-0{day}"));
     }
 
     let complete = history(&repository);
@@ -317,85 +342,13 @@ fn commits_stay_linear_instead_of_expanding_into_a_bounded_pair_table() {
     let repository = Repository::new("linear-changes");
     for day in 1..=3 {
         for index in 0..3 {
-            repository.write(&format!("module{index}.py"), &format!("value = {day}\n"));
+            repository.write(format!("module{index}.py"), format!("value = {day}\n"));
         }
-        repository.commit("edit", "First Author", &format!("2026-08-0{day}"));
+        repository.commit("edit", "First Author", format!("2026-08-0{day}"));
     }
 
     let read = history(&repository);
 
     assert_eq!(read.changes.len(), 3);
     assert!(read.changes.iter().all(|change| change.paths.len() == 3));
-}
-
-#[test]
-fn the_history_answers_for_the_files_the_same_request_would_have_read() {
-    let repository = scoped_repository();
-
-    let native = crate::discovery::Scope::of(&repository.root, &[".cu".to_string()]);
-    let emitted = read(&repository.root, &native).expect("history is readable");
-    let named: Vec<&str> = emitted[0]["files"]
-        .as_array()
-        .expect("a file list")
-        .iter()
-        .map(|file| file["path"].as_str().unwrap_or_default())
-        .collect();
-
-    // Ranking a Python module by churn in a run asked only about CUDA names a file that run
-    // never opened. The full commit width remains two even though this request retains one.
-    assert_eq!(
-        (named, &emitted[0]["unscoped_commit_count"]),
-        (vec!["kernel.cu"], &serde_json::json!(0))
-    );
-    assert!(
-        emitted[0]["changes"]
-            .as_array()
-            .expect("a change list")
-            .iter()
-            .all(|change| change["other_file_count"] == 1
-                && change["paths"]
-                    .as_array()
-                    .is_some_and(|paths| paths.len() == 1))
-    );
-    assert_eq!(
-            read(&repository.root, &python_scope(&repository.root)).expect("history is readable")
-                [0]["files"]
-                .as_array()
-                .expect("a file list")
-                .len(),
-            1
-        );
-}
-
-#[test]
-fn one_fact_carries_files_and_commits_from_the_same_log_read() {
-    let repository = Repository::new("fact");
-    repository.write("engine.py", "value = 1\n");
-    repository.commit("first", "First Author", "2026-09-01");
-
-    let emitted =
-        read(&repository.root, &python_scope(&repository.root)).expect("history is readable");
-
-    assert_eq!(emitted.len(), 1);
-    assert_eq!(emitted[0]["key"], "history");
-    assert!(emitted[0]["files"].is_array());
-    assert!(emitted[0]["changes"].is_array());
-}
-
-#[test]
-fn dependency_lines_are_retained_without_a_language_specific_path_allowlist() {
-    assert!(is_import("#include <vector>"));
-    assert!(is_import("const parser = require('./parser')"));
-    assert!(!is_import("value = 1"));
-}
-
-#[test]
-fn a_test_says_so_however_its_language_spells_the_convention() {
-    assert!(is_test_path("tests/test_engine.py"));
-    assert!(is_test_path("src/conftest.py"));
-    assert!(is_test_path("src/engine_test.rs"));
-    assert!(is_test_path("web/engine.spec.ts"));
-    assert!(is_test_path("src/__tests__/engine.ts"));
-    assert!(!is_test_path("src/engine.py"));
-    assert!(!is_test_path("src/latest.py"));
 }

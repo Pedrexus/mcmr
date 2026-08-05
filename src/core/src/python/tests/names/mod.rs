@@ -75,10 +75,10 @@ fn type_only_relative_imports_retain_exact_reference_nodes() {
     );
 }
 
-fn binding_named(source: &str, name: FactName) -> Value {
+fn binding_named<Name: AsRef<str>>(source: &str, name: FactName<Name>) -> Value {
     facts_for(source, FactFamily("ImportBindingFact"))
         .into_iter()
-        .find(|fact| fact["name"] == name.0)
+        .find(|fact| fact["name"] == name.0.as_ref())
         .expect("the name is bound by an import")
 }
 

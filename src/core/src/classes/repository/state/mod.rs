@@ -4,6 +4,25 @@ use crate::classes::records::{ClassAnalysisRecord, ClassRecord};
 use crate::functions::FunctionRecord;
 use serde_json::{Value, json};
 
+/// What settles whether one class is a foundation rather than a model of its own.
+struct FoundationEvidence {
+    field_count: usize,
+    inherits_fields: bool,
+    states_configuration: bool,
+    has_subclasses: bool,
+}
+
+/// Whether one class states what the classes below it derive rather than data of its own.
+///
+/// A foundation owns no state, inherits none, and either fixes model configuration or is already
+/// derived by a class that does own state. Reading one as a model reports the very class every
+/// other class is being asked to derive, which is the report that made projects rename folders.
+fn is_model_foundation(evidence: FoundationEvidence) -> bool {
+    evidence.field_count == 0
+        && !evidence.inherits_fields
+        && (evidence.states_configuration || evidence.has_subclasses)
+}
+
 impl<'repository> Repository<'repository> {
     /// Write onto one file's class fact everything only the whole repository knows.
     pub(in crate::classes) fn state(&self, fact: &mut Value) {
@@ -102,6 +121,14 @@ impl<'repository> Repository<'repository> {
                 self.has_hazardous_collision(&held);
             class.model.is_declarative_model |= self.inherits_declarative_model(&held);
             class.shape.has_inherited_fields = self.inherits_fields(&held);
+            let foundation = is_model_foundation(FoundationEvidence {
+                field_count: class.shape.field_count,
+                inherits_fields: class.shape.has_inherited_fields,
+                states_configuration: class.declaration.states_model_configuration,
+                has_subclasses: !subclasses.is_empty(),
+            });
+            class.model.is_declarative_model &= !foundation;
+            class.model.directly_inherits_pydantic_base_model &= !foundation;
             class.model.proposed_model_destination =
                 self.proposed_destination(&held, &importing_refs);
             class.model.importing_modules = importing;
@@ -143,6 +170,15 @@ impl<'repository> Repository<'repository> {
             .get(held)
             .map(|found| found.iter().copied().collect())
             .unwrap_or_default();
+        let inherits_fields = self.inherits_fields(held);
+        let foundation = is_model_foundation(FoundationEvidence {
+            field_count: class["field_count"].as_u64().unwrap_or_default() as usize,
+            inherits_fields,
+            states_configuration: class["states_model_configuration"]
+                .as_bool()
+                .unwrap_or_default(),
+            has_subclasses: !subclasses.is_empty(),
+        });
         vec![
             (
                 "direct_subclasses".to_string(),
@@ -181,14 +217,21 @@ impl<'repository> Repository<'repository> {
             (
                 "is_declarative_model".to_string(),
                 json!(
-                    class["is_declarative_model"].as_bool().unwrap_or_default()
-                        || self.inherits_declarative_model(held)
+                    (class["is_declarative_model"].as_bool().unwrap_or_default()
+                        || self.inherits_declarative_model(held))
+                        && !foundation
                 ),
             ),
             (
-                "has_inherited_fields".to_string(),
-                json!(self.inherits_fields(held)),
+                "directly_inherits_pydantic_base_model".to_string(),
+                json!(
+                    class["directly_inherits_pydantic_base_model"]
+                        .as_bool()
+                        .unwrap_or_default()
+                        && !foundation
+                ),
             ),
+            ("has_inherited_fields".to_string(), json!(inherits_fields)),
             (
                 "proposed_model_destination".to_string(),
                 json!(self.proposed_destination(held, &importing)),

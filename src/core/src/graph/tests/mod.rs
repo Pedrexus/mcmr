@@ -170,6 +170,75 @@ fn a_call_to_an_inherited_class_method_still_reaches_the_receiver_class() {
 }
 
 #[test]
+fn member_reach_separates_owner_external_and_unresolved_uses() {
+    let graph = graph_of(concat!(
+        "class _Engine:\n",
+        "    def local(self):\n",
+        "        return 1\n\n",
+        "    def shared(self):\n",
+        "        return 2\n\n",
+        "    def ambiguous(self):\n",
+        "        return 3\n\n",
+        "    def run(self):\n",
+        "        return self.local() + self.shared() + self.ambiguous()\n\n\n",
+        "def outside(engine: _Engine):\n",
+        "    return engine.shared()\n\n\n",
+        "def unknown(value):\n",
+        "    return value.ambiguous()\n",
+    ));
+    let declarations = reach(&graph)
+        .into_iter()
+        .flat_map(|summary| summary.declarations)
+        .collect::<Vec<_>>();
+    let method = |name: &str| {
+        declarations
+            .iter()
+            .find(|declaration| declaration.qualname.ends_with(name))
+            .expect("the method contributes reach evidence")
+    };
+
+    assert_eq!(
+        method("_Engine.local")
+            .references
+            .ownership
+            .owner_references,
+        1
+    );
+    assert_eq!(
+        method("_Engine.local")
+            .references
+            .ownership
+            .non_owner_references,
+        0
+    );
+    assert_eq!(
+        method("_Engine.local")
+            .references
+            .ownership
+            .unresolved_name_references,
+        0
+    );
+    assert_eq!(
+        method("_Engine.local").owner.visibility,
+        Visibility::Internal
+    );
+    assert_eq!(
+        method("_Engine.shared")
+            .references
+            .ownership
+            .non_owner_references,
+        1
+    );
+    assert!(
+        method("_Engine.ambiguous")
+            .references
+            .ownership
+            .unresolved_name_references
+            > 0
+    );
+}
+
+#[test]
 fn a_public_rust_item_inside_a_private_module_is_not_a_public_surface() {
     let mut module = node(Language::Rust, NodeKind::Module, "core::private");
     module.visibility = Visibility::Private;
@@ -226,7 +295,7 @@ fn component_registration_reaches_every_concrete_subclass() {
         .find(|declaration| declaration.qualname == "pkg.example.Concrete")
         .expect("the component subclass contributes reach evidence");
 
-    assert!(concrete.is_decorated);
+    assert!(concrete.context.is_decorated);
 }
 
 #[test]
@@ -247,7 +316,7 @@ fn a_stub_declaration_is_a_published_binding_surface() {
     assert!(
         declarations
             .iter()
-            .all(|declaration| declaration.is_decorated)
+            .all(|declaration| declaration.context.is_decorated)
     );
 }
 

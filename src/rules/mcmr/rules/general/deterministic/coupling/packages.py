@@ -28,6 +28,13 @@ class PackageCoupling:
         )
         return pl.when(package_module).then(normalized).otherwise(enclosing)
 
+    @staticmethod
+    def test_path(column: str) -> pl.Expr:
+        """Recognize conventional test and specification source paths."""
+        return pl.col(column).str.contains(r"(^|/)(tests?|specs?)(/|$)") | pl.col(
+            column
+        ).str.contains(r"(^|[._-])(test|spec)\.[^.]+$")
+
     def counted(self, selected: pl.LazyFrame) -> pl.LazyFrame:
         """Attach each selected outgoing edge count to its package."""
         counts = selected.group_by("module", maintain_order=True).agg(
@@ -79,6 +86,7 @@ class PackageCoupling:
         targets = self.relations.modules().select(
             pl.col("module").alias("dependency_module"),
             self.package("module", path="path").alias("dependency_package"),
+            pl.col("path").alias("dependency_path"),
         )
         return (
             self.relations.dependencies()
@@ -88,6 +96,7 @@ class PackageCoupling:
             )
             .with_columns(self.package("module", path="path").alias("module"))
             .join(targets, on="dependency_module", how="inner")
+            .filter(~(self.test_path("path") & ~self.test_path("dependency_path")))
             .filter(pl.col("module") != pl.col("dependency_package"))
             .select(
                 "fact_order",
@@ -100,6 +109,7 @@ class PackageCoupling:
                 "end_column",
                 "language",
                 "evidence",
+                "dependency_path",
                 "module",
                 pl.col("dependency_package").alias("dependency_module"),
             )

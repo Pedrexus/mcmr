@@ -14,7 +14,7 @@ from .support import query, table, value
 
 if TYPE_CHECKING:
     from mcmr.facts import SyntaxFact
-    from mcmr.table import Table
+    from mcmr.plugins import Table
 
 
 def guarded_corpus(root: Path) -> Table[SyntaxFact]:

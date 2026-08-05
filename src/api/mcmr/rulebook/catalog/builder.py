@@ -1,21 +1,26 @@
 import inspect
+import re
 from functools import cached_property
 from typing import TYPE_CHECKING
 
 from patos import FrozenModel, Runtime
+from pydantic import TypeAdapter
 
 from ...domain.contracts import (
-    FixDefinition,
     RuleContract,
-    RuleDefinition,
-    RuleIdentity,
     RuleScope,
     output_contract,
 )
-from .parsing import parse_documentation, parse_identity, validate_parameters
+from .contracts import (
+    FixDefinition,
+    RuleDefinition,
+    RuleDocumentation,
+    RuleIdentity,
+    parse_identity,
+)
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping
+    from collections.abc import Mapping, Sequence
 
 
 def resolve_languages(
@@ -61,7 +66,7 @@ class RuleDefinitionBuilder(FrozenModel):
             "tables": [table.__name__ for _, table in self.candidate.tables],
             "languages": {name: sorted(values) for name, values in languages.items() if values},
             "settings": self.settings(),
-            "documentation": parse_documentation(self.candidate.raw_documentation),
+            "documentation": self._documentation(self.candidate.raw_documentation),
             "fixes": self.fixes(),
         }
 
@@ -89,7 +94,7 @@ class RuleDefinitionBuilder(FrozenModel):
 
     def build(self) -> RuleDefinition:
         """Validate the table and query boundaries, then return one definition."""
-        validate_parameters(self.candidate.id, self.parameters, self.candidate.hints)
+        self._parameters(self.candidate.id, self.parameters, self.candidate.hints)
         if not self.candidate.table_native:
             raise TypeError(f"{self.candidate.id} must receive at least one typed Table")
         if not self.candidate.query_native:
@@ -121,3 +126,77 @@ class RuleDefinitionBuilder(FrozenModel):
             for parameter in self.parameters
             if parameter.default is not inspect.Parameter.empty
         }
+
+    @staticmethod
+    def _default(rule_id: str, parameter: inspect.Parameter, annotation: type) -> None:
+        """Validate one present default against its constrained annotation."""
+        if parameter.default is inspect.Parameter.empty:
+            return
+        if type(parameter.default) in {int, float} and annotation in {int, float}:
+            raise TypeError(
+                f"{rule_id} numeric setting {parameter.name} needs a constrained annotation"
+            )
+        TypeAdapter(annotation).validate_python(parameter.default)
+
+    @staticmethod
+    def _documentation(raw: str) -> RuleDocumentation:
+        """Parse and validate the established reStructuredText rule sections."""
+        cleaned = inspect.cleandoc(raw)
+        headings = ["Definition", "Evidence", "Exceptions", "Examples", "References"]
+        positions = {
+            heading: match.start()
+            for heading in headings
+            if (match := re.search(rf"(?m)^[ \t]*{heading}\n[ \t]*-+\n", cleaned)) is not None
+        }
+        for required in ("Definition", "Examples", "References"):
+            if required not in positions:
+                raise ValueError(f"Rule documentation needs a {required} section")
+        ordered = sorted(positions.items(), key=lambda item: item[1])
+        sections = {
+            heading: inspect.cleandoc(
+                cleaned[
+                    cleaned.find("\n", cleaned.find("\n", start) + 1) + 1 : (
+                        ordered[index + 1][1] if index + 1 < len(ordered) else len(cleaned)
+                    )
+                ]
+            )
+            for index, (heading, start) in enumerate(ordered)
+        }
+        return RuleDocumentation(
+            summary=cleaned[: min(positions.values())].strip(),
+            definition=sections["Definition"],
+            evidence=sections.get("Evidence", ""),
+            exceptions=sections.get("Exceptions", ""),
+            examples=sections["Examples"],
+            references=[
+                line.strip() for line in sections["References"].splitlines() if line.strip()
+            ],
+        )
+
+    @staticmethod
+    def _parameter(
+        rule_id: str,
+        parameter: inspect.Parameter,
+        hints: Mapping[str, type],
+    ) -> None:
+        """Validate one declared parameter and its default."""
+        if parameter.kind in {inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD}:
+            raise TypeError(f"{rule_id} cannot use variadic input {parameter.name}")
+        if (
+            parameter.default is not inspect.Parameter.empty
+            and parameter.kind is not inspect.Parameter.KEYWORD_ONLY
+        ):
+            raise TypeError(f"{rule_id} setting {parameter.name} must be keyword-only")
+        if parameter.name not in hints:
+            raise TypeError(f"{rule_id} input {parameter.name} needs an annotation")
+        RuleDefinitionBuilder._default(rule_id, parameter, hints[parameter.name])
+
+    @staticmethod
+    def _parameters(
+        rule_id: str,
+        parameters: Sequence[inspect.Parameter],
+        hints: Mapping[str, type],
+    ) -> None:
+        """Require explicit inputs and checked keyword-only settings."""
+        for parameter in parameters:
+            RuleDefinitionBuilder._parameter(rule_id, parameter, hints)

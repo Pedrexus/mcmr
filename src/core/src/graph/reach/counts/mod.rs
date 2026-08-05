@@ -3,7 +3,7 @@ use serde::Serialize;
 mod references;
 mod uses;
 
-pub use references::ReferenceCounts;
+pub use references::{ReferenceCounts, ReferenceOwnership};
 pub use uses::UseCounts;
 
 #[derive(Debug, Serialize)]

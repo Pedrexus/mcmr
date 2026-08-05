@@ -10,7 +10,7 @@ from ......facts import CommentFact
 from ......query import CountQuery, FindingQuery, FixQuery, RuleQuery
 from ......table import Table
 from ......table.relations import FactRelations
-from .support.relations import comment_groups, ordered
+from ..relations import comment_groups, ordered
 
 
 @rule("ALL-COMM0002", fix_safety=FixSafety.REVIEW)

@@ -2,33 +2,51 @@ use super::contracts::{Declaration, Mechanism};
 use crate::lexical::CorpusFile;
 use serde_json::Value;
 
+/// Return what one manifest declares, as the mechanism the declaring language reaches it through.
+///
+/// A compiled `[[bin]]` and a packaging entry point are two different artifacts. The first is an
+/// executable nothing in its own language can call in process, while the second names a callable
+/// the declaring language already holds, so they are declared apart rather than as one binary.
 pub(super) fn manifest_declarations(
     file: &CorpusFile,
     text: &str,
 ) -> Result<Vec<Declaration>, String> {
-    let (names, language) = if file.path.ends_with("Cargo.toml") {
-        (binaries(file, text)?, "rust")
+    let (names, mechanism, language) = if file.path.ends_with("Cargo.toml") {
+        (binaries(file, text)?, Mechanism::Binary, "rust")
     } else if file.path.ends_with("pyproject.toml") {
-        (binaries(file, text)?, "python")
+        (
+            console_scripts(file, text)?,
+            Mechanism::ConsoleScript,
+            "python",
+        )
     } else if file.path.ends_with("package.json") {
-        (node_binaries(file, text)?, "typescript")
+        (
+            node_binaries(file, text)?,
+            Mechanism::ConsoleScript,
+            "typescript",
+        )
     } else {
         return Ok(Vec::new());
     };
     Ok(names
         .into_iter()
-        .map(|name| (name, Mechanism::Binary, language))
+        .map(|name| (name, mechanism, language))
         .collect())
 }
 
-/// Return the binary names one TOML manifest declares, in `[[bin]]` or `[project.scripts]`.
+/// Return the executables one TOML manifest declares in `[[bin]]`.
 pub(super) fn binaries(file: &CorpusFile, text: &str) -> Result<Vec<String>, String> {
-    let parsed = text
-        .parse::<toml::Table>()
-        .map_err(|failure| format!("{} is not valid TOML: {failure}", file.path))?;
-    let mut names = toml_binary_names(file, &parsed)?;
-    names.extend(toml_script_names(file, &parsed)?);
-    Ok(names)
+    toml_binary_names(file, &parsed(file, text)?)
+}
+
+/// Return the commands one TOML manifest installs in `[project.scripts]`.
+pub(super) fn console_scripts(file: &CorpusFile, text: &str) -> Result<Vec<String>, String> {
+    toml_script_names(file, &parsed(file, text)?)
+}
+
+fn parsed(file: &CorpusFile, text: &str) -> Result<toml::Table, String> {
+    text.parse::<toml::Table>()
+        .map_err(|failure| format!("{} is not valid TOML: {failure}", file.path))
 }
 
 fn toml_binary_names(file: &CorpusFile, parsed: &toml::Table) -> Result<Vec<String>, String> {
@@ -80,6 +98,7 @@ fn toml_script_names(file: &CorpusFile, parsed: &toml::Table) -> Result<Vec<Stri
         .collect()
 }
 
+/// Return the commands one Node manifest installs in `bin`.
 pub(super) fn node_binaries(file: &CorpusFile, text: &str) -> Result<Vec<String>, String> {
     let parsed: Value = serde_json::from_str(text)
         .map_err(|failure| format!("{} is not valid JSON: {failure}", file.path))?;

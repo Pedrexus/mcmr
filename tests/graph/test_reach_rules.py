@@ -6,6 +6,7 @@ from mcmr.rules.general import (
     repository_wide_declaration,
     unreferenced_public_declaration,
 )
+from mcmr.rules.python import attribute_visibility
 
 from ..support import query_value, retained_query
 
@@ -20,6 +21,7 @@ def module(*declarations: SymbolReach, is_test_module: bool = False) -> SymbolRe
     return SymbolReachFact(
         key="reach:service",
         span=_SPAN,
+        language="python",
         is_test_module=is_test_module,
         declarations=list(declarations),
     )
@@ -36,6 +38,11 @@ def declaration(
     referencing_files: int = 0,
     referencing_directories: int = 0,
     referencing_packages: int = 0,
+    owner_visibility: Visibility = Visibility.PUBLIC,
+    owner_has_inheritance: bool = False,
+    owner_references: int = 0,
+    non_owner_references: int = 0,
+    unresolved_name_references: int = 0,
 ) -> SymbolReach:
     """Build one declaration and the spread of what reaches it."""
     return SymbolReach(
@@ -45,12 +52,63 @@ def declaration(
         is_module_scope=form != "nested",
         is_decorated=form == "decorated",
         visibility=visibility,
+        owner_visibility=owner_visibility,
+        owner_has_inheritance=owner_has_inheritance,
         own_file_references=own_file_references,
         other_file_references=other_file_references,
+        owner_references=owner_references,
+        non_owner_references=non_owner_references,
+        unresolved_name_references=unresolved_name_references,
         referencing_files=referencing_files,
         referencing_directories=referencing_directories,
         referencing_packages=referencing_packages,
     )
+
+
+def test_a_public_method_with_complete_owner_only_usage_is_non_public() -> None:
+    """Usage proves privacy only after every ambiguity and contract escape is absent."""
+    subject = module(
+        declaration(
+            "service._Parser.parse",
+            kind="method",
+            owner_visibility=Visibility.INTERNAL,
+            owner_references=2,
+        ),
+        declaration(
+            "service._Parser.render",
+            kind="method",
+            owner_visibility=Visibility.INTERNAL,
+            owner_references=1,
+            non_owner_references=1,
+        ),
+        declaration(
+            "service._Parser.read",
+            kind="method",
+            owner_visibility=Visibility.INTERNAL,
+            owner_references=1,
+            unresolved_name_references=1,
+        ),
+        declaration(
+            "service._Parser.run",
+            kind="method",
+            owner_visibility=Visibility.INTERNAL,
+            owner_references=1,
+            owner_has_inheritance=True,
+        ),
+        declaration("service.Parser.write", kind="method", owner_references=1),
+        declaration(
+            "service._Parser.missing",
+            kind="method",
+            owner_visibility=Visibility.INTERNAL,
+        ),
+    )
+
+    query = retained_query(subject, attribute_visibility)
+    assert query_value(query) == 1
+    assert query.findings is not None
+    finding = query.findings.rows.collect().row(0, named=True)
+    assert "_Parser.parse" in finding["message"]
+    assert finding["measurement_values"] == [2.0, 0.0, 0.0]
 
 
 def test_a_public_declaration_nothing_reaches_is_reported() -> None:

@@ -1,10 +1,13 @@
-from typing import ClassVar, Self
+from typing import TYPE_CHECKING, ClassVar, Self
 
 from patos import FrozenModel
 
 from ....domain.primitives import NonEmptyStr
 from ....execution import ClassificationBackend
 from ....project import ContextBackend, ContextualConfiguration
+
+if TYPE_CHECKING:
+    from pydantic import PositiveInt
 
 
 class BackendProfile(FrozenModel):
@@ -42,15 +45,23 @@ class BackendProfile(FrozenModel):
             )
         return profiles
 
-    def build(self, base: ContextualConfiguration, workers: int) -> ClassificationBackend:
-        """Instantiate this profile through the shared Patos backend registry."""
-        configured = base.model_copy(
-            update={
-                "backend": self.backend,
-                "model": self.model,
-                "reasoning_effort": self.reasoning_effort,
-            }
-        )
+    def build(
+        self,
+        base: ContextualConfiguration,
+        workers: PositiveInt | None = None,
+    ) -> ClassificationBackend:
+        """Instantiate this profile through the shared Patos backend registry.
+
+        base: project settings whose declared fields this backend accepts.
+        workers: maximum isolated model operations, or the backend default when absent.
+        """
         backend = ClassificationBackend.find(str(self.backend))
-        instance = backend.model_validate(configured, from_attributes=True)
-        return instance.model_copy(update={"workers": workers})
+        configured = base.model_copy(
+            update={"model": self.model, "reasoning_effort": self.reasoning_effort}
+        )
+        settings = {
+            name: value
+            for name, value in configured.model_dump().items()
+            if name in backend.model_fields and value is not None
+        }
+        return backend.model_validate(settings | ({"workers": workers} if workers else {}))

@@ -21,7 +21,7 @@ class ReachTables(FactRelations[SymbolReachFact]):
     def declarations(self) -> pl.LazyFrame:
         """Return declaration records with fact flags and ordered evidence."""
         return self.records("declarations").join(
-            self.facts().select("fact_id", "is_test_module", "evidence"),
+            self.facts().select("fact_id", "language", "is_test_module", "evidence"),
             on="fact_id",
             how="left",
         )

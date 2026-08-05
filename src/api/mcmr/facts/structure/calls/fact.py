@@ -23,6 +23,7 @@ class CallFact(Fact):
         result_is_discarded: bool = False
         node: NodeRef
         callee: NodeRef | None = None
+        target_id: str = ""
         is_external: bool = False
         is_standard_library: bool = False
         is_first_party: bool = False

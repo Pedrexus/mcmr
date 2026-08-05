@@ -90,7 +90,7 @@ fn a_header_and_the_unit_that_implements_it_declare_one_module() {
 }
 
 /// Return every comment group one source states, which is what the family carries.
-fn groups_for(source: &str, relative: RelativePath<'_>) -> Vec<Value> {
+fn groups_for<Path: AsRef<str>>(source: &str, relative: RelativePath<Path>) -> Vec<Value> {
     let facts = facts_for(source, relative, FactFamily("CommentFact"));
     facts[0]["groups"].as_array().cloned().unwrap_or_default()
 }

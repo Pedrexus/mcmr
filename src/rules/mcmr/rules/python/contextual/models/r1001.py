@@ -42,7 +42,10 @@ def model_foundation(
     establishes mutation after construction. Arbitrary external field types use the corresponding
     flex category only when supplied annotations establish them. A dataclass is an exception only
     when supplied interoperability or measured performance evidence requires it. Otherwise
-    recommend the matching approved model. Missing requirements are `uncertain`.
+    recommend the matching approved model. Every `use_` category asks for the class to move onto
+    that foundation, so `use_plain_class` names a class that has to come off a model, while a class
+    already sitting on the right foundation is `appropriate` whether that foundation is an approved
+    model or a plain class. Missing requirements are `uncertain`.
 
     Evidence
     --------

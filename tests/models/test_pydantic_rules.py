@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, cast
 
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
 from mcmr.facts import (
-    Fact,
+    CallFact,
     FunctionFact,
     PydanticFieldAnalysis,
     PydanticModelAnalysis,
@@ -21,12 +21,14 @@ from mcmr.rules.python import (
     single_field_model_validator,
     variadic_tuple_model_field,
 )
-from mcmr.table import AnalysisSession, FunctionRelation, Table
+from mcmr.table import AnalysisSession, FunctionRelation
 
 from ..support import retained_query
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from mcmr.plugins import Fact, Table
 
 _SPAN = SourceSpan(path="src/models.py")
 
@@ -124,7 +126,7 @@ class Order(BaseModel):
         AnalysisSession(
             tmp_path,
             suffixes=(".py",),
-            typed_families=(FunctionFact.__name__,),
+            typed_families=(FunctionFact,),
         ).function_tables(),
     )
     query = native_query(table, imperative_model_input_validation)
@@ -152,7 +154,7 @@ def build(name, payload):
         AnalysisSession(
             tmp_path,
             suffixes=(".py",),
-            typed_families=("CallFact",),
+            typed_families=(CallFact,),
         ).call_tables(),
     )
 

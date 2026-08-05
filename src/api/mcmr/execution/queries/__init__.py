@@ -1,6 +1,4 @@
-from .assessment import AssessmentContract
-from .definitions import ModelMode
-from .model import ModelQuery
-from .runtime.answers import answer_frame
+from .contracts import AssessmentContract, ModelMode
+from .model import ModelQuery, answer_frame, is_model_query
 
-__all__ = ["AssessmentContract", "ModelMode", "ModelQuery", "answer_frame"]
+__all__ = ["AssessmentContract", "ModelMode", "ModelQuery", "answer_frame", "is_model_query"]

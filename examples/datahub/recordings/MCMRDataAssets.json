@@ -1,0 +1,266 @@
+[
+  {
+    "variables": {
+      "query": "*",
+      "count": 10,
+      "start": 0
+    },
+    "response": {
+      "data": {
+        "searchAcrossEntities": {
+          "total": 5,
+          "searchResults": [
+            {
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.raw.orders,PROD)",
+                "properties": {
+                  "description": "Raw order events landed from the storefront.",
+                  "lastModified": {
+                    "time": 1736899200000
+                  }
+                },
+                "deprecation": null,
+                "ownership": null,
+                "domain": {
+                  "domain": {
+                    "urn": "urn:li:domain:sales",
+                    "properties": {
+                      "name": "Sales"
+                    }
+                  }
+                },
+                "schemaMetadata": {
+                  "fields": [
+                    {
+                      "fieldPath": "order_id",
+                      "type": "NUMBER",
+                      "description": "Stable order identifier.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "payload",
+                      "type": "STRING",
+                      "description": "Raw storefront event payload.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD)",
+                "properties": {
+                  "description": "Cleaned orders, one row for each placed order.",
+                  "lastModified": {
+                    "time": 1785801600000
+                  }
+                },
+                "deprecation": null,
+                "ownership": {
+                  "owners": [
+                    {
+                      "owner": {
+                        "urn": "urn:li:corpGroup:analytics",
+                        "name": "analytics"
+                      }
+                    }
+                  ]
+                },
+                "domain": {
+                  "domain": {
+                    "urn": "urn:li:domain:sales",
+                    "properties": {
+                      "name": "Sales"
+                    }
+                  }
+                },
+                "schemaMetadata": {
+                  "fields": [
+                    {
+                      "fieldPath": "order_id",
+                      "type": "NUMBER",
+                      "description": "Stable order identifier.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "total",
+                      "type": "NUMBER",
+                      "description": "Order total in the store currency.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "customer_email",
+                      "type": "STRING",
+                      "description": "Buyer contact address.",
+                      "globalTags": {
+                        "tags": [
+                          {
+                            "tag": {
+                              "urn": "urn:li:tag:PII",
+                              "properties": {
+                                "name": "PII"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "placed_at",
+                      "type": "TIMESTAMP",
+                      "description": "When the storefront accepted the order.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.revenue,PROD)",
+                "properties": {
+                  "description": "Daily revenue by acquisition channel.",
+                  "lastModified": {
+                    "time": 1736899200000
+                  }
+                },
+                "deprecation": null,
+                "ownership": {
+                  "owners": [
+                    {
+                      "owner": {
+                        "urn": "urn:li:corpGroup:finance",
+                        "name": "finance"
+                      }
+                    }
+                  ]
+                },
+                "domain": {
+                  "domain": {
+                    "urn": "urn:li:domain:finance",
+                    "properties": {
+                      "name": "Finance"
+                    }
+                  }
+                },
+                "schemaMetadata": {
+                  "fields": [
+                    {
+                      "fieldPath": "day",
+                      "type": "DATE",
+                      "description": "Reporting day.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "revenue",
+                      "type": "NUMBER",
+                      "description": "Revenue recognised on the day.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)",
+                "properties": {
+                  "description": "",
+                  "lastModified": {
+                    "time": 1785715200000
+                  }
+                },
+                "deprecation": null,
+                "ownership": null,
+                "domain": {
+                  "domain": {
+                    "urn": "urn:li:domain:finance",
+                    "properties": {
+                      "name": "Finance"
+                    }
+                  }
+                },
+                "schemaMetadata": {
+                  "fields": [
+                    {
+                      "fieldPath": "invoice_id",
+                      "type": "NUMBER",
+                      "description": "Invoice identifier.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "amount",
+                      "type": "NUMBER",
+                      "description": "Invoiced amount.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "entity": {
+                "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.retention,PROD)",
+                "properties": {
+                  "description": "Weekly cohort retention.",
+                  "lastModified": {
+                    "time": 1736899200000
+                  }
+                },
+                "deprecation": null,
+                "ownership": {
+                  "owners": [
+                    {
+                      "owner": {
+                        "urn": "urn:li:corpGroup:growth",
+                        "name": "growth"
+                      }
+                    }
+                  ]
+                },
+                "domain": {
+                  "domain": {
+                    "urn": "urn:li:domain:growth",
+                    "properties": {
+                      "name": "Growth"
+                    }
+                  }
+                },
+                "schemaMetadata": {
+                  "fields": [
+                    {
+                      "fieldPath": "cohort",
+                      "type": "STRING",
+                      "description": "Signup cohort week.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    },
+                    {
+                      "fieldPath": "retained",
+                      "type": "NUMBER",
+                      "description": "Buyers still active.",
+                      "globalTags": null,
+                      "glossaryTerms": null
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "extensions": {}
+    }
+  }
+]

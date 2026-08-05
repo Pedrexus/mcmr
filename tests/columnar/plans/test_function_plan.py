@@ -4,10 +4,11 @@ import pytest
 
 from mcmr import MCMRConfiguration, RulePolicies
 from mcmr.checking.engine import RuleEngine
-from mcmr.checking.session import Judgment
+from mcmr.commands.quality import Judgment
 from mcmr.facts import FunctionFact
+from mcmr.plugins import RepositoryTables
 from mcmr.query.runtime import TableRunner
-from mcmr.table import AnalysisSession, FunctionRelation, RepositoryTables
+from mcmr.table import AnalysisSession, FunctionRelation
 
 from ...support import built_catalog, kernel_binary, needs_kernel
 
@@ -159,7 +160,7 @@ async def test_complete_function_plan_executes_every_rule_once(tmp_path: Path) -
     session = AnalysisSession(
         repository(tmp_path),
         suffixes=[".py", ".rs"],
-        typed_families=[FunctionFact.__name__],
+        typed_families=[FunctionFact],
     )
     engine = RuleEngine(rules=all_function_rules())
     prepared = engine.prepared
@@ -168,7 +169,7 @@ async def test_complete_function_plan_executes_every_rule_once(tmp_path: Path) -
         AnalysisSession(
             repository(tmp_path),
             suffixes=[".py", ".rs"],
-            typed_families=[FunctionFact.__name__],
+            typed_families=[FunctionFact],
         )
         .function_tables()
         .frame(FunctionRelation.FUNCTIONS)
@@ -207,7 +208,7 @@ async def test_function_plan_rejects_a_result_outside_the_query_contract(
     session = AnalysisSession(
         repository(tmp_path),
         suffixes=[".py", ".rs"],
-        typed_families=[FunctionFact.__name__],
+        typed_families=[FunctionFact],
     )
     monkeypatch.setattr(
         type(rule),
@@ -248,7 +249,7 @@ async def test_function_plan_preserves_settings_exclusions_and_findings(tmp_path
         AnalysisSession(
             repository(tmp_path),
             suffixes=[".py", ".rs"],
-            typed_families=[FunctionFact.__name__],
+            typed_families=[FunctionFact],
         ),
         engine,
     )
@@ -266,7 +267,7 @@ async def test_function_plan_keeps_fix_rows_and_failure_order(tmp_path: Path) ->
         AnalysisSession(
             repository(tmp_path),
             suffixes=[".py", ".rs"],
-            typed_families=[FunctionFact.__name__],
+            typed_families=[FunctionFact],
         ),
         RuleEngine(rules=all_function_rules()),
     )

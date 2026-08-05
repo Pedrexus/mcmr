@@ -1,5 +1,5 @@
 use super::Callable;
-use super::support::{DTYPE_WORDS, is_tensor_annotation, tensor_wrapper};
+use super::support::DTYPE_WORDS;
 use crate::walk::docstring;
 use ruff_python_ast::Expr;
 
@@ -28,14 +28,14 @@ impl Callable<'_> {
                     .as_deref()
                     .map(|annotation| ("return".to_string(), annotation)),
             )
-            .filter(|(_, annotation)| is_tensor_annotation(annotation))
+            .filter(|(_, annotation)| self.context.is_tensor_annotation(annotation))
             .collect();
         let documentation = docstring(&self.item.body)
             .unwrap_or_default()
             .to_lowercase();
         let wrappers: Vec<String> = annotated
             .iter()
-            .filter_map(|(_, annotation)| tensor_wrapper(annotation))
+            .filter_map(|(_, annotation)| self.context.tensor_wrapper(annotation))
             .collect();
         TensorSemantics {
             states_shape: !annotated.is_empty()

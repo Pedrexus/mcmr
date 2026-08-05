@@ -2,10 +2,11 @@ import polars as pl
 from pydantic import NonNegativeInt
 
 from ...... import rule
+from ......domain.contracts import Unit
 from ......facts import Ratio, RepositoryHistoryFact
 from ......query import CountQuery, FindingQuery, RuleQuery
-from ......table import Table
-from ..relations import HistoryRelations
+from ......table import HistoryRelations, Table
+from ..messages import counted_text
 
 
 @rule("ALL-HIST0003")
@@ -34,8 +35,10 @@ def coupled_files_that_never_name_each_other(
 
     Evidence
     --------
-    Each finding names both files, how many commits carried both, and each file's own commit
-    count. The value is the number of unexplained pairs.
+    One finding is stated per unexplained pair, located at the first of the two files so a reader
+    opening the report lands somewhere real. Each names both files, how many focused commits
+    carried both, and each file's own commit count, because a pair nobody can name is a pair
+    nobody can act on. The value is the number of unexplained pairs.
 
     Exceptions
     ----------
@@ -45,6 +48,10 @@ def coupled_files_that_never_name_each_other(
     everything else. A pair the two files genuinely share through a third module is real coupling
     that this reports honestly, and the repair is usually to name the shared thing rather than to
     merge the two files.
+
+    A file the working tree no longer holds votes on nothing. Renames are followed forward, so a
+    file arrives under the name it answers to today, but one deleted or taken apart since answers
+    to no name at all and naming it would ask a reader to open what is not there.
 
     The import reading is lexical, so a repository where no coupled pair names any other is one
     where the reader found no imports it understands rather than one where every pair is hidden.
@@ -82,9 +89,9 @@ def coupled_files_that_never_name_each_other(
         (pl.col("import_reference_count") > 0).any().alias("has_named_pair"),
         (pl.col("import_reference_count") == 0).sum().cast(pl.UInt64).alias("hidden_pair_count"),
     )
+    facts = relations.facts()
     frame = (
-        relations.facts()
-        .join(counts, on="fact_id", how="left")
+        facts.join(counts, on="fact_id", how="left")
         .with_columns(
             pl.col("has_named_pair").fill_null(False),
             pl.col("hidden_pair_count").fill_null(0),
@@ -96,13 +103,49 @@ def coupled_files_that_never_name_each_other(
             .alias("value")
         )
     )
-    return RuleQuery.integer(
-        frame,
-        pl.col("value"),
-        findings=FindingQuery.precise_integer(
-            frame,
-            pl.col("value"),
-            "coupled files that never name each other",
-            evidence=pl.col("evidence"),
-        ),
+    hidden = (
+        judged.filter(pl.col("import_reference_count") == 0)
+        .join(
+            counts.filter(pl.col("has_named_pair")).select("fact_id"),
+            on="fact_id",
+            how="inner",
+        )
+        .join(facts.select("fact_id", "evidence"), on="fact_id", how="inner")
+        .with_row_index("ordinal")
+        .with_columns(pl.col("left").alias("path"))
     )
+    findings = FindingQuery.build(
+        hidden,
+        pl.concat_str(
+            pl.lit("`"),
+            pl.col("left"),
+            pl.lit("` and `"),
+            pl.col("right"),
+            pl.lit("` arrived together in "),
+            counted_text(pl.col("shared_commit_count"), "focused commit"),
+            pl.lit(" while neither names the other, out of the "),
+            pl.col("left_commit_count"),
+            pl.lit(" and "),
+            pl.col("right_commit_count"),
+            pl.lit(" each one saw"),
+        ),
+        (
+            ("shared commits", pl.col("shared_commit_count"), Unit.COUNT),
+            ("commits the first file saw", pl.col("left_commit_count"), Unit.COUNT),
+            ("commits the second file saw", pl.col("right_commit_count"), Unit.COUNT),
+        ),
+        finding_order=pl.col("ordinal"),
+        question=pl.concat_str(
+            pl.lit("find out what `"),
+            pl.col("left"),
+            pl.lit("` and `"),
+            pl.col("right"),
+            pl.lit("` both assume"),
+        ),
+        options=(
+            "name the shared thing in a module both import",
+            "import one from the other where the dependency is really one way",
+        ),
+        evidence=pl.col("evidence"),
+    )
+    return RuleQuery.integer(frame, pl.col("value"), findings=findings)

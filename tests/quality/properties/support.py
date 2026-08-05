@@ -12,15 +12,15 @@ from mcmr.facts import (
     ImportBindingFact,
     SyntaxFact,
 )
+from mcmr.plugins import Table, fact_table
 from mcmr.query import RuleQuery
-from mcmr.table import Table, fact_table
 
 from ...support import FactValue, built_catalog, family_of
 
 if TYPE_CHECKING:
-    from mcmr.domain.contracts import RuleContract, RuleDefinition, RuleValue
-    from mcmr.facts import Fact
-
+    from mcmr.domain.contracts import RuleContract, RuleValue
+    from mcmr.rulebook.catalog import RuleDefinition
+from mcmr.plugins import Fact
 
 _SPECIALIZED_FAMILIES: set[type[Fact]] = {
     CallFact,

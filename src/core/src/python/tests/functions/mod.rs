@@ -1,9 +1,9 @@
 use super::*;
 
-fn function_named(source: &str, name: FactName) -> Value {
+fn function_named<Name: AsRef<str>>(source: &str, name: FactName<Name>) -> Value {
     facts_for(source, FactFamily("FunctionFact"))
         .into_iter()
-        .find(|fact| fact["name"] == name.0)
+        .find(|fact| fact["name"] == name.0.as_ref())
         .expect("the callable is declared")
 }
 
@@ -290,6 +290,8 @@ fn a_tensor_signature_states_its_roles_and_what_the_docstring_settled() {
         "    return values\n",
     );
     let typed = concat!(
+        "from jaxtyping import Float32\n",
+        "from torch import Tensor\n\n",
         "def scale(values: Float32[Tensor, \"batch features\"]) -> int:\n",
         "    return 1\n",
     );
@@ -317,6 +319,53 @@ fn a_tensor_signature_states_its_roles_and_what_the_docstring_settled() {
     assert_eq!(
         function_named(typed, FactName("scale"))["has_tensor_dtype_semantics"],
         true
+    );
+}
+
+#[test]
+fn only_a_recognized_array_library_makes_a_tensor_name_a_tensor() {
+    let toml = concat!(
+        "import tomlkit\n\n",
+        "def platform_array(platforms) -> tomlkit.items.Array:\n",
+        "    \"\"\"Return the platforms as a TOML array.\"\"\"\n",
+        "    return tomlkit.array()\n",
+    );
+    let imported = concat!(
+        "from tomlkit.items import Array\n\n",
+        "def rendered(values) -> Array:\n",
+        "    \"\"\"Render the values.\"\"\"\n",
+        "    return values\n",
+    );
+    let owned = concat!(
+        "class Tensor:\n",
+        "    pass\n\n",
+        "def held(values: Tensor) -> Tensor:\n",
+        "    \"\"\"Hold the values.\"\"\"\n",
+        "    return values\n",
+    );
+    let arrays = concat!(
+        "import numpy as np\n",
+        "from torch import Tensor\n\n",
+        "def scaled(values: np.ndarray, weights: Tensor) -> Tensor:\n",
+        "    \"\"\"Scale the values.\"\"\"\n",
+        "    return weights\n",
+    );
+
+    assert_eq!(
+        function_named(toml, FactName("platform_array"))["recognized_tensor_roles"],
+        json!([])
+    );
+    assert_eq!(
+        function_named(imported, FactName("rendered"))["recognized_tensor_roles"],
+        json!([])
+    );
+    assert_eq!(
+        function_named(owned, FactName("held"))["recognized_tensor_roles"],
+        json!([])
+    );
+    assert_eq!(
+        function_named(arrays, FactName("scaled"))["recognized_tensor_roles"],
+        json!(["values", "weights", "return"])
     );
 }
 

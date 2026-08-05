@@ -7,7 +7,6 @@ import pytest
 from mcmr.domain.contracts import FixSafety, RuleContract, RuleSetting, RuleValue
 from mcmr.facts import (
     CallFact,
-    Fact,
     ImportBindingFact,
     ProjectConfigurationFact,
     PythonTargetConfiguration,
@@ -18,6 +17,7 @@ from mcmr.facts import (
     TypingReuse,
     TypingScope,
 )
+from mcmr.plugins import Fact, RepositoryTables, Table, fact_table
 from mcmr.query import RuleQuery
 from mcmr.rules.python import (
     future_annotations_import,
@@ -28,22 +28,16 @@ from mcmr.rules.python import (
     repeated_annotated_constraint,
     repeated_cast_patterns,
 )
-from mcmr.table import (
-    AnalysisSession,
-    ImportBindingRelation,
-    RepositoryTables,
-    Table,
-    fact_table,
-)
+from mcmr.table import AnalysisSession, ImportBindingRelation
 
 from ..support import query_value, retained_query, written
 
 _SPAN = SourceSpan(path="src/example.py")
 
 
-def native_query(
+def native_query[Family: Fact](
     rule: RuleContract,
-    subject: Table[Fact],
+    subject: Table[Family],
     **settings: RuleSetting,
 ) -> RuleQuery:
     """Invoke one specialized rule once over the complete native table."""
@@ -59,7 +53,7 @@ def call_table(sources: dict[str, str]) -> Table[CallFact]:
         return AnalysisSession(
             written(Path(directory), sources),
             suffixes=(".py",),
-            typed_families=(CallFact.__name__,),
+            typed_families=(CallFact,),
         ).call_tables()
 
 
@@ -69,7 +63,7 @@ def import_table(sources: dict[str, str]) -> Table[ImportBindingFact]:
         return AnalysisSession(
             written(Path(directory), sources),
             suffixes=(".py",),
-            typed_families=(ImportBindingFact.__name__,),
+            typed_families=(ImportBindingFact,),
         ).import_binding_tables()
 
 
@@ -93,7 +87,7 @@ def annotation_table(sources: dict[str, str]) -> Table[TypeAnnotationFact]:
         return AnalysisSession(
             written(Path(directory), sources),
             suffixes=(".py",),
-            typed_families=(TypeAnnotationFact.__name__,),
+            typed_families=(TypeAnnotationFact,),
         ).table(TypeAnnotationFact)
 
 

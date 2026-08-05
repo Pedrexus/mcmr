@@ -11,7 +11,7 @@ from patos import FrozenModel
 from .fixtures import built_catalog, family_of
 
 if TYPE_CHECKING:
-    from mcmr.facts import Fact
+    from mcmr.plugins import Fact
 
 _MATCHED = re.compile(r"^[A-Za-z_][A-Za-z0-9_.:/-]*$")
 _NEUTRAL = ["", "src/orders.py", "tests/test_orders.py", "shop/api.py", "self", "total", "value"]

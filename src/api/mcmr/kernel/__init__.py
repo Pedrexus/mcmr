@@ -1,5 +1,6 @@
-from .analysis import FamilyStream, Kernel, Workspace, buildable, locate, requested_fact
 from .protocol import KernelClient, KernelExchange, KernelStats, KernelStreamBatch
+from .runtime import Kernel
+from .workspace import FamilyStream, Workspace
 
 __all__ = [
     "FamilyStream",
@@ -9,7 +10,4 @@ __all__ = [
     "KernelStats",
     "KernelStreamBatch",
     "Workspace",
-    "buildable",
-    "locate",
-    "requested_fact",
 ]

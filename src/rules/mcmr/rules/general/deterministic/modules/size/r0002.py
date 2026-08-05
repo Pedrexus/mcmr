@@ -52,6 +52,9 @@ def module_member_count(
     Cites "A Philosophy of Software Design", chapter 10
     """
     frame = subject.facts().with_columns(
-        (pl.col("class_count") + pl.col("function_count")).alias("value")
+        pl.when(pl.col("is_test"))
+        .then(pl.lit(0, dtype=pl.UInt64))
+        .otherwise(pl.col("class_count") + pl.col("function_count"))
+        .alias("value")
     )
     return count_query(frame, "module member count")

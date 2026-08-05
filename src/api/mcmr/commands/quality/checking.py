@@ -1,9 +1,9 @@
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Never
 
-from ...checking.session import Judgment, allowed
+from ...checking.session import allowed
 from ...domain.contracts import FixSafety
-from ...kernel import locate
+from ...execution.providers import ProviderExecutionError
 from ...presentation import (
     CheckReport,
     FixResult,
@@ -12,7 +12,7 @@ from ...presentation import (
     RichCheck,
 )
 from ...presentation.reports import CheckFormat
-from ...project import ExecutionOverride, MCMRConfiguration
+from ...project import ExecutionOverride, MCMRConfiguration, locate
 from ..interface import (
     FixPresentation,
     RepairMode,
@@ -20,10 +20,11 @@ from ..interface import (
     app,
     console,
 )
+from .analysis import Judgment
 
 if TYPE_CHECKING:
-    from ...domain.contracts import RuleDefinition
     from ...domain.policy import RulePolicies
+    from ...rulebook.catalog import RuleDefinition
 
 
 @app.command
@@ -79,7 +80,11 @@ def check(
         external=overrides[external],
     )
     with console.status("Analyzing the repository", spinner="dots"):
-        report = CheckReport.of(root, analysis.run())
+        try:
+            result = analysis.run()
+        except ProviderExecutionError as error:
+            _fail_provider(error)
+        report = CheckReport.of(root, result)
     fixed = _apply_repairs(root, analysis, report, repair, maximum_fixes)
     report = fixed.report
     if output is not None:
@@ -100,6 +105,12 @@ def check(
     incomplete = rule_coverage is RuleCoverage.ALL and report.skipped_rule_count
     if (report.failure_count or incomplete) and not report_only:
         raise SystemExit(1)
+
+
+def _fail_provider(error: ProviderExecutionError) -> Never:
+    """Present one external provider boundary failure and leave without a traceback."""
+    console.print(str(error), style="red")
+    raise SystemExit(2) from None
 
 
 def _apply_repairs(

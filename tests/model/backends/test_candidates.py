@@ -8,20 +8,17 @@ from mcmr.execution import (
     CriterionValue,
     ModelCandidate,
 )
-from mcmr.execution.backends import (
-    CodexHarness,
-    CodexProtocol,
-)
+from mcmr.execution.backends import CandidateProtocol, CodexHarness
 from mcmr.facts import Evidence
 
-from ..backend_fakes import (
-    Category,
-    CertainCategory,
-    PartlyFailingBackend,
-)
 from ..backend_values import (
     candidate,
     criteria,
+)
+from ..fakes import (
+    Category,
+    CertainCategory,
+    PartlyFailingBackend,
 )
 
 
@@ -110,7 +107,7 @@ def test_the_command_is_stateless_isolated_and_schema_constrained(tmp_path: Path
 
 def test_the_output_schema_closes_every_field_and_category() -> None:
     """Codex can answer only one member of the rule rubric with bounded cited prose."""
-    protocol = CodexProtocol(candidate=candidate(), instructions="Judge the facts.")
+    protocol = CandidateProtocol(candidate=candidate(), instructions="Judge the facts.")
     schema = protocol.classification_schema(Category)
     properties = TypeAdapter(dict[str, JsonValue]).validate_python(schema["properties"])
     rendered = json.dumps(schema, sort_keys=True)
@@ -126,7 +123,7 @@ def test_the_output_schema_closes_every_field_and_category() -> None:
 
 
 def test_the_assessment_schema_requires_every_named_independent_criterion() -> None:
-    protocol = CodexProtocol(candidate=candidate(), instructions="Assess the facts.")
+    protocol = CandidateProtocol(candidate=candidate(), instructions="Assess the facts.")
     schema = protocol.assessment_schema(criteria())
     rendered = json.dumps(schema, sort_keys=True)
 
@@ -180,7 +177,7 @@ def test_retained_evidence_uses_provider_ids_or_one_exact_fact_fallback() -> Non
         ["provider:structure"],
     )
 
-    prompt = CodexProtocol(
+    prompt = CandidateProtocol(
         candidate=stated, instructions="Judge only the supplied facts."
     ).classification_prompt(Category)
     rendered = TypeAdapter(dict[str, JsonValue]).validate_json(
@@ -208,7 +205,7 @@ def test_retained_evidence_uses_provider_ids_or_one_exact_fact_fallback() -> Non
         rendered["evidence"] == expected_evidence,
         all(item in prompt for item in expected_guidance),
         "still need an affirmative supplied fact"
-        in CodexProtocol(
+        in CandidateProtocol(
             candidate=stated, instructions="Judge only the supplied facts."
         ).assessment_prompt(criteria()),
     ) == (True, True, True)
@@ -248,7 +245,7 @@ def test_normalized_records_become_compact_first_class_citations() -> None:
     assert fallback.retained[record_id].detail == (
         '{"name": "service", "relation": "symbols", "scope": "module"}'
     )
-    prompt = CodexProtocol(
+    prompt = CandidateProtocol(
         candidate=fallback,
         instructions="Judge the symbol.",
     ).classification_prompt(Category)
@@ -295,6 +292,14 @@ def test_normalized_evidence_ignores_non_records_and_compacts_only_citable_recor
         path="demo.py",
         subject={"fields": {}, "records": ["opaque", {}, {"record_id": " "}]},
     ) == [Evidence(signal="fact:demo", detail="{}", source="demo.py")]
+    assert {
+        claim.source
+        for claim in ModelCandidate.normalized_evidence(
+            "root",
+            path="",
+            subject={"fields": {}, "records": [{"record_id": "record:root"}]},
+        )
+    } == {"."}
     assert scalar.prompt_subject == "scalar"
     assert without_records.prompt_subject == without_records.subject
     assert uncited_records.prompt_subject == uncited_records.subject

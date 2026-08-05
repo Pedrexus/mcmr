@@ -1,3 +1,10 @@
+use crate::python::imports::import_bindings;
+use ruff_python_ast::{Expr, ModModule};
+use std::collections::BTreeMap;
+
+/// Which library each name in one file came from, which is what makes a tensor name a tensor.
+pub(crate) type TensorOrigins = BTreeMap<String, String>;
+
 pub(crate) const BINDING_DECORATORS: &[&str] = &[
     "abstractmethod",
     "abstractproperty",
@@ -93,6 +100,27 @@ pub(crate) const DTYPE_WORDS: &[&str] = &[
     "uint8",
 ];
 
+/// The libraries whose array types the tensor vocabulary above is written about.
+const TENSOR_LIBRARIES: &[&str] = &["cupy", "jax", "jaxtyping", "numpy", "torch", "torchtyping"];
+
+/// Read which library every name in one file came from.
+pub(crate) fn tensor_origins(module: &ModModule) -> TensorOrigins {
+    import_bindings(module)
+}
+
+/// Whether the name one annotation is rooted in belongs to a recognized array library.
+///
+/// `Array`, `Tensor` and `ndarray` are ordinary words that many libraries spell the same way, so
+/// the bare name settles nothing on its own. `torch.Tensor` carries a shape and a dtype worth
+/// documenting while `tomlkit.items.Array` is a TOML array, and only the module the annotation is
+/// rooted in separates the two. A name from any other library, or one this file declares itself,
+/// is left alone the way the rule promises.
+pub(crate) fn is_tensor_library(origins: &TensorOrigins, expression: &Expr) -> bool {
+    let rooted = root_name(expression);
+    let origin = origins.get(rooted).map_or(rooted, String::as_str);
+    TENSOR_LIBRARIES.contains(&origin.split('.').next().unwrap_or(origin))
+}
+
 pub(crate) fn decorator_name(text: &str) -> &str {
     let applied = text.split('(').next().unwrap_or(text).trim();
     applied.rsplit('.').next().unwrap_or(applied)
@@ -146,4 +174,3 @@ impl PythonName for str {
 pub(crate) fn is_protocol_name(name: &str) -> bool {
     name.starts_with("__") && name.ends_with("__")
 }
-use ruff_python_ast::Expr;

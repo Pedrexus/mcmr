@@ -39,13 +39,7 @@ class PythonImportRenderer:
         missing = self._missing()
         if not missing:
             return []
-        runtime = [request for request in missing if not request.type_only]
-        type_only = [request for request in missing if request.type_only]
-        guard = self._type_checking_guard()
-        if type_only and guard is None:
-            checking = ImportRequest(module="typing", name="TYPE_CHECKING")
-            if not self._import_satisfied(checking):
-                runtime.append(checking)
+        runtime, type_only, guard = self._partition(missing)
         self._validate_bindings(missing)
         rendered = [self._runtime_edit(runtime)] if runtime else []
         if type_only:
@@ -163,6 +157,20 @@ class PythonImportRenderer:
     def _module_bindings(self) -> set[str]:
         """Return names bound directly in module scope."""
         return set().union(*(self._statement_bindings(item) for item in self.tree.body))
+
+    def _partition(
+        self,
+        missing: Sequence[ImportRequest],
+    ) -> tuple[list[ImportRequest], list[ImportRequest], ast.If | None]:
+        """Separate runtime imports and prepare a type-checking destination."""
+        runtime = [request for request in missing if not request.type_only]
+        type_only = [request for request in missing if request.type_only]
+        guard = self._type_checking_guard()
+        if type_only and guard is None:
+            checking = ImportRequest(module="typing", name="TYPE_CHECKING")
+            if not self._import_satisfied(checking):
+                runtime.append(checking)
+        return runtime, type_only, guard
 
     def _runtime_edit(self, missing: Sequence[ImportRequest]) -> ByteEdit:
         """Insert ordinary imports at the module import boundary."""

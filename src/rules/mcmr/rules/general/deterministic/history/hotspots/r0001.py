@@ -1,15 +1,15 @@
 import polars as pl
 from pydantic import NonNegativeInt, PositiveInt
 
-from ...... import rule
+from ...... import Numeric, rule
 from ......domain.contracts import Unit
 from ......facts import Ratio, RepositoryHistoryFact
 from ......query import CountQuery, FindingQuery, RuleQuery
-from ......table import Table
-from ..relations import HistoryRelations, counted_text
+from ......table import HistoryRelations, Table
+from ..messages import counted_text
 
 
-@rule("ALL-HIST0001")
+@rule("ALL-HIST0001", policy=Numeric())
 def large_file_the_team_keeps_reopening(
     subject: Table[RepositoryHistoryFact],
     *,
@@ -33,6 +33,13 @@ def large_file_the_team_keeps_reopening(
     repository is not judged against a busy one, and a day count is read against the newest commit
     in the window rather than against the clock, so two runs over the same history agree.
 
+    Being relative is also why this is a measurement rather than a defect. The busiest file always
+    reaches its own share, so any repository whose busiest file is long and current reports at
+    least one however carefully it was written, and a ceiling of zero would only be restating the
+    module size rules under a second name. What the count is worth is a judgment about ownership
+    that the history cannot make, so the rule publishes the number and a project states the
+    ceiling it wants held.
+
     Evidence
     --------
     Each finding names the file, how long it is, how many commits touched it against the busiest
@@ -48,6 +55,11 @@ def large_file_the_team_keeps_reopening(
     reading them, so a project that keeps them in the tree excludes them rather than tuning the
     thresholds around them. A file the log holds but the tree no longer does reads as no lines at
     all and is never reported.
+
+    Nothing here fails on its own. A project that wants a churn budget states a numeric policy
+    against this rule under `tool.mcmr`, and the count is then judged against that ceiling exactly
+    as a rule-owned one would be, which is how a young repository and a decade-old one can hold
+    themselves to different numbers without either editing the rule.
 
     Examples
     --------

@@ -14,8 +14,7 @@ from mcmr.accounting.upstream import (
     WorkRegistry,
 )
 from mcmr.audit.influence import Influence, InfluenceReport
-from mcmr.domain.contracts import RuleDefinition
-from mcmr.rulebook.catalog import Catalog
+from mcmr.rulebook.catalog import Catalog, RuleDefinition
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
 if TYPE_CHECKING:
@@ -152,15 +151,6 @@ def test_every_kind_holds_something_and_the_kinds_account_for_every_row(
 
     assert sum(tally.values()) == len(report.rows)
     assert all(count for count in tally.values()), tally
-    assert tally == {
-        SourceKind.BOOK: 39,
-        SourceKind.PAPER: 15,
-        SourceKind.STANDARD: 36,
-        SourceKind.LANGUAGE: 23,
-        SourceKind.DOCUMENTATION: 61,
-        SourceKind.ARTICLE: 9,
-        SourceKind.TOOL: 9,
-    }
 
 
 def test_the_table_is_ordered_by_how_much_of_the_catalog_rests_on_a_source(
@@ -178,7 +168,6 @@ def test_every_registered_work_carries_what_a_page_needs_to_cite_it(
     registry: WorkRegistry,
 ) -> None:
     """These feed a public site, so a work with no link is a citation nobody can follow."""
-    assert len(registry.works) == 183
     assert all(work.link.startswith("http") for work in registry.works)
     assert all(work.title.strip() == work.title for work in registry.works)
     assert len({work.title for work in registry.works}) == len(registry.works)

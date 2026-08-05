@@ -7,8 +7,9 @@ from mcmr import RulePolicies
 from mcmr.checking.engine import RuleEngine
 from mcmr.domain.contracts import Edit, Move
 from mcmr.facts import ClassFact
+from mcmr.plugins import RepositoryTables
 from mcmr.query.runtime import TableRunner
-from mcmr.table import AnalysisSession, ClassRelation, RepositoryTables
+from mcmr.table import AnalysisSession, ClassRelation
 
 from ...support import built_catalog
 
@@ -119,7 +120,7 @@ async def test_complete_class_plan_executes_every_rule_once_without_rows() -> No
         AnalysisSession(
             package_root / "src",
             suffixes=[".py"],
-            typed_families=[ClassFact.__name__],
+            typed_families=[ClassFact],
         ).class_tables(),
         RuleEngine(rules=all_class_rules()),
     )
@@ -178,7 +179,7 @@ async def test_class_plan_preserves_nondefault_settings_and_exclusions() -> None
         AnalysisSession(
             package_root / "src",
             suffixes=[".py"],
-            typed_families=[ClassFact.__name__],
+            typed_families=[ClassFact],
         ),
         engine,
     )
@@ -194,7 +195,7 @@ async def test_class_plan_keeps_exact_native_findings_and_order(tmp_path: Path) 
     session = AnalysisSession(
         varied_repository(tmp_path),
         suffixes=[".py"],
-        typed_families=[ClassFact.__name__],
+        typed_families=[ClassFact],
     )
     result = await report(session, RuleEngine(rules=all_class_rules()))
     failures = list(result.failures)
@@ -223,7 +224,7 @@ async def test_class_plan_honors_a_global_failure_limit(tmp_path: Path) -> None:
     session = AnalysisSession(
         varied_repository(tmp_path),
         suffixes=[".py"],
-        typed_families=[ClassFact.__name__],
+        typed_families=[ClassFact],
     )
     result = await report(session, RuleEngine(rules=all_class_rules()), failure_limit=1)
     assert len(list(result.failures)) <= 1

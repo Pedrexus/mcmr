@@ -11,11 +11,13 @@ from mcmr.rules.general import (
     statement_without_effect,
     superfluous_else_after_jump,
 )
-from mcmr.table import AnalysisSession, SyntaxRelation, Table
+from mcmr.table import AnalysisSession, SyntaxRelation
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
     from pathlib import Path
+
+    from mcmr.plugins import Table
 
 
 def written(root: Path, sources: Mapping[str, str]) -> Path:
@@ -32,7 +34,7 @@ def table(root: Path) -> Table[SyntaxFact]:
     return AnalysisSession(
         root,
         suffixes=[".py"],
-        typed_families=[SyntaxFact.__name__],
+        typed_families=[SyntaxFact],
     ).syntax_tables()
 
 

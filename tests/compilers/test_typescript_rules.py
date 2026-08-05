@@ -5,6 +5,7 @@ from patos import FrozenModel, Runtime
 
 from mcmr.domain.contracts import RuleContract, RuleValue
 from mcmr.facts import ErasableConstruct, EscapeHatch, ModuleSurfaceFact, SourceSpan
+from mcmr.plugins import fact_table
 from mcmr.query import RuleQuery, scalar_frame_value
 from mcmr.rules.typescript import (
     escape_hatch_density,
@@ -12,7 +13,6 @@ from mcmr.rules.typescript import (
     relative_import_depth,
     star_reexport_surface,
 )
-from mcmr.table import fact_table
 
 _SPAN = SourceSpan(path="src/index.ts")
 

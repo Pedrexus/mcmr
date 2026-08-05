@@ -20,12 +20,14 @@ from mcmr.rules.general import (
 )
 from mcmr.structure.diagrams import DiagramBuilder, DiagramKind, MemberKind, RelationKind
 from mcmr.structure.projections import ModuleGraph
-from mcmr.table import AnalysisSession, GenericRelation, Table
+from mcmr.table import AnalysisSession, GenericRelation
 
 from ..support import kernel_binary, needs_kernel
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from mcmr.plugins import Table
 
 _SOURCES = {
     "tsconfig.json": """{
@@ -84,7 +86,7 @@ def coupling(project: Path) -> Table[ModuleCouplingFact]:
     return AnalysisSession(
         project,
         suffixes=[".ts"],
-        typed_families=[ModuleCouplingFact.__name__],
+        typed_families=[ModuleCouplingFact],
     ).table(ModuleCouplingFact)
 
 
@@ -269,7 +271,7 @@ def test_override_facts_report_typescript_inheritance(project: Path) -> None:
     table = AnalysisSession(
         project,
         suffixes=[".ts"],
-        typed_families=[OverrideFact.__name__],
+        typed_families=[OverrideFact],
     ).table(OverrideFact)
     facts = table.frame(GenericRelation.FACTS)
     declared = table.frame(GenericRelation.RECORDS).filter(pl.col("relation") == "declared")

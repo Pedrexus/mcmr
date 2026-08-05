@@ -6,7 +6,7 @@ from pydantic import Field, PositiveInt
 
 from ....domain.contracts import RuleLane, fact_type
 from ....execution import ClassificationBackend
-from ....execution.queries import ModelMode, ModelQuery
+from ....execution.queries import ModelMode, ModelQuery, is_model_query
 from ..profiles import BackendProfile, ProfileExperiment
 from ..sweeps import ContextualSweep
 from .evaluator import CaseEvaluator
@@ -53,7 +53,7 @@ class ContextualExperiment(FrozenModel):
             settings=dict(settings),
             dependencies={ClassificationBackend: ClassificationBackend.find("codex")()},
         )
-        if not isinstance(query, ModelQuery):
+        if not is_model_query(query):
             raise TypeError(f"{rule.id} did not return a contextual model query")
         return query
 

@@ -15,7 +15,7 @@ from mcmr.commands.quality import (
     allowance,
     check,
 )
-from mcmr.kernel import locate
+from mcmr.project import locate
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
@@ -199,7 +199,9 @@ def test_influence_cli_names_the_works_that_shaped_the_catalog(
 
     influence()
 
-    assert f"{references} references from 275 rules" in capsys.readouterr().out
+    assert (
+        f"{references} references from {len(catalog.definitions)} rules" in capsys.readouterr().out
+    )
 
     influence(kind="book", limit=1)
     printed = capsys.readouterr().out

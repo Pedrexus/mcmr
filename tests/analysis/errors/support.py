@@ -4,10 +4,12 @@ from typing import TYPE_CHECKING
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
 from mcmr.facts import SyntaxFact
 from mcmr.query import RuleQuery, scalar_frame_value
-from mcmr.table import AnalysisSession, SyntaxRelation, Table
+from mcmr.table import AnalysisSession, SyntaxRelation
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+
+    from mcmr.plugins import Table
 
 
 def table(root: Path, sources: Mapping[str, str]) -> Table[SyntaxFact]:
@@ -19,7 +21,7 @@ def table(root: Path, sources: Mapping[str, str]) -> Table[SyntaxFact]:
     return AnalysisSession(
         root,
         suffixes=sorted({Path(name).suffix for name in sources}),
-        typed_families=(SyntaxFact.__name__,),
+        typed_families=(SyntaxFact,),
     ).syntax_tables()
 
 

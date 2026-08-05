@@ -5,6 +5,7 @@ use serde::Serialize;
 #[serde(rename_all = "kebab-case")]
 pub(crate) enum Mechanism {
     Binary,
+    ConsoleScript,
     NativeModule,
     SharedLibrary,
     Kernel,
@@ -16,6 +17,7 @@ impl Mechanism {
     pub(in crate::interop) fn label(self) -> &'static str {
         match self {
             Mechanism::Binary => "binary",
+            Mechanism::ConsoleScript => "console-script",
             Mechanism::NativeModule => "native-module",
             Mechanism::SharedLibrary => "shared-library",
             Mechanism::Kernel => "kernel",

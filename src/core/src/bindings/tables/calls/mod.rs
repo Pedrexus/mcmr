@@ -149,6 +149,7 @@ fn call_identity_frame(rows: &[NestedRow<'_, CallSite>]) -> PolarsResult<DataFra
         "fact_id" => rows.iter().map(|row| row.fact_id).collect::<Vec<_>>(),
         "ordinal" => rows.iter().map(|row| row.ordinal).collect::<Vec<_>>(),
         "qualified_name" => rows.iter().map(|row| row.call().qualified_name.clone()).collect::<Vec<_>>(),
+        "target_id" => rows.iter().map(|row| row.call().target_id.clone()).collect::<Vec<_>>(),
         "path" => rows.iter().map(|row| row.call().path.clone()).collect::<Vec<_>>(),
         "assigned_target" => rows.iter().map(|row| row.call().assigned_target.clone()).collect::<Vec<_>>(),
     ]

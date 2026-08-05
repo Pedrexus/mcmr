@@ -34,7 +34,10 @@ def state_ownership(
     Definition
     ----------
     Trace creation, mutation, aliases, exposure, synchronization, persistence, and lifecycle.
-    Shared state is acceptable only when its governing contract remains explicit.
+    State several holders reach is still `owned` when one explicit governing contract decides
+    every write, whether that contract is a lock, a single writer, or a supplied protocol.
+    `shared` names state several holders mutate with no such contract to point at, and `leaked`
+    names internal state handed out for any caller to edit.
 
     Evidence
     --------

@@ -3,10 +3,10 @@ from typing import Literal
 import polars as pl
 
 from ...... import rule
+from ......domain.contracts import Unit
 from ......facts import DataAssetFact
-from ......query import CountQuery
+from ......query import CountQuery, FindingQuery, RuleQuery
 from ......table import Table
-from ..relations import count_query
 
 
 @rule("ALL-DATA0007")
@@ -53,14 +53,32 @@ def data_asset_governance_gap(
     Cites "DAMA-DMBOK", data governance principles
     Cites "DataHub documentation", ownership and domain metadata
     """
+    missing_owner = pl.col("owners.length") == 0
+    missing_domain = pl.lit(domain == "required") & (pl.col("domain").str.strip_chars() == "")
     selected = subject.records("assets").filter(
-        (pl.lit(scope == "all") | pl.col("is_changed"))
-        & (
-            (pl.col("owners.length") == 0)
-            | (pl.lit(domain == "required") & (pl.col("domain").str.strip_chars() == ""))
-        )
+        (pl.lit(scope == "all") | pl.col("is_changed")) & (missing_owner | missing_domain)
     )
-    return count_query(
-        subject.counted(selected),
-        "data asset governance gap",
+    facts = subject.counted(selected)
+    details = selected.join(subject.facts(), on="fact_id", how="left")
+    gap_count = missing_owner.cast(pl.UInt64) + missing_domain.cast(pl.UInt64)
+    findings = FindingQuery.build(
+        details,
+        pl.concat_str(
+            pl.lit("data asset `"),
+            pl.col("identifier"),
+            pl.lit("` has "),
+            pl.when(missing_owner & missing_domain)
+            .then(pl.lit("no owner and no domain"))
+            .when(missing_owner)
+            .then(pl.lit("no owner"))
+            .otherwise(pl.lit("no domain")),
+        ),
+        (("missing governance fields", gap_count, Unit.COUNT),),
+        finding_order=pl.col("ordinal"),
+        evidence=pl.col("evidence"),
+    )
+    return RuleQuery.integer(
+        facts,
+        pl.col("value"),
+        findings=findings,
     )

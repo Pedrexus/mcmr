@@ -164,26 +164,28 @@ the `mcmr.providers` entry point group.
 datahub = "mcmr_datahub.provider:DataHubProvider"
 ```
 
-The factory receives the repository path and its named configuration. Its instance implements the
-`FactProvider` protocol and returns exact `RepositoryTables` for the requested subset of its
-families.
+The entry point loads a zero-argument factory. Its instance implements the structural
+`FactProvider` protocol. MCMR gives each invocation a `ProviderContext` with the repository, named
+settings, requested families, and only the typed tables declared by each output family.
 
 ```python
-class DataHubProvider(FrozenModel):
-    families: ClassVar[set[type[Fact]]] = {DataHubDatasetFact}
-    repository: Path
-    settings: Mapping[str, JsonValue]
+from mcmr.facts import DataAssetFact, Fact
+from mcmr.plugins import ProviderContext, RepositoryTables, provider
 
-    async def tables(
-        self,
-        families: Collection[type[Fact]],
-    ) -> RepositoryTables:
+
+@provider
+class DataHubProvider:
+    families = {DataAssetFact: set()}
+
+    async def tables(self, context: ProviderContext) -> RepositoryTables:
         ...
 ```
 
-Provider ownership is exact. Two providers cannot claim the same requested family. A provider must
-return every requested family it owns and no others. The engine skips rules whose families are not
-available.
+Provider ownership is exact. Two providers cannot claim the same requested family. The `families`
+mapping states each output family and only the typed inputs needed to build that output. A provider
+must return every requested family it owns and no others. These dependencies form one validated
+acyclic graph. Native dependencies are materialized once and reused if a rule also reads them. The
+engine skips rules whose families are not available.
 
 Provider settings live under `tool.mcmr.providers.<entry point name>`. The core treats values as
 validated JSON and does not interpret vendor options. A provider chooses how to obtain secrets.
@@ -192,15 +194,55 @@ External fact classes set `external_evidence` to true. This keeps their rules ou
 offline runs. The command must enable `--external` or the equivalent configuration before any
 provider loads or performs network work.
 
+The bundled DataHub plugin calls `${DATAHUB_GMS_URL}/api/graphql` directly with HTTPX. It reads an
+optional bearer token from `DATAHUB_GMS_TOKEN` and retains no response cache. Its SQLGlot resolver
+joins literal SQL table and field references to exact catalog identities. Ambiguous names remain
+unresolved instead of becoming guesses. It also retains the exact string literal that named each
+field, which is the anchor a verified repair edits, and the column the asset's own fine-grained
+lineage proves replaced a retired one.
+
+A `recorded` setting names a directory of captured exchanges instead of a live server. One JSON
+file per operation holds request variables beside the exact response envelope, so replay is a
+lookup rather than a simulation and a live capture is a drop-in replacement. `mcmr demo` runs the
+complete workflow over one such recording with no service, no network, and no edit to the example.
+
+## Result publication
+
+A provider that can write a completed run back to its own system implements `ResultPublisher`
+beside `FactProvider`. Publication is not part of reading evidence, so no analysis path reaches it
+and no configuration turns it on. Only `mcmr writeback` calls it, and it passes the governed assets
+the run actually named rather than the whole catalog.
+
+The bundled DataHub publisher attaches one institutional memory link to each of those assets
+through `addLink`. That aspect is additive and editable, so a tool states what it found without
+overwriting a sentence a person wrote. `updateDescription` would do the opposite, which is why an
+agent must not reach for it.
+
+The official `datahub` CLI remains useful for setup and diagnostics. DataHub MCP is a separate
+agent surface for targeted lineage exploration and verified writeback. It does not become the
+product transport or a hidden MCMR dependency.
+
 ## Contextual rules
 
 Contextual rules build typed candidates from local tables. The engine batches candidates and calls
 one explicitly configured classification backend. A backend returns closed categories with
 provenance rather than free-form findings.
 
+A category name states what the model observed and never what the engine will do with it, so the
+prompt carries the project's own outcome map beside the rule instructions. Each category is named
+with what selecting it reports, drawn from the resolved policy through `Policy.reported`, and the
+model is told to answer what the evidence states rather than what it would prefer to report.
+
 Contextual execution is separate from external evidence. A local model rule needs `--contextual`.
 A DataHub-backed deterministic rule needs `--external`. A DataHub-backed contextual rule needs
 both.
+
+Four backends answer that contract. `gliner2` runs local weights, `codex` and `claude` each run one
+isolated schema-constrained process per bounded batch, and `openrouter` posts the same closed schema
+to an OpenAI-compatible server and reads its key from `OPENROUTER_API_KEY`. Every process and HTTP
+backend shares one prompt, schema, and citation protocol, so a batch reaching a new provider changes
+transport alone. `mcmr model-sweep . --backend <name> --model <model>` exercises every contextual
+rule through one of them without editing the project.
 
 ## Repairs
 
@@ -266,6 +308,14 @@ The validation stack has distinct responsibilities.
 - Oracle tests compare overlapping behavior with upstream tools.
 - Coverage gates require complete statement and branch coverage.
 - The self-scan runs MCMR over its own source tree.
+
+Test volume is also analyzed as repository structure rather than accepted as a proxy for quality.
+The kernel records each collected test's literal-neutral body, assertion shapes, fixture closure,
+direct production calls, and transitive production reach. Rules use those relations to find exact
+duplicate intent, repeated whole-graph reach, low-diversity production hotspots, broad literal
+families that should become Hypothesis properties, and module-generated parametrizations that can
+silently multiply collection. Findings remain review signals because static reach cannot prove that
+runtime behavior, marks, or domain meaning are redundant.
 
 The main contribution gate is the following.
 

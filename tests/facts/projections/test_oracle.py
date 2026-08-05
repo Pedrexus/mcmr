@@ -47,12 +47,12 @@ if TYPE_CHECKING:
 def test_the_matrix_agrees_with_the_archy_oracle_on_this_repository(snapshot: Path) -> None:
     """The frozen Archy graph classifies every intentional projection difference.
 
-    The runtime modules and dependencies have to be the same set on the source fixture. Archy
+    Runtime modules and dependencies have to be the same set on the source fixture. Archy
     ignores PEP 561
     stub modules and collapses an import of one onto its package. It also omits some runtime
     imports whose target is an `__init__.py`. MCMR leaves a `TYPE_CHECKING` import out of the graph
-    because it does not exist when the program runs, while Archy counts it. MCMR also follows an
-    explicit reexport to its declaration, while Archy retains each immediate surface hop.
+    because it does not exist when the program runs, while Archy counts it. Our reexports are
+    followed to their declaration, while Archy retains each immediate surface hop.
     """
     ours = imports(snapshot, kernel_binary())
     their_raw, their_comparable = archy_graphs(snapshot, ours)

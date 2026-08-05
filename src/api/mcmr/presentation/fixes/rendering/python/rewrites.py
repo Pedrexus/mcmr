@@ -143,6 +143,27 @@ class PythonRewriteRenderer:
         return document.line_bounds(anchor_end)[2]
 
     @staticmethod
+    def _line_endings(target: NodeRef, *, anchor: NodeRef) -> int:
+        """Separate moved callable members while keeping compact nodes adjacent."""
+        separated = {
+            MemberKind.CONSTRUCTOR,
+            MemberKind.DESTRUCTOR,
+            MemberKind.PROPERTY,
+            MemberKind.STATIC_METHOD,
+            MemberKind.CLASS_METHOD,
+            MemberKind.METHOD,
+        }
+        return 2 if target.kind in separated or anchor.kind in separated else 1
+
+    @staticmethod
+    def _relocated(line: bytes, *, target_indent: bytes, anchor_indent: bytes) -> bytes:
+        """Return one moved line under its destination indentation, keeping a blank line empty."""
+        if not line.strip():
+            return line
+        body = line[len(target_indent) :] if line.startswith(target_indent) else line
+        return anchor_indent + body
+
+    @staticmethod
     def _shifted_source(
         source: SourceDocument,
         target: NodeRef,
@@ -157,27 +178,21 @@ class PythonRewriteRenderer:
         target_indent = source.indentation(start)
         anchor_indent = destination.indentation(anchor_start)
         raw = target_indent + prefix.encode("utf-8") + source.original[start:end]
-        lines = raw.splitlines(keepends=True)
         shifted = b"".join(
-            anchor_indent
-            + (line[len(target_indent) :] if line.startswith(target_indent) else line)
-            for line in lines
+            PythonRewriteRenderer._relocated(
+                line, target_indent=target_indent, anchor_indent=anchor_indent
+            )
+            for line in raw.splitlines(keepends=True)
         )
-        separated = {
-            MemberKind.CONSTRUCTOR,
-            MemberKind.DESTRUCTOR,
-            MemberKind.PROPERTY,
-            MemberKind.STATIC_METHOD,
-            MemberKind.CLASS_METHOD,
-            MemberKind.METHOD,
-        }
         crosses_modules = (
             source.path != destination.path and not target_indent and not anchor_indent
         )
         if crosses_modules:
             return destination.newline + shifted + destination.newline
-        line_endings = 2 if target.kind in separated or anchor.kind in separated else 1
-        return shifted + destination.newline * line_endings
+        return shifted + destination.newline * PythonRewriteRenderer._line_endings(
+            target,
+            anchor=anchor,
+        )
 
     @classmethod
     def _replace_node(

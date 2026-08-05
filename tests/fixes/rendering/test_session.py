@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
     from pathlib import Path
 
-    from mcmr.checking.session import Judgment
+    from mcmr.commands.quality import Judgment
 from .test_operations import failure, node
 
 

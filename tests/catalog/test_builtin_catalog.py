@@ -1,8 +1,6 @@
 import ast
 from pathlib import Path
 
-import pytest
-
 from mcmr.domain.contracts import RuleLane, fact_type
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
@@ -23,12 +21,12 @@ def test_builtin_catalog_preserves_every_migrated_rule() -> None:
     catalog = Catalog(modules=RuleModuleDiscovery().modules)
     definitions = catalog.definitions
     assert {definition.id for definition in definitions} == expected
-    assert len(definitions) == 275
+    assert len(definitions) == 284
     assert all(definition.policy is not None for definition in definitions)
     assert all(definition.documentation.definition for definition in definitions)
     assert all(definition.documentation.examples for definition in definitions)
     assert all(definition.documentation.references for definition in definitions)
-    assert sum(len(definition.fixes) for definition in definitions) == 31
+    assert sum(len(definition.fixes) for definition in definitions) == 32
 
 
 def test_every_builtin_contract_is_one_table_query() -> None:
@@ -43,7 +41,7 @@ def test_every_builtin_contract_is_one_table_query() -> None:
     assert all(rule.table_native for rule in catalog.rules)
     assert all(not callable(rule) for rule in catalog.rules)
     assert {rule.callable_path for rule in catalog.rules if rule.model_native} == contextual
-    assert len(contextual) == 45
+    assert len(contextual) == 44
 
 
 def test_retired_rule_ids_stay_reserved_with_a_reason() -> None:
@@ -97,20 +95,8 @@ def test_fact_contracts_never_store_the_rule_answer() -> None:
         assert rule.qualname.rsplit(".", 1)[-1] not in required.model_fields
 
 
-@pytest.mark.parametrize(
-    ("path", "answer"),
-    _rule_returns,
-    ids=[f"{path.relative_to(_rule_root)}:{answer.lineno}" for path, answer in _rule_returns],
-)
-def test_no_rule_only_forwards_a_provider_verdict(path: Path, answer: ast.expr) -> None:
-    """Reject a rule whose whole body reads back a decision a provider already made.
-
-    A body such as ``sum(call.has_round_trip for call in subject.calls)`` computes nothing: the
-    finding was made inside the provider and one Boolean field carries the verdict across. A rule
-    has to reach its own answer from primitive evidence. Returning a measured quantity such as
-    `implementation_lines` stays legitimate, because reporting a measurement is what those rules
-    exist to do, so only a forwarded Boolean counts as a contract failure here.
-    """
+def is_provider_verdict_forwarded(answer: ast.expr) -> bool:
+    """Return whether one rule answer merely forwards a provider Boolean."""
     verdict_prefixes = ("is_", "has_", "can_", "should_", "proves_", "only_", "all_", "wraps_")
     if (
         isinstance(answer, ast.Call)
@@ -121,10 +107,24 @@ def test_no_rule_only_forwards_a_provider_verdict(path: Path, answer: ast.expr) 
         answer = answer.args[0].elt
     if isinstance(answer, ast.UnaryOp) and isinstance(answer.op, ast.Not):
         answer = answer.operand
+    return isinstance(answer, ast.Attribute) and answer.attr.startswith(verdict_prefixes)
 
-    assert not (isinstance(answer, ast.Attribute) and answer.attr.startswith(verdict_prefixes)), (
-        str(path.relative_to(_rule_root))
-    )
+
+def test_no_rule_only_forwards_a_provider_verdict() -> None:
+    """Reject a rule whose whole body reads back a decision a provider already made.
+
+    A body such as ``sum(call.has_round_trip for call in subject.calls)`` computes nothing: the
+    finding was made inside the provider and one Boolean field carries the verdict across. A rule
+    has to reach its own answer from primitive evidence. Returning a measured quantity such as
+    `implementation_lines` stays legitimate, because reporting a measurement is what those rules
+    exist to do, so only a forwarded Boolean counts as a contract failure here.
+    """
+    forwarded = [
+        f"{path.relative_to(_rule_root)}:{answer.lineno}"
+        for path, answer in _rule_returns
+        if is_provider_verdict_forwarded(answer)
+    ]
+    assert not forwarded
 
 
 def test_provider_answer_shortcut_does_not_exist() -> None:
@@ -160,15 +160,8 @@ _rule_functions = [
 ]
 
 
-@pytest.mark.parametrize(
-    ("path", "function"),
-    _rule_functions,
-    ids=[str(path.relative_to(_rule_root)) for path, _ in _rule_functions],
-)
-def test_every_rule_parameter_contributes_to_its_implementation(
-    path: Path,
-    function: ast.FunctionDef | ast.AsyncFunctionDef,
-) -> None:
+def unused_parameters(function: ast.FunctionDef | ast.AsyncFunctionDef) -> set[str]:
+    """Return declared parameters that one rule implementation never reads."""
     parameters = {
         argument.arg
         for argument in [
@@ -184,7 +177,16 @@ def test_every_rule_parameter_contributes_to_its_implementation(
         if isinstance(item, ast.Name) and isinstance(item.ctx, ast.Load)
     }
 
-    assert not parameters - loaded, str(path.relative_to(_rule_root))
+    return parameters - loaded
+
+
+def test_every_rule_parameter_contributes_to_its_implementation() -> None:
+    unused = {
+        str(path.relative_to(_rule_root)): names
+        for path, function in _rule_functions
+        if (names := unused_parameters(function))
+    }
+    assert not unused
 
 
 def test_rule_returns_do_not_coerce_predicates_into_counts() -> None:

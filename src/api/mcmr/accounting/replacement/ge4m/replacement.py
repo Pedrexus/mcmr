@@ -10,7 +10,7 @@ from .audit import ReplacementAudit
 if TYPE_CHECKING:
     from collections.abc import Collection, Iterable, Sequence
 
-    from ....domain.contracts import RuleDefinition
+    from ....rulebook.catalog import RuleDefinition
 
 
 class Ge4mReplacement(FrozenModel):

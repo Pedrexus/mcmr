@@ -1,6 +1,6 @@
 use super::declarations::{declared_class, declared_function, declared_name};
 use crate::protocol::JsonObject;
-use crate::source::Source;
+use crate::source::{Source, is_test_path};
 use crate::typescript::support::base;
 use crate::typescript::support::range;
 use count::statement_count;
@@ -20,6 +20,7 @@ pub(in crate::typescript::facts) fn module_fact(source: &Source, program: &Progr
         "class_count": class_count(program),
         "function_count": function_count(program),
         "is_package_initializer": source.relative.ends_with("/index.ts"),
+        "is_test": is_test_path(&source.relative),
         "members": members(source, program),
     }))
 }

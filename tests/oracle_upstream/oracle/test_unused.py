@@ -31,7 +31,8 @@ from ...oracle import (
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
 
-    from mcmr.facts import Fact
+    from mcmr.plugins import Fact
+
 
 pytestmark = [needs_kernel, needs("pylint", "ruff")]
 

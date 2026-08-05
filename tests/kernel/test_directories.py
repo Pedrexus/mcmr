@@ -1,11 +1,12 @@
 from pathlib import Path
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 import pytest
 
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
-from mcmr.facts import DirectoryFact, Fact
-from mcmr.kernel import Kernel, locate
+from mcmr.facts import DirectoryFact
+from mcmr.kernel import Kernel
+from mcmr.project import locate
 from mcmr.query import RuleQuery, scalar_row_value
 from mcmr.rules.general import (
     directory_module_count,
@@ -13,16 +14,19 @@ from mcmr.rules.general import (
     empty_directories,
     package_depth,
 )
-from mcmr.table import AnalysisSession, Table
+from mcmr.table import AnalysisSession
+
+if TYPE_CHECKING:
+    from mcmr.plugins import Fact, Table
 
 _ROOT = Path(__file__).parents[2]
 _BINARY = locate(_ROOT)
 needs_kernel = pytest.mark.skipif(not _BINARY.exists(), reason="the analysis kernel is not built")
 
 
-def query(
+def query[Family: Fact](
     rule: RuleContract,
-    subject: Table[Fact],
+    subject: Table[Family],
     **settings: RuleSetting,
 ) -> RuleQuery:
     """Invoke one deterministic rule once over a complete native table."""
@@ -73,7 +77,7 @@ def directory_table(root: Path) -> Table[DirectoryFact]:
     """Return every directory as one schema-normalized native table."""
     return AnalysisSession(
         root,
-        typed_families=[DirectoryFact.__name__],
+        typed_families=[DirectoryFact],
     ).table(DirectoryFact)
 
 
@@ -163,21 +167,25 @@ def test_a_directory_pathway_ignores_the_package_initializer(tree: Path) -> None
 
 
 @needs_kernel
-def test_the_module_count_rule_measures_catalogs_unless_policy_exempts_them(tree: Path) -> None:
-    """The project limit applies to every folder unless one explicit setting relaxes it."""
+def test_the_module_count_rule_exempts_catalogs_until_policy_says_otherwise(tree: Path) -> None:
+    """A catalog is measured as zero by default, and one explicit setting takes that back.
+
+    The default the docstring describes and the default the signature declared once disagreed, so
+    both readings are pinned here against the same fixture.
+    """
     facts = directories(tree)
     catalog = facts["src/shop/orders/commands"]
     subject = directory_table(tree)
     default = directory_values(directory_module_count, subject)
-    exempted = directory_values(
+    counted = directory_values(
         directory_module_count,
         subject,
-        allow_definition_catalogs=True,
+        allow_definition_catalogs=False,
     )
 
     assert catalog.is_definition_catalog
-    assert default["src/shop/orders/commands"] == 2
-    assert exempted["src/shop/orders/commands"] == 0
+    assert default["src/shop/orders/commands"] == 0
+    assert counted["src/shop/orders/commands"] == 2
     assert not facts["src/shop/catalog"].is_definition_catalog
     assert default["src/shop/catalog"] == 3
 

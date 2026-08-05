@@ -12,14 +12,13 @@ mod references;
 pub(super) mod support;
 
 use super::reference_index::ReferenceIndex;
-use asyncio::Asyncio;
 use collector::FunctionCollector;
 use references::call_sites;
 use support::{
-    BINDING_DECORATORS, LIFECYCLE_NAMES, MODEL_FOUNDATIONS, PythonName, VALIDATION_EXCEPTIONS,
-    VALIDATOR_DECORATORS, base_names, body_expression, control_increments, decorator_name,
-    decorator_texts, descend, executable, is_behavior, is_protocol_name, parameters,
-    returns_query_plan, root_name,
+    BINDING_DECORATORS, LIFECYCLE_NAMES, MODEL_FOUNDATIONS, ModuleContext, PythonName,
+    VALIDATION_EXCEPTIONS, VALIDATOR_DECORATORS, base_names, body_expression, control_increments,
+    decorator_name, decorator_texts, descend, executable, is_behavior, is_protocol_name,
+    parameters, returns_query_plan, root_name,
 };
 
 pub fn function_facts(source: &Source, module: &ModModule) -> Vec<FunctionRecord> {
@@ -60,7 +59,7 @@ fn collect_functions<'a>(
         match statement {
             Stmt::FunctionDef(item) => {
                 collector.facts.push(
-                    Callable::new(collector.source, item, owner, scope, &collector.asyncio)
+                    Callable::new(collector.source, item, owner, scope, &collector.context)
                         .fact(statement),
                 );
                 collect_functions(collector, &item.body, None, "nested");
@@ -83,7 +82,7 @@ struct Callable<'a> {
     item: &'a StmtFunctionDef,
     owner: Option<&'a StmtClassDef>,
     scope: &'a str,
-    asyncio: &'a Asyncio,
+    context: &'a ModuleContext,
     decorators: Vec<String>,
     body: &'a [Stmt],
 }
@@ -94,14 +93,14 @@ impl<'a> Callable<'a> {
         item: &'a StmtFunctionDef,
         owner: Option<&'a StmtClassDef>,
         scope: &'a str,
-        asyncio: &'a Asyncio,
+        context: &'a ModuleContext,
     ) -> Self {
         Self {
             source,
             item,
             owner,
             scope,
-            asyncio,
+            context,
             decorators: decorator_texts(source, &item.decorator_list),
             body: executable(&item.body),
         }
@@ -210,20 +209,23 @@ impl<'a> Callable<'a> {
     /// Whether one expression is a call this file bound to an asyncio task creator.
     fn creates_task(&self, expression: &Expr) -> bool {
         matches!(expression, Expr::Call(call)
-            if self.asyncio.creators.contains(&qualified_name(&call.func)))
+            if self.context.asyncio.creators.contains(&qualified_name(&call.func)))
     }
 
     /// Return every call in the executable body that schedules work on the event loop.
     fn creations(&self) -> Vec<&'a ruff_python_ast::ExprCall> {
-        self.calls_spelled(&self.asyncio.creators)
+        self.calls_spelled(&self.context.asyncio.creators)
     }
 
     /// Attach evidence about scheduling and joining asynchronous work.
     fn describe_async(&self, fact: &mut FunctionRecord, expressions: &[&Expr]) {
         fact.structure.created_task_count = self.creations().len();
-        fact.measures.has_task_group = expressions
-            .iter()
-            .any(|expression| self.asyncio.groups.contains(&qualified_name(expression)));
+        fact.measures.has_task_group = expressions.iter().any(|expression| {
+            self.context
+                .asyncio
+                .groups
+                .contains(&qualified_name(expression))
+        });
         fact.measures.gather_returns_exceptions = self.gather_returns_exceptions();
         fact.measures.gather_consumes_created_tasks = self.gather_consumes_created_tasks();
     }
@@ -362,7 +364,7 @@ impl<'a> Callable<'a> {
     /// they were bound to a name first and the gather names that binding instead.
     fn gather_consumes_created_tasks(&self) -> bool {
         let created = self.created_task_bindings();
-        self.calls_spelled(&self.asyncio.gathers)
+        self.calls_spelled(&self.context.asyncio.gathers)
             .iter()
             .any(|call| {
                 call.arguments.args.iter().any(|argument| {
@@ -376,7 +378,7 @@ impl<'a> Callable<'a> {
 
     /// Whether any awaited gather in the body was told to hand failures back as values.
     fn gather_returns_exceptions(&self) -> bool {
-        self.calls_spelled(&self.asyncio.gathers)
+        self.calls_spelled(&self.context.asyncio.gathers)
             .iter()
             .any(|call| {
                 call.arguments.keywords.iter().any(|keyword| {

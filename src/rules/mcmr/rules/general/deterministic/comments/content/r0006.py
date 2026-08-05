@@ -8,7 +8,7 @@ from ......facts import CommentFact
 from ......query import CountQuery, FindingQuery, RuleQuery
 from ......table import Table
 from ......table.relations import FactRelations
-from .support.relations import comment_groups, ordered
+from ..relations import comment_groups, ordered
 
 # A marker counts only where a comment opens. Mid-sentence markers remain prose. These prefixes
 # cover every language MCMR reads, so one reader serves all of them.

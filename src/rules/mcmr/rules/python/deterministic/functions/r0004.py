@@ -17,9 +17,10 @@ def unjustified_positional_only_parameter_count(
     Definition
     ----------
     Inspect module functions and direct methods that use `/`. Treat the marker as justified for a
-    magic method, an explicit `@override`, a function that also accepts arbitrary keyword
-    arguments, or a configured compatibility name. Report every other positional-only parameter
-    except `self` and `cls`. The result is the number of reported parameters.
+    magic method, an explicit `@override`, a member of a class inheriting `Protocol`, a function
+    that also accepts arbitrary keyword arguments, or a configured compatibility name. Report every
+    other positional-only parameter except `self` and `cls`. The result is the number of reported
+    parameters.
 
     Evidence
     --------
@@ -30,7 +31,9 @@ def unjustified_positional_only_parameter_count(
     Exceptions
     ----------
     Builtin or C API parity, a published compatibility contract, deliberately unnamed mathematical
-    operands, and functions passed as callbacks are excluded. Additional compatibility names can
+    operands, and functions passed as callbacks are excluded. A member of a class inheriting
+    `Protocol` states the structural contract an existing object already satisfies, so the marker
+    it copies is the contract rather than a hidden name. Additional compatibility names can
     be added through `allowed_names`. Nested local functions are outside this public interface
     check.
 
@@ -43,7 +46,8 @@ def unjustified_positional_only_parameter_count(
     Good
     ~~~~
     `def lookup(name, /, **keywords)` permits `name` to appear independently in `keywords`.
-    `def __eq__(self, other, /)` follows a magic method contract.
+    `def __eq__(self, other, /)` follows a magic method contract. `def read1(self, size=-1, /)` on
+    a class inheriting `Protocol` mirrors the reader it describes, so it stays quiet.
 
     References
     ----------
@@ -52,8 +56,13 @@ def unjustified_positional_only_parameter_count(
     Cites "PEP 570, Positional-Only Parameters"
     https://peps.python.org/pep-0570/
     """
+    functions = subject.lazy(FunctionRelation.FUNCTIONS)
+    structural = functions.filter(pl.col("is_protocol_member")).select(
+        pl.col("entity_id").alias("function_id")
+    )
     candidates = (
         subject.lazy(FunctionRelation.PARAMETERS)
+        .join(structural, on="function_id", how="anti")
         .filter(
             pl.col("is_positional_only")
             & ~pl.col("is_receiver")
@@ -63,16 +72,12 @@ def unjustified_positional_only_parameter_count(
         .group_by("function_id")
         .agg(pl.len().cast(pl.UInt64).alias("value"))
     )
-    frame = (
-        subject.lazy(FunctionRelation.FUNCTIONS)
-        .join(
-            candidates,
-            left_on="entity_id",
-            right_on="function_id",
-            how="left",
-        )
-        .with_columns(pl.col("value").fill_null(0))
-    )
+    frame = functions.join(
+        candidates,
+        left_on="entity_id",
+        right_on="function_id",
+        how="left",
+    ).with_columns(pl.col("value").fill_null(0))
     value = pl.col("value")
     return RuleQuery.integer(
         frame,

@@ -287,14 +287,25 @@ fn try_regions_retain_protected_statements_and_handler_structure() {
     let region = &fact["regions"][0];
 
     assert_eq!(
-        region["protected_statements"][0]["text"],
-        "return validate(value)"
+        json!({
+            "protected": region["protected_statements"][0]["text"],
+            "caught": region["handlers"][0]["caught"],
+            "caught_is_tuple": region["handlers"][0]["caught_is_tuple"],
+            "alias": region["handlers"][0]["alias"],
+            "handler": region["handlers"][0]["body"][0]["text"],
+            "has_else": region["has_else"],
+            "has_finally": region["has_finally"],
+            "is_exception_group": region["is_exception_group"],
+        }),
+        json!({
+            "protected": "return validate(value)",
+            "caught": "ValidationError",
+            "caught_is_tuple": false,
+            "alias": "",
+            "handler": "return None",
+            "has_else": false,
+            "has_finally": false,
+            "is_exception_group": false,
+        })
     );
-    assert_eq!(region["handlers"][0]["caught"], "ValidationError");
-    assert_eq!(region["handlers"][0]["caught_is_tuple"], false);
-    assert_eq!(region["handlers"][0]["alias"], "");
-    assert_eq!(region["handlers"][0]["body"][0]["text"], "return None");
-    assert_eq!(region["has_else"], false);
-    assert_eq!(region["has_finally"], false);
-    assert_eq!(region["is_exception_group"], false);
 }

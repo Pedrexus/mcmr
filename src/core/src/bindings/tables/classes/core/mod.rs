@@ -91,6 +91,7 @@ fn class_flag_frame(rows: &[NestedRow<'_, ClassAnalysisRecord>]) -> PolarsResult
         "is_declarative_model" => rows.iter().map(|row| row.class().model.is_declarative_model).collect::<Vec<_>>(),
         "is_dataclass" => rows.iter().map(|row| row.class().model.is_dataclass).collect::<Vec<_>>(),
         "has_ordinary_behavior" => rows.iter().map(|row| row.class().model.has_ordinary_behavior).collect::<Vec<_>>(),
+        "states_model_configuration" => rows.iter().map(|row| row.class().declaration.states_model_configuration).collect::<Vec<_>>(),
         "directly_inherits_pydantic_base_model" => rows.iter().map(|row| row.class().model.directly_inherits_pydantic_base_model).collect::<Vec<_>>(),
         "inherits_approved_model_foundation" => rows.iter().map(|row| row.class().model.inherits_approved_model_foundation).collect::<Vec<_>>(),
     ]

@@ -7,8 +7,7 @@ from mcmr.accounting.upstream import (
     ToolCoverage,
     ToolRegistry,
 )
-from mcmr.domain.contracts import RuleDefinition
-from mcmr.rulebook.catalog import Catalog
+from mcmr.rulebook.catalog import Catalog, RuleDefinition
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
 if TYPE_CHECKING:

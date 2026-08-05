@@ -11,7 +11,7 @@ from ......table.relations import SyntaxTable
 
 
 def _guard_lines(
-    relations: SyntaxTable, nodes: pl.LazyFrame, handlers: tuple[str, ...]
+    relations: SyntaxTable[SyntaxFact], nodes: pl.LazyFrame, handlers: tuple[str, ...]
 ) -> tuple[pl.LazyFrame, pl.LazyFrame]:
     """Expand each guard into located source lines and its handler clauses."""
     guards = relations.with_text(nodes.filter(pl.col("kind") == "guard")).select(
@@ -112,7 +112,9 @@ def _swallowed_handlers(
     )
 
 
-def _discarded_bindings(relations: SyntaxTable, nodes: pl.LazyFrame, discard: str) -> pl.LazyFrame:
+def _discarded_bindings(
+    relations: SyntaxTable[SyntaxFact], nodes: pl.LazyFrame, discard: str
+) -> pl.LazyFrame:
     """Return throwaway bindings whose right side contains a call."""
     declarators = ["let", "const", "var", "val", "mut", discard]
     binding_words = (

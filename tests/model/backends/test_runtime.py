@@ -30,15 +30,22 @@ from mcmr.execution import (
     Gliner2Backend,
 )
 from mcmr.execution.backends import (
+    BatchedBackend,
     SubprocessRunner,
 )
-from mcmr.facts import Evidence, Fact
+from mcmr.facts import Evidence
+from mcmr.plugins import Fact, Table
 from mcmr.query import RuleQuery
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
-from mcmr.table import GenericRelation, Table
+from mcmr.table import GenericRelation
 
-from ..backend_fakes import (
+from ..backend_values import (
+    candidate,
+    contextual_case,
+    criteria,
+)
+from ..fakes import (
     Category,
     EmptyAssessmentBackend,
     EmptyBatchBackend,
@@ -46,11 +53,6 @@ from ..backend_fakes import (
     FirstCategoryBackend,
     GlinerProbe,
     LabeledBackend,
-)
-from ..backend_values import (
-    candidate,
-    contextual_case,
-    criteria,
 )
 
 if TYPE_CHECKING:
@@ -118,6 +120,18 @@ async def test_the_abstract_backend_refuses_direct_classification() -> None:
             candidate(),
             category=Category,
             instructions="Classify the retained facts.",
+        )
+
+
+@pytest.mark.anyio
+async def test_the_batched_spine_defers_every_turn_to_its_concrete_backend() -> None:
+    """The shared batching spine never invents a transport of its own."""
+    with pytest.raises(NotImplementedError):
+        await BatchedBackend.turn(
+            CodexBackend(),
+            {},
+            prompt="Judge the retained facts.",
+            name="classification",
         )
 
 

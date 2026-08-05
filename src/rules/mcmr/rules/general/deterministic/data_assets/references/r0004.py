@@ -4,7 +4,7 @@ from ...... import rule
 from ......facts import DataAssetReferenceFact
 from ......query import CountQuery
 from ......table import Table
-from ..relations import count_query
+from ..relations import detailed_count_query
 
 
 @rule("ALL-DATA0004")
@@ -49,7 +49,14 @@ def nonactive_data_asset_reference(subject: Table[DataAssetReferenceFact]) -> Co
     selected = subject.records("references").filter(
         pl.col("asset_exists") & pl.col("lifecycle").is_in(["deprecated", "removed"])
     )
-    return count_query(
-        subject.counted(selected),
+    return detailed_count_query(
+        subject,
+        selected,
+        pl.concat_str(
+            pl.lit("data asset `"),
+            pl.col("asset_identifier"),
+            pl.lit("` is "),
+            pl.col("lifecycle"),
+        ),
         "nonactive data asset reference",
     )

@@ -10,7 +10,6 @@ from mcmr.facts import (
     ExceptionHandler,
     ExceptionRegion,
     ExceptionUsage,
-    Fact,
     ImportBindingFact,
     ModuleFact,
     NodeRef,
@@ -24,6 +23,7 @@ from mcmr.facts import (
     TryBlockFact,
     Visibility,
 )
+from mcmr.plugins import Fact, Table
 from mcmr.query import RuleQuery, scalar_frame_value
 from mcmr.rules.general import (
     external_nonpublic_attribute_access_count,
@@ -39,7 +39,7 @@ from mcmr.rules.python import (
     public_module_constant,
     shared_exception_placement,
 )
-from mcmr.table import AnalysisSession, Table
+from mcmr.table import AnalysisSession
 
 from ..support import retained_query as query
 
@@ -102,7 +102,7 @@ def imported_constant_count(root: Path) -> int:
     imports = AnalysisSession(
         root,
         suffixes=[".py"],
-        typed_families=[ImportBindingFact.__name__],
+        typed_families=[ImportBindingFact],
     ).import_binding_tables()
     return (
         native_query(imports, cross_module_project_constant_import)

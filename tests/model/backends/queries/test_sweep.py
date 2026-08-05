@@ -19,15 +19,15 @@ from mcmr.domain.contracts import (
 )
 from mcmr.execution import Assessment, CriterionAnswer, CriterionValue
 from mcmr.execution.queries import AssessmentContract, ModelQuery, answer_frame
-from mcmr.facts import Fact
+from mcmr.plugins import Fact, Table
 from mcmr.query import FixQuery, RuleQuery
 from mcmr.query.runtime import QueryEvaluations
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
-from mcmr.table import GenericRelation, Table
+from mcmr.table import GenericRelation
 
-from ...backend_fakes import Category, FirstCategoryBackend, NoFindingsBackend
 from ...backend_values import provenance
+from ...fakes import Category, FirstCategoryBackend, NoFindingsBackend
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -47,7 +47,7 @@ async def test_the_contextual_sweep_executes_every_model_rule() -> None:
         report.output_tokens,
         report.reasoning_tokens,
         report.error_count,
-    ) == (45, 45, True, 0, 0, 0, 0, 0)
+    ) == (44, 44, True, 0, 0, 0, 0, 0)
     assert report.elapsed_seconds >= 0
     assert report.message_characters > 0
 
@@ -64,7 +64,7 @@ async def test_the_contextual_sweep_retains_an_isolated_backend_failure() -> Non
         monkeypatch.setattr(FirstCategoryBackend, "resolve", fail)
         report = await ContextualSweep(backend=FirstCategoryBackend()).run(catalog, {})
 
-    assert report.error_count == 45
+    assert report.error_count == 44
     assert all(result.value == "error" for result in report.results)
     assert all(result.provenance.model == "unknown" for result in report.results)
     assert all("unknown evidence" in result.error for result in report.results)

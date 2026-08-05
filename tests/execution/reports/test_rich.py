@@ -45,11 +45,23 @@ def test_the_view_states_what_it_left_out_and_what_the_run_cost(tree: Path) -> N
         report(failure(found), failure(found), failure(found), root=tree)
     )
 
-    assert "and 2 more failures" in rendered
+    assert "and 2 more diagnostics" in rendered
     assert (
         "1 files, 0 facts, 0/0 rules, 0 skipped, 0 table queries, 0 observations, "
         "3 failures, 3 findings" in rendered
     )
+
+
+def test_plain_view_limits_findings_within_one_failure(tree: Path) -> None:
+    """One aggregate catalog verdict cannot bypass the diagnostic display bound."""
+    findings = [Finding(message=f"gap {index}", span=span()) for index in range(3)]
+    aggregate = failure().model_copy(update={"findings": findings})
+
+    rendered = CheckFormat.CONCISE.check(1).render(report(aggregate, root=tree))
+
+    assert "gap 0" in rendered
+    assert "gap 1" not in rendered
+    assert "and 2 more diagnostics" in rendered
 
 
 def test_rich_view_groups_summary_source_and_detailed_evidence(tree: Path) -> None:

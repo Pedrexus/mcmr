@@ -132,6 +132,12 @@ fn apply_resolution(
     syntax: SyntaxResolution,
 ) {
     let record = call.as_object_mut().expect("a call must be an object");
+    record.insert("target_id".to_string(), answer.target_id.clone().into());
+    if answer.is_first_party {
+        record.insert("is_first_party".to_string(), true.into());
+    } else {
+        record.remove("is_first_party");
+    }
     if provider_classifies_python_syntax != Some(false)
         || answer.resolution != graph::Resolution::Unresolved
     {
@@ -145,7 +151,6 @@ fn apply_resolution(
     }
     for (name, stated) in [
         ("is_external", answer.is_external),
-        ("is_first_party", answer.is_first_party),
         ("is_standard_library", answer.is_standard_library),
         ("is_shadowed", syntax.shadowed),
         ("is_constructor", syntax.constructor),

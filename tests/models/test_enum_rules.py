@@ -6,10 +6,11 @@ from mcmr.facts import (
     EnumMember,
     EnumMetadataMap,
     EnumScope,
-    Fact,
     LiteralGroupFact,
     SourceSpan,
 )
+from mcmr.plugins import Fact, Table
+from mcmr.plugins import fact_table as in_memory_table
 from mcmr.query import RuleQuery, scalar_row_value
 from mcmr.rules.python import (
     parallel_enum_metadata,
@@ -17,8 +18,6 @@ from mcmr.rules.python import (
     shared_enum_file_shape,
     shared_enums_module_candidate,
 )
-from mcmr.table import Table
-from mcmr.table import fact_table as in_memory_table
 
 _SPAN = SourceSpan(path="src/enums/status.py")
 

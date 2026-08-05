@@ -39,18 +39,21 @@ class CheckRendering(FrozenModel, ABC):
 
     def render(self, projection: CheckReport) -> str:
         """State every failure this view holds, then what the whole run cost."""
-        shown = projection.failures[: self.limit]
-        omitted = projection.failure_count - len(shown)
         source = SourceReader(root=Path(projection.root))
-        findings = ((failure, finding) for failure in shown for finding in failure.reported)
+        diagnostics = [
+            (failure, finding) for failure in projection.failures for finding in failure.reported
+        ]
+        shown = diagnostics[: self.limit]
+        total = max(len(diagnostics), projection.failure_count, projection.finding_count)
+        omitted = total - len(shown)
         return "\n".join(
             [
                 *(
                     line
-                    for failure, finding in findings
+                    for failure, finding in shown
                     for line in self.diagnostic(failure, finding, source)
                 ),
-                *([f"and {omitted} more failures"] if omitted else []),
+                *([f"and {omitted} more diagnostics"] if omitted else []),
                 "",
                 f"{projection.file_count} files, {projection.fact_count} facts, "
                 f"{projection.rule_execution_count}/{projection.rule_count} rules, "

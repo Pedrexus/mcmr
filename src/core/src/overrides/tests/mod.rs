@@ -19,7 +19,8 @@ fn facts_of(source: &str) -> Vec<Value> {
     pairs(&graph)
 }
 
-fn link<'a>(facts: &'a [Value], derived: &str, base: &str) -> &'a Value {
+fn link<D: AsRef<str>, B: AsRef<str>>(facts: &[Value], derived: D, base: B) -> &Value {
+    let (derived, base) = (derived.as_ref(), base.as_ref());
     facts
         .iter()
         .find(|fact| {

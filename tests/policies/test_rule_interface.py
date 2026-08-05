@@ -9,14 +9,14 @@ from mcmr.facts import (
     AlertDefinition,
     AlertFact,
     Evidence,
-    Fact,
     ImportBindingFact,
     NodeRef,
     SourceSpan,
     SymbolRef,
 )
+from mcmr.plugins import Fact, RepositoryTables, Table, fact_table
 from mcmr.query import FindingQuery, FixQuery, RuleQuery
-from mcmr.table import FunctionRelation, GenericRelation, RepositoryTables, Table, fact_table
+from mcmr.table import FunctionRelation, GenericRelation
 from mcmr.table.relations import FactRelations
 
 if TYPE_CHECKING:
@@ -168,7 +168,7 @@ def test_non_table_rules_cannot_enter_table_execution(tmp_path: Path) -> None:
             dependencies={},
         )
     with pytest.raises(TypeError, match="is not a table rule"):
-        row_unused_import.invoke({}, settings={}, dependencies={})
+        row_unused_import.invoke(RepositoryTables(), settings={}, dependencies={})
     with pytest.raises(TypeError, match="has no table dependency"):
         _ = row_unused_import.primary_family
 

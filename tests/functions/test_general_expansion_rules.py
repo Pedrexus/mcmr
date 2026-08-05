@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 from mcmr.domain.contracts import FixSafety, RuleContract, RuleSetting, RuleValue
 from mcmr.facts import (
@@ -9,7 +9,6 @@ from mcmr.facts import (
     CommentGroup,
     ConditionalArm,
     ConditionalChain,
-    Fact,
     FunctionFact,
     KernelLaunchFact,
     NodeRef,
@@ -34,9 +33,12 @@ from mcmr.rules.general import (
     unchecked_result_call,
     value_dispatch_candidate,
 )
-from mcmr.table import AnalysisSession, FunctionRelation, Table
+from mcmr.table import AnalysisSession, FunctionRelation
 
 from ..support import retained_query
+
+if TYPE_CHECKING:
+    from mcmr.plugins import Fact, Table
 
 _SPAN = SourceSpan(path="src/example.py")
 
@@ -78,7 +80,7 @@ def function_table(root: Path, source: str) -> Table[Fact]:
         AnalysisSession(
             root,
             suffixes=(".py",),
-            typed_families=(FunctionFact.__name__,),
+            typed_families=(FunctionFact,),
         ).function_tables(),
     )
 
@@ -91,7 +93,7 @@ def call_table(root: Path, name: str, *, source: str) -> Table[Fact]:
         AnalysisSession(
             root,
             suffixes=(Path(name).suffix,),
-            typed_families=(CallFact.__name__,),
+            typed_families=(CallFact,),
         ).call_tables(),
     )
 

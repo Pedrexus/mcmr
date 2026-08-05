@@ -24,9 +24,11 @@ def module_class_count(subject: Table[ModuleFact]) -> CountQuery:
 
     Exceptions
     ----------
-    Tiny closed type families, generated schemas, and language-mandated companion declarations can
-    remain together through an explicit path exclusion. A package initializer should export
-    classes from their own modules rather than define the family itself.
+    Type stub modules may declare the complete surface of one native extension, so their classes
+    do not represent colocated implementations. Tiny closed type families, generated schemas, and
+    language-mandated companion declarations can remain together through an explicit path
+    exclusion. A package initializer should export classes from their own modules rather than
+    define the family itself.
 
     Examples
     --------
@@ -39,5 +41,10 @@ def module_class_count(subject: Table[ModuleFact]) -> CountQuery:
     Generalizes wemake-python-styleguide WPS202
     https://wemake-python-styleguide.readthedocs.io/en/latest/pages/usage/violations/complexity.html
     """
-    frame = subject.facts().with_columns(pl.col("class_count").alias("value"))
+    frame = subject.facts().with_columns(
+        pl.when(pl.col("path").str.ends_with(".pyi"))
+        .then(pl.lit(0))
+        .otherwise(pl.col("class_count"))
+        .alias("value")
+    )
     return count_query(frame, "module class count")

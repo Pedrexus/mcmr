@@ -84,7 +84,8 @@ def bounded_work(
     Ask the selected judgment backend for four independently cited capacity facts and reduce the
     answers through a fixed table. Compare input rates, queues, concurrency, batching, memory,
     deadlines, admission, backpressure, load shedding, cancellation, and overload recovery. The
-    model never selects the final category.
+    model never selects the final category. Candidates must create concurrent work, be async, or
+    recurse because an ordinary synchronous loop cannot accumulate independent outstanding work.
 
     Evidence
     --------
@@ -120,34 +121,17 @@ def bounded_work(
     )
     if subject.relation_type is not FunctionRelation:
         return query.where(
-            (
-                pl.col("is_async")
-                | pl.col("is_recursive")
-                | (pl.col("created_task_count") > 0)
-                | (pl.col("control_increments.length") > 0)
-            )
+            (pl.col("is_async") | pl.col("is_recursive") | (pl.col("created_task_count") > 0))
             & ~pl.col("is_test"),
             requires=(
                 "is_async",
                 "is_recursive",
                 "created_task_count",
-                "control_increments.length",
                 "is_test",
             ),
         )
     functions = subject.lazy(FunctionRelation.FUNCTIONS).filter(~pl.col("is_test"))
-    loops = subject.lazy(FunctionRelation.CONTROLS).filter(pl.col("kind") == "loop")
-    selected = pl.concat(
-        (
-            functions.filter(
-                pl.col("is_async") | pl.col("is_recursive") | (pl.col("created_task_count") > 0)
-            ).select("fact_id"),
-            functions.join(
-                loops.select("function_id").unique(),
-                left_on="entity_id",
-                right_on="function_id",
-                how="semi",
-            ).select("fact_id"),
-        )
-    )
+    selected = functions.filter(
+        pl.col("is_async") | pl.col("is_recursive") | (pl.col("created_task_count") > 0)
+    ).select("fact_id")
     return query.matching(selected)

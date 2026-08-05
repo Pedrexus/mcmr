@@ -2,10 +2,10 @@ import polars as pl
 from pydantic import PositiveInt
 
 from ..... import Category, rule
-from .....domain.primitives import NonEmptyStr
 from .....execution import ClassificationBackend
 from .....execution.queries import ModelQuery
 from .....facts import CommentFact
+from .....plugins import NonEmptyStr
 from .....table import Table
 from .contracts import ProseLanguage
 

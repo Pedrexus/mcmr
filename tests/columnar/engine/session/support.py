@@ -3,8 +3,9 @@ from typing import TYPE_CHECKING, cast
 
 from mcmr.execution.queries import ModelQuery
 from mcmr.kernel_tables import AnalysisSession as NativeAnalysisSession
+from mcmr.plugins import Table
 from mcmr.query import table_schema
-from mcmr.table import GenericRelation, Table
+from mcmr.table import GenericRelation
 
 if TYPE_CHECKING:
     from enum import StrEnum

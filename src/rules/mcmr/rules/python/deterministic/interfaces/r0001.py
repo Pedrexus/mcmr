@@ -25,8 +25,11 @@ def concrete_isinstance_capability(subject: Table[RuntimeTypeCheckFact]) -> Occu
     Exceptions
     ----------
     Exact built-in checks remain valid at JSON, TOML, database, wire-format, C-extension,
-    dispatch, and other representation boundaries. `str` and `bool` stay concrete because
-    their domain meaning is commonly more specific than their inherited capabilities.
+    dispatch, and other representation boundaries. Nothing in the source says a value arrived
+    from one, because what `tomllib` hands back is an ordinary `dict` by the time a check reads
+    it, so a project names the modules that sit on such a boundary in the `exclude` list its rule
+    configuration accepts rather than leaving this rule to guess. `str` and `bool` stay concrete
+    because their domain meaning is commonly more specific than their inherited capabilities.
 
     Examples
     --------

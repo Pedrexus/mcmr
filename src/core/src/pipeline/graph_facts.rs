@@ -82,11 +82,12 @@ where
         .map(String::as_str)
         .collect();
     let resolved = calls::resolutions(built, &standard_library);
+    let test_reachability = calls::TestReachability::new(built);
     if let Some(output) = calls.as_deref_mut() {
         let mut index = calls::ResolutionIndex::new(&resolved);
         crate::calls::enrich_records(output, &mut index);
     }
-    deliver_deferred_calls(request, deferred, delivery, &resolved)?;
+    deliver_deferred_calls(request, deferred, delivery, &resolved, &test_reachability)?;
     if !request.families.iter().any(|family| family == "CallFact")
         && let Some(output) = calls.as_deref()
     {
@@ -100,6 +101,7 @@ fn deliver_deferred_calls<Emit>(
     deferred: &mut DeferredFacts,
     delivery: &mut Delivery<Emit>,
     resolved: &BTreeMap<(String, usize), Vec<calls::ResolvedCall>>,
+    test_reachability: &calls::TestReachability,
 ) -> Result<(), String>
 where
     Emit: FnMut(String, Vec<serde_json::Value>) -> Result<(), String>,
@@ -111,6 +113,9 @@ where
         let mut index = calls::ResolutionIndex::new(resolved);
         deferred.drain(family, |mut facts| {
             crate::calls::enrich_facts(family, &mut facts, &mut index);
+            if family == "TestFunctionFact" {
+                crate::calls::enrich_test_reach(&mut facts, test_reachability);
+            }
             delivery.send(family.to_string(), facts)
         })?;
     }

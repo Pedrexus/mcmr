@@ -1,8 +1,16 @@
 use serde::{Deserialize, Serialize};
 
-mod facets;
+mod declaration;
+mod identity;
+mod model;
+mod relations;
+mod shape;
 
-pub use facets::{ClassDeclaration, ClassIdentity, ClassModel, ClassRelations, ClassShape};
+pub use declaration::ClassDeclaration;
+pub use identity::ClassIdentity;
+pub use model::ClassModel;
+pub use relations::ClassRelations;
+pub use shape::ClassShape;
 
 /// One class and every closed-world property deterministic class rules read.
 #[derive(Clone, Debug, Deserialize, Serialize)]

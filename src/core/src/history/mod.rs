@@ -25,6 +25,11 @@ pub fn read(root: &Path, scope: &crate::discovery::Scope) -> Result<Vec<Value>, 
 }
 
 /// Mine the complete `git log`, or nothing where there is no history to mine.
+///
+/// A commit names the files as they were spelled that day, and the log folds every rename forward
+/// so each one arrives under the name it answers to now. A file that answers to no name now, one
+/// deleted or split apart since, is dropped here rather than carried as evidence, because every
+/// claim this family makes is a claim a reader is meant to act on by opening the file.
 pub fn scan(root: &Path, scope: &crate::discovery::Scope) -> Result<Option<History>, String> {
     let Some(commits) = log(root)? else {
         return Ok(None);
@@ -34,6 +39,7 @@ pub fn scan(root: &Path, scope: &crate::discovery::Scope) -> Result<Option<Histo
         .map(|commit| commit.seconds)
         .max()
         .expect("a history exists only when at least one commit exists");
+    let surviving = surviving(root, scope, &commits);
     let mut tallies: BTreeMap<String, Tally> = BTreeMap::new();
     let mut changes = Vec::new();
     for commit in &commits {
@@ -41,7 +47,7 @@ pub fn scan(root: &Path, scope: &crate::discovery::Scope) -> Result<Option<Histo
         let paths: Vec<&str> = touched
             .iter()
             .copied()
-            .filter(|path| scope.holds(path))
+            .filter(|path| surviving.contains(path))
             .collect();
         for path in &paths {
             let tally = tallies.entry((*path).to_string()).or_default();
@@ -76,6 +82,22 @@ pub fn scan(root: &Path, scope: &crate::discovery::Scope) -> Result<Option<Histo
             .collect(),
         changes,
     }))
+}
+
+/// Return the in-scope paths the working tree still holds, which are the only ones worth naming.
+fn surviving<'a>(
+    root: &Path,
+    scope: &crate::discovery::Scope,
+    commits: &'a [git::Commit],
+) -> BTreeSet<&'a str> {
+    commits
+        .iter()
+        .flat_map(|commit| commit.paths.iter())
+        .map(String::as_str)
+        .collect::<BTreeSet<&str>>()
+        .into_iter()
+        .filter(|path| scope.holds(path) && root.join(path).is_file())
+        .collect()
 }
 
 /// Return the one fact carrying both collections, since neither is read without the other.

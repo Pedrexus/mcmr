@@ -6,13 +6,8 @@ import pytest
 
 from mcmr.execution.queries import ModelQuery
 from mcmr.facts import CallFact, ClassFact, FunctionFact
-from mcmr.table import (
-    AnalysisSession,
-    CallRelation,
-    ClassRelation,
-    FunctionRelation,
-    Table,
-)
+from mcmr.plugins import Table
+from mcmr.table import AnalysisSession, CallRelation, ClassRelation, FunctionRelation
 
 from .support import contextual_repository, generic_model_candidates, repository
 
@@ -25,9 +20,7 @@ def test_specialized_contextual_family_does_not_request_a_generic_mirror(
     tmp_path: Path,
     family: type[ClassFact | FunctionFact],
 ) -> None:
-    session = AnalysisSession(
-        repository(tmp_path), suffixes=[".py"], typed_families=[family.__name__]
-    )
+    session = AnalysisSession(repository(tmp_path), suffixes=[".py"], typed_families=[family])
     table = session.function_tables() if family is FunctionFact else session.class_tables()
 
     assert table.family is family
@@ -41,7 +34,7 @@ def test_specialized_function_candidates_equal_the_former_generic_mirror(
 ) -> None:
     root = contextual_repository(tmp_path)
     table = AnalysisSession(
-        root, suffixes=[".py"], typed_families=[FunctionFact.__name__]
+        root, suffixes=[".py"], typed_families=[FunctionFact]
     ).function_tables()
     specialized = ModelQuery.candidate_relation(table).collect().sort("fact_order")
     generic = generic_model_candidates(root, FunctionFact)
@@ -56,7 +49,7 @@ def test_specialized_class_candidates_address_one_class_each(tmp_path: Path) -> 
     table = AnalysisSession(
         contextual_repository(tmp_path),
         suffixes=[".py"],
-        typed_families=[ClassFact.__name__],
+        typed_families=[ClassFact],
     ).class_tables()
     candidates = ModelQuery.candidate_relation(table).collect().sort("path", "start_line")
     subjects = [json.loads(item) for item in candidates.get_column("subject_json").to_list()]
@@ -90,9 +83,7 @@ def run(value):
     logging.info("value %s", normalize(value), extra={"kind": "sample"})
 """
     )
-    table = AnalysisSession(
-        tmp_path, suffixes=[".py"], typed_families=[CallFact.__name__]
-    ).call_tables()
+    table = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=[CallFact]).call_tables()
     candidates = ModelQuery.candidate_relation(table).collect().sort("start_line", "start_column")
     calls = table.frame(CallRelation.CALLS)
     logging_row = candidates.filter(pl.col("qualified_name") == "logging.info").row(0, named=True)
@@ -115,7 +106,7 @@ def run(value):
 
 def test_specialized_function_candidates_preserve_evidence(tmp_path: Path) -> None:
     table = AnalysisSession(
-        repository(tmp_path), suffixes=[".py"], typed_families=[FunctionFact.__name__]
+        repository(tmp_path), suffixes=[".py"], typed_families=[FunctionFact]
     ).function_tables()
     parent_id = table.frame(FunctionRelation.FUNCTIONS).item(0, "entity_id")
     table = Table(
@@ -160,7 +151,7 @@ def test_specialized_class_candidates_share_module_evidence(tmp_path: Path) -> N
     table = AnalysisSession(
         contextual_repository(tmp_path),
         suffixes=[".py"],
-        typed_families=[ClassFact.__name__],
+        typed_families=[ClassFact],
     ).class_tables()
     parent_id = table.frame(ClassRelation.CLASSES).item(0, "fact_id")
     table = Table(
@@ -216,7 +207,7 @@ def run(value):
     return torch.sqrt(torch.abs(value))
 """
     )
-    session = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=("CallFact",))
+    session = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=(CallFact,))
     tables = session.call_tables()
     calls = tables.frame(CallRelation.CALLS)
     expressions = tables.frame(CallRelation.EXPRESSIONS)
@@ -269,7 +260,7 @@ class Child(Base):
     pass
 """
     )
-    session = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=["ClassFact"])
+    session = AnalysisSession(tmp_path, suffixes=[".py"], typed_families=[ClassFact])
     tables = session.class_tables()
     classes = tables.frame(ClassRelation.CLASSES)
 

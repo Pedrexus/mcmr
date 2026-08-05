@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, ClassVar
 from patos import FrozenModel
 
 from .exchange import KernelExchange
+from .graph.records import RepositoryGraph
 from .messages import KernelAnswer, KernelArgument, KernelStats, KernelStreamBatch
 
 if TYPE_CHECKING:
@@ -24,6 +25,11 @@ class KernelClient(FrozenModel):
         """Return what the kernel answered once its protocol version agrees."""
         stated: dict[str, KernelArgument] = {"root": str(self.root), **request}
         return self._validated_answer(self._run(stated))
+
+    def read(self) -> RepositoryGraph:
+        """Run the kernel over the repository and return the graph it built."""
+        request: dict[str, KernelArgument] = {"families": [], "graph": True}
+        return RepositoryGraph.model_validate(self.ask(request).graph)
 
     def stream(
         self, request: Mapping[str, KernelArgument]

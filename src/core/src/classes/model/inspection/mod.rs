@@ -1,6 +1,8 @@
 mod classes;
 mod module;
 
+pub(crate) use module::is_approved_foundation_module;
+
 use crate::discovery::{Document, Packages};
 use crate::graph::ImportingModule;
 use crate::source::Source;

@@ -1,4 +1,4 @@
-from .models import RepositoryTables, Table, fact_table
+from .builder import fact_table
 from .names import (
     CallRelation,
     ClassRelation,
@@ -7,6 +7,9 @@ from .names import (
     ImportBindingRelation,
     SyntaxRelation,
 )
+from .relations import HistoryRelations
+from .runtime.repository import RepositoryTables
+from .runtime.table import Table
 from .session import AnalysisSession
 
 __all__ = [
@@ -16,6 +19,7 @@ __all__ = [
     "FunctionRelation",
     "GenericRelation",
     "ImportBindingRelation",
+    "HistoryRelations",
     "RepositoryTables",
     "SyntaxRelation",
     "Table",

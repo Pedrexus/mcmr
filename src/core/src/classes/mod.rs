@@ -16,6 +16,8 @@ pub use records::{
     CoupledTypeGroupRecord, MethodBehavior, MethodIdentity, MethodRecord, ModelFileRecord,
 };
 
+pub(crate) use model::is_approved_foundation_module;
+
 use model::Stated;
 use repository::Repository;
 

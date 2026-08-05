@@ -11,6 +11,7 @@ from mcmr.domain.contracts import (
     ModelProvenance,
 )
 from mcmr.execution import (
+    CommandResult,
     ModelCandidate,
 )
 from mcmr.facts import Evidence
@@ -48,6 +49,11 @@ def candidate(*claims: Evidence) -> ModelCandidate:
             ),
         ),
     )
+
+
+def cited() -> ModelCandidate:
+    """Build one candidate whose retained claim matches the controlled `payload` citation."""
+    return candidate(Evidence(signal="structure", detail="two modules", source="kernel"))
 
 
 def payload(*, evidence: tuple[str, ...] = ("structure",)) -> dict[str, JsonValue]:
@@ -94,6 +100,46 @@ def completed(model: str = "gpt-tested") -> str:
             },
         }
     )
+
+
+def printed_turn(
+    answer: JsonValue,
+    *,
+    model: str = "claude-sonnet-5-20260210",
+    usage: JsonValue = None,
+    billed: JsonValue = None,
+    structured: bool = True,
+) -> CommandResult:
+    """Return the single JSON result object one printed Claude turn emits.
+
+    The session aggregate and the per-model record carry different counts here exactly as a live
+    turn does, so a test states which of the two a provenance record read.
+    """
+    session: JsonValue = {
+        "input_tokens": 99,
+        "cache_read_input_tokens": 98,
+        "cache_creation_input_tokens": 96,
+        "output_tokens": 97,
+    }
+    entry: JsonValue = {
+        "inputTokens": 12,
+        "outputTokens": 4,
+        "cacheReadInputTokens": 3,
+        "cacheCreationInputTokens": 40,
+        "costUSD": 0.01,
+        "canonicalModel": model,
+    }
+    turn: dict[str, JsonValue] = {
+        "type": "result",
+        "subtype": "success",
+        "is_error": False,
+        "result": json.dumps(answer, sort_keys=True),
+        "usage": session if usage is None else usage,
+        "modelUsage": {model: entry} if billed is None else billed,
+    }
+    if structured:
+        turn["structured_output"] = answer
+    return CommandResult(returncode=0, stdout=json.dumps(turn))
 
 
 def contextual_case(

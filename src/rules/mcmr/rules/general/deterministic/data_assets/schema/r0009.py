@@ -1,10 +1,10 @@
 import polars as pl
 
 from ...... import Numeric, rule
+from ......domain.contracts import Unit
 from ......facts import DataAssetFact
-from ......query import PercentageQuery
+from ......query import FindingQuery, PercentageQuery, RuleQuery
 from ......table import Table
-from ..relations import percentage_query
 
 
 @rule("ALL-DATA0009", policy=Numeric(maximum=5))
@@ -47,11 +47,19 @@ def data_definition_gap_percentage(subject: Table[DataAssetFact]) -> PercentageQ
     Cites "DAMA-DMBOK", metadata management principles
     Cites "DataHub documentation", glossary and description metadata
     """
+    assets = subject.records("assets")
+    fields = subject.records("assets.fields").join(
+        assets.select(
+            "fact_id",
+            pl.col("record_id").alias("asset_record_id"),
+            pl.col("identifier").alias("asset_identifier"),
+        ),
+        left_on=["fact_id", "parent_id"],
+        right_on=["fact_id", "asset_record_id"],
+        how="left",
+    )
     descriptions = pl.concat(
-        [
-            subject.records("assets").select("fact_id", "description"),
-            subject.records("assets.fields").select("fact_id", "description"),
-        ]
+        [assets.select("fact_id", "description"), fields.select("fact_id", "description")]
     )
     summary = descriptions.group_by("fact_id", maintain_order=True).agg(
         pl.len().cast(pl.UInt64).alias("description_count"),
@@ -68,7 +76,40 @@ def data_definition_gap_percentage(subject: Table[DataAssetFact]) -> PercentageQ
             .alias("value")
         )
     )
-    return percentage_query(
+    asset_gaps = assets.filter(pl.col("description").str.strip_chars() == "").select(
+        "fact_id",
+        pl.col("identifier").alias("object_identifier"),
+        pl.lit("asset").alias("object_kind"),
+    )
+    field_gaps = fields.filter(pl.col("description").str.strip_chars() == "").select(
+        "fact_id",
+        pl.concat_str(
+            pl.col("asset_identifier"),
+            pl.lit("."),
+            pl.col("name"),
+        ).alias("object_identifier"),
+        pl.lit("field").alias("object_kind"),
+    )
+    details = (
+        pl.concat([asset_gaps, field_gaps])
+        .with_row_index("finding_order")
+        .join(subject.facts(), on="fact_id", how="left")
+    )
+    findings = FindingQuery.build(
+        details,
+        pl.concat_str(
+            pl.col("object_kind"),
+            pl.lit(" `"),
+            pl.col("object_identifier"),
+            pl.lit("` has no description"),
+        ),
+        (("missing description", pl.lit(1), Unit.COUNT),),
+        finding_order=pl.col("finding_order"),
+        evidence=pl.col("evidence"),
+    )
+    return RuleQuery.floating(
         frame,
-        "data definition gap percentage",
+        pl.col("value"),
+        finding_count=pl.col("gap_count"),
+        findings=findings,
     )

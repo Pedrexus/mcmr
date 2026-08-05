@@ -1,27 +1,20 @@
 import subprocess
 from pathlib import Path
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 import pytest
 
-from mcmr.facts import (
-    CallFact,
-    ClassFact,
-    Fact,
-    FunctionFact,
-    ImportBindingFact,
-    ModuleFact,
-)
-from mcmr.kernel import (
-    Kernel,
-    locate,
-    requested_fact,
-)
+from mcmr.facts import CallFact, ClassFact, FunctionFact, ImportBindingFact, ModuleFact
+from mcmr.kernel import Kernel
+from mcmr.project import locate
 from mcmr.query import RuleQuery
 from mcmr.rulebook.catalog import Catalog
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 from mcmr.rules.python import unused_import
-from mcmr.table import AnalysisSession, ImportBindingRelation, Table
+from mcmr.table import AnalysisSession, ImportBindingRelation
+
+if TYPE_CHECKING:
+    from mcmr.plugins import Fact, Table
 
 _ROOT = Path(__file__).parents[2]
 _BINARY = locate(_ROOT)
@@ -66,7 +59,7 @@ def test_the_planner_requests_only_the_families_its_rules_read() -> None:
 
     assert kernel.requested(rules) == {"ImportBindingFact": ImportBindingFact}
     assert kernel.requested([]) == {}
-    assert requested_fact(rules[0]) is ImportBindingFact
+    assert rules[0].primary_family is ImportBindingFact
 
 
 def test_an_empty_request_never_starts_the_kernel() -> None:
@@ -99,7 +92,7 @@ def test_the_kernel_builds_the_facts_its_families_name(repository: Path) -> None
 
     catalog = Catalog(modules=RuleModuleDiscovery().modules)
     families = {ImportBindingFact, ModuleFact, ClassFact, FunctionFact, CallFact}
-    rules = [rule for rule in catalog.rules if requested_fact(rule) in families]
+    rules = [rule for rule in catalog.rules if rule.primary_family in families]
     workspace = Kernel(binary=_BINARY, root=repository).run(rules)
     required = {family for rule in rules for _, family in rule.tables}
 
@@ -163,7 +156,7 @@ def test_the_unused_import_rule_agrees_with_ruff(repository: Path) -> None:
     bindings = AnalysisSession(
         repository,
         suffixes=[".py"],
-        typed_families=[ImportBindingFact.__name__],
+        typed_families=[ImportBindingFact],
     ).import_binding_tables()
     result = unused_import.invoke_table(
         cast("Table[Fact]", bindings), settings={}, dependencies={}
@@ -226,7 +219,7 @@ def test_a_source_suffix_selects_another_language(tmp_path: Path) -> None:
     rules = [
         rule
         for rule in Catalog(modules=RuleModuleDiscovery().modules).rules
-        if requested_fact(rule) is ClassFact
+        if rule.primary_family is ClassFact
     ]
     workspace = Kernel(binary=_BINARY, root=tmp_path, suffixes=(".ts",)).run(rules)
     analysis = workspace.stream(ClassFact)[0].classes[0]

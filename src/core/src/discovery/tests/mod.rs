@@ -53,7 +53,7 @@ impl Tree {
         )
     }
 
-    fn write(&self, relative: &str, source: &str) -> &Self {
+    fn write<R: AsRef<std::path::Path>, S: AsRef<[u8]>>(&self, relative: R, source: S) -> &Self {
         let path = self.root.join(relative);
         std::fs::create_dir_all(path.parent().expect("a written file sits in a directory"))
             .expect("the temporary root is writable");
@@ -104,21 +104,35 @@ fn a_directory_holding_nothing_is_reported_because_the_walk_met_it() {
 fn a_directory_of_siblings_is_one_fact_saying_how_many_rather_than_one_fact_each() {
     let tree = Tree::new("siblings");
     for name in ["alpha", "beta", "gamma", "delta", "epsilon", "zeta"] {
-        tree.write(&format!("services/{name}.py"), "value = 1\n");
+        tree.write(format!("services/{name}.py"), "value = 1\n");
     }
     tree.write("services/payments/charge.py", "value = 1\n");
 
     let inventory = tree.walk();
     let facts = measured(&inventory, &BTreeSet::new());
 
-    assert_eq!(inventory.documents.len(), 7);
-    assert_eq!(facts.len(), 3);
-    assert_eq!(facts["services"]["direct_module_count"], 6);
-    assert_eq!(facts["services"]["direct_file_count"], 6);
-    assert_eq!(facts["services"]["direct_directory_count"], 1);
-    assert_eq!(facts["services"]["only_child_directory"], "payments");
-    assert_eq!(facts["services"]["entry_count"], 7);
-    assert_eq!(facts["services/payments"]["direct_module_count"], 1);
+    assert_eq!(
+        json!({
+            "documents": inventory.documents.len(),
+            "directories": facts.len(),
+            "modules": facts["services"]["direct_module_count"],
+            "files": facts["services"]["direct_file_count"],
+            "children": facts["services"]["direct_directory_count"],
+            "only_child": facts["services"]["only_child_directory"],
+            "entries": facts["services"]["entry_count"],
+            "payment_modules": facts["services/payments"]["direct_module_count"],
+        }),
+        json!({
+            "documents": 7,
+            "directories": 3,
+            "modules": 6,
+            "files": 6,
+            "children": 1,
+            "only_child": "payments",
+            "entries": 7,
+            "payment_modules": 1,
+        })
+    );
 }
 
 #[test]

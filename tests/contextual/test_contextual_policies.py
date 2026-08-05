@@ -9,6 +9,7 @@ from mcmr.facts import (
     SourceSpan,
     SymbolFact,
 )
+from mcmr.plugins import fact_table
 from mcmr.rules.general import (
     comment_accuracy,
     comment_intent,
@@ -19,7 +20,6 @@ from mcmr.rules.general import (
     substitutability,
 )
 from mcmr.rules.python import model_foundation, shared_model_placement, shared_typing_placement
-from mcmr.table import fact_table
 
 from .test_reengineered_rules import (
     analyzed,

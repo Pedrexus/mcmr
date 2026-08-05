@@ -10,10 +10,8 @@ use std::collections::BTreeMap;
 use super::super::comments::comment_body;
 use super::super::functions::support::executable;
 
-mod imports;
 mod pass_through;
 
-pub(super) use imports::import_bindings;
 use pass_through::passes_through;
 
 /// Return the key and value of every pair a sequence of two element tuples states.
@@ -82,12 +80,6 @@ pub(super) fn region_lines(source: &Source, tokens: &Tokens) -> Vec<usize> {
         })
         .map(|token| source.line_of(token.range().start()))
         .collect()
-}
-
-/// Whether one module is where this project keeps the model foundation it approved.
-pub(super) fn is_approved_foundation_module(module: &str) -> bool {
-    let root = module.split('.').next().unwrap_or(module);
-    root == "patos" || module == "common.bases" || module.ends_with(".common.bases")
 }
 
 /// Whether one class body assigns the registry key its own name already derives.

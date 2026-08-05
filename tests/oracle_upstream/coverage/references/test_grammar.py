@@ -126,3 +126,5 @@ def test_a_citation_cannot_be_read_as_an_upstream_claim() -> None:
         _ = citation.coverage
     with pytest.raises(ValueError, match="does not name"):
         _ = citation.claimed_upstream
+    with pytest.raises(ValueError, match="unindexed reference"):
+        _ = citation.claimed_definition

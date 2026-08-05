@@ -9,4 +9,5 @@ if TYPE_CHECKING:
 class DataFieldReferenceFact(Fact):
     """Describe one resolved reference to a data field."""
 
+    external_evidence = True
     references: list[DataFieldReference] = []

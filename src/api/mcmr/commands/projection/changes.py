@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from ...kernel import locate
+from ...project import locate
 from ...repository import GraphReader
 from ...structure.change import ImportProposal, ProposedImport, SimulationFormat
 from ...structure.projections import ModuleGraph, ProjectionFormat

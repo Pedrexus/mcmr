@@ -15,12 +15,14 @@ def shared_model_file_shape(
 
     Definition
     ----------
-    Apply only to Python files below a `models` directory and exclude `__init__.py`. Require
-    exactly one top-level class deriving a recognized Pydantic, house model, SQL table, or
-    decorated dataclass foundation. A directory counts as a shared model package only when some
-    file inside it really declares a data model, so a folder of neural networks named the same way
-    is left alone. Enum classes belong in `enums`. Local model groups consumed only within one
-    feature package may remain together in that feature's `models.py` instead.
+    Apply only to Python files directly inside a directory named `models` and exclude
+    `__init__.py`. That name is the contract, since a shared model package is a convention a reader
+    navigates by, and a package of data models under any other name is left alone. Content then has
+    to agree, because a directory counts as a shared model package only when some file inside it
+    really declares a data model, so a folder of neural networks named the same way is left alone.
+    Require exactly one top-level class deriving a recognized Pydantic, house model, SQL table, or
+    decorated dataclass foundation. Enum classes belong in `enums`. Local model groups consumed
+    only within one feature package may remain together in that feature's `models.py` instead.
 
     Evidence
     --------

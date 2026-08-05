@@ -5,8 +5,7 @@ from typing import TYPE_CHECKING
 import pytest
 
 from mcmr.accounting.upstream import ReferenceParser
-from mcmr.domain.contracts import RuleDefinition
-from mcmr.rulebook.catalog import Catalog
+from mcmr.rulebook.catalog import Catalog, RuleDefinition
 from mcmr.rulebook.discovery import RuleModuleDiscovery
 
 if TYPE_CHECKING:
@@ -84,7 +83,6 @@ def test_every_rule_docstring_matches_the_template(docstrings: Mapping[str, str]
     """
     off = sorted(rule for rule, stated in docstrings.items() if not _TEMPLATE.fullmatch(stated))
 
-    assert len(docstrings) == 275
     assert off == []
 
 

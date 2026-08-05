@@ -2,15 +2,20 @@ from typing import TYPE_CHECKING
 
 import pytest
 
+from mcmr import RulePolicies
+from mcmr.checking.session import Verdicts
 from mcmr.domain.contracts import (
     Choice,
+    EngineStats,
     Finding,
     FixSafety,
     Measurement,
 )
 from mcmr.facts import SourceSpan
+from mcmr.kernel import KernelStats
 from mcmr.presentation.reports import (
     CheckFormat,
+    CheckReport,
 )
 
 from .support import edit, failure, report, span, write_tree
@@ -127,3 +132,14 @@ def test_a_repair_wanting_a_reader_first_says_so_rather_than_promising_to_be_saf
         .startswith("render.py:1:1: ALL-DEMO0001 [?] ")
     )
     assert "ALL-DEMO0001 [?] " in CheckFormat.FULL.check(20).render(judged)
+
+
+def test_a_report_counts_external_facts_seen_by_the_query_engine(tmp_path: Path) -> None:
+    """External evidence remains visible when no native fact family was requested."""
+    judged = Verdicts(
+        policies=RulePolicies(),
+        kernel=KernelStats(fact_count=0),
+        engine=EngineStats(fact_count=7),
+    )
+
+    assert CheckReport.of(tmp_path, judged).fact_count == 7

@@ -8,10 +8,10 @@ import pytest
 from packaging.version import InvalidVersion
 from pydantic import ValidationError
 
+from mcmr.execution.providers import DependencyProvider
 from mcmr.facts import DependencyReleaseState, DependencyRepositoryState, Evidence
 from mcmr.project.dependencies import (
     DependencyClient,
-    DependencyRefresher,
     DependencyResolution,
     ReleaseInfo,
     ReleaseProject,
@@ -67,7 +67,7 @@ def test_refresh_retains_unknowns_and_does_not_turn_transport_failures_into_heal
     monkeypatch.setattr(importlib.metadata, "version", missing)
     simple = "https://pypi.org/simple/missing/"
     transport = StubTransport({simple: OSError("offline")})
-    fact = anyio.run(DependencyRefresher(root=tmp_path, transport=transport).refresh)
+    fact = anyio.run(DependencyProvider(root=tmp_path, transport=transport).refresh)
     record = fact.dependencies[0]
 
     assert (
@@ -107,7 +107,7 @@ def test_refresh_retains_a_successful_index_with_no_compatible_release_as_a_gap(
     monkeypatch.setattr(importlib.metadata, "version", missing)
     simple = "https://pypi.org/simple/gap/"
     fact = anyio.run(
-        DependencyRefresher(
+        DependencyProvider(
             root=tmp_path,
             transport=StubTransport(
                 {simple: {"versions": ["1.0"], "project-status": {"status": "active"}}}
@@ -211,7 +211,7 @@ def test_identical_latest_and_resolved_releases_need_only_one_release_request(
         }
     )
 
-    fact = anyio.run(DependencyRefresher(root=tmp_path, transport=transport).refresh)
+    fact = anyio.run(DependencyProvider(root=tmp_path, transport=transport).refresh)
 
     assert sum(url == release for url, _ in transport.calls) == 1
     assert fact.dependencies[0].resolved_release_state is DependencyReleaseState.YANKED

@@ -10,15 +10,20 @@ from mcmr.facts import TestSuiteFact as SuiteFact
 from mcmr.query import RuleQuery
 from mcmr.rules.python import (
     async_runner_auto_mode_conflict,
+    broad_example_property_candidate_count,
+    concentrated_test_reach_cluster_count,
     conditional_test_branch_count,
     conftest_import,
     coverage_without_branch_measurement,
     direct_shared_test_state_mutation_count,
+    duplicate_test_intent_cluster_count,
     finite_range_hypothesis_candidate_count,
     legacy_tmpdir_fixture_count,
     manual_literal_test_case_loop_count,
+    module_generated_parametrization_count,
     owned_test_statement_count,
     parametrization_candidate_group_count,
+    production_reach_hotspot_count,
     pytest_configuration_strictness,
     pytest_import_isolation,
     synchronous_test_asyncio_run_count,
@@ -69,7 +74,7 @@ def test_conftest_import_cases(tmp_path: Path) -> None:
     table = AnalysisSession(
         tmp_path,
         suffixes=[".py"],
-        typed_families=[ImportBindingFact.__name__],
+        typed_families=[ImportBindingFact],
     ).import_binding_tables()
 
     default = conftest_import.invoke_table(table, settings={}, dependencies={})
@@ -112,6 +117,7 @@ def test_what_each_declared_test_function_requests_and_owns() -> None:
         case("test_async_owned", is_async=True, marks=["pytest.mark.anyio"]),
         case("test_async_unowned", is_async=True),
         case("test_async_fixture", is_async=True, requested_fixture_names=["anyio_backend"]),
+        case("test_generated", generated_parametrization_count=1),
     )
     statement_query = retained_query(subject, owned_test_statement_count)
     assert (
@@ -123,10 +129,11 @@ def test_what_each_declared_test_function_requests_and_owns() -> None:
         query_value(retained_query(subject, conditional_test_branch_count)),
         query_value(statement_query),
         query_value(retained_query(subject, finite_range_hypothesis_candidate_count)),
+        query_value(retained_query(subject, module_generated_parametrization_count)),
         query_value(
             retained_query(subject, finite_range_hypothesis_candidate_count, minimum_cases=11)
         ),
-    ) == (2, 2, 1, 1, 0, 3, 30, 1, 0)
+    ) == (2, 2, 1, 1, 0, 3, 30, 1, 1, 0)
     assert findings(statement_query).item(0, "start_line") == 12
 
 
@@ -225,6 +232,18 @@ def test_repeated_literal_cases_one_parametrization_would_state_once() -> None:
         query_value(retained_query(groups, parametrization_candidate_group_count, minimum_cases=4))
         == 0
     )
+    broad = case_groups(
+        groups=[
+            CaseGroup(
+                normalized_syntax="assert decode(encode(SLOT)) == SLOT",
+                literal_vectors=[[str(value)] for value in range(10)],
+            )
+        ]
+    )
+    assert (
+        query_value(retained_query(broad, parametrization_candidate_group_count)),
+        query_value(retained_query(broad, broad_example_property_candidate_count)),
+    ) == (0, 1)
 
     loops = case_groups(
         loops=[
@@ -238,3 +257,66 @@ def test_repeated_literal_cases_one_parametrization_would_state_once() -> None:
         query_value(retained_query(loops, manual_literal_test_case_loop_count, minimum_cases=4))
         == 0
     )
+
+
+def test_graph_reach_distinguishes_duplicates_from_concentrated_examples() -> None:
+    target = ["mcmr:function:mcmr.codec.normalize"]
+    duplicate = function_tests(
+        case(
+            "test_duplicate_one",
+            body_shape="assert normalize(?) == ?",
+            literal_values=["'A'", "'a'"],
+            reachable_targets=target,
+        ),
+        case(
+            "test_duplicate_two",
+            body_shape="assert normalize(?) == ?",
+            literal_values=["'A'", "'a'"],
+            reachable_targets=target,
+        ),
+    )
+    concentrated = function_tests(
+        *[
+            case(
+                f"test_case_{index}",
+                body_shape=shape,
+                literal_values=[str(index)],
+                reachable_targets=target,
+            )
+            for index, shape in enumerate(("assert normalize(?)",) * 2 + ("assert clean(?)",) * 2)
+        ]
+    )
+
+    assert (
+        query_value(retained_query(duplicate, duplicate_test_intent_cluster_count)),
+        query_value(retained_query(duplicate, concentrated_test_reach_cluster_count)),
+        query_value(retained_query(concentrated, duplicate_test_intent_cluster_count)),
+        query_value(retained_query(concentrated, concentrated_test_reach_cluster_count)),
+    ) == (1, 0, 0, 1)
+
+
+def test_production_reach_hotspot_keeps_diverse_test_bodies() -> None:
+    shared = "mcmr:function:mcmr.codec.normalize"
+    repetitive = function_tests(
+        *[
+            case(
+                f"test_repeated_{index}",
+                body_shape=f"assert normalize(?) == {index % 3}",
+                reachable_targets=[shared, f"mcmr:function:mcmr.codec.helper_{index}"],
+            )
+            for index in range(8)
+        ]
+    )
+    diverse = function_tests(
+        *[
+            case(
+                f"test_distinct_{index}",
+                body_shape=f"assert behavior_{index}(normalize(?))",
+                reachable_targets=[shared],
+            )
+            for index in range(8)
+        ]
+    )
+
+    assert query_value(retained_query(repetitive, production_reach_hotspot_count)) == 1
+    assert query_value(retained_query(diverse, production_reach_hotspot_count)) == 0

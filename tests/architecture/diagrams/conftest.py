@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from mcmr.kernel import locate
+from mcmr.project import locate
 from mcmr.repository import (
     GraphReader,
     RepositoryGraph,

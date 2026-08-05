@@ -9,7 +9,7 @@ from mcmr.rules.general import (
     unseeded_randomness_for_secrets,
     weak_hashing_primitive,
 )
-from mcmr.table import AnalysisSession, SyntaxRelation, Table
+from mcmr.table import AnalysisSession, SyntaxRelation
 
 from ..support import written
 
@@ -17,13 +17,15 @@ if TYPE_CHECKING:
     from collections.abc import Mapping
     from pathlib import Path
 
+    from mcmr.plugins import Table
+
 
 def table(root: Path, sources: Mapping[str, str]) -> Table[SyntaxFact]:
     """Parse one security corpus into specialized syntax relations."""
     return AnalysisSession(
         written(root, dict(sources)),
         suffixes=[".py"],
-        typed_families=[SyntaxFact.__name__],
+        typed_families=[SyntaxFact],
     ).syntax_tables()
 
 
@@ -180,6 +182,13 @@ def issue(path, command, name):
 def house(command):
     output = house.run_in_shell(command)
 
+def bare(path):
+    code = system("rm -rf " + path)
+
+def probes():
+    name = platform.system()
+    release = platform.uname()
+
 def combined(run):
     measured = state.exec(exec_tag.sync | exec_tag.timer, run)
 
@@ -201,11 +210,15 @@ def refused(ref):
         also_through_a_shell=["run_in_shell"],
     )
 
-    assert default["issue"] == 3
-    assert default["house"] == 0
-    assert default["combined"] == 0
-    assert default["separated"] == 0
-    assert default["refused"] == 0
+    assert default == {
+        "issue": 3,
+        "house": 0,
+        "bare": 1,
+        "probes": 0,
+        "combined": 0,
+        "separated": 0,
+        "refused": 0,
+    }
     assert extended["house"] == 1
 
 

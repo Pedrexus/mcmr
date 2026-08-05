@@ -4,7 +4,7 @@ from mcmr.rules.general import (
     overriding_method_renames_a_parameter,
 )
 
-from ..support import link, member, table_value
+from ...support import link, member, table_value
 
 
 def test_an_override_that_stops_accepting_what_the_base_accepts_is_reported() -> None:

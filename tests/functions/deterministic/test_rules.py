@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
 import pytest
 
@@ -8,7 +8,6 @@ from mcmr.facts import (
     AuthorshipMatch,
     AuthorshipSignalFact,
     CallFact,
-    ConfigurationAssignment,
     DependencyFact,
     DependencyProjectState,
     DependencyRecord,
@@ -22,7 +21,6 @@ from mcmr.facts import (
     MethodCloneGroup,
     MethodGroupFact,
     NodeRef,
-    ProjectConfigurationFact,
     ProseSection,
     ProseSegmentFact,
     QuarantinedTest,
@@ -44,7 +42,6 @@ from mcmr.rules.general import (
     feature_flag_debt,
     flaky_test_quarantine_debt,
     fragmented_multiline_literal,
-    hardcoded_path_policy_count,
     paragraph_length_uniformity,
     repeated_class_method_count,
     repeated_external_unary_transformation,
@@ -61,47 +58,6 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 _SPAN = SourceSpan(path="project")
-
-
-def test_hardcoded_path_policy_cases() -> None:
-    def assignment(
-        name: str,
-        kind: Literal["list", "tuple", "set", "other"],
-        *values: str,
-        typed: bool = False,
-    ) -> ConfigurationAssignment:
-        """Return one configuration assignment with the selected values."""
-        return ConfigurationAssignment(
-            name=name,
-            collection_kind=kind,
-            values=list(values),
-            is_typed_configuration_field=typed,
-        )
-
-    subject = fact(
-        ProjectConfigurationFact,
-        assignments=[
-            assignment("excluded_directories", "list", ".git", ".venv", "build"),
-            assignment("ignored", "list", "alpha", "beta", "gamma"),
-            assignment("ignored_suffixes", "tuple", ".pyc", ".so", "*.egg-info", typed=True),
-        ],
-    )
-    assert answer(hardcoded_path_policy_count, subject).value == 1
-    assert answer(hardcoded_path_policy_count, subject, minimum_paths=4).value == 0
-
-    # A suffix list qualifies only when every entry reads as a suffix, which is the branch a
-    # coverage exclusion for `...` had been swallowing along with the rest of this body.
-    suffixes = fact(
-        ProjectConfigurationFact,
-        assignments=[assignment("ignored_suffixes", "tuple", ".pyc", ".so", "*.egg-info")],
-    )
-    mixed = fact(
-        ProjectConfigurationFact,
-        assignments=[assignment("ignored_suffixes", "tuple", ".pyc", "build", ".so")],
-    )
-
-    assert answer(hardcoded_path_policy_count, suffixes).value == 1
-    assert answer(hardcoded_path_policy_count, mixed).value == 0
 
 
 def test_dependency_cases(tmp_path: Path) -> None:
@@ -178,7 +134,7 @@ third = inflection.underscore(other)
     calls = AnalysisSession(
         tmp_path,
         suffixes=[".py"],
-        typed_families=[CallFact.__name__],
+        typed_families=[CallFact],
     ).call_tables()
     repeated = native_query(repeated_external_unary_transformation, calls)
     assert repeated.findings is not None

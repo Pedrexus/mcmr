@@ -1,8 +1,9 @@
+from typing import TYPE_CHECKING
+
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
 from mcmr.facts import (
     CollectionFact,
     ComprehensionFact,
-    Fact,
     LocalCollection,
     NodeRef,
     PairSequence,
@@ -22,6 +23,9 @@ from mcmr.rules.python import (
 
 from ..support import retained_query as query
 
+if TYPE_CHECKING:
+    from mcmr.plugins import Fact
+
 _SPAN = SourceSpan(path="src/example.py")
 
 
@@ -37,16 +41,18 @@ def test_collection_parameter_cases() -> None:
         parameters=[
             ParameterUse(annotation="list", operations=["iterate", "contains"]),
             ParameterUse(annotation="list", operations=["append"]),
+            ParameterUse(annotation="dict", operations=["setitem"]),
+            ParameterUse(annotation="dict", operations=["delitem"]),
         ],
     )
     assert value(subject, concrete_collection_parameter) is True
-    assert (
+    assert [
         value(
-            subject.model_copy(update={"parameters": subject.parameters[1:]}),
+            subject.model_copy(update={"parameters": [use]}),
             concrete_collection_parameter,
         )
-        is False
-    )
+        for use in subject.parameters
+    ] == [True, False, False, False]
 
 
 def test_collection_representation_cases() -> None:

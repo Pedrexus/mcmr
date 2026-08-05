@@ -1,0 +1,26 @@
+[
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.analytics.orders,PROD)",
+      "url": "https://github.com/phvv-me/mcmr",
+      "label": "MCMR policy run"
+    },
+    "response": { "data": { "addLink": true }, "extensions": {} }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.marts.invoices,PROD)",
+      "url": "https://github.com/phvv-me/mcmr",
+      "label": "MCMR policy run"
+    },
+    "response": { "data": { "addLink": true }, "extensions": {} }
+  },
+  {
+    "variables": {
+      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,ecommerce.raw.orders,PROD)",
+      "url": "https://github.com/phvv-me/mcmr",
+      "label": "MCMR policy run"
+    },
+    "response": { "data": { "addLink": true }, "extensions": {} }
+  }
+]

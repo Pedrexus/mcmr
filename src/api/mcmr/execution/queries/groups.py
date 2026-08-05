@@ -4,7 +4,7 @@ import polars as pl
 from patos import FrozenModel, Runtime
 
 from ...domain.contracts import Criterion
-from .definitions import DecisionTable, ModelMode
+from .contracts import DecisionTable, ModelMode
 
 
 class ModelQueryFields[Category: StrEnum = StrEnum](FrozenModel):

@@ -10,7 +10,7 @@ from .....table import Table
 def directory_module_count(
     subject: Table[DirectoryFact],
     *,
-    allow_definition_catalogs: bool = False,
+    allow_definition_catalogs: bool = True,
 ) -> CountQuery:
     """Measure how many modules one directory holds directly.
 
@@ -21,11 +21,12 @@ def directory_module_count(
     the number says how many files a reader opening this folder has to choose between.
 
     A directory whose every module declares exactly one class or one function is a catalog whose
-    width is the point rather than a symptom, and `allow_definition_catalogs` measures it as zero
-    for that reason. A package initializer is excluded from both the catalog judgment and the file
-    count, since it states what the directory is rather than adding an implementation module a
-    reader has to choose between. Setting the option false applies the raw implementation count
-    everywhere, which is what a project wants when it does not organize anything that way.
+    width is the point rather than a symptom, so `allow_definition_catalogs` measures it as zero
+    and holds that exemption open by default. A package initializer is excluded from both the
+    catalog judgment and the file count, since it states what the directory is rather than adding
+    an implementation module a reader has to choose between. Setting the option false applies the
+    raw implementation count everywhere, which is what a project wants when it does not organize
+    anything that way.
 
     Evidence
     --------

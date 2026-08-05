@@ -6,6 +6,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod counts;
 mod declaration;
+mod indexes;
 mod kind;
 mod links;
 mod reachable;
@@ -13,7 +14,10 @@ mod spread;
 mod summary;
 
 pub use counts::DeclarationCounts;
+use counts::ReferenceOwnership;
 pub use declaration::Declaration;
+use declaration::{DeclarationContext, OwnerContract};
+use indexes::ReachIndexes;
 use kind::DeclarationKind;
 use links::ReachLinks;
 use reachable::Reachable;
@@ -26,9 +30,7 @@ pub fn reach(graph: &Graph) -> Vec<Reach> {
 }
 
 struct ReachIndex<'a> {
-    modules: BTreeMap<&'a str, &'a str>,
-    packages: BTreeMap<&'a str, &'a str>,
-    visibility: BTreeMap<&'a str, Visibility>,
+    indexes: ReachIndexes<'a>,
     registered: BTreeSet<String>,
     enum_classes: BTreeSet<&'a str>,
     arrivals: BTreeMap<&'a str, Vec<&'a Edge>>,
@@ -112,19 +114,44 @@ impl<'a> ReachIndex<'a> {
     }
 
     fn new(graph: &'a Graph) -> Self {
+        let owners = Self::owners(graph);
+        let by_qualname = Self::by_qualname(graph);
         let links = ReachLinks {
-            owners: Self::owners(graph),
-            by_qualname: Self::by_qualname(graph),
+            owners,
+            by_qualname,
         };
         Self {
-            modules: Self::modules(graph),
-            packages: Self::packages(graph),
-            visibility: Self::visibility(graph),
+            indexes: ReachIndexes {
+                modules: Self::modules(graph),
+                packages: Self::packages(graph),
+                visibility: Self::visibility(graph),
+                qualnames: graph
+                    .nodes
+                    .iter()
+                    .map(|node| (node.id.as_str(), node.qualname.as_str()))
+                    .collect(),
+                identities: Self::by_qualname(graph),
+                unresolved_names: Self::unresolved_names(graph),
+                inheritance_owners: graph
+                    .edges
+                    .iter()
+                    .filter(|edge| edge.kind == EdgeKind::Inherit)
+                    .flat_map(|edge| [edge.source.as_str(), edge.target.as_str()])
+                    .collect(),
+            },
             registered: Self::registered_declarations(graph),
             enum_classes: Self::enum_classes(graph),
             arrivals: Self::arrivals(graph, &links),
             grouped: BTreeMap::new(),
         }
+    }
+
+    fn owner(reachable: Reachable<'_>) -> Option<&str> {
+        reachable
+            .node
+            .qualname
+            .rsplit_once(reachable.language.separator())
+            .map(|(owner, _)| owner)
     }
 
     fn owners(graph: &'a Graph) -> BTreeMap<&'a str, &'a str> {
@@ -192,6 +219,31 @@ impl<'a> ReachIndex<'a> {
         }
     }
 
+    fn unresolved_names(graph: &Graph) -> BTreeMap<String, usize> {
+        let names = graph
+            .nodes
+            .iter()
+            .filter(|node| node.kind == NodeKind::UnresolvedSymbol)
+            .map(|node| {
+                (
+                    node.id.as_str(),
+                    node.qualname
+                        .rsplit(['.', ':'])
+                        .find(|part| !part.is_empty())
+                        .unwrap_or_default()
+                        .to_string(),
+                )
+            })
+            .collect::<BTreeMap<_, _>>();
+        let mut counts = BTreeMap::new();
+        for edge in &graph.edges {
+            if let Some(name) = names.get(edge.target.as_str()) {
+                *counts.entry(name.clone()).or_default() += 1;
+            }
+        }
+        counts
+    }
+
     fn visibility(graph: &'a Graph) -> BTreeMap<&'a str, Visibility> {
         graph
             .nodes
@@ -201,15 +253,49 @@ impl<'a> ReachIndex<'a> {
     }
 
     fn declaration(&self, reachable: Reachable<'_>, reaching: &[&Edge]) -> Declaration {
+        let owner = Self::owner(reachable);
+        let (owner_references, non_owner_references) =
+            self.owner_reference_counts(reachable, reaching, owner);
+        let name = reachable
+            .node
+            .qualname
+            .rsplit(reachable.language.separator())
+            .next()
+            .unwrap_or_default();
         Declaration {
             qualname: reachable.node.qualname.clone(),
             kind: reachable.kind.as_str().to_string(),
-            span: Self::span(reachable.node, reachable.path),
-            is_module_scope: self.is_module_scope(reachable),
-            is_decorated: !reachable.node.decorators.is_empty()
-                || self.registered.contains(&reachable.node.id),
+            context: DeclarationContext {
+                span: Self::span(reachable.node, reachable.path),
+                is_module_scope: self.is_module_scope(reachable),
+                is_decorated: !reachable.node.decorators.is_empty()
+                    || self.registered.contains(&reachable.node.id),
+            },
             visibility: self.effective_visibility(reachable.node),
-            counts: declaration_counts(reaching, reachable.path, &self.packages),
+            owner: OwnerContract {
+                visibility: owner
+                    .and_then(|qualname| self.identity(qualname))
+                    .and_then(|id| self.indexes.visibility.get(id).copied())
+                    .unwrap_or(Visibility::Public),
+                has_inheritance: owner
+                    .and_then(|qualname| self.identity(qualname))
+                    .is_some_and(|id| self.indexes.inheritance_owners.contains(id)),
+            },
+            counts: declaration_counts(
+                reaching,
+                reachable.path,
+                &self.indexes.packages,
+                ReferenceOwnership {
+                    owner_references,
+                    non_owner_references,
+                    unresolved_name_references: self
+                        .indexes
+                        .unresolved_names
+                        .get(name)
+                        .copied()
+                        .unwrap_or_default(),
+                },
+            ),
         }
     }
 
@@ -221,6 +307,7 @@ impl<'a> ReachIndex<'a> {
         while let Some(qualname) = owner {
             let module = identity(Language::Rust, NodeKind::Module, qualname);
             if self
+                .indexes
                 .visibility
                 .get(module.as_str())
                 .is_some_and(|reach| *reach != Visibility::Public)
@@ -230,6 +317,10 @@ impl<'a> ReachIndex<'a> {
             owner = qualname.rsplit_once("::").map(|(parent, _)| parent);
         }
         Visibility::Public
+    }
+
+    fn identity(&self, qualname: &str) -> Option<&str> {
+        self.indexes.identities.get(qualname).copied()
     }
 
     fn is_enum_member(&self, node: &Node) -> bool {
@@ -242,6 +333,7 @@ impl<'a> ReachIndex<'a> {
 
     fn is_module_scope(&self, reachable: Reachable<'_>) -> bool {
         let module = self
+            .indexes
             .modules
             .get(reachable.path)
             .copied()
@@ -252,6 +344,28 @@ impl<'a> ReachIndex<'a> {
             .qualname
             .rsplit_once(separator)
             .is_some_and(|(owner, _)| owner == module)
+    }
+
+    fn owner_reference_counts(
+        &self,
+        reachable: Reachable<'_>,
+        reaching: &[&Edge],
+        owner: Option<&str>,
+    ) -> (usize, usize) {
+        let Some(owner) = owner else {
+            return (0, reaching.len());
+        };
+        let prefix = format!("{owner}{}", reachable.language.separator());
+        let owned = reaching
+            .iter()
+            .filter(|edge| {
+                self.indexes
+                    .qualnames
+                    .get(edge.source.as_str())
+                    .is_some_and(|source| *source == owner || source.starts_with(&prefix))
+            })
+            .count();
+        (owned, reaching.len() - owned)
     }
 
     fn reachable(&self, node: &'a Node) -> Option<Reachable<'a>> {
@@ -305,12 +419,14 @@ fn declaration_counts(
     reaching: &[&Edge],
     path: &str,
     packages: &BTreeMap<&str, &str>,
+    ownership: ReferenceOwnership,
 ) -> DeclarationCounts {
     let spread = reference_spread(reaching, path, packages);
     DeclarationCounts {
         references: counts::ReferenceCounts {
             own_file_references: spread.own,
             other_file_references: spread.other,
+            ownership,
             referencing_files: spread.files,
             referencing_directories: spread.directories,
             referencing_packages: spread.packages,
@@ -356,7 +472,7 @@ fn referencing_directories(files: &BTreeSet<&str>) -> usize {
         .len()
 }
 
-fn referencing_files<'a>(reaching: &[&'a Edge]) -> BTreeSet<&'a str> {
+fn referencing_files<'b>(reaching: &[&'b Edge]) -> BTreeSet<&'b str> {
     reaching.iter().map(|edge| edge.path.as_str()).collect()
 }
 

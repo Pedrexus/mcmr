@@ -9,7 +9,7 @@ from ......facts import CommentFact
 from ......query import FindingQuery, PercentageQuery, RuleQuery
 from ......table import Table
 from ......table.relations import FactRelations
-from .support.relations import comment_groups, four_significant_digits
+from ..relations import comment_groups, four_significant_digits
 
 
 @rule("ALL-COMM0001", policy=Numeric(maximum=20))

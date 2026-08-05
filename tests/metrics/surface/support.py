@@ -7,7 +7,6 @@ from hypothesis import strategies as st
 from mcmr.domain.contracts import RuleContract, RuleSetting, RuleValue
 from mcmr.facts import (
     ClassFact,
-    Fact,
     FunctionFact,
     ModuleFact,
     OverrideFact,
@@ -16,19 +15,21 @@ from mcmr.facts import (
     SymbolReachFact,
 )
 from mcmr.query import RuleQuery, scalar_row_value
-from mcmr.table import AnalysisSession, ClassRelation, FunctionRelation, Table
+from mcmr.table import AnalysisSession, ClassRelation, FunctionRelation
 
 from ...support import query_value, retained_query, written
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
+    from mcmr.plugins import Fact, Table
+
 _IDENTIFIER = st.text(alphabet="abcdefghijklmnop", min_size=1, max_size=6)
 
 
-def native_query(
+def native_query[Family: Fact](
     rule: RuleContract,
-    subject: Table[Fact],
+    subject: Table[Family],
     **settings: RuleSetting,
 ) -> RuleQuery:
     """Invoke one specialized rule once over the complete native table."""
@@ -44,7 +45,7 @@ def class_table(sources: dict[str, str]) -> Table[ClassFact]:
         return AnalysisSession(
             written(Path(directory), sources),
             suffixes=(".py",),
-            typed_families=(ClassFact.__name__,),
+            typed_families=(ClassFact,),
         ).class_tables()
 
 
@@ -54,7 +55,7 @@ def function_table(sources: dict[str, str]) -> Table[FunctionFact]:
         return AnalysisSession(
             written(Path(directory), sources),
             suffixes=(".py",),
-            typed_families=(FunctionFact.__name__,),
+            typed_families=(FunctionFact,),
         ).function_tables()
 
 

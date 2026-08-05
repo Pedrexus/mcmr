@@ -10,7 +10,7 @@ from pydantic import Field, JsonValue, PositiveInt, TypeAdapter
 from ....domain import primitives
 from ....domain.contracts import Criterion, ModelProvenance
 from ....kernel_tables import GlinerClassifier
-from ...contracts import (
+from ...queries.contracts import (
     Assessment,
     Classification,
     CriterionAnswer,

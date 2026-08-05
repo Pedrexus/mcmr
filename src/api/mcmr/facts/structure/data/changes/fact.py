@@ -9,4 +9,5 @@ if TYPE_CHECKING:
 class DataChangeFact(Fact):
     """Describe one schema or contract change affecting data."""
 
+    external_evidence = True
     changes: list[DataChange] = []

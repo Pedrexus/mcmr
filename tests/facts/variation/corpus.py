@@ -49,7 +49,7 @@ test = "python -m pytest -x"
         """from dataclasses import dataclass
 from typing import final
 
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, field_validator, model_validator
 
 
 @final
@@ -68,6 +68,8 @@ class LegacyPoint:
 
 
 class Credential(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
     labels: tuple[str, ...] = ()
     token: str | None = None
     username: str | None = None

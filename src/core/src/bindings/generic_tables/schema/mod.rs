@@ -1,9 +1,6 @@
 use serde_json::{Map, Value};
 
-pub(super) use kind::ScalarKind;
-
 pub(super) mod compiler;
-mod kind;
 mod shape;
 
 pub(crate) type ObjectSchema = shape::ObjectSchema<Schema>;
@@ -14,6 +11,10 @@ pub(super) struct Schema {
     pub(super) shape: Shape,
     pub(super) default: Option<Value>,
 }
+
+pub(super) use kind::ScalarKind;
+
+mod kind;
 
 pub(super) fn stated_value<'a>(
     stated: Option<&'a Map<String, Value>>,

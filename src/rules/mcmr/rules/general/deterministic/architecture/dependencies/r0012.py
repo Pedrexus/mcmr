@@ -47,11 +47,13 @@ def dependency_on_a_less_stable_module(
     instability inside this architecture. Imports within one package do not cross a component
     boundary and cannot violate the component principle. Declarative imports in Python
     `__init__.py` and Rust `mod.rs` files state a package's public ownership surface, so they stay
-    out of implementation arrows between the facade and its children. A package in an import cycle
-    is stable and unstable at once, and the two sides each report the other, so `ALL-ARCH0002` is
-    the rule to fix first and this one settles afterward. A plugin a framework loads by name is
-    imported by nothing static, so it reads as maximally unstable and its dependencies are judged
-    accordingly, which is correct rather than a false positive.
+    out of implementation arrows between the facade and its children. Test code necessarily points
+    at production code, so those verification arrows are not production component dependencies and
+    stay out, while dependencies among test packages are still judged. A package in an import
+    cycle is stable and unstable at once, and the two sides each report the other, so
+    `ALL-ARCH0002` is the rule to fix first and this one settles afterward. A plugin a framework
+    loads by name is imported by nothing static, so it reads as maximally unstable and its
+    dependencies are judged accordingly, which is correct rather than a false positive.
 
     Examples
     --------

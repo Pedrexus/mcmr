@@ -1,17 +1,23 @@
 use super::counts::DeclarationCounts;
 use crate::graph::contracts::Visibility;
-use crate::protocol::Span;
 use serde::Serialize;
 use std::ops::Deref;
+
+mod context;
+mod owner;
+
+pub(crate) use context::DeclarationContext;
+pub(crate) use owner::OwnerContract;
 
 #[derive(Debug, Serialize)]
 pub struct Declaration {
     pub qualname: String,
     pub kind: String,
-    pub span: Span,
-    pub is_module_scope: bool,
-    pub is_decorated: bool,
+    #[serde(flatten)]
+    pub(crate) context: DeclarationContext,
     pub visibility: Visibility,
+    #[serde(flatten)]
+    pub(crate) owner: OwnerContract,
     #[serde(flatten)]
     pub(super) counts: DeclarationCounts,
 }

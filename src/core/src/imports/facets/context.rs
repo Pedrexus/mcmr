@@ -1,5 +1,10 @@
 use crate::protocol::Node;
 use serde::{Deserialize, Serialize};
+use std::ops::{Deref, DerefMut};
+
+mod usage;
+
+use usage::ImportUsage;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct ImportContext {
@@ -11,16 +16,20 @@ pub struct ImportContext {
     pub binding: Option<Node>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub module_node: Option<Node>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub references: Vec<Node>,
-    #[serde(default, skip_serializing_if = "is_zero")]
-    pub relative_level: usize,
-    #[serde(default, skip_serializing_if = "is_zero")]
-    pub reference_count: usize,
-    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
-    pub has_qualifying_use: bool,
+    #[serde(flatten)]
+    pub usage: ImportUsage,
 }
 
-fn is_zero(value: &usize) -> bool {
-    *value == 0
+impl Deref for ImportContext {
+    type Target = ImportUsage;
+
+    fn deref(&self) -> &Self::Target {
+        &self.usage
+    }
+}
+
+impl DerefMut for ImportContext {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.usage
+    }
 }

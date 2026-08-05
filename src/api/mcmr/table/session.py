@@ -11,10 +11,10 @@ from ..facts import (
     StringExpressionFact,
     SyntaxFact,
 )
-from ..kernel import KernelStats, buildable
+from ..kernel import KernelStats
 from ..kernel_tables import AnalysisSession as NativeAnalysisSession
 from ..kernel_tables import SessionStats
-from .models import generic_table, table_schema, typed_table
+from .builder import generic_table, table_schema, typed_table
 from .names import (
     CallRelation,
     ClassRelation,
@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable, Generator, Sequence
     from pathlib import Path
 
-    from .models import Table
+    from .runtime.table import Table
 
 _specialized_families = {
     fact.__name__
@@ -51,12 +51,12 @@ class AnalysisSession:
         root: Path,
         *,
         suffixes: Sequence[str] | None = None,
-        typed_families: Sequence[str] | None = None,
+        typed_families: Sequence[type[Fact]] | None = None,
     ) -> None:
-        selected = [FunctionFact.__name__] if typed_families is None else list(typed_families)
+        selected = [FunctionFact] if typed_families is None else list(typed_families)
         self.session = NativeAnalysisSession(
             root,
-            selected,
+            [family.__name__ for family in selected],
             python_standard_library=sorted(sys.stdlib_module_names),
             suffixes=None if not suffixes else list(suffixes),
             generic_schemas=self._generic_schemas(selected),
@@ -111,11 +111,17 @@ class AnalysisSession:
 
     def table[Family: Fact](self, family: type[Family]) -> Table[Family]:
         """Move any selected family into its exact normalized relation contract."""
-        families = FunctionFact, CallFact, ClassFact, ImportBindingFact, SyntaxFact
-        builders: tuple[Callable[[], Table[Fact]], ...]
-        builders = self.function_tables, self.call_tables, self.class_tables
-        builders += self.import_binding_tables, self.syntax_tables
-        specialized = dict(zip(families, builders, strict=True)).get(family)
+        builders = cast(
+            "dict[type[Fact], Callable[[], Table[Fact]]]",
+            {
+                FunctionFact: self.function_tables,
+                CallFact: self.call_tables,
+                ClassFact: self.class_tables,
+                ImportBindingFact: self.import_binding_tables,
+                SyntaxFact: self.syntax_tables,
+            },
+        )
+        specialized = builders.get(family)
         if specialized:
             return cast("Table[Family]", specialized())
         return generic_table(family, self.session.table(family.__name__))
@@ -126,11 +132,10 @@ class AnalysisSession:
             yield family
 
     @staticmethod
-    def _generic_schemas(selected: Sequence[str]) -> dict[str, str]:
+    def _generic_schemas(selected: Sequence[type[Fact]]) -> dict[str, str]:
         """Compile schemas only for families without native specialized tables."""
-        families = buildable()
         return {
-            name: table_schema(families[name])
-            for name in selected
-            if name not in _specialized_families
+            family.__name__: table_schema(family)
+            for family in selected
+            if family.__name__ not in _specialized_families
         }

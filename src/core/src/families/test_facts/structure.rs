@@ -106,7 +106,7 @@ pub fn test_case_groups(source: &Source, module: &ModModule) -> Value {
 }
 
 /// Return one body written with every literal replaced, beside the literals it stated in order.
-fn literal_shape(source: &Source, body: &[Stmt]) -> (String, Vec<String>) {
+pub(super) fn literal_shape(source: &Source, body: &[Stmt]) -> (String, Vec<String>) {
     let mut ranges = Vec::new();
     for statement in statements(body) {
         for expression in stated(statement) {

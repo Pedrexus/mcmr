@@ -154,6 +154,7 @@ fn unresolved_native_calls_keep_the_provider_spelling() {
     let resolved = BTreeMap::from([(
         ("kernel.cu".to_string(), 2),
         vec![calls::ResolvedCall {
+            target_id: "rust:function:kernel::cudaMalloc".to_string(),
             qualified_name: "kernel::cudaMalloc".to_string(),
             resolution: graph::Resolution::Unresolved,
             is_external: false,

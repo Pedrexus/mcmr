@@ -12,15 +12,17 @@ use super::functions::support::{
     MODEL_FOUNDATIONS, PythonName, base_name, base_names, decorator_name, decorator_texts,
     descend, executable, is_protocol_name, receiver_state,
 };
-use super::imports::exported_names;
+use super::imports::{exported_names, import_bindings};
 
 mod analysis;
 mod binding_origin;
 mod declared;
 
+use crate::classes::is_approved_foundation_module;
+
 use analysis::{
-    assignments, binds, forwards_to_super, import_bindings, is_approved_foundation_module,
-    is_placeholder, literal_text, pairs, projection_groups, region_lines, states_registry_name,
+    assignments, binds, forwards_to_super, is_placeholder, literal_text, pairs, projection_groups,
+    region_lines, states_registry_name,
 };
 use binding_origin::BindingOrigin;
 use declared::Declared;
@@ -135,9 +137,10 @@ impl<'a> Declared<'a> {
             "is_declarative_model": self.is_declarative_model(item, &bases),
             "is_dataclass": is_dataclass,
             "has_ordinary_behavior": self.has_ordinary_behavior(item),
+            "states_model_configuration": states_model_configuration(item),
             // The foundation itself is the one class allowed to derive Pydantic directly, since
             // it is what every other class is being asked to derive instead.
-            "directly_inherits_pydantic_base_model": !self.is_foundation_module()
+            "directly_inherits_pydantic_base_model": !is_model_configuration_base(item)
                 && bases
                     .iter()
                     .any(|held| {
@@ -348,7 +351,7 @@ impl<'a> Declared<'a> {
 
     /// Whether one class declares data a library validates rather than behavior it runs.
     fn is_declarative_model(&self, item: &StmtClassDef, bases: &[String]) -> bool {
-        !self.is_foundation_module()
+        !is_model_configuration_base(item)
             && (bases.iter().any(|held| {
                 MODEL_FOUNDATIONS.contains(&held.as_str()) || held == "DeclarativeBase"
             }) || decorator_texts(self.source, &item.decorator_list)
@@ -379,12 +382,6 @@ impl<'a> Declared<'a> {
             }
             _ => false,
         })
-    }
-
-    /// Whether this file is where the project keeps the model foundation it approved.
-    fn is_foundation_module(&self) -> bool {
-        let named = self.source.relative.rsplit('/').next().unwrap_or_default();
-        named == "bases.py" || named == "bases.pyi"
     }
 
     /// Whether one name this file binds came from one module.
@@ -467,4 +464,22 @@ impl<'a> Declared<'a> {
         }
         found
     }
+}
+
+/// Whether one class states the configuration a model library reads rather than fields of its own.
+fn states_model_configuration(item: &StmtClassDef) -> bool {
+    item.body.iter().any(|member| match member {
+        Stmt::ClassDef(nested) => nested.name.as_str() == "Config",
+        statement => binds(statement, "model_config"),
+    })
+}
+
+/// Whether one class carries the model policy everything below it derives rather than data.
+///
+/// A base whose whole body is `model_config` exists to fix validation, mutability, and extra key
+/// handling for its subclasses. Reading it as a model of its own reports the one class that is
+/// answering the question every other class is being asked, which is why it is recognized from
+/// what the body states rather than from the file the body sits in.
+fn is_model_configuration_base(item: &StmtClassDef) -> bool {
+    class_instance_fields(item).is_empty() && states_model_configuration(item)
 }

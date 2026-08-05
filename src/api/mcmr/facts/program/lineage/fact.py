@@ -9,4 +9,5 @@ if TYPE_CHECKING:
 class LineageEdgeFact(Fact):
     """Describe one resolved data lineage edge."""
 
+    external_evidence = True
     edges: list[LineageEdge] = []

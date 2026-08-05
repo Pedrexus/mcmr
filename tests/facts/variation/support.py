@@ -2,8 +2,9 @@ from typing import TYPE_CHECKING, get_args
 
 from patos import FrozenModel
 
-from mcmr.facts import Fact, NodeRef, SourceSpan, SymbolRef
-from mcmr.kernel import Kernel, buildable
+from mcmr.facts import NodeRef, SourceSpan, SymbolRef, buildable
+from mcmr.kernel import Kernel
+from mcmr.plugins import Fact
 
 from ...support import kernel_binary
 
@@ -28,6 +29,12 @@ _UNFILLED: dict[str, str] = {
 # Provider defaults and literals cannot remain because they make rules unable to fire. The ledger
 # turns the next constant field into a test failure instead of a false clean report.
 _INVARIANT: dict[str, str] = {
+    "AttributeAccessFact.accesses[].receiver_type": (
+        "derived, and every statically typed receiver in this corpus names the same local type"
+    ),
+    "AttributeAccessFact.accesses[].receiver_type_bases": (
+        "derived, and no statically typed receiver in this corpus inherits another local type"
+    ),
     "CallFact.calls[].receiver.recursive.entries[].recursive.key": (
         "derived, and no nested mapping expression in the corpus states a keyed entry"
     ),
@@ -45,6 +52,18 @@ _INVARIANT: dict[str, str] = {
     ),
     "ClassFact.coupled_groups[].type_count": (
         "derived, and every short co-imported role group in the corpus contains two types"
+    ),
+    "ClassFact.coupled_groups[].coimporting_module_count": (
+        "derived, and every coupled type group in the corpus is imported by one module"
+    ),
+    "ClassFact.coupled_groups[].maximum_type_lines": (
+        "derived, and every coupled type group in the corpus has the same largest declaration"
+    ),
+    "ClassFact.coupled_groups[].prefix": (
+        "derived, and the corpus contains one coupled type naming family"
+    ),
+    "ClassFact.coupled_groups[].role_suffixes": (
+        "derived, and the corpus contains one coupled type role combination"
     ),
     "CloneGroupFact.repository_line_count": (
         "one number per repository, and only this repository states a clone group at all"
@@ -91,24 +110,15 @@ _INVARIANT: dict[str, str] = {
         "expanded trees exist only in direct rule fixtures, while every provider writes the "
         "compact node stream"
     ),
+    "TestFunctionFact.tests[].generated_parametrization_count": (
+        "derived, and no parametrized test in the corpus reads cases generated at module scope"
+    ),
     "RepositoryHistoryFact.unscoped_commit_count": (
         "derived from the checkout, whose one current commit changed requested source"
     ),
-    "RepositoryHistoryFact.changes[].other_file_count": (
-        "derived from the current root commit, whose changed source paths fill its whole width"
-    ),
-    "RepositoryHistoryFact.changes[].paths": (
-        "derived from the same one current root commit and the source paths it changed"
-    ),
     "RepositoryHistoryFact.files[].author_count": ("derived from the same one-author root commit"),
-    "RepositoryHistoryFact.files[].additional_commit_count": (
-        "derived from the same one-commit and one-author file history"
-    ),
     "RepositoryHistoryFact.files[].days_since_last_change": (
         "derived from the current root commit, which was written today"
-    ),
-    "RepositoryHistoryFact.files[].imports": (
-        "derived from the checkout, whose changed source files carry the same empty import set"
     ),
     "QueryFact.operations[].expire_on_commit": (
         "derived from the keywords a session factory carries, and the one database operation "

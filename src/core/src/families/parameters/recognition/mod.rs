@@ -1,13 +1,21 @@
 use crate::families::collections::{is_membership, is_named, stated};
-use crate::walk::{children, statements};
+use crate::walk::{children, qualified_name, statements};
 use ruff_python_ast::{Expr, Stmt};
 use std::collections::BTreeSet;
 
-mod calls;
-mod comprehensions;
-
-use calls::recognize_call;
-use comprehensions::recognize_comprehension;
+const READING_BUILTINS: &[&str] = &[
+    "len",
+    "iter",
+    "reversed",
+    "sorted",
+    "enumerate",
+    "sum",
+    "min",
+    "max",
+    "any",
+    "all",
+    "next",
+];
 
 /// What one body does with a name it did not bind, and whether every use of it was recognized.
 #[derive(Default)]
@@ -36,7 +44,13 @@ impl Uses {
                 }
                 _ => {}
             }
-            held.retain(|expression| !is_named(expression, name));
+            let written = self.read_writes(statement, name);
+            held.retain(|expression| {
+                !is_named(expression, name)
+                    && !written
+                        .iter()
+                        .any(|target| std::ptr::eq(*target, *expression))
+            });
             for expression in held {
                 self.read(expression, name);
             }
@@ -48,37 +62,111 @@ impl Uses {
             self.unrecognized += 1;
             return;
         }
-        for child in self.recognize(expression, name) {
-            self.read(child, name);
-        }
-    }
-
-    fn recognize<'source>(&mut self, expression: &'source Expr, name: &str) -> Vec<&'source Expr> {
         match expression {
             Expr::Attribute(item) if is_named(&item.value, name) => {
                 self.attributes.push(item.attr.to_string());
-                Vec::new()
             }
             Expr::Subscript(item) if is_named(&item.value, name) => {
                 self.operations.insert("getitem".to_string());
-                vec![item.slice.as_ref()]
+                self.read(&item.slice, name);
             }
-            Expr::Call(item) => recognize_call(self, item, name),
+            Expr::Call(item) => self.read_call(item, name),
             Expr::Compare(item)
                 if is_membership(&item.ops)
                     && item.comparators.iter().any(|held| is_named(held, name)) =>
             {
                 self.operations.insert("contains".to_string());
-                vec![item.left.as_ref()]
+                self.read(&item.left, name);
             }
             Expr::BinOp(item) if is_named(&item.left, name) || is_named(&item.right, name) => {
                 self.operations.insert("arithmetic".to_string());
-                Vec::new()
             }
             Expr::ListComp(_) | Expr::SetComp(_) | Expr::DictComp(_) | Expr::Generator(_) => {
-                recognize_comprehension(self, expression, name)
+                self.read_comprehension(expression, name);
             }
-            _ => children(expression),
+            _ => {
+                for child in children(expression) {
+                    self.read(child, name);
+                }
+            }
         }
+    }
+
+    fn read_call(&mut self, item: &ruff_python_ast::ExprCall, name: &str) {
+        let mut remaining: Vec<&Expr> = item
+            .arguments
+            .args
+            .iter()
+            .chain(item.arguments.keywords.iter().map(|keyword| &keyword.value))
+            .collect();
+        let called = qualified_name(&item.func);
+        if let Expr::Attribute(method) = item.func.as_ref()
+            && is_named(&method.value, name)
+        {
+            self.operations.insert(method.attr.to_string());
+        } else if READING_BUILTINS.contains(&called.as_str())
+            && item.arguments.args.iter().any(|held| is_named(held, name))
+        {
+            self.operations.insert(called);
+            remaining.retain(|held| !is_named(held, name));
+        } else {
+            remaining.push(item.func.as_ref());
+        }
+        for expression in remaining {
+            self.read(expression, name);
+        }
+    }
+
+    fn read_comprehension(&mut self, expression: &Expr, name: &str) {
+        let mut remaining: Vec<&Expr> = match expression {
+            Expr::ListComp(item) => vec![item.elt.as_ref()],
+            Expr::SetComp(item) => vec![item.elt.as_ref()],
+            Expr::Generator(item) => vec![item.elt.as_ref()],
+            Expr::DictComp(item) => item
+                .key
+                .iter()
+                .map(AsRef::as_ref)
+                .chain(std::iter::once(item.value.as_ref()))
+                .collect(),
+            _ => Vec::new(),
+        };
+        for generator in crate::families::collections::comprehension_clauses(expression) {
+            if is_named(&generator.iter, name) {
+                self.operations.insert("iter".to_string());
+            } else {
+                remaining.push(&generator.iter);
+            }
+            remaining.extend(generator.ifs.iter());
+        }
+        for expression in remaining {
+            self.read(expression, name);
+        }
+    }
+    /// Record what one statement writes through a subscript of the name, and return those targets.
+    ///
+    /// `values[key] = held` and `del values[key]` reach `__setitem__` and `__delitem__`, so they
+    /// are mutations rather than the lookup the same expression reads as on the right of an
+    /// assignment. The consumed targets travel back so the generic read never counts them twice.
+    fn read_writes<'held>(&mut self, statement: &'held Stmt, name: &str) -> Vec<&'held Expr> {
+        let (targets, operation): (Vec<&Expr>, &str) = match statement {
+            Stmt::Assign(item) => (item.targets.iter().collect(), "setitem"),
+            Stmt::AnnAssign(item) => (vec![item.target.as_ref()], "setitem"),
+            Stmt::AugAssign(item) => (vec![item.target.as_ref()], "setitem"),
+            Stmt::Delete(item) => (item.targets.iter().collect(), "delitem"),
+            _ => return Vec::new(),
+        };
+        let written = targets
+            .into_iter()
+            .filter(
+                |target| matches!(target, Expr::Subscript(item) if is_named(&item.value, name)),
+            )
+            .collect::<Vec<_>>();
+        for target in &written {
+            self.operations.insert(operation.to_string());
+            if let Expr::Subscript(item) = target {
+                self.read(&item.slice, name);
+            }
+        }
+        written
     }
 }

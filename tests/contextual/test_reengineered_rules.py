@@ -12,13 +12,13 @@ from mcmr.execution.queries import ModelQuery
 from mcmr.facts import (
     ClassFact,
     CommentFact,
-    Fact,
     ModuleCouplingFact,
     ModuleFact,
     OverrideFact,
     ProseSegmentFact,
     SourceSpan,
 )
+from mcmr.plugins import Fact, Table, fact_table
 from mcmr.rules.general import (
     comment_accuracy,
     comment_intent,
@@ -31,7 +31,7 @@ from mcmr.rules.general import (
     substitutability,
 )
 from mcmr.rules.python import model_foundation
-from mcmr.table import AnalysisSession, Table, fact_table
+from mcmr.table import AnalysisSession
 
 type JsonObject = dict[str, JsonValue]
 
@@ -61,7 +61,7 @@ def analyzed(
     return AnalysisSession(
         root,
         suffixes=suffixes,
-        typed_families=[family.__name__],
+        typed_families=[family],
     ).table(family)
 
 

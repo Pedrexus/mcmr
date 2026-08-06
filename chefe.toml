@@ -1,6 +1,6 @@
 [workspace]
 name = "mcmr"
-platforms = ["linux-64"]
+platforms = ["linux-64", "osx-arm64"]
 channels = [
     "conda-forge",
 ]
@@ -21,7 +21,7 @@ mcmr = { path = "src/rules", editable = true }
 mcmr-api = { path = ".", editable = true }
 mcmr-datahub = { path = "src/rules/datahub", editable = true }
 packaging = ">=26,<27"
-patos = { path = "../patos", editable = true }
+patos = ">=0.0.10,<0.1"
 pathspec = ">=1.1,<2"
 pydantic = ">=2.13,<3"
 rich = ">=14,<16"
@@ -36,13 +36,11 @@ flake8 = ">=7.3,<8"
 hypothesis = ">=6.155,<7"
 hatchling = ">=1.28,<2"
 lizard = ">=1.23,<2"
-mainboard = { path = "../mainboard", editable = true }
 pylint = ">=4,<5"
 mypy = ">=2.3,<3"
 pyrefly = ">=1.1,<2"
 pytest = ">=9.1,<10"
 pytest-cov = ">=7.1,<8"
-patchelf = ">=0.17,<1"
 ruff = ">=0.15,<0.16"
 ty = ">=0.0.61,<0.1"
 vulture = ">=2.16,<3"
@@ -50,6 +48,12 @@ vulture = ">=2.16,<3"
 [dev.deps]
 clang-tools = ">=22.1,<23"
 maturin = ">=1.10,<2"
+
+[on.linux-64.deps]
+patchelf = ">=0.17,<1"
+
+[on.linux-64.python.deps]
+mainboard = ">=0.0.8,<0.1"
 
 [nodejs]
 manager = "pnpm"

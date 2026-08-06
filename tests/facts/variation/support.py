@@ -117,9 +117,6 @@ _INVARIANT: dict[str, str] = {
         "derived from the checkout, whose one current commit changed requested source"
     ),
     "RepositoryHistoryFact.files[].author_count": ("derived from the same one-author root commit"),
-    "RepositoryHistoryFact.files[].days_since_last_change": (
-        "derived from the current root commit, which was written today"
-    ),
     "QueryFact.operations[].expire_on_commit": (
         "derived from the keywords a session factory carries, and the one database operation "
         "the corpus states is a commit rather than a factory"

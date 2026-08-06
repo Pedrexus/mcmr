@@ -13,6 +13,10 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v6
+        with:
+          # The variation ledger reads the repository's own history as a corpus, so a
+          # shallow checkout would observe a different fact shape than a full one.
+          fetch-depth: 0
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.14"

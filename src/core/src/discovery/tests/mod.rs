@@ -276,7 +276,9 @@ fn an_unreadable_source_fails_instead_of_disappearing_from_discovery() {
     assert!(failure.contains("broken.py could not be read as UTF-8"));
 }
 
-#[cfg(unix)]
+// macOS filesystems reject a name that is not valid UTF-8 at creation, so the
+// fixture this case needs can only exist on Linux.
+#[cfg(target_os = "linux")]
 #[test]
 fn a_non_utf8_path_fails_instead_of_becoming_a_different_path() {
     use std::os::unix::ffi::OsStringExt;

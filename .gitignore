@@ -9,11 +9,11 @@
 *.log
 
 # docs
-site/
+/site/
 
 # generated
-dist/
-build/
+/dist/
+/build/
 
 # python
 __pycache__/

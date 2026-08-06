@@ -12,7 +12,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           # The variation ledger reads the repository's own history as a corpus, so a
           # shallow checkout would observe a different fact shape than a full one.

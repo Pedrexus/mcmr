@@ -31,8 +31,12 @@ jobs:
             ~/.pixi
             ~/.cache/rattler
             .chefe/.pixi
+            .chefe/target-kernel
           key: chefe-${{ runner.os }}-${{ hashFiles('chefe.toml', 'pyproject.toml') }}
       - run: chefe install --resolve
+      - run: chefe run core-build
+      - run: chefe run core-lint
+      - run: chefe run core-test
       - run: chefe run lint
       - run: chefe run typecheck
       - run: chefe run test

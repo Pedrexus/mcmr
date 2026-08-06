@@ -72,6 +72,43 @@ def test_a_failing_kernel_reports_its_own_message(tmp_path: Path) -> None:
         Kernel(binary=stub, root=tmp_path).run(rules)
 
 
+def dying_stub(path: Path, *, diagnostic: str, status: int) -> Path:
+    """Write one executable that exits before reading its input."""
+    commands = ["#!/bin/sh"]
+    if diagnostic:
+        commands.append(f"printf %s {quote(diagnostic)} >&2")
+    commands.append(f"exit {status}")
+    path.write_text("\n".join(commands) + "\n")
+    path.chmod(0o755)
+    return path
+
+
+@needs_kernel
+def test_a_kernel_gone_before_the_request_still_reports_its_message(tmp_path: Path) -> None:
+    """A producer that dies before its request arrives answers through its diagnostic all the same.
+
+    The payload overflows the pipe buffer, so the write meets the dead reader on every
+    platform instead of winning a race against it.
+    """
+    stub = dying_stub(tmp_path / "stub", diagnostic="the root does not exist", status=1)
+    exchange = KernelExchange(binary=stub, stated={"payload": "x" * 262_144}, protocol=1)
+
+    with pytest.raises(RuntimeError, match="the root does not exist"):
+        list(exchange.read())
+
+
+@needs_kernel
+def test_a_kernel_gone_before_the_request_reports_the_silence_when_it_left_cleanly(
+    tmp_path: Path,
+) -> None:
+    """A producer that dies cleanly before its request arrives still names the missing response."""
+    stub = dying_stub(tmp_path / "stub", diagnostic="", status=0)
+    exchange = KernelExchange(binary=stub, stated={"payload": "x" * 262_144}, protocol=1)
+
+    with pytest.raises(RuntimeError, match="no response was written"):
+        list(exchange.read())
+
+
 def test_streamed_facts_arrive_in_typed_batches_and_empty_families_stay_visible(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

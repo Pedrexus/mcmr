@@ -124,7 +124,11 @@ class KernelExchange:
         diagnostics: TextIO,
     ) -> Generator[KernelStreamBatch | KernelStats]:
         """Complete one process exchange while the caller owns resource cleanup."""
-        self._write(input_stream)
+        try:
+            self._write(input_stream)
+        except BrokenPipeError:
+            self._finish(process, diagnostics)
+            raise RuntimeError("the analysis kernel failed: no response was written") from None
         header_line = output_stream.readline()
         if not header_line:
             self._finish(process, diagnostics)
